@@ -1,0 +1,359 @@
+﻿@using Models;
+@{
+
+    var responseCTVanBan = ViewBag.responseCTVanBan as tbl_VanBanModel;
+    var LienKetGioiThieu = ViewBag.LienKetGioiThieu as List<tbl_LienKetGioiThieuModel>;
+    var CacCapHoi = ViewBag.CacCapHoi as List<tbl_CacCapHoiModel>;
+    var BannerTrangChuVT1 = ViewBag.BannerTrangChuVT1 as List<tbl_BannerModel>;
+    var BannerTrangChuVT2 = ViewBag.BannerTrangChuVT2 as List<tbl_BannerModel>;
+    var DanhSachChuyenMucBenPhaiCT = ViewBag.DanhSachChuyenMucBenPhaiCT as List<tbl_SettingMenu_CategoryModel>;
+    var DanhSachBaiVietCungChuyenMuc = ViewBag.DanhSachBaiVietCungChuyenMuc as List<tbl_PostModel>;
+    var TinTucMoi = ViewBag.TinTucMoi as List<tbl_PostModel>;
+
+}
+<style>
+
+    .border-bottom-new {
+        border-bottom: 1px solid;
+        border-color: #EBEBEB;
+    }
+
+    .avatar-sm-custom {
+        height: 5rem;
+        width: 5rem;
+        object-fit: cover;
+        object-position: 0px 0px;
+    }
+
+    .card-custom-new {
+        margin-bottom: 0px !important
+    }
+</style>
+<link href="~/Content/ControllerCss/HomePage.css" rel="stylesheet" />
+<div class="page-content pb-5">
+    <div class="container-fluid pt-3">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="/Trang-chu.htm">Trang chủ</a></li>
+                    <li class="breadcrumb-item active"><a href="/Van-ban.htm">Văn bản</a></li>
+                </ol>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xl-9 col-lg-8 col-sm-12">
+                <div id="DataDSVanBan">
+                    <h3 class="font-w600 Color-left-title">@responseCTVanBan.Title</h3>
+                    <p class="text-success fs-12 mb-0">@(responseCTVanBan.NgayPhatHanh != null?((DateTime)responseCTVanBan.NgayPhatHanh).ToString("dd-MM-yyyy"):"")</p>
+                    <p class="text-muted mb-0 mt-2"><a href="@responseCTVanBan.File" class="btn btn-soft-info btn-sm"><i class="ri-download-2-line"></i>@responseCTVanBan.TenFile</a></p>
+                </div>
+                <div class="pt-3">
+                    @Html.Raw(responseCTVanBan.Content)
+                </div>
+
+
+
+                @if (DanhSachBaiVietCungChuyenMuc.Count > 0)
+                {
+                    <div class="row pb-3 pt-3">
+                        <div class="col-sm-12 col-xl-12">
+                            <h3 class="Color-left-title">Cùng chuyên mục</h3>
+                        </div>
+                    </div>
+                    <div class="row" id="DataDSVideo">
+                        @foreach (var itemBV in DanhSachBaiVietCungChuyenMuc)
+                        {
+
+                            <div class="col-sm-6 col-xl-3">
+                                @{
+                                    var Url = "/" + Utils.convertToUnSign2(itemBV.Title).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                                    if (!string.IsNullOrEmpty(itemBV.TuKhoaSeo))
+                                    {
+                                        Url = "/" + Utils.convertToUnSign2(itemBV.TuKhoaSeo).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                                    }
+                                }
+                                <div class="card card-custom">
+                                    <a href="@Url" class="text-black"> <img class="card-img-top img-fluid img-card-video-audio" src="@itemBV.Thumnail" alt="Card image cap"></a>
+                                    <div class="card-body  p-0 pt-3">
+                                        <h5 class="card-text wraptext-heigth"><a href="@Url" class="text-black">@itemBV.Title</a></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                }
+
+                @if (TinTucMoi.Count > 0)
+                {
+                    <div class="row">
+                        <div class="GreenContainerTopMIddleNew pt-3" style="margin-left: 1rem;">
+                            <h3 class="Color-left-title">Tin mới</h3>
+                        </div>
+                        @foreach (var itemTTM in TinTucMoi)
+                        {
+                            <div class="col-xl-12 col-lg-12 col-sm-12 p-0 border-bottom-cm">
+                                <div class="card-body">
+                                    <div class="d-sm-flex">
+                                        @{
+                                            var Url = "/" + Utils.convertToUnSign2(itemTTM.Title).Replace(" ", "_") + "_bv-" + itemTTM.ID + ".htm";
+                                            if (!string.IsNullOrEmpty(itemTTM.TuKhoaSeo))
+                                            {
+                                                Url = "/" + Utils.convertToUnSign2(itemTTM.TuKhoaSeo).Replace(" ", "_") + "_bv-" + itemTTM.ID + ".htm";
+                                            }
+                                        }
+                                        <div class="flex-shrink-0 width-TTMoi">
+                                            <a href="@Url" class="text-black"><img src="@itemTTM.Thumnail" alt="" width="115" class="rounded-1 img-new-duoi-banner "></a>
+
+                                        </div>
+                                        <div class="flex-grow-1 ms-sm-4 mt-3 mt-sm-0">
+                                            <h4 class="title-new"><a href="@Url" class="text-black">@itemTTM.Title</a></h4>
+                                            <p class="text-success fs-12 mb-0">@(itemTTM.NgayPhatHanh!=null?((DateTime)itemTTM.NgayPhatHanh).ToString("dd-MM-yyyy HH:mm") :"")</p>
+                                            <a href="@Url" class="text-black"><p class="article-excerpt">@itemTTM.ShortDescription</p></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-sm-12 hide-right-view-Detail">
+                <div class="row">
+                    @if (LienKetGioiThieu.Count > 0)
+                    {
+
+                        <div class="col-xl-12 col-lg-12 col-sm-12 mt-3">
+                            <div class="GreenContainerTopMIddleNew">
+                                <div class="GreenContainerTitleNew">
+                                    <h2>
+                                        <span id="dnn_ctr554_Title_titleLabel" class="ContainerTitle"><a href="#" style="color: #ffffff; text-transform: uppercase">Giới thiệu</a></span>
+                                    </h2>
+                                </div>
+                                <div class="stripe-line"></div>
+                                <div class="ClearFloat"></div>
+                            </div>
+                            <div class="Content-Title style-scroll-15" style=" max-height: 350px; overflow: auto;">
+                                <ol class="ps-3 text-muted">
+                                    @foreach (var item in LienKetGioiThieu)
+                                    {
+                                        <li class="py-1">
+                                            <a href="@item.Url" class="text-muted">@item.MoTa</a>
+                                        </li>
+                                    }
+                                </ol>
+                            </div>
+                        </div>
+
+                    }
+
+                    @if (CacCapHoi.Count > 0)
+                    {
+
+                        <div class="col-xl-12 col-lg-12 col-sm-12 mt-3">
+                            <div class="GreenContainerTopMIddleNew">
+                                <div class="GreenContainerTitleNew">
+                                    <h2>
+                                        <span id="dnn_ctr554_Title_titleLabel" class="ContainerTitle"><a href="#" style="color: #ffffff; text-transform: uppercase">Các cấp hội</a></span>
+                                    </h2>
+                                </div>
+                                <div class="stripe-line"></div>
+                                <div class="ClearFloat"></div>
+                            </div>
+                            <div class="Content-Title style-scroll-15" style=" max-height: 350px; overflow: auto;">
+                                @*<input type="text" class="form-control" placeholder="Tìm kiếm..." onchange="TimKKiemCapHoi()" id="txtTuKhoaCapHoi">*@
+                                <ol class="ps-3 text-muted" id="DataCapHoi">
+                                    @foreach (var item in CacCapHoi)
+                                    {
+                                        <li class="py-1">
+                                            <a href="@item.Url" class="text-muted">@item.MoTa</a>
+                                        </li>
+                                    }
+                                </ol>
+                            </div>
+                        </div>
+
+                    }
+                    @if (BannerTrangChuVT1.Count > 0)
+                    {
+                        var lstAnhSilde = BannerTrangChuVT1.Where(e => e.IsSilde == 1).ToList();
+
+                        if (lstAnhSilde != null)
+                        {
+                            <div class="col-xl-12 col-lg-12 col-sm-12 mt-3">
+                                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner" role="listbox">
+                                        @foreach (var itemBanner in lstAnhSilde)
+                                        {
+                                            <div class="carousel-item @(itemBanner.ID==lstAnhSilde[0].ID?"active":"")">
+                                                <a href="@itemBanner.Url"><img class="card-img-top img-fluid" src="@itemBanner.Image" alt="@itemBanner.Name" onclick="ThemLuotView(@itemBanner.ID)"></a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        foreach (var item in BannerTrangChuVT1.Where(e => e.IsSilde == 0).ToList())
+                        {
+                            <div class="col-xl-12 col-lg-12 col-sm-12 mt-3">
+                                <a href="@item.Url"><img src="@item.Image" class="w-100" title="@item.Name" onclick="ThemLuotView(@item.ID)" /></a>
+                            </div>
+                        }
+                    }
+
+                    @if (DanhSachChuyenMucBenPhaiCT.Count > 0)
+                    {
+                        foreach (var item in DanhSachChuyenMucBenPhaiCT)
+                        {
+                            <div class="col-xl-12 col-lg-12 col-sm-12 mt-3">
+                                <div class="GreenContainerTopMIddleNew pt-3">
+                                    @{
+                                        var UrlCT = "/" + Utils.convertToUnSign2(item.Name).Replace(" ", "_") + "_cm-" + item.IdCategory + ".htm";
+                                    }
+                                    <h3 class="Color-left-title"><a href="@UrlCT" class="text-black">@item.Name</a></h3>
+                                </div>
+                                <div class="Content-Title">
+                                    @if (item.DanhSachBaiViet.Count > 0)
+                                    {
+                                        <div class="card card-custom m-0">
+                                            <img class="card-img-top img-fluid img-new2" src="@item.DanhSachBaiViet[0].Thumnail" alt="Card image cap">
+                                            <div class="card-body p-0 pt-3 pt-3">
+                                                @{
+                                                    var Url = "/" + Utils.convertToUnSign2(item.DanhSachBaiViet[0].Title).Replace(" ", "_") + "_bv-" + item.DanhSachBaiViet[0].ID + ".htm";
+                                                    if (!string.IsNullOrEmpty(item.DanhSachBaiViet[0].TuKhoaSeo))
+                                                    {
+                                                        Url = "/" + Utils.convertToUnSign2(item.DanhSachBaiViet[0].TuKhoaSeo).Replace(" ", "_") + "_bv-" + item.DanhSachBaiViet[0].ID + ".htm";
+                                                    }
+                                                }
+                                                <h5 class="title-new"><a href="@Url" class="text-black">@item.DanhSachBaiViet[0].Title</a></h5>
+                                                <p>@item.DanhSachBaiViet[0].ShortDescription</p>
+                                            </div>
+                                            @if (item.DanhSachBaiViet.Count > 1)
+                                            {
+                                                <ul class="list-group list-group-flush">
+                                                    @foreach (var itemBV in item.DanhSachBaiViet)
+                                                    {
+                                                        if (itemBV.ID != item.DanhSachBaiViet[0].ID)
+                                                        {
+                                                            <li class="list-group-item p-0">
+                                                                <div class="card border-bottom card-custom card-custom-new">
+                                                                    <div class="card-body p-0 pb-3 pt-3">
+                                                                        <div class="d-flex">
+
+                                                                            <div class="flex-grow-1">
+                                                                                <div>
+                                                                                    @{
+                                                                                        var Url1 = "/" + Utils.convertToUnSign2(itemBV.Title).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                                                                                        if (!string.IsNullOrEmpty(itemBV.TuKhoaSeo))
+                                                                                        {
+                                                                                            Url1 = "/" + Utils.convertToUnSign2(itemBV.TuKhoaSeo).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                                                                                        }
+                                                                                    }
+                                                                                    <h5 class="card-text font-w600 wraptext-heigth"><a href="@Url1" class="text-black">@itemBV.Title</a></h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="flex-shrink-0">
+                                                                                <img src="@itemBV.Thumnail" alt="" class="avatar-sm-custom  rounded">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+
+                                            }
+
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                        }
+                    }
+
+                    @if (BannerTrangChuVT2.Count > 0)
+                    {
+                        var lstAnhSilde = BannerTrangChuVT2.Where(e => e.IsSilde == 1).ToList();
+
+                        if (lstAnhSilde != null)
+                        {
+                            <div class="col-xl-12 col-lg-12 col-sm-12 mt-3">
+                                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner" role="listbox">
+                                        @foreach (var itemBanner in lstAnhSilde)
+                                        {
+                                            <div class="carousel-item @(itemBanner.ID==lstAnhSilde[0].ID?"active":"")">
+                                                <a href="@itemBanner.Url"><img class="card-img-top img-fluid" src="@itemBanner.Image" alt="@itemBanner.Name" onclick="ThemLuotView(@itemBanner.ID)"></a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        foreach (var item in BannerTrangChuVT2.Where(e => e.IsSilde == 0).ToList())
+                        {
+                            <div class="col-xl-12 col-lg-12 col-sm-12 mt-3">
+                                <a href="@item.Url"><img src="@item.Image" class="w-100" title="@item.Name" onclick="ThemLuotView(@item.ID)" /></a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        if ((parseInt($("#TrangHienTai").val())) * 8 > parseInt($("#TongBanGhi").val())) {
+            $("#BtnLoadXemThem").addClass("d-none");
+        }
+        else {
+            $("#BtnLoadXemThem").removeClass("d-none");
+        }
+
+        function LoadXemThem() {
+            var requestModel = {
+                start: parseInt($("#TrangHienTai").val()) * 8,
+                length: 8,
+            }
+            if ((parseInt($("#TrangHienTai").val()) + 1) * 8 > parseInt($("#TongBanGhi").val())) {
+                $("#BtnLoadXemThem").addClass("d-none");
+            }
+            else {
+                $("#BtnLoadXemThem").removeClass("d-none");
+            }
+            $("#TrangHienTai").val(parseInt($("#TrangHienTai").val()) + 1);
+            $.post("/ChuyenMuc/DanhSach", { "RquestModelVanBan": requestModel }, function (data) {
+                loading();
+                var StrHtml = "";
+                if (data.data.length > 0) {
+                    [...data.data].map((el, index) => {
+                        StrHtml += `<div class="d-flex pb-2 pt-2 border-bottom-new">
+                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="flex-shrink-0">
+                                                                                                                                                                                                                                                                                                                                                                                                                                        <img src="${el.Image}" alt="" class="rounded img-new-duoi-banner">
+                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="flex-grow-1 ms-3 overflow-hidden">
+                                                                                                                                                                                                                                                                                                                                                                                                                                        <a href="javascript:void(0);">
+                                                                                                                                                                                                                                                                                                                                                                                                                                            <h4>${el.Title}</h4>
+                                                                                                                                                                                                                                                                                                                                                                                                                                        </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                        <p class="text-muted mb-0">${moment(el.CreatedDate).format("DD-MM-YYYY")}</p>
+                                                                                                                                                                                                                                                                                                                                                                                                                                        <p class="text-muted mb-0 mt-2"><a href="${el.File}" class="btn btn-soft-info btn-sm" data-bs-toggle="modal" data-bs-target="#inviteMembersModal"><i class="ri-download-2-line"></i> Tải xuống</a></p>
+                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                </div>`;
+                    });
+                    $("#DataDSVanBan").append(StrHtml);
+                    offLoading();
+                }
+            })
+        }
+
+    </script>
+}

@@ -1,0 +1,259 @@
+﻿@{
+    var ChiTiet = ViewBag.ChiTiet;
+    var LstBaiViet = ViewBag.LstBaiViet;
+    var responseDsAudio = ViewBag.responseDsAudio;
+    var DanhSachBaiVietCungChuyenMuc = ViewBag.DanhSachBaiVietCungChuyenMuc;
+    var TinTucMoi = ViewBag.TinTucMoi;
+}
+<style>
+    .color-vd-au {
+        background-color: #242424;
+        padding: 0px !important
+    }
+
+    .container-Audio {
+        padding: 10px;
+    }
+
+    .sty-date {
+        font-style: italic;
+    }
+
+    .Audio-height {
+        min-height: 500px;
+    }
+</style>
+<div class="page-content color-vd-au">
+    <div class="container container-Audio">
+        <div class="row">
+            @if (ChiTiet != null)
+            {
+                <div class="col-xl-8 col-lg-8 col-sm-12">
+                    <div class="text-center">
+                        <img class="gallery-img img-fluid mx-auto img-card-video-audio-Audio" src="@ChiTiet.Image" alt="">
+                    </div>
+                    @*@if (ChiTiet.IsYouTube == 0)
+                        {
+                            <Audio controls="controls" class="w-100 Audio-height">
+                                <source src="@ChiTiet.Audio" type="Audio/mp4" />
+                            </Audio>
+                        }
+                        else
+                        {
+                            <iframe class="w-100 Audio-height"
+                                    src="@ChiTiet.Audio">
+                            </iframe>
+                        }*@
+                    <audio controls="controls" class=" w-100">
+                        <source src="@ChiTiet.Audio" type="audio/mpeg" />
+                    </audio>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-sm-12">
+                    <h4 class=" text-white">@ChiTiet.MoTa</h4>
+                    <div>
+                        <p class=" text-white sty-date">Ngày:@(ChiTiet.NgayDang != null ? ((DateTime)ChiTiet.NgayDang).ToString("dd-MM-yyyy") : "")</p>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <div class="container container-mg-bt">
+        <div class="row pb-3 mt-3">
+            <div class="col-sm-6 col-xl-9">
+                <h3 class="Title-TieuDe">Audio</h3>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Tìm trong chuyên mục" id="txtTimKiem">
+                    <button class="btn btn-secondary-search" type="button" onclick="TimKiemAudio()"><i class="ri-search-line"></i></button>
+                </div>
+            </div>
+            <input type="hidden" value="@ViewBag.recordsTotal" id="TongBanGhi" />
+            <input type="hidden" value="1" id="TrangHienTai" />
+        </div>
+
+        <div class="row" id="DataDSAudio">
+            @if (responseDsAudio != null)
+            {
+                foreach (var item in responseDsAudio)
+                {
+                    <div class="col-sm-6 col-xl-3">
+                        @{
+                            var Url = "/" + Utils.convertToUnSign2(item.MoTa).Replace(" ", "_") + "_au-" + item.Id + ".htm";
+                        }
+                        <div class="card card-custom">
+                            <a href="@Url" class="text-black">
+                                <img class="card-img-top img-fluid img-card-video-audio zoom" src="@item.Image" alt="Card image cap">
+                                <span class="icon">
+                                    <svg width="46" height="46" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M96 48C96 74.5097 74.5097 96 48 96C21.4903 96 0 74.5097 0 48C0 21.4903 21.4903 0 48 0C74.5097 0 96 21.4903 96 48Z" fill="white" fill-opacity="0.2"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M48 93C72.8528 93 93 72.8528 93 48C93 23.1472 72.8528 3 48 3C23.1472 3 3 23.1472 3 48C3 72.8528 23.1472 93 48 93ZM48 96C74.5097 96 96 74.5097 96 48C96 21.4903 74.5097 0 48 0C21.4903 0 0 21.4903 0 48C0 74.5097 21.4903 96 48 96Z" fill="white"></path>
+                                        <path d="M54.5008 27.1601C54.2357 27.0305 53.9396 26.9779 53.6461 27.0084C53.3526 27.0389 53.0735 27.1512 52.8407 27.3326L39.0734 38.0384H30.1539C29.3177 38.0393 28.5159 38.3718 27.9247 38.9631C27.3334 39.5544 27.0008 40.3561 27 41.1923V53.8078C27.0008 54.644 27.3334 55.4457 27.9247 56.037C28.5159 56.6282 29.3177 56.9608 30.1539 56.9616H39.0734L52.8407 67.6675C53.0736 67.8488 53.3527 67.9611 53.6463 67.9916C53.9399 68.022 54.2361 67.9694 54.5013 67.8397C54.7664 67.7101 54.9898 67.5085 55.146 67.2581C55.3022 67.0076 55.3849 66.7184 55.3848 66.4232V28.5768C55.385 28.2816 55.3022 27.9922 55.1459 27.7417C54.9896 27.4912 54.7661 27.2897 54.5008 27.1601Z" fill="white"></path>
+                                        <path d="M61.6925 41.1929C61.2742 41.1929 60.8732 41.359 60.5774 41.6548C60.2817 41.9505 60.1156 42.3516 60.1155 42.7698V52.2314C60.1155 52.6496 60.2817 53.0507 60.5774 53.3465C60.8731 53.6422 61.2742 53.8083 61.6925 53.8083C62.1107 53.8083 62.5118 53.6422 62.8075 53.3465C63.1033 53.0507 63.2694 52.6496 63.2694 52.2314V42.7698C63.2694 42.3516 63.1032 41.9505 62.8075 41.6548C62.5118 41.359 62.1107 41.1929 61.6925 41.1929Z" fill="white"></path>
+                                        <path d="M68.0002 38.0391C67.582 38.0391 67.1809 38.2052 66.8852 38.501C66.5894 38.7967 66.4233 39.1978 66.4233 39.616V55.3853C66.4233 55.8035 66.5894 56.2046 66.8852 56.5004C67.1809 56.7961 67.582 56.9622 68.0002 56.9622C68.4184 56.9622 68.8195 56.7961 69.1153 56.5004C69.411 56.2046 69.5771 55.8035 69.5771 55.3853V39.616C69.5771 39.1978 69.411 38.7967 69.1152 38.501C68.8195 38.2052 68.4184 38.0391 68.0002 38.0391Z" fill="white"></path>
+                                    </svg>
+                                </span>
+                            </a>
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-text font-w600 wraptext-heigth"><a href="@Url" class="text-black">@item.MoTa</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row pb-3" id="BtnLoadXemThem">
+            <div class="text-center">
+                <button type="button" class="btn btn-outline-secondary waves-effect waves-light" onclick="LoadXemThem()">Xem thêm</button>
+            </div>
+        </div>
+
+        <div class="row pb-3 pt-3">
+            <div class="col-sm-12 col-xl-12">
+                <h3 class="Title-TieuDe">Tin mới</h3>
+            </div>
+        </div>
+
+        @if (TinTucMoi.Count > 0)
+        {
+            <div class="row" id="DataDSVideo">
+                @foreach (var itemBV in TinTucMoi)
+                {
+
+                    <div class="col-sm-6 col-xl-3">
+                        @{
+                            var Url = "/" + Utils.convertToUnSign2(itemBV.Title).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                            if (!string.IsNullOrEmpty(itemBV.TuKhoaSeo))
+                            {
+                                Url = "/" + Utils.convertToUnSign2(itemBV.TuKhoaSeo).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                            }
+                        }
+                        <div class="card card-custom">
+                            <a href="@Url" class="text-black  font-w600">
+                                <img class="card-img-top img-fluid img-card-video-audio zoom" src="@itemBV.Thumnail" alt="Card image cap">
+                            </a>
+                            <div class="card-body  p-0 pt-3">
+                                <h5 class="card-text wraptext-heigth"><a href="@Url" class="text-black  font-w600">@itemBV.Title</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        }
+    </div>
+</div>
+@section scripts {
+    <script src="~/Content/SlideShow/script.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            if ((parseInt($("#TrangHienTai").val())) * 8 > parseInt($("#TongBanGhi").val())) {
+                $("#BtnLoadXemThem").addClass("d-none");
+            }
+            else {
+                $("#BtnLoadXemThem").removeClass("d-none");
+            }
+        });
+
+
+        function LoadXemThem() {
+            var requestModel = {
+                start: parseInt($("#TrangHienTai").val()) * 8,
+                length: 8,
+                MoTa: $("#txtTimKiem").val(),
+                IsHienThi: null
+            }
+            if ((parseInt($("#TrangHienTai").val()) + 1) * 8 > parseInt($("#TongBanGhi").val())) {
+                $("#BtnLoadXemThem").addClass("d-none");
+            }
+            else {
+                $("#BtnLoadXemThem").removeClass("d-none");
+            }
+            $("#TrangHienTai").val(parseInt($("#TrangHienTai").val()) + 1);
+            $.post("/Audio/DanhSach", { "requestModel": requestModel }, function (data) {
+                loading();
+                var StrHtml = "";
+                if (data.data.length > 0) {
+                    [...data.data].map((el, index) => {
+                        StrHtml += `  <div class="col-sm-6 col-xl-3">
+<div class="card card-custom">
+<a href="${el.Url}" class="text-black"><img class="card-img-top img-fluid img-card-video-audio zoom" src="${el.Image}" alt="Card image cap">
+<span class="icon">
+<svg width="46" height="46" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M96 48C96 74.5097 74.5097 96 48 96C21.4903 96 0 74.5097 0 48C0 21.4903 21.4903 0 48 0C74.5097 0 96 21.4903 96 48Z" fill="white" fill-opacity="0.2"></path>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M48 93C72.8528 93 93 72.8528 93 48C93 23.1472 72.8528 3 48 3C23.1472 3 3 23.1472 3 48C3 72.8528 23.1472 93 48 93ZM48 96C74.5097 96 96 74.5097 96 48C96 21.4903 74.5097 0 48 0C21.4903 0 0 21.4903 0 48C0 74.5097 21.4903 96 48 96Z" fill="white"></path>
+<path d="M54.5008 27.1601C54.2357 27.0305 53.9396 26.9779 53.6461 27.0084C53.3526 27.0389 53.0735 27.1512 52.8407 27.3326L39.0734 38.0384H30.1539C29.3177 38.0393 28.5159 38.3718 27.9247 38.9631C27.3334 39.5544 27.0008 40.3561 27 41.1923V53.8078C27.0008 54.644 27.3334 55.4457 27.9247 56.037C28.5159 56.6282 29.3177 56.9608 30.1539 56.9616H39.0734L52.8407 67.6675C53.0736 67.8488 53.3527 67.9611 53.6463 67.9916C53.9399 68.022 54.2361 67.9694 54.5013 67.8397C54.7664 67.7101 54.9898 67.5085 55.146 67.2581C55.3022 67.0076 55.3849 66.7184 55.3848 66.4232V28.5768C55.385 28.2816 55.3022 27.9922 55.1459 27.7417C54.9896 27.4912 54.7661 27.2897 54.5008 27.1601Z" fill="white"></path>
+<path d="M61.6925 41.1929C61.2742 41.1929 60.8732 41.359 60.5774 41.6548C60.2817 41.9505 60.1156 42.3516 60.1155 42.7698V52.2314C60.1155 52.6496 60.2817 53.0507 60.5774 53.3465C60.8731 53.6422 61.2742 53.8083 61.6925 53.8083C62.1107 53.8083 62.5118 53.6422 62.8075 53.3465C63.1033 53.0507 63.2694 52.6496 63.2694 52.2314V42.7698C63.2694 42.3516 63.1032 41.9505 62.8075 41.6548C62.5118 41.359 62.1107 41.1929 61.6925 41.1929Z" fill="white"></path>
+<path d="M68.0002 38.0391C67.582 38.0391 67.1809 38.2052 66.8852 38.501C66.5894 38.7967 66.4233 39.1978 66.4233 39.616V55.3853C66.4233 55.8035 66.5894 56.2046 66.8852 56.5004C67.1809 56.7961 67.582 56.9622 68.0002 56.9622C68.4184 56.9622 68.8195 56.7961 69.1153 56.5004C69.411 56.2046 69.5771 55.8035 69.5771 55.3853V39.616C69.5771 39.1978 69.411 38.7967 69.1152 38.501C68.8195 38.2052 68.4184 38.0391 68.0002 38.0391Z" fill="white"></path>
+</svg>
+</span>
+</a>
+<div class="card-body p-0 pt-3">
+<h5 class="card-text font-w600 wraptext-heigth"><a href="${el.Url}" class="text-black">${el.MoTa}</a></h5>
+</div>
+</div>
+</div>`;
+                    });
+                    $("#DataDSAudio").append(StrHtml);
+                }
+                offLoading();
+            })
+        }
+
+
+        function TimKiemAudio() {
+            var requestModel = {
+                start: 1,
+                length: 8,
+                MoTa: $("#txtTimKiem").val(),
+                IsHienThi: null
+            }
+
+            $.post("/Audio/DanhSach", { "requestModel": requestModel }, function (data) {
+                loading();
+                var StrHtml = "";
+                $("#DataDSAudio").empty();
+                if (data.data.length > 0) {
+                    [...data.data].map((el, index) => {
+                        StrHtml += `  <div class="col-sm-6 col-xl-3">
+<div class="card card-custom">
+<a href="${el.Url}" class="text-black"><img class="card-img-top img-fluid img-card-video-audio zoom" src="${el.Image}" alt="Card image cap">
+<span class="icon">
+<svg width="46" height="46" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M96 48C96 74.5097 74.5097 96 48 96C21.4903 96 0 74.5097 0 48C0 21.4903 21.4903 0 48 0C74.5097 0 96 21.4903 96 48Z" fill="white" fill-opacity="0.2"></path>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M48 93C72.8528 93 93 72.8528 93 48C93 23.1472 72.8528 3 48 3C23.1472 3 3 23.1472 3 48C3 72.8528 23.1472 93 48 93ZM48 96C74.5097 96 96 74.5097 96 48C96 21.4903 74.5097 0 48 0C21.4903 0 0 21.4903 0 48C0 74.5097 21.4903 96 48 96Z" fill="white"></path>
+<path d="M54.5008 27.1601C54.2357 27.0305 53.9396 26.9779 53.6461 27.0084C53.3526 27.0389 53.0735 27.1512 52.8407 27.3326L39.0734 38.0384H30.1539C29.3177 38.0393 28.5159 38.3718 27.9247 38.9631C27.3334 39.5544 27.0008 40.3561 27 41.1923V53.8078C27.0008 54.644 27.3334 55.4457 27.9247 56.037C28.5159 56.6282 29.3177 56.9608 30.1539 56.9616H39.0734L52.8407 67.6675C53.0736 67.8488 53.3527 67.9611 53.6463 67.9916C53.9399 68.022 54.2361 67.9694 54.5013 67.8397C54.7664 67.7101 54.9898 67.5085 55.146 67.2581C55.3022 67.0076 55.3849 66.7184 55.3848 66.4232V28.5768C55.385 28.2816 55.3022 27.9922 55.1459 27.7417C54.9896 27.4912 54.7661 27.2897 54.5008 27.1601Z" fill="white"></path>
+<path d="M61.6925 41.1929C61.2742 41.1929 60.8732 41.359 60.5774 41.6548C60.2817 41.9505 60.1156 42.3516 60.1155 42.7698V52.2314C60.1155 52.6496 60.2817 53.0507 60.5774 53.3465C60.8731 53.6422 61.2742 53.8083 61.6925 53.8083C62.1107 53.8083 62.5118 53.6422 62.8075 53.3465C63.1033 53.0507 63.2694 52.6496 63.2694 52.2314V42.7698C63.2694 42.3516 63.1032 41.9505 62.8075 41.6548C62.5118 41.359 62.1107 41.1929 61.6925 41.1929Z" fill="white"></path>
+<path d="M68.0002 38.0391C67.582 38.0391 67.1809 38.2052 66.8852 38.501C66.5894 38.7967 66.4233 39.1978 66.4233 39.616V55.3853C66.4233 55.8035 66.5894 56.2046 66.8852 56.5004C67.1809 56.7961 67.582 56.9622 68.0002 56.9622C68.4184 56.9622 68.8195 56.7961 69.1153 56.5004C69.411 56.2046 69.5771 55.8035 69.5771 55.3853V39.616C69.5771 39.1978 69.411 38.7967 69.1152 38.501C68.8195 38.2052 68.4184 38.0391 68.0002 38.0391Z" fill="white"></path>
+</svg>
+</span>
+</a>
+<div class="card-body p-0 pt-3">
+<h5 class="card-text font-w600 wraptext-heigth"><a href="${el.Url}" class="text-black">${el.MoTa}</a></h5>
+</div>
+</div>
+</div>`;
+                    });
+                    $("#DataDSAudio").append(StrHtml);
+                    $("#TrangHienTai").val(1);
+                    $("#TongBanGhi").val(data.recordsTotal);
+                    if ((parseInt($("#TrangHienTai").val())) * 8 > parseInt($("#TongBanGhi").val())) {
+                        $("#BtnLoadXemThem").addClass("d-none");
+                    }
+                    else {
+                        $("#BtnLoadXemThem").removeClass("d-none");
+                    }
+                }
+                else {
+                    $("#BtnLoadXemThem").removeClass("d-none");
+                }
+                offLoading();
+            })
+        }
+
+    </script>
+}

@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="CMS\CacCapHoi\**" />
+	  <Compile Remove="CMS\LienKetGioiThieu\**" />
+	  <Compile Remove="CMS\PhanQuyen\**" />
+	  <Compile Remove="CMS\QuanLyAblumAnh\**" />
+	  <Compile Remove="CMS\QuanLyAudio\**" />
+	  <Compile Remove="CMS\QuanLyBaiDang\**" />
+	  <Compile Remove="CMS\QuanLyChanTrang\**" />
+	  <Compile Remove="CMS\QuanLyChiHoi\**" />
+	  <Compile Remove="CMS\QuanLyDanhMuc\**" />
+	  <Compile Remove="CMS\QuanLyVanBan\**" />
+	  <Compile Remove="CMS\QuanLyVideo\**" />
+	  <Compile Remove="CMS\QuanTriBanner\**" />
+	  <Compile Remove="CMS\ThungRacVaLog\**" />
+	  <EmbeddedResource Remove="CMS\CacCapHoi\**" />
+	  <EmbeddedResource Remove="CMS\LienKetGioiThieu\**" />
+	  <EmbeddedResource Remove="CMS\PhanQuyen\**" />
+	  <EmbeddedResource Remove="CMS\QuanLyAblumAnh\**" />
+	  <EmbeddedResource Remove="CMS\QuanLyAudio\**" />
+	  <EmbeddedResource Remove="CMS\QuanLyBaiDang\**" />
+	  <EmbeddedResource Remove="CMS\QuanLyChanTrang\**" />
+	  <EmbeddedResource Remove="CMS\QuanLyChiHoi\**" />
+	  <EmbeddedResource Remove="CMS\QuanLyDanhMuc\**" />
+	  <EmbeddedResource Remove="CMS\QuanLyVanBan\**" />
+	  <EmbeddedResource Remove="CMS\QuanLyVideo\**" />
+	  <EmbeddedResource Remove="CMS\QuanTriBanner\**" />
+	  <EmbeddedResource Remove="CMS\ThungRacVaLog\**" />
+	  <None Remove="CMS\CacCapHoi\**" />
+	  <None Remove="CMS\LienKetGioiThieu\**" />
+	  <None Remove="CMS\PhanQuyen\**" />
+	  <None Remove="CMS\QuanLyAblumAnh\**" />
+	  <None Remove="CMS\QuanLyAudio\**" />
+	  <None Remove="CMS\QuanLyBaiDang\**" />
+	  <None Remove="CMS\QuanLyChanTrang\**" />
+	  <None Remove="CMS\QuanLyChiHoi\**" />
+	  <None Remove="CMS\QuanLyDanhMuc\**" />
+	  <None Remove="CMS\QuanLyVanBan\**" />
+	  <None Remove="CMS\QuanLyVideo\**" />
+	  <None Remove="CMS\QuanTriBanner\**" />
+	  <None Remove="CMS\ThungRacVaLog\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="log4net" Version="2.0.14" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="System.Configuration" />
+		<Reference Include="System.ServiceProcess" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Models\Models.csproj" />
+		<ProjectReference Include="..\Utilities\Utilities.csproj" />
+	</ItemGroup>
+
+</Project>

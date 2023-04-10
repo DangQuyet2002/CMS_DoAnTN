@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "_Sua";
+    Layout = null;
+    var ChiTiet = ViewBag.ChiTiet;
+}
+<input type="hidden" value="@ChiTiet.ID" id="IdBanner" />
+<div class="row">
+    <div class="panel" style="margin-top: 10px !important;">
+        <div class="panel-body">
+            <div style="padding: 10px;">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Tiêu đề<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtNameSua" value="@ChiTiet.Name">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Liên kết<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtLienKetSua" value="@ChiTiet.Url">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Ngày bắt đầu<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtNgayBatDauSua" value="@(ChiTiet.StartDate!=null?((DateTime)ChiTiet.StartDate).ToString("dd-MM-yyyy"):"")">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Ngày kết thúc<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtNgayKetThucSua" value="@(ChiTiet.EndDate!=null?((DateTime)ChiTiet.EndDate).ToString("dd-MM-yyyy"):"")">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Ảnh<span class="text-danger">(*)</span></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="txtFileAnhSua" value="@ChiTiet.Image" onchange="LoadAnhSua()">
+                                <button class="btn btn-outline-primary" onclick="ChonAnhSua()">Chọn</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12  mb-3">
+                        <div>
+                            <div class="dropzoneAnhDaiDien dropSua" id="dropzoneAnhDaiDienSua">
+                                <img src="@ChiTiet.Image" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#txtNgayBatDauSua").flatpickr({
+        dateFormat: "d-m-Y",
+    });
+
+    $("#txtNgayKetThucSua").flatpickr({
+        dateFormat: "d-m-Y",
+    });
+
+    function ChonAnhSua() {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $("#txtFileAnhSua").val(url);
+            LoadAnhSua();
+        }
+        finder.popup();
+    }
+
+    function LoadAnhSua() {
+        debugger
+        var Url = $("#txtFileAnhSua").val();
+        $("#dropzoneAnhDaiDienSua").empty();
+        $("#dropzoneAnhDaiDienSua").html(`<img src="${Url}"/>`);
+        $("#dropzoneAnhDaiDienSua").addClass("dropSua");
+    }
+
+
+    function SuaLuu() {
+        if ($("#txtNameSua").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống tiêu đề", "error");
+            return;
+        }
+        if ($("#txtLienKetSua").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống liên kết", "error");
+            return;
+        }
+
+        if ($("#txtNgayBatDauSua").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống ngày bắt đầu", "error");
+            return;
+        }
+        if ($("#txtNgayKetThucSua").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống ngày kết thúc", "error");
+            return;
+        }
+        if ($("#txtFileAnhSua").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống ảnh", "error");
+            return;
+        }
+        Swal.fire({
+            title: '',
+            text: "Chắc chắn lưu banner?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Chắc chắn',
+            cancelButtonText: 'Thoát'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                loading();
+                var requestModel = {
+                    Name: $("#txtNameSua").val(),
+                    Image: $("#txtFileAnhSua").val(),
+                    Url: $("#txtLienKetSua").val(),
+                    StartDate: moment($("#txtNgayBatDauSua").val(), "DD-MM-YYYY").format('YYYY-MM-DD'),
+                    EndDate: moment($("#txtNgayKetThucSua").val(), "DD-MM-YYYY").format('YYYY-MM-DD'),
+                    ID: $("#IdBanner").val()
+                }
+
+                $.post("/Admin/QuanTriBanner/CapNhat", { "requestModel": requestModel }, function (data) {
+                    if (data.icon == "success") {
+                        Message('', data.message, data.icon);
+                        $("#ModelSua").modal("hide");
+                    }
+                    else {
+                        Message('', data.message, data.icon);
+                    }
+                    table.ajax.reload(null, false);
+                    offLoading();
+                });
+            }
+        })
+    }
+
+
+</script>

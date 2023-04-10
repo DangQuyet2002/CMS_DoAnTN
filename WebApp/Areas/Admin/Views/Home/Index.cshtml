@@ -1,0 +1,197 @@
+﻿
+@{
+
+}
+<script src="https://cdn.lordicon.com/fudrjiwc.js"></script>
+
+
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-animate">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="fw-medium text-muted mb-0">Tổng bài đăng</p>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@ViewBag.TongBaiDang">@ViewBag.TongBaiDang</span></h2>
+                    </div>
+                    <div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
+                                <lord-icon src="https://cdn.lordicon.com/nocovwne.json"
+                                           trigger="loop"
+                                           delay="48"
+                                           colors="primary:#121331,secondary:#08a88a"
+                                           style="width:48px;height:48px">
+                                </lord-icon>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end card body -->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-md-3">
+        <div class="card card-animate">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="fw-medium text-muted mb-0">Tổng người dùng</p>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@ViewBag.TongNguoiDung">@ViewBag.TongNguoiDung</span></h2>
+                    </div>
+                    <div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
+                                <lord-icon src="https://cdn.lordicon.com/dxjqoygy.json"
+                                           trigger="loop"
+                                           delay="2000"
+                                           style="width:480px;height:480px">
+                                </lord-icon>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end card body -->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+    <div class="col-md-3">
+        <div class="card card-animate">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="fw-medium text-muted mb-0">Tổng comment</p>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@ViewBag.TongComment">@ViewBag.TongComment</span></h2>
+                    </div>
+                    <div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
+                                <lord-icon src="https://cdn.lordicon.com/zpxybbhl.json"
+                                           trigger="loop"
+                                           delay="2000"
+                                           style="width:48px;height:48px">
+                                </lord-icon>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end card body -->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+    <div class="col-md-3">
+        <div class="card card-animate">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="fw-medium text-muted mb-0">Tổng lượt xem</p>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@ViewBag.TongLuotXem">@ViewBag.TongLuotXem </span></h2>
+                    </div>
+                    <div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
+                                <lord-icon src="https://cdn.lordicon.com/tyounuzx.json"
+                                           trigger="loop"
+                                           delay="2000"
+                                           style="width:250px;height:250px">
+                                </lord-icon>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end card body -->
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+    <div class="col-6 mt-3">
+        <div class="card">
+            <div class="card-body collapse show" id="collapseexample1">
+                <canvas id="ChartLuotXem"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body collapse show" id="collapseexample1">
+                <canvas id="ChartBinhLuan"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 mt-3">
+        <div class="card">
+            <div class="card-body collapse show" id="collapseexample1">
+                <canvas id="JsonChartTopLuotThich"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+        var JsonTopLuotXem = JSON.parse($("#JsonTopLuotXem").val())
+        const ctx = document.getElementById('ChartLuotXem');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: JsonTopLuotXem.map(row => row.Name),
+                datasets: [{
+                    label: ' Top chuyên mục có lượt xem nhiều nhất',
+                    data: JsonTopLuotXem.map(row => row.SoLuong),
+                    borderWidth: 1,
+                    backgroundColor: '#405189',
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var JsonTopLuotThich = JSON.parse($("#JsonTopLuotThich").val())
+        const ctx2 = document.getElementById('JsonChartTopLuotThich');
+
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: JsonTopLuotThich.map(row => row.Name),
+                datasets: [{
+                    label: 'Top chuyên mục có lượt thích nhiều nhất',
+                    data: JsonTopLuotThich.map(row => row.SoLuong),
+                    borderWidth: 1,
+                    backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60', '#884EA0', '#D35400', '#258383', '#848dc9', '#becb7a', '#3d9f2b'],
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+        var JsonTopDanhMucBLMN = JSON.parse($("#JsonTopDanhMucBLMN").val())
+        const ctx3 = document.getElementById('ChartBinhLuan');
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: JsonTopDanhMucBLMN.map(row => row.Name),
+                datasets: [{
+                    label: ' Top chuyên mục có lượt bình luận nhiều nhất',
+                    data: JsonTopDanhMucBLMN.map(row => row.SoLuong),
+                    borderWidth: 1,
+                    backgroundColor: '#405189',
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

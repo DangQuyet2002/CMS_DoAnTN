@@ -1,0 +1,149 @@
+﻿@using Models;
+@{
+    ViewBag.Title = "_DanhSachTimKiem";
+    Layout = null;
+    var responseBaiViet = ViewBag.responseBaiViet as List<tbl_PostModel>;
+    var responseAnh = ViewBag.responseAnh as List<tbl_ThuVienAnhModel>;
+    var responseVideo = ViewBag.responseVideo as List<tbl_ThuVienVideoModel>;
+    var responseAudio = ViewBag.responseAudio as List<tbl_ThuVienAudioModel>;
+}
+<link href="~/Content/ControllerCss/HomePage.css" rel="stylesheet" />
+<div class="page-content  pb-5">
+    <div class="container-fluid pt-2 pb-2">
+
+        @if (responseBaiViet.Count > 0)
+        {
+            <div class="row">
+                <div class="GreenContainerTopMIddleNew pt-3" style="margin-left: 1rem;">
+                    <h3 class="Color-left-title">Bài viết</h3>
+                </div>
+                @foreach (var item in responseBaiViet)
+                {
+                    <div class="col-xl-12 col-lg-12 col-sm-12 p-0 border-bottom-cm">
+                        <div class="card-body">
+                            <div class="d-sm-flex">
+
+                                <div class="flex-shrink-0">
+                                    <img src="@item.Thumnail" alt="" width="115" class="rounded-1 img-new-duoi-banner ">
+                                </div>
+                                <div class="flex-grow-1 ms-sm-4 mt-3 mt-sm-0">
+                                    @{
+                                        var Url = "/" + Utils.convertToUnSign2(item.Title).Replace(" ", "_") + "_bv-" + item.ID + ".htm";
+                                        if (!string.IsNullOrEmpty(item.TuKhoaSeo))
+                                        {
+                                            Url = "/" + Utils.convertToUnSign2(item.TuKhoaSeo).Replace(" ", "_") + "_bv-" + item.ID + ".htm";
+                                        }
+                                    }
+                                    <h4 class="title-new"><a href="@Url" class="text-black">@item.Title</a></h4>
+                                    <h5 class="wraptext-new-height">@item.ShortDescription</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (responseAnh.Count > 0)
+        {
+            <div class="row">
+                <div class="GreenContainerTopMIddleNew pt-3" style="margin-left: 1rem;">
+                    <h3 class="Color-left-title">Ảnh</h3>
+                </div>
+                @foreach (var item in responseAnh)
+                {
+                    <div class="col-xl-12 col-lg-12 col-sm-12 p-0 border-bottom-cm">
+                        <div class="card-body">
+                            <div class="d-sm-flex">
+
+                                <div class="flex-shrink-0">
+                                    <img src="@item.Image" alt="" width="115" class="rounded-1 img-new-duoi-banner ">
+                                </div>
+                                <div class="flex-grow-1 ms-sm-4 mt-3 mt-sm-0">
+                                    <h4 class="title-new"><a href="#" class="text-black" onclick="LoadChiTietAnhTK(@item.Id)">@item.MoTa</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        @if (responseVideo.Count > 0)
+        {
+            <div class="row">
+                <div class="GreenContainerTopMIddleNew pt-3" style="margin-left: 1rem;">
+                    <h3 class="Color-left-title">Video</h3>
+                </div>
+                @foreach (var item in responseVideo)
+                {
+                    <div class="col-xl-12 col-lg-12 col-sm-12 p-0 border-bottom-cm">
+                        <div class="card-body">
+                            <div class="d-sm-flex">
+
+                                <div class="flex-shrink-0">
+                                    <img src="@item.Image" alt="" width="115" class="rounded-1 img-new-duoi-banner ">
+                                </div>
+                                @{
+                                    var UrlCT = "/" + Utils.convertToUnSign2(item.MoTa).Replace(" ", "_") + "_vd-" + item.Id + ".htm";
+                                }
+                                <div class="flex-grow-1 ms-sm-4 mt-3 mt-sm-0">
+                                    <h4 class="title-new"><a href="@UrlCT" class="text-black">@item.MoTa</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        @if (responseAudio.Count > 0)
+        {
+            <div class="row">
+                <div class="GreenContainerTopMIddleNew pt-3" style="margin-left: 1rem;">
+                    <h3 class="Color-left-title">Audio</h3>
+                </div>
+                @foreach (var item in responseAudio)
+                {
+                    <div class="col-xl-12 col-lg-12 col-sm-12 p-0 border-bottom-cm">
+                        <div class="card-body">
+                            <div class="d-sm-flex">
+
+                                <div class="flex-shrink-0">
+                                    <img src="@item.Image" alt="" width="115" class="rounded-1 img-new-duoi-banner ">
+                                </div>
+                                @{
+                                    var Url = "/" + Utils.convertToUnSign2(item.MoTa).Replace(" ", "_") + "_au-" + item.Id + ".htm";
+                                }
+                                <div class="flex-grow-1 ms-sm-4 mt-3 mt-sm-0">
+                                    <h4 class="title-new"><a href="@Url" class="text-black">@item.MoTa</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (responseBaiViet.Count == 0 && responseAnh.Count == 0 && responseVideo.Count == 0 && responseAudio.Count == 0)
+        {
+            <div class="text-center">
+                <h3>Không tồn tại bản ghi</h3>
+            </div>
+        }
+
+    </div>
+</div>
+<div class="offcanvas offcanvas-bottom height-image" tabindex="-1" id="offcanvasBottomTK" aria-labelledby="offcanvasBottomLabel">
+
+</div>
+<script>
+    function LoadChiTietAnhTK(Id) {
+        var requestModel = {
+            Id: Id,
+        }
+        $("#offcanvasBottomTK").load("/AlbumAnh/_ChiTiet", { "requestModel": requestModel }, function (data) {
+            var myOffcanvas = document.getElementById('offcanvasBottom')
+            var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+            bsOffcanvas.show()
+        })
+    }
+</script>

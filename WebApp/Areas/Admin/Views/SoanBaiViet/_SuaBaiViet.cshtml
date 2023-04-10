@@ -1,0 +1,460 @@
+﻿
+@using Models;
+@{
+    ViewBag.Title = "_ThemMoiBaiViet";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var ChiTiet = ViewBag.ChiTiet as tbl_PostModel;
+}
+<style>
+
+    #dropzoneAnhDaiDienSua {
+        height: 300px;
+        position: relative;
+        border: 1px dotted #000;
+        border-radius: 10px;
+        color: #000;
+        text-align: center
+    }
+
+        #dropzoneAnhDaiDienSua.hover {
+            border: 1px solid green;
+            color: green;
+        }
+
+        #dropzoneAnhDaiDienSua.dropped {
+            background: #222;
+            border: 1px solid #444;
+        }
+
+        #dropzoneAnhDaiDienSua div {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        #dropzoneAnhDaiDienSua img {
+            border-radius: 5px;
+            vertical-align: middle;
+            max-height: 100%;
+        }
+
+        #dropzoneAnhDaiDienSua [type="file"] {
+            cursor: pointer;
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+
+    .dropSua {
+        background: #222;
+        border: 1px solid #444;
+    }
+</style>
+@{
+    var anhDD = ChiTiet.Thumnail.Split('/').ToList();
+    <input type="hidden" value="@anhDD[anhDD.Count-1]" id="AnhDaiDienSua" />
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Sửa bài viết</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tạo bài viết</a></li>
+                    <li class="breadcrumb-item active">Sửa bài viết</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            <h6 class="card-title mb-0">Thông tin bài viết</h6>
+        </div>
+        <div class="card-body">
+
+            <input type="hidden" id="IdBaiViet" value="@ChiTiet.ID" />
+            <input type="hidden" id="txtMoTaNganhd" value="@ChiTiet.ShortDescription" />
+            <input type="hidden" id="txtNoiDunghd" value="@ChiTiet.PostContent" />
+            <input type="hidden" id="txtTuKhoaSeohd" value="@ChiTiet.TuKhoaSeo" />
+            <input type="hidden" id="txtMoTaSeohd" value="@ChiTiet.MoTaSeo" />
+            <input type="hidden" id="txtTieuDePhuhd" value="@ChiTiet.ShortThumnailContent" />
+            <input type="hidden" id="txtUrlBack" value="@ViewBag.Url" />
+            <input type="hidden" id="txtTacGia" value="@ChiTiet.TacGia" />
+
+            <div class="row">
+                <div class="panel" style="margin-top: 10px !important;">
+                    <div class="panel-body">
+                        <div style="padding: 10px;">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12  mb-3">
+                                    <div class="form-group">
+                                        <label>Tiêu đề<span class="text-danger">(*)</span></label>
+                                        <input type="text" class="form-control" placeholder="" id="txtTieuDeSua" value="@ChiTiet.Title">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12  mb-3">
+                                    <div class="form-group">
+                                        <label>Tiêu đề phụ</label>
+                                        <textarea maxlength="3000" rows="0" id="txtTieuDePhuSua" class="form-control resizable_textarea" style="overflow: hidden; overflow-wrap: break-word; height: 50px" aria-invalid="false"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12  mb-3">
+                                    <div class="form-group">
+                                        <label>Mô tả ngắn</label>
+                                        <textarea maxlength="3000" rows="0" id="txtMoTaSua" class="form-control resizable_textarea" style="overflow: hidden; overflow-wrap: break-word; height: 50px" aria-invalid="false"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-10 col-md-10 col-sm-12  mb-3">
+                                    <div class="form-group">
+                                        <label>Chuyên mục<span class="text-danger">(*)</span></label>
+                                        <select class="form-control" id="slChuyenMucChaSua" multiple>
+                                            @Html.Raw(ViewBag.optionSelected)
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12  mb-3">
+                                    <div class="form-group">
+                                        <label>Ngày phát hành<span class="text-danger">(*)</span></label>
+                                        <input type="text" class="form-control" placeholder="" id="txtNgayPhatHanhSua" value="@(ChiTiet.NgayPhatHanh!=null?((DateTime)ChiTiet.NgayPhatHanh).ToString("dd-MM-yyyy HH:mm"):"")">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-lg-4 col-md-4 col-sm-12  mb-3">
+                                    <div>
+                                        <label class="form-label">Ảnh đại diện</label>
+                                        <div id="dropzoneAnhDaiDienSua">
+                                            @if (!string.IsNullOrEmpty(ChiTiet.Thumnail))
+                                            {
+                                                <div><img style="object-fit: cover; object-position: 0px 0px; width: 100%;" src="@ChiTiet.Thumnail" /></div>
+                                            }
+                                            else
+                                            {
+                                                <div style="padding: 50px;">Kéo thả ảnh</div>
+                                            }
+                                            <input type="file" id="IdAnhDaiDienSua" data-typeFile="img|png|csv|jpg|jpeg" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-12  mb-3">
+                                    <div class="form-group">
+                                        <label>Tác giả</label>
+                                        <textarea maxlength="3000" rows="0" id="txtTacGiaSua" class="form-control resizable_textarea" style="overflow: hidden; overflow-wrap: break-word; height: 50px" aria-invalid="false"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12  mb-3">
+                                    <div class="form-group">
+                                        <label>Nội dung</label>
+                                        <textarea id="NoiDungSua"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12  mb-3">
+                                    <div class="form-group">
+                                        <label>Từ khoá seo</label>
+                                        <textarea id="txtTuKhoaSeoSua" maxlength="3000" rows="0" class="form-control resizable_textarea"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12  mb-3">
+                                    <div class="form-group">
+                                        <label>Mô tả seo</label>
+                                        <textarea id="txtMoTaSeoSua" maxlength="3000" rows="0" class="form-control resizable_textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="btn btn-outline-primary waves-effect waves-light" onclick="SuaLuu()"><i class="ri-save-line">Lưu</i>Lưu bài viết </a>
+            @if (ViewBag.IsAdmin == 1)
+            {
+                <a href="#" class="btn btn-outline-primary waves-effect waves-light" onclick="Duyet_DangLuu()"><i class="ri-save-line">Lưu</i>Duyệt - đăng bài viết </a>
+            }
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        $(function () {
+            $(document).on('mousemove', 'textarea', function (e) {
+                var a = $(this).offset().top + $(this).outerHeight() - 16,
+                    b = $(this).offset().left + $(this).outerWidth() - 16;
+                $(this).css({
+                    cursor: e.pageY > a && e.pageX > b ? 'nw-resize' : ''
+                });
+            }).on('keyup', 'textarea', function (e) {
+                while ($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))) {
+                    $(this).height($(this).height() + 1);
+                };
+            });
+        });
+
+        $("#slChuyenMucChaSua").select2()
+
+        $(document).ready(function () {
+            if ($("#AnhDaiDienSua").val() != '') {
+                $("#dropzoneAnhDaiDienSua").addClass("dropSua")
+            }
+        })
+
+        //CKEDITOR.document.getById('NoiDungSua');
+        CKEDITOR.replace("NoiDungSua");
+        CKEDITOR.replace("txtTacGiaSua",
+            {
+                height: '160px',
+            });
+
+        $("#txtNgayPhatHanhSua").flatpickr({
+            enableTime: true,
+            dateFormat: "d-m-Y H:i",
+        });
+        $("textarea#txtMoTaSua").html($("#txtMoTaNganhd").val());
+        $("textarea#txtTuKhoaSeoSua").html($("#txtTuKhoaSeohd").val());
+        $("textarea#txtMoTaSeoSua").html($("#txtMoTaSeohd").val());
+        $("textarea#txtTieuDePhuSua").html($("#txtTieuDePhuhd").val());
+        CKEDITOR.instances['NoiDungSua'].setData($("#txtNoiDunghd").val())
+        CKEDITOR.instances['txtTacGiaSua'].setData($("#txtTacGia").val())
+
+        var dropzoneAnhDaiDienSua = $("#dropzoneAnhDaiDienSua"),
+            inputAnhDaiDien = dropzoneAnhDaiDienSua.find('input');
+
+        dropzoneAnhDaiDienSua.on({
+            dragenter: draginAnhDaiDien,
+            dragleave: dragoutAnhDaiDien
+        });
+
+        inputAnhDaiDien.on('change', dropAnhDaiDien);
+
+        function draginAnhDaiDien(e) { //function for drag into element, just turns the bix X white
+            $(dropzoneAnhDaiDienSua).addClass('hover');
+        }
+
+        function dragoutAnhDaiDien(e) { //function for dragging out of element
+            $(dropzoneAnhDaiDienSua).removeClass('hover');
+        }
+
+        function dropAnhDaiDien(e) {
+            var file = this.files[0];
+
+            $('#dropzoneAnhDaiDienSua').removeClass('hover').addClass('dropped').find('img').remove();
+
+            var resultid = file.name.split(".");
+            var gettypeup = resultid[resultid.length - 1];
+            var tolovercase = gettypeup.toLowerCase();
+            var onlist = $($("#IdAnhDaiDienSua")).attr('data-typeFile').indexOf(tolovercase) > -1;
+            if (onlist == true) {
+                showfileAnhDaiDien(file);
+            }
+            else {
+                ToastMessage("Lỗi", "File ảnh không đúng định dạng", "error");
+                $('#dropzoneAnhDaiDienSua').removeClass('dropped');
+                return;
+            }
+
+            // upload file here
+
+        }
+
+        function showfileAnhDaiDien(file) {
+            debugger;
+            var reader = new FileReader(file);
+            reader.readAsDataURL(file);
+
+            formData = new FormData();
+            formData.append("file", file);
+
+
+            reader.onload = function (e) {
+                var img = new Image();
+                img.src = e.target.result;
+
+                img.decode().then(() => {
+                    var width = img.width;
+                    var height = img.height;
+                    $.ajax({
+                        url: "/Admin/Common/Upload",
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (res) {
+                            if (res.type == "success") {
+                                $("#AnhDaiDienSua").val(res.data);
+                            }
+                        },
+                    });
+                    $('#dropzoneAnhDaiDienSua div').css("padding", "0");
+                    $('#dropzoneAnhDaiDienSua div').html($('<img style="object-fit: cover;object-position: 0px 0px;width: 100%;" />').attr('src', e.target.result).fadeIn());
+                });
+
+            }
+        }
+        function SuaLuu() {
+
+            debugger
+            var lstIdChuyenMuc = $("#slChuyenMucChaSua").val();
+            var lstCM = [];
+            [...lstIdChuyenMuc].map((el, index) => {
+                lstCM.push(el);
+            })
+
+            if ($("#txtTieuDeSua").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống tiêu đề", "error");
+                return;
+            }
+            if ($("#txtNgayPhatHanhSua").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống ngày phát hành", "error");
+                return;
+            }
+            //if ($("#txtMoTaSua").val() == "") {
+            //    ToastMessage("Lỗi", "Không được để trống mô tả", "error");
+            //    return;
+            //}
+            if ($("#AnhDaiDienSua").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống ảnh đại diện", "error");
+                return;
+
+            }
+            if (lstCM.length == 0) {
+                ToastMessage("Lỗi", "Không được để trống chuyên mục", "error");
+                return;
+            }
+            if (CKEDITOR.instances.NoiDungSua.getData() == "") {
+                ToastMessage("Lỗi", "Không được để trống nội dung", "error");
+                return;
+            }
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn sửa bài viết?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        Title: $("#txtTieuDeSua").val(),
+                        ShortDescription: $("#txtMoTaSua").val(),
+                        NgayPhatHanh: moment($("#txtNgayPhatHanhSua").val(), "DD-MM-YYYY HH:mm").format('YYYY-MM-DD HH:mm'),
+                        Thumnail: $("#AnhDaiDienSua").val(),
+                        lstIdChuyenMuc: lstCM,
+                        TuKhoaSeo: $("#txtTuKhoaSeoSua").val(),
+                        MoTaSeo: $("#txtMoTaSeoSua").val(),
+                        PostContent: CKEDITOR.instances.NoiDungSua.getData(),
+                        IsActive: 0,
+                        ID: $("#IdBaiViet").val(),
+                        ShortThumnailContent: $("#txtTieuDePhuSua").val(),
+                        TacGia: CKEDITOR.instances.txtTacGiaSua.getData(),
+                    }
+
+                    $.post("/Admin/SoanBaiViet/CapNhat", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            Message('', data.message, data.icon);
+                            window.location.href = $("#txtUrlBack").val();
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        offLoading();
+                    });
+                }
+            })
+        }
+
+        function Duyet_DangLuu() {
+
+            debugger
+            var lstIdChuyenMuc = $("#slChuyenMucChaSua").val();
+            var lstCM = [];
+            [...lstIdChuyenMuc].map((el, index) => {
+                lstCM.push(el);
+            })
+
+            if ($("#txtTieuDeSua").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống tiêu đề", "error");
+                return;
+            }
+            if ($("#txtNgayPhatHanhSua").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống ngày phát hành", "error");
+                return;
+            }
+            //if ($("#txtMoTaSua").val() == "") {
+            //    ToastMessage("Lỗi", "Không được để trống mô tả", "error");
+            //    return;
+            //}
+            if ($("#AnhDaiDienSua").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống ảnh đại diện", "error");
+                return;
+
+            }
+            if (lstCM.length == 0) {
+                ToastMessage("Lỗi", "Không được để trống chuyên mục", "error");
+                return;
+            }
+            if (CKEDITOR.instances.NoiDungSua.getData() == "") {
+                ToastMessage("Lỗi", "Không được để trống nội dung", "error");
+                return;
+            }
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn duyệt, đăng bài viết?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        Title: $("#txtTieuDeSua").val(),
+                        ShortDescription: $("#txtMoTaSua").val(),
+                        NgayPhatHanh: moment($("#txtNgayPhatHanhSua").val(), "DD-MM-YYYY HH:mm").format('YYYY-MM-DD HH:mm'),
+                        Thumnail: $("#AnhDaiDienSua").val(),
+                        lstIdChuyenMuc: lstCM,
+                        TuKhoaSeo: $("#txtTuKhoaSeoSua").val(),
+                        MoTaSeo: $("#txtMoTaSeoSua").val(),
+                        PostContent: CKEDITOR.instances.NoiDungSua.getData(),
+                        IsActive: 0,
+                        ID: $("#IdBaiViet").val(),
+                        ShortThumnailContent: $("#txtTieuDePhuSua").val(),
+                        TacGia: $("#txtTacGiaSua").val().replace('\n', '<br>')
+                    }
+
+                    $.post("/Admin/SoanBaiViet/CapNhatAdmin", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            Message('', data.message, data.icon);
+                            window.location.href = $("#txtUrlBack").val();
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        offLoading();
+                    });
+                }
+            })
+        }
+    </script>
+}

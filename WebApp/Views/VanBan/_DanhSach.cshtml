@@ -1,0 +1,94 @@
+﻿@using Models;
+@{
+    ViewBag.Title = "_DanhSach";
+    Layout = null;
+    var responseVanBan = ViewBag.responseVanBan as List<tbl_VanBanModel>;
+    var DanhSachLoaiVanBan = ViewBag.DanhSachLoaiVanBan as List<tbl_LoaiVanBanModel>;
+}
+<style>
+    .table-nowrap td, .table-nowrap th {
+        white-space: normal;
+    }
+
+    .sty-DateTime {
+        width: 150px;
+        text-align: center;
+    }
+</style>
+@if (responseVanBan.Count > 0)
+{
+
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle table-nowrap mb-0">
+            <thead>
+                <tr>
+                    <th scope="col">Tiêu đề</th>
+                    <th scope="col" class="sty-DateTime">Ngày ban hành</th>
+                    <th scope="col">Nội dung</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var lstIdChuyenMuc = responseVanBan.Select(e => e.IdCategory).ToList();
+                    var lstLoaiVanBan = new List<tbl_LoaiVanBanModel>();
+                    if (lstIdChuyenMuc != null)
+                    {
+                        lstLoaiVanBan = DanhSachLoaiVanBan.Where(e => lstIdChuyenMuc.Contains(e.Id)).ToList();
+                    }
+                    if (lstLoaiVanBan.Count > 0)
+                    {
+                        foreach (var itemLoaiVB in lstLoaiVanBan)
+                        {
+                            <tr>
+                                <td colspan="3"><strong>@itemLoaiVB.Ten</strong></td>
+                            </tr>
+                            foreach (var item in responseVanBan.Where(e => e.IdCategory == itemLoaiVB.Id))
+                            {
+                                <tr>
+                                    <td class="fw-medium">@item.Title</td>
+                                    <td>@(item.NgayPhatHanh != null?((DateTime) item.NgayPhatHanh).ToString("dd-MM-yyyy") :"")</td>
+                                    <td>
+                                        <div class="wraptext-new-height text-wrap">@Html.Raw(item.Content)</div>
+                                        <p class="text-muted mb-0 mt-2"><a href="@item.File" class="btn btn-soft-info btn-sm"><i class="ri-download-2-line"></i>@MvcHtmlString.Create(HttpUtility.HtmlDecode(item.TenFile))</a></p>
+                                    </td>
+                                </tr>
+                                @*<div class="d-flex pb-2 pt-2 border-bottom-new">
+                                        <div class="flex-shrink-0">
+                                            <img src="@item.Image" alt="" class="rounded img-VanBan-duoi-banner">
+                                        </div>
+                                        <div class="flex-grow-1 ms-3 overflow-hidden">
+                                            @{
+                                                var UrlCT = "/" + Utils.convertToUnSign2(item.Title).Replace(" ", "_") + "_vb-" + item.ID + ".htm";
+                                            }
+                                            <a href="@UrlCT">
+                                                <h4>@item.Title</h4>
+                                            </a>
+                                            <p class="text-success fs-12 mb-0">@(item.CreatedDate!=null?((DateTime)item.CreatedDate).ToString("dd-MM-yyyy"):"")</p>
+                                            @{
+                                                var StrTenFile = "";
+                                                if (!string.IsNullOrEmpty(item.File))
+                                                {
+                                                    var lstFile = item.File.Split('/').ToList();
+                                                    StrTenFile = lstFile[lstFile.Count - 1];
+                                                    <p class="text-muted mb-0 mt-2"><a href="@item.File" class="btn btn-soft-info btn-sm"><i class="ri-download-2-line"></i> @StrTenFile</a></p>
+                                                }
+                                            }
+                                        </div>
+                                    </div>*@
+                            }
+                        }
+                    }
+                }
+
+
+
+
+
+            </tbody>
+        </table>
+    </div>
+
+}
+<div class="d-flex pb-3 pt-3">
+    @Html.Raw(ViewBag.HtmlPaging)
+</div>

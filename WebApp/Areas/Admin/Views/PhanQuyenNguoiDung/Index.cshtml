@@ -1,0 +1,248 @@
+﻿
+
+@{
+
+    var lstNguoiDung = ViewBag.lstNguoiDung;
+    var DanhSachChuyenMuc = ViewBag.DanhSachChuyenMuc;
+
+}
+
+<style>
+    .active-cus {
+        background-color: #dfe9ed
+    }
+</style>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Phân quyền người dùng</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Quản lý người dùng</a></li>
+                    <li class="breadcrumb-item active">Phân quyền người dùng</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12" id="card-none1">
+        <div class="card" id="invoiceList">
+            <div class="card-header border-0">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title mb-0 flex-grow-1">Danh sách người dùng</h5>
+                </div>
+            </div>
+            <div class="card-body bg-soft-light border border-dashed border-start-0 border-end-0">
+                <div class="row g-3">
+
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <select class="form-control" id="slNguoiDung" onchange="LoadRole()">
+                                    <option value="0">Chọn</option>
+                                    @if (lstNguoiDung != null)
+                                    {
+                                        foreach (var item in lstNguoiDung)
+                                        {
+                                            <option value="@item.ID">@(item.UserName + "_" + item.FullName)</option>
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle table-nowrap mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center">#</th>
+                                        <th scope="col">Tên quyền</th>
+                                        <th scope="col" class="text-center"><a class="btn btn-outline-primary waves-effect waves-light btn-xs" onclick="ThemMoi(0)" title="Cập nhật album"><i class="ri-add-line"></i></a></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="DataRole">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle table-nowrap mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center">#</th>
+                                        <th scope="col">Menu</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="DataRoleMenu">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModelThemMoi" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TitleModal"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="DataModelThemMoi">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="Luu(0)"><i class="ri-save-line">Lưu</i></button>
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="" id="RoleIdThemSua" />
+@section scripts {
+    <script>
+
+        $("#slNguoiDung").select2();
+        $(document).ready(function (data) {
+            LoadRole();
+        })
+        function ThemMoi(Id) {
+
+            if (Id > 0) {
+                $("#TitleModal").html("Cập nhật quyền");
+            }
+            else {
+                $("#TitleModal").html("Thêm mới quyền");
+            }
+
+            loading();
+            $("#DataModelThemMoi").load("/Admin/PhanQuyenNguoiDung/_ThemMoi", { "Id": Id }, function (data) {
+                $("#ModelThemMoi").modal("show");
+                offLoading();
+            })
+        }
+
+        function LoadRole() {
+            loading();
+            $("#DataRole").load("/Admin/PhanQuyenNguoiDung/_DanhSachQuyenTheoNguoiDung", { "IdUser": $("#slNguoiDung").val() }, function (data) {
+                offLoading();
+                LoadMenu(0)
+            })
+        }
+
+        function LoadMenu(IdRole) {
+            loading();
+            $(".RoleActive").removeClass("active-cus");
+            $("#RoleActive_" + IdRole).addClass("active-cus");
+            $("#DataRoleMenu").load("/Admin/PhanQuyenNguoiDung/_DanhSachMenuTheoQuyen", { "IdRole": IdRole }, function (data) {
+                offLoading();
+                $("#RoleIdThemSua").val(IdRole);
+            })
+        }
+
+        function ThemUserRole(Id) {
+
+            if ($("#slNguoiDung").val() == 0) {
+                ToastMessage("Lỗi", "Chưa chọn người dùng", "error");
+                return;
+            }
+
+            var requestModel = {
+                IdRole: Id,
+                IdUser: $("#slNguoiDung").val()
+            }
+
+            if ($("#Role_" + Id).is(":checked")) {
+                $.post("/Admin/PhanQuyenNguoiDung/ThemMoiUserRole", { "requestModel": requestModel }, function (data) {
+                    if (data.icon == "success") {
+                        ToastMessage("Thành công", data.message, "success");
+                    }
+                    else {
+                        ToastMessage("Lỗi", data.message, "error");
+                    }
+                    LoadRole();
+                    offLoading();
+                });
+            }
+            else {
+                $.post("/Admin/PhanQuyenNguoiDung/XoaUserRole", { "requestModel": requestModel }, function (data) {
+                    if (data.icon == "success") {
+                        ToastMessage("Thành công", data.message, "success");
+                    }
+                    else {
+                        ToastMessage("Lỗi", data.message, "error");
+                    }
+                    LoadRole();
+                    offLoading();
+                });
+            }
+        }
+
+        function ThemMenuRole(IdMenu) {
+
+            if ($("#RoleIdThemSua").val() == "") {
+                ToastMessage("Lỗi", "Chưa chọn quyền", "error");
+                return;
+            }
+
+            var requestModel = {
+                IdMenu: IdMenu,
+                IdRole: $("#RoleIdThemSua").val()
+            }
+
+            if ($("#Menu_" + IdMenu).is(":checked")) {
+                $.post("/Admin/PhanQuyenNguoiDung/ThemMoiMenuRole", { "requestModel": requestModel }, function (data) {
+                    if (data.icon == "success") {
+                        ToastMessage("Thành công", data.message, "success");
+                    }
+                    else {
+                        ToastMessage("Lỗi", data.message, "error");
+                    }
+                    offLoading();
+                });
+            }
+            else {
+                $.post("/Admin/PhanQuyenNguoiDung/XoaMenuRole", { "requestModel": requestModel }, function (data) {
+                    if (data.icon == "success") {
+                        ToastMessage("Thành công", data.message, "success");
+                    }
+                    else {
+                        ToastMessage("Lỗi", data.message, "error");
+                    }
+                    offLoading();
+                });
+            }
+        }
+
+        function Xoa(Id) {
+            var requestModel = {
+                Id: Id,
+            }
+
+            $.post("/Admin/PhanQuyenNguoiDung/Xoa", { "requestModel": requestModel }, function (data) {
+                if (data.icon == "success") {
+                    ToastMessage("Thành công", data.message, "success");
+                }
+                else {
+                    ToastMessage("Lỗi", data.message, "error");
+                }
+                LoadRole();
+                offLoading();
+            });
+        }
+
+    </script>
+}

@@ -1,0 +1,1883 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A4034E30-F42B-4AD1-8D6C-E6A6C4E971F4}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebApp</RootNamespace>
+    <AssemblyName>WebApp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <IISExpressSSLPort>44328</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=6.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.6.3.0\lib\netstandard2.0\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=6.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.6.0.0\lib\net472\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Core, Version=1.21.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Azure.Core.1.21.0\lib\net461\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CKFinder, Version=2.4.1.2663, Culture=neutral, PublicKeyToken=579e7adc719a1423, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Content\CMSContent\assets\libs\ckfinder\bin\Debug\CKFinder.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=5.8.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.8.0\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="IdentityModel, Version=4.6.0.0, Culture=neutral, PublicKeyToken=e7877f4675df049f, processorArchitecture=MSIL">
+      <HintPath>..\packages\IdentityModel.4.6.0\lib\net472\IdentityModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Graph, Version=4.16.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Graph.4.16.0\lib\net462\Microsoft.Graph.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Graph.Core, Version=2.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Graph.Core.2.0.7\lib\net462\Microsoft.Graph.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=4.42.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Identity.Client.4.42.0\lib\net461\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.15.0\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.15.0\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.6.15.0\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.6.15.0\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.15.0\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OpenIdConnect, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OpenIdConnect.4.2.0\lib\net45\Microsoft.Owin.Security.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.6.0.0\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.15.0\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=1.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.Data.1.0.2\lib\net461\System.Memory.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.6.0.1\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Thinktecture.IdentityModel.Client.Net45, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Thinktecture.IdentityModel.Client.4.0.1\lib\net45\Thinktecture.IdentityModel.Client.Net45.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LogHTController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Controllers\AuthenController.cs" />
+    <Compile Include="Controllers\LogInController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Constants.cs" />
+    <Compile Include="Util\ServiceProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CMSContent\assets\css\app.min.css" />
+    <Content Include="Content\CMSContent\assets\css\bootstrap.min.css" />
+    <Content Include="Content\CMSContent\assets\css\custom.min.css" />
+    <Content Include="Content\CMSContent\assets\css\icons.min.css" />
+    <Content Include="Content\CMSContent\assets\fonts\boxicons.eot" />
+    <Content Include="Content\CMSContent\assets\fonts\boxicons.html" />
+    <Content Include="Content\CMSContent\assets\fonts\boxicons.ttf" />
+    <Content Include="Content\CMSContent\assets\fonts\boxicons.woff" />
+    <Content Include="Content\CMSContent\assets\fonts\boxiconsd41d.svg" />
+    <Content Include="Content\CMSContent\assets\fonts\la-brands-400.eot" />
+    <Content Include="Content\CMSContent\assets\fonts\la-brands-400.html" />
+    <Content Include="Content\CMSContent\assets\fonts\la-brands-400.svg" />
+    <Content Include="Content\CMSContent\assets\fonts\la-brands-400.ttf" />
+    <Content Include="Content\CMSContent\assets\fonts\la-brands-400.woff" />
+    <Content Include="Content\CMSContent\assets\fonts\la-brands-400d41d.eot" />
+    <Content Include="Content\CMSContent\assets\fonts\la-regular-400.eot" />
+    <Content Include="Content\CMSContent\assets\fonts\la-regular-400.html" />
+    <Content Include="Content\CMSContent\assets\fonts\la-regular-400.svg" />
+    <Content Include="Content\CMSContent\assets\fonts\la-regular-400.ttf" />
+    <Content Include="Content\CMSContent\assets\fonts\la-regular-400.woff" />
+    <Content Include="Content\CMSContent\assets\fonts\la-regular-400d41d.eot" />
+    <Content Include="Content\CMSContent\assets\fonts\la-solid-900.eot" />
+    <Content Include="Content\CMSContent\assets\fonts\la-solid-900.html" />
+    <Content Include="Content\CMSContent\assets\fonts\la-solid-900.svg" />
+    <Content Include="Content\CMSContent\assets\fonts\la-solid-900.ttf" />
+    <Content Include="Content\CMSContent\assets\fonts\la-solid-900.woff" />
+    <Content Include="Content\CMSContent\assets\fonts\la-solid-900d41d.eot" />
+    <Content Include="Content\CMSContent\assets\fonts\materialdesignicons-webfont1d2d.eot" />
+    <Content Include="Content\CMSContent\assets\fonts\materialdesignicons-webfont1d2d.html" />
+    <Content Include="Content\CMSContent\assets\fonts\materialdesignicons-webfont1d2d.ttf" />
+    <Content Include="Content\CMSContent\assets\fonts\materialdesignicons-webfont1d2d.woff" />
+    <Content Include="Content\CMSContent\assets\fonts\materialdesignicons-webfontd41d.eot" />
+    <Content Include="Content\CMSContent\assets\fonts\remixicondf6d.eot" />
+    <Content Include="Content\CMSContent\assets\fonts\remixicondf6d.html" />
+    <Content Include="Content\CMSContent\assets\fonts\remixicondf6d.svg" />
+    <Content Include="Content\CMSContent\assets\fonts\remixicondf6d.ttf" />
+    <Content Include="Content\CMSContent\assets\fonts\remixicondf6d.woff" />
+    <Content Include="Content\CMSContent\assets\images\auth-offline.gif" />
+    <Content Include="Content\CMSContent\assets\images\auth-one-bg.jpg" />
+    <Content Include="Content\CMSContent\assets\images\banner3.png" />
+    <Content Include="Content\CMSContent\assets\images\brands\bitbucket.png" />
+    <Content Include="Content\CMSContent\assets\images\brands\dribbble.png" />
+    <Content Include="Content\CMSContent\assets\images\brands\dropbox.png" />
+    <Content Include="Content\CMSContent\assets\images\brands\github.png" />
+    <Content Include="Content\CMSContent\assets\images\brands\mail_chimp.png" />
+    <Content Include="Content\CMSContent\assets\images\brands\slack.png" />
+    <Content Include="Content\CMSContent\assets\images\clients\amazon.svg" />
+    <Content Include="Content\CMSContent\assets\images\clients\lenovo.svg" />
+    <Content Include="Content\CMSContent\assets\images\clients\paypal.svg" />
+    <Content Include="Content\CMSContent\assets\images\clients\shopify.svg" />
+    <Content Include="Content\CMSContent\assets\images\clients\verizon.svg" />
+    <Content Include="Content\CMSContent\assets\images\clients\walmart.svg" />
+    <Content Include="Content\CMSContent\assets\images\comingsoon.png" />
+    <Content Include="Content\CMSContent\assets\images\companies\img-1.png" />
+    <Content Include="Content\CMSContent\assets\images\companies\img-2.png" />
+    <Content Include="Content\CMSContent\assets\images\companies\img-3.png" />
+    <Content Include="Content\CMSContent\assets\images\companies\img-4.png" />
+    <Content Include="Content\CMSContent\assets\images\companies\img-5.png" />
+    <Content Include="Content\CMSContent\assets\images\companies\img-6.png" />
+    <Content Include="Content\CMSContent\assets\images\companies\img-7.png" />
+    <Content Include="Content\CMSContent\assets\images\companies\img-8.png" />
+    <Content Include="Content\CMSContent\assets\images\demos\creative.png" />
+    <Content Include="Content\CMSContent\assets\images\demos\default.png" />
+    <Content Include="Content\CMSContent\assets\images\demos\interactive.png" />
+    <Content Include="Content\CMSContent\assets\images\demos\material.png" />
+    <Content Include="Content\CMSContent\assets\images\demos\minimal.png" />
+    <Content Include="Content\CMSContent\assets\images\demos\modern.png" />
+    <Content Include="Content\CMSContent\assets\images\demos\saas.png" />
+    <Content Include="Content\CMSContent\assets\images\error.svg" />
+    <Content Include="Content\CMSContent\assets\images\error400-cover.png" />
+    <Content Include="Content\CMSContent\assets\images\error500.png" />
+    <Content Include="Content\CMSContent\assets\images\faq-img.png" />
+    <Content Include="Content\CMSContent\assets\images\favicon.ico" />
+    <Content Include="Content\CMSContent\assets\images\flags\china.svg" />
+    <Content Include="Content\CMSContent\assets\images\flags\french.svg" />
+    <Content Include="Content\CMSContent\assets\images\flags\germany.svg" />
+    <Content Include="Content\CMSContent\assets\images\flags\italy.svg" />
+    <Content Include="Content\CMSContent\assets\images\flags\russia.svg" />
+    <Content Include="Content\CMSContent\assets\images\flags\spain.svg" />
+    <Content Include="Content\CMSContent\assets\images\flags\us.svg" />
+    <Content Include="Content\CMSContent\assets\images\giftbox.png" />
+    <Content Include="Content\CMSContent\assets\images\illustrator-1.png" />
+    <Content Include="Content\CMSContent\assets\images\landing\features\img-1.png" />
+    <Content Include="Content\CMSContent\assets\images\landing\features\img-2.png" />
+    <Content Include="Content\CMSContent\assets\images\landing\features\img-3.png" />
+    <Content Include="Content\CMSContent\assets\images\landing\img-pattern.png" />
+    <Content Include="Content\CMSContent\assets\images\landing\process-arrow-img.png" />
+    <Content Include="Content\CMSContent\assets\images\logo-dark.png" />
+    <Content Include="Content\CMSContent\assets\images\logo-light.png" />
+    <Content Include="Content\CMSContent\assets\images\logo-sm.png" />
+    <Content Include="Content\CMSContent\assets\images\mac-img.png" />
+    <Content Include="Content\CMSContent\assets\images\maintenance.png" />
+    <Content Include="Content\CMSContent\assets\images\modals\login.png" />
+    <Content Include="Content\CMSContent\assets\images\modals\signup.png" />
+    <Content Include="Content\CMSContent\assets\images\modals\subscribe.png" />
+    <Content Include="Content\CMSContent\assets\images\modals\success-payment.png" />
+    <Content Include="Content\CMSContent\assets\images\products\img-1.png" />
+    <Content Include="Content\CMSContent\assets\images\products\img-10.png" />
+    <Content Include="Content\CMSContent\assets\images\products\img-2.png" />
+    <Content Include="Content\CMSContent\assets\images\products\img-3.png" />
+    <Content Include="Content\CMSContent\assets\images\products\img-4.png" />
+    <Content Include="Content\CMSContent\assets\images\products\img-5.png" />
+    <Content Include="Content\CMSContent\assets\images\products\img-6.png" />
+    <Content Include="Content\CMSContent\assets\images\products\img-7.png" />
+    <Content Include="Content\CMSContent\assets\images\products\img-8.png" />
+    <Content Include="Content\CMSContent\assets\images\profile-bg.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-1.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-10.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-11.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-12.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-2.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-3.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-4.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-5.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-6.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-7.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-8.jpg" />
+    <Content Include="Content\CMSContent\assets\images\small\img-9.jpg" />
+    <Content Include="Content\CMSContent\assets\images\svg\bell.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\aave.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\ada.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\add.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\ant.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\ark.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\arn.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\atm.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\bcbc.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\bela.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\bix.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\bnb.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\btc.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\cs.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\dash.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\doge.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\dot.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\etc.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\eth.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\eur.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\fil.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\gbp.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\jpy.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\ltc.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\mkr.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\mln.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\neo.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\ppt.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\rise.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\sol.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\usdt.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\vtc.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\xmr.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\xpm.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\xrp.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\xsg.svg" />
+    <Content Include="Content\CMSContent\assets\images\svg\crypto-icons\yfi.svg" />
+    <Content Include="Content\CMSContent\assets\images\sweetalert2\email-verify.png" />
+    <Content Include="Content\CMSContent\assets\images\sweetalert2\error-message.png" />
+    <Content Include="Content\CMSContent\assets\images\sweetalert2\join-community.png" />
+    <Content Include="Content\CMSContent\assets\images\sweetalert2\notification-message.png" />
+    <Content Include="Content\CMSContent\assets\images\sweetalert2\success-message.png" />
+    <Content Include="Content\CMSContent\assets\images\sweetalert2\warning-message.png" />
+    <Content Include="Content\CMSContent\assets\images\user-illustarator-1.png" />
+    <Content Include="Content\CMSContent\assets\images\user-illustarator-2.png" />
+    <Content Include="Content\CMSContent\assets\images\users\avatar-1.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\avatar-10.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\avatar-2.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\avatar-3.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\avatar-4.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\avatar-5.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\avatar-6.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\avatar-7.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\avatar-8.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\avatar-9.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\multi-user.jpg" />
+    <Content Include="Content\CMSContent\assets\images\users\user-dummy-img.jpg" />
+    <Content Include="Content\CMSContent\assets\images\verification-img.png" />
+    <Content Include="Content\CMSContent\assets\js\app-init.js" />
+    <Content Include="Content\CMSContent\assets\js\app.js" />
+    <Content Include="Content\CMSContent\assets\js\base.js" />
+    <Content Include="Content\CMSContent\assets\js\layout.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\animation-aos.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-area.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-bar.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-boxplot.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-bubble.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-candlestick.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-column.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-heatmap.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-line.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-mixed.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-pie.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-polararea.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-radar.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-radialbar.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-scatter.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-timeline.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\apexcharts-treemap.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\calendar.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\card.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\chartjs.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\chat.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\coming-soon.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\crm-companies.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\crm-contact.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\crm-deals.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\crm-leads.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\crypto-buy-sell.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\crypto-kyc.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\crypto-orders.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\crypto-transactions.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\crypto-wallet.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\dashboard-analytics.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\dashboard-crm.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\dashboard-crypto.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\dashboard-ecommerce.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\dashboard-projects.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\echarts.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\ecommerce-cart.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\ecommerce-customer-list.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\ecommerce-order.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\ecommerce-product-checkout.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\ecommerce-product-create.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\ecommerce-product-details.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\ecommerce-product-list.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\form-advanced.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\form-editor.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\form-file-upload.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\form-input-spin.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\form-masks.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\form-pickers.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\form-validation.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\form-wizard.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\gallery.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\gmaps.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\gridjs.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\invoicecreate.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\invoicedetails.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\invoiceslist.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\landing.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\leaflet-map.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\leaflet-us-states.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\listjs.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\mailbox.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\materialdesign.list.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\modal.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\nestable.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\notifications.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\particles.app.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\passowrd-create.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\password-addon.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\plugins\lord-icon-2.1.0.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\pricing.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\profile-setting.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\profile.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\project-create.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\project-list.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\project-overview.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\range-sliders.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\rating.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\remix-icons-listing.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\search-result.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\seller-details.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\sellers.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\sweetalerts.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\swiper.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\tasks-kanban.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\tasks-list.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\team.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\ticketdetail.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\ticketlist.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\timeline.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\tour.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\two-step-verification.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\vector-maps.init.js" />
+    <Content Include="Content\CMSContent\assets\js\pages\widgets.init.js" />
+    <Content Include="Content\CMSContent\assets\js\plugins.js" />
+    <Content Include="Content\CMSContent\assets\libs\%40ckeditor\ckeditor5-build-classic\build\ckeditor.js" />
+    <Content Include="Content\CMSContent\assets\libs\%40simonwep\pickr\pickr.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\%40simonwep\pickr\themes\classic.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\%40simonwep\pickr\themes\monolith.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\%40simonwep\pickr\themes\nano.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\%40tarekraafat\autocomplete.js\autoComplete.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\%40tarekraafat\autocomplete.js\css\autoComplete.css" />
+    <Content Include="Content\CMSContent\assets\libs\%40tarekraafat\autocomplete.js\css\images\search.svg" />
+    <Content Include="Content\CMSContent\assets\libs\aos\aos.css" />
+    <Content Include="Content\CMSContent\assets\libs\aos\aos.js" />
+    <Content Include="Content\CMSContent\assets\libs\apexcharts\apexcharts.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\chart.js\chart.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\adapters\jquery.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\build-config.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\ckeditor.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\config.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\contents.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\af.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\ar.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\az.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\bg.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\bn.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\bs.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\ca.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\cs.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\cy.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\da.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\de-ch.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\de.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\el.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\en-au.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\en-ca.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\en-gb.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\en.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\eo.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\es.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\et.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\eu.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\fa.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\fi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\fo.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\fr-ca.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\fr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\gl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\gu.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\he.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\hi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\hr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\hu.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\id.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\is.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\it.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\ja.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\ka.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\km.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\ko.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\ku.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\lt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\lv.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\mk.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\mn.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\ms.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\nb.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\nl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\no.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\oc.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\pl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\pt-br.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\pt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\ro.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\ru.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\si.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\sk.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\sl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\sq.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\sr-latn.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\sr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\sv.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\th.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\tr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\tt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\ug.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\uk.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\vi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\zh-cn.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\lang\zh.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\az.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\de-ch.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\eu.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\fo.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\oc.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\tt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\collapsibleItem\doc\images\ckeditor-collapsible-item-editor-view.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\collapsibleItem\doc\images\frontend-collapsible-item-collapsed.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\collapsibleItem\doc\images\frontend-collapsible-item-expanded.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\collapsibleItem\icons\collapsibleitem.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\collapsibleItem\icons\hidpi\collapsibleitem.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\collapsibleItem\plugin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\ckeditorfa\css\ckeditorfa.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\ckeditorfa\dialogs\ckeditorfa.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\ckeditorfa\icons\ckeditorfa.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\ckeditorfa\plugin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\colordialog\dialogs\colordialog.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\copyformatting\cursors\cursor-disabled.svg" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\copyformatting\cursors\cursor.svg" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\copyformatting\styles\copyformatting.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\find\dialogs\find.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\flash\dialogs\flash.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\flash\images\placeholder.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\forms\dialogs\button.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\forms\dialogs\checkbox.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\forms\dialogs\form.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\forms\dialogs\hiddenfield.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\forms\dialogs\radio.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\forms\dialogs\select.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\forms\dialogs\textarea.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\forms\dialogs\textfield.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\icons.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\iframe\images\placeholder.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\lang\ar.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\lang\de.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\lang\en.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\lang\es.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\lang\fr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\lang\ko.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\lang\LANG.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\lang\pt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\plugin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\readme.txt" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\liststyle\dialogs\liststyle.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\magicline\images\hidpi\icon-rtl.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\magicline\images\icon-rtl.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\preview\preview.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\pre\dialogs\pre.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\pre\icons\pre.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\pre\lang\en.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\pre\lang\ru.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\pre\plugin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\pre\widget\plugin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_address.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_blockquote.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_div.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_h1.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_h2.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_h3.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_h4.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_h5.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_h6.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_p.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\showblocks\images\block_pre.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\angel_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\angry_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\broken_heart.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\confused_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\cry_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\devil_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\embarrassed_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\embarrassed_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\envelope.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\heart.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\heart.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\kiss.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\lightbulb.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\omg_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\regular_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\sad_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\shades_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\teeth_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\thumbs_down.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\thumbs_up.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\tongue_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\tongue_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\smiley\images\wink_smile.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\af.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\az.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\da.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\de-ch.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\eu.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\ko.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\lt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\oc.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\tt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\templates\dialogs\templates.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\templates\dialogs\templates.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\templates\templates\default.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\templates\templates\images\template1.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\templates\templates\images\template2.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\templates\templates\images\template3.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\wsc\skins\moono-lisa\wsc.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\youtube\images\icon.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\youtube\lang\en.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\youtube\lang\ja.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\youtube\lang\pt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\youtube\plugin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\css\samples.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\img\github-top.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\img\header-bg.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\img\header-separator.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\img\logo.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\img\navigation-tip.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\index.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\js\sample.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\js\sf.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\ajax.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\api.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\appendto.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\assets\inlineall\logo.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\assets\posteddata.php" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\assets\sample.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\assets\uilanguages\languages.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\datafiltering.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\dialog\assets\my_dialog.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\dialog\dialog.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\divreplace.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\enterkey\enterkey.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.swf" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\htmlwriter\assets\outputforflash\swfobject.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\htmlwriter\outputforflash.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\htmlwriter\outputhtml.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\index.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\inlineall.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\inlinebycode.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\inlinetextarea.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\jquery.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\magicline\magicline.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\readonly.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\replacebyclass.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\replacebycode.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\sample.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\sample.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\sample_posteddata.php" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\tabindex.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\toolbar\toolbar.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\uicolor.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\uilanguages.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\wysiwygarea\fullpage.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\xhtmlstyle.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\css\fontello.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\font\fontello.svg" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\font\LICENSE.txt" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\index.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\js\abstracttoolbarmodifier.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\js\fulltoolbareditor.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\js\toolbarmodifier.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\js\toolbartextmodifier.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\lib\codemirror\javascript.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\lib\codemirror\neo.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\dialog.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\dialog_ie.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\dialog_ie8.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\dialog_iequirks.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\editor.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\editor_gecko.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\editor_ie.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\editor_ie8.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\editor_iequirks.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\icons.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\icons_hidpi.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\images\arrow.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\images\close.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\images\hidpi\close.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\images\hidpi\lock-open.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\images\hidpi\lock.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\images\hidpi\refresh.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\images\lock-open.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\images\lock.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\images\refresh.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\images\spinner.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\styles.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\bin\Debug\CKFinder.dll" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\bin\Release\CKFinder.dll" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\changelog.txt" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\ckfinder.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\ckfinder.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\ckfinder_v1.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\config.ascx" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\config.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\connector.aspx" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\55.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\awesome-solitude-bess-hamiti.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\Convex_lens_%28magnifying_glass%29_and_upside-down_image%281%29.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\eb3634e0-a300-4785-b578-70aeb7b0da82taichinhktx.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\gettyimages-160179168-612x612.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\hoc-vien\hoai.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\hoc-vien\mi-hanh.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\img_forest.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\istockphoto-1324479880-612x612.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\istockphoto-481045024-612x612.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\istockphoto-525833203-612x612.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\lone-tree-standing-on-a-hillside-under-the-rising-sun-artpics.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\nature-image-for-website%281%29.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\pexels-anjana-c-674010.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\taichinhktx.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\tree-736885__480.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\Images\Untitled-1 %281%29.jpg" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\bg.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\ca.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\cs.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\cy.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\da.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\de.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\el.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\en.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\eo.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\es-mx.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\es.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\et.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\fa.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\fi.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\fr.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\gu.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\he.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\hi.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\hr.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\hu.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\it.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\ja.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\lt.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\lv.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\nb.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\nl.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\nn.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\no.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\pl.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\pt-br.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\ro.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\ru.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\sk.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\sl.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\sr.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\sv.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\tr.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\vi.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\zh-cn.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\core\connector\aspx\lang\zh-tw.xml" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\001.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\002.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\003.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\004.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\005.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\006.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\007.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\008.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\009.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\010.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\011.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\012.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\013.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\014.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\015.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\header.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\license.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\suggestions.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\files\toc.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\cs\index.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\001.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\002.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\003.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\004.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\005.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\006.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\007.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\008.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\009.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\010.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\011.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\012.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\013.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\014.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\015.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\header.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\license.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\suggestions.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\files\toc.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\en\index.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\001.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\002.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\003.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\004.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\005.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\006.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\007.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\008.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\009.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\010.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\011.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\012.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\013.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\header.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\001.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\002.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\003.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\004.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\005.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\006.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\007.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\008.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\009.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\010.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\011.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\012.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\013.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\014.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\015.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\016.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\017.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\018.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\019.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\images\020.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\license.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\suggestions.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\files\toc.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es-mx\index.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\001.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\002.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\003.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\004.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\005.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\006.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\007.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\008.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\009.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\010.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\011.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\012.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\013.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\header.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\001.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\002.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\003.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\004.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\005.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\006.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\007.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\008.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\009.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\010.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\011.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\012.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\013.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\014.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\015.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\016.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\017.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\018.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\019.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\images\020.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\license.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\suggestions.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\files\toc.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\es\index.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\002.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\003.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_basket_clear.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_basket_drag.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_basket_empty.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_basket_file_menu.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_basket_remove.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_already_exists.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_copied.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_delete.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_display_01.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_display_02.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_display_03.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_display_04.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_drag_copy.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_drag_move.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_menu.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_moved.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_pane.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_rename.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_resize.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_resize_both.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_resize_new.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_resize_overwrite.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_resize_resized.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_resize_thumbnails.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_select_hovered.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_select_selected.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_select_unselected.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_view_list.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_file_view_thumbnails.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_collapse.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_copied_from_basket.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_delete.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_expand.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_loading.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_menu.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_moved_from_basket.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_new.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_pane.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_rename.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_folder_select.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_interface.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_menu_arrow.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_menu_arrows.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_resize_lock.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_resize_reset.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_resize_unlock.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_settings.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_status_empty.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_status_file.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_status_folder.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_toolbar.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_toolbar_help.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_toolbar_refresh.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_upload_01.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_upload_03.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_upload_04.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_upload_09.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\images\CKFinder_upload_10.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\other\help.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\files\other\help.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\001.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\002.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\003.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\004.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\005.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\006.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\007.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\008.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\009.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\010.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\011.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\012.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\013.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\header.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\001.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\002.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\003.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\004.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\005.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\006.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\007.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\008.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\009.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\010.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\011.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\012.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\013.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\014.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\015.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\016.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\017.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\018.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\019.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\images\020.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\license.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\suggestions.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\files\toc.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\fi\index.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\001.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\002.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\003.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\004.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\005.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\006.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\007.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\008.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\009.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\010.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\011.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\012.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\013.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\header.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\001.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\002.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\003.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\004.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\005.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\006.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\007.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\008.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\009.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\010.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\011.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\012.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\013.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\014.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\015.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\016.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\017.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\018.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\019.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\images\020.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\license.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\suggestions.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\files\toc.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\lt\index.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\001.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\002.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\003.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\004.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\005.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\006.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\007.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\008.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\009.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\010.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\011.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\012.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\013.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\014.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\015.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\header.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\license.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\suggestions.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\files\toc.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\help\pl\index.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\bg.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\ca.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\cs.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\cy.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\da.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\de.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\el.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\en.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\eo.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\es-mx.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\es.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\et.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\fa.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\fi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\fr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\gu.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\he.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\hi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\hr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\hu.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\it.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\ja.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\lt.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\lv.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\nb.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\nl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\nn.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\no.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\pl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\pt-br.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\ro.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\ru.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\sk.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\sl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\sr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\sv.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\tr.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\vi.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\zh-cn.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\zh-tw.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\lang\_translationstatus.txt" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\dummy\lang\en.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\dummy\lang\pl.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\dummy\plugin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\fileeditor\codemirror\lib\codemirror.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\fileeditor\codemirror\lib\codemirror.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\fileeditor\codemirror\mode\clike\clike.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\fileeditor\codemirror\mode\css\css.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\fileeditor\codemirror\mode\htmlmixed\htmlmixed.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\fileeditor\codemirror\mode\javascript\javascript.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\fileeditor\codemirror\mode\xml\xml.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\fileeditor\plugin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\flashupload\flash\Uploader.swf" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\flashupload\Uploader.html" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\colorbox.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\border.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\controls.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\ie6\borderBottomCenter.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\ie6\borderBottomLeft.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\ie6\borderBottomRight.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\ie6\borderMiddleLeft.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\ie6\borderMiddleRight.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\ie6\borderTopCenter.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\ie6\borderTopLeft.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\ie6\borderTopRight.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\loading.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\loading_background.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\images\overlay.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\jquery.colorbox-min.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\jquery.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\gallery\colorbox\license.txt" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\imageresize\images\mini.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\imageresize\plugin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\plugins\watermark\logo.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\app.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\host.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\ckffolder.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\ckffolderopened.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\ckfminus.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\ckfnothumb.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\ckfplus.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\ai.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\avi.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\bmp.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\cs.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\default.icon.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\dll.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\doc.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\docx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\exe.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\fla.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\gif.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\jpg.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\js.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\mdb.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\mp3.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\ogg.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\pdf.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\ppt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\pptx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\rdp.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\swf.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\swt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\txt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\vsd.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\xls.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\xlsx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\xml.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\16\zip.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\ai.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\avi.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\bmp.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\cs.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\default.icon.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\dll.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\doc.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\docx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\exe.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\fla.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\gif.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\jpg.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\js.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\mdb.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\mp3.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\ogg.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\ogg.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\pdf.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\ppt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\pptx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\rdp.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\swf.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\swt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\txt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\vsd.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\xls.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\xlsx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\xml.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\icons\32\zip.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\loaders\16x16.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\loaders\32x32.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\spacer.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\sprites.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\sprites_ie6.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\toolbar\add.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\toolbar\clear_basket.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\toolbar\delete.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\toolbar\download.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\toolbar\help.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\toolbar\maximize.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\toolbar\refresh.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\toolbar\settings.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\images\toolbar\view.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\richcombo.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\skin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\kama\uipanel.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\app.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\host.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\ckffolder.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\ckffolderopened.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\ckfminus.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\ckfnothumb.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\ckfplus.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\dialog_sides.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\dialog_sides.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\dialog_sides_rtl.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\ai.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\avi.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\bmp.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\cs.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\default.icon.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\dll.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\doc.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\docx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\exe.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\fla.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\gif.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\jpg.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\js.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\mdb.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\mp3.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\pdf.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\ppt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\pptx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\rdp.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\swf.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\swt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\txt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\vsd.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\xls.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\xlsx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\xml.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\16\zip.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\ai.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\avi.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\bmp.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\cs.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\default.icon.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\dll.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\doc.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\docx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\exe.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\fla.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\gif.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\jpg.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\js.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\mdb.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\mp3.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\pdf.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\ppt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\pptx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\rdp.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\swf.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\swt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\txt.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\vsd.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\xls.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\xlsx.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\xml.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\icons\32\zip.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\loaders\16x16.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\loaders\32x32.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\spacer.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\sprites.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\sprites_ie6.png" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\toolbar\add.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\toolbar\clear_basket.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\toolbar\delete.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\toolbar\download.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\toolbar\help.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\toolbar\maximize.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\toolbar\refresh.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\toolbar\settings.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\toolbar\view.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\images\toolbar_start.gif" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\richcombo.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\skin.js" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\skins\v1\uipanel.css" />
+    <Content Include="Content\CMSContent\assets\libs\ckfinder\userfiles\.htaccess" />
+    <Content Include="Content\CMSContent\assets\libs\cleave.js\cleave.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\dom-autoscroller\dom-autoscroller.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\dragula\dragula.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\dragula\dragula.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\dropzone\dropzone-min.js" />
+    <Content Include="Content\CMSContent\assets\libs\dropzone\dropzone.css" />
+    <Content Include="Content\CMSContent\assets\libs\echarts\echarts.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\feather-icons\feather.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\fg-emoji-picker\fgEmojiPicker.js" />
+    <Content Include="Content\CMSContent\assets\libs\filepond-plugin-file-encode\filepond-plugin-file-encode.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\filepond-plugin-file-validate-size\filepond-plugin-file-validate-size.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\filepond-plugin-image-exif-orientation\filepond-plugin-image-exif-orientation.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\filepond-plugin-image-preview\filepond-plugin-image-preview.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\filepond-plugin-image-preview\filepond-plugin-image-preview.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\filepond\filepond.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\filepond\filepond.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\fullcalendar\main.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\fullcalendar\main.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\glightbox\css\glightbox.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\glightbox\js\glightbox.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\gmaps\gmaps.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\gridjs\gridjs.umd.js" />
+    <Content Include="Content\CMSContent\assets\libs\gridjs\theme\mermaid.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\isotope-layout\isotope.pkgd.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\jsvectormap\css\jsvectormap.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\jsvectormap\js\jsvectormap.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\jsvectormap\maps\canada.js" />
+    <Content Include="Content\CMSContent\assets\libs\jsvectormap\maps\russia.js" />
+    <Content Include="Content\CMSContent\assets\libs\jsvectormap\maps\spain.js" />
+    <Content Include="Content\CMSContent\assets\libs\jsvectormap\maps\us-merc-en.js" />
+    <Content Include="Content\CMSContent\assets\libs\jsvectormap\maps\world-merc.js" />
+    <Content Include="Content\CMSContent\assets\libs\leaflet\images\layers-2x.png" />
+    <Content Include="Content\CMSContent\assets\libs\leaflet\images\layers.png" />
+    <Content Include="Content\CMSContent\assets\libs\leaflet\images\marker-icon.png" />
+    <Content Include="Content\CMSContent\assets\libs\leaflet\leaflet.css" />
+    <Content Include="Content\CMSContent\assets\libs\leaflet\leaflet.js" />
+    <Content Include="Content\CMSContent\assets\libs\list.js\list.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\list.pagination.js\list.pagination.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\masonry-layout\masonry.pkgd.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\moment\min\moment.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\moment\moment.js" />
+    <Content Include="Content\CMSContent\assets\libs\multi.js\multi.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\multi.js\multi.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\node-waves\waves.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\nouislider\nouislider.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\nouislider\nouislider.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\particles.js\particles.js" />
+    <Content Include="Content\CMSContent\assets\libs\prismjs\prism.js" />
+    <Content Include="Content\CMSContent\assets\libs\quill\quill.bubble.css" />
+    <Content Include="Content\CMSContent\assets\libs\quill\quill.core.css" />
+    <Content Include="Content\CMSContent\assets\libs\quill\quill.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\quill\quill.snow.css" />
+    <Content Include="Content\CMSContent\assets\libs\rater-js\index.js" />
+    <Content Include="Content\CMSContent\assets\libs\shepherd.js\css\shepherd.css" />
+    <Content Include="Content\CMSContent\assets\libs\shepherd.js\js\shepherd.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\simplebar\simplebar.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\sortablejs\Sortable.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\sweetalert2\sweetalert2.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\sweetalert2\sweetalert2.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\swiper\swiper-bundle.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\swiper\swiper-bundle.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\wnumb\wNumb.min.js" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\css\fixedHeader.dataTables.min.css" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\css\jquery.dataTables.min.css" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\images\sort_asc.png" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\images\sort_asc_disabled.png" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\images\sort_both.png" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\images\sort_desc.png" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\images\sort_desc_disabled.png" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\js\dataTables.fixedColumns.min.js" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\js\dataTables.fixedHeader.min.js" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\js\dataTables.rowsGroup.js" />
+    <Content Include="Content\CMSContent\assets\plugins\datatables\js\jquery.dataTables.min.js" />
+    <Content Include="Content\ControllerCss\CustomAdmin.css" />
+    <Content Include="Content\ControllerCss\Custommer.css" />
+    <Content Include="Content\ControllerCss\HomeProduct.css" />
+    <Content Include="Content\ControllerCss\Home.css" />
+    <Content Include="Content\ControllerCss\HomePage.css" />
+    <Content Include="Content\CustomCss.css" />
+    <Content Include="Content\Image\Banner\author-default.png" />
+    <Content Include="Content\Image\Banner\banner3.png" />
+    <Content Include="Content\Image\Banner\IconTitle.png" />
+    <Content Include="Content\Image\Banner\images.png" />
+    <Content Include="Content\Image\Banner\quote.png" />
+    <Content Include="Content\Image\Banner\Rectangle 263.png" />
+    <Content Include="Content\Image\Banner\z3958093108176_83f2486555e47b241b542d6a66fb13d1.jpg" />
+    <Content Include="Content\Image\Banner\zalo-icon-ver2.png" />
+    <Content Include="Content\Image\Banner\zalo.png" />
+    <Content Include="Content\Image\Logo\logo-hoi-nha-bao.png" />
+    <Content Include="Content\Image\Logo\logo.gif" />
+    <Content Include="Content\Image\Logo\logo1 %281%29.png" />
+    <Content Include="Content\SlideShow\script.js" />
+    <Content Include="Content\SlideShow\style.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\base.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-simple-tree-table.js" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Menu.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyDanhMuc\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyDanhMuc\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyDanhMuc\_Sua.cshtml" />
+    <Content Include="Areas\Admin\Views\SoanBaiViet\Index.cshtml" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.fla" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\font\config.json" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\font\fontello.eot" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\font\fontello.ttf" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Areas\Admin\Views\BTVDuyetBaiViet\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TKGDDuyetBai\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriAlbumAnh\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriAlbumAnh\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriAlbumAnh\_ThemAnhTrongAblum.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriAlbumAnh\_ChiTiet.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyVideo\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyVideo\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyVideo\_Sua.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyAudio\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyAudio\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyAudio\_Sua.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyVanBan\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyVanBan\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyVanBan\_Sua.cshtml" />
+    <Content Include="Areas\Admin\Views\ToChucMenu\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhSachTinMoi\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriBanner\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriBanner\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriBanner\_Sua.cshtml" />
+    <Content Include="Areas\Admin\Views\ToChucBanner\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriCacCapHoi\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyLienKetGioiThieu\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyLienKetGioiThieu\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyLienKetGioiThieu\_Sua.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriCacCapHoi\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriCacCapHoi\_Sua.cshtml" />
+    <Content Include="Areas\Admin\Views\SoanBaiViet\_ThemMoiBaiViet.cshtml" />
+    <Content Include="Areas\Admin\Views\SoanBaiViet\_SuaBaiViet.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriNguoiDung\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriNguoiDung\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanTriNguoiDung\_Sua.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanQuyenNguoiDung\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanQuyenNguoiDung\_DanhSachQuyenTheoNguoiDung.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanQuyenNguoiDung\_DanhSachMenuTheoQuyen.cshtml" />
+    <Content Include="Areas\Admin\Views\PhanQuyenNguoiDung\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyChanTrang\Index.cshtml" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\LICENSE" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\lineheight\README.md" />
+    <Content Include="Areas\Admin\Views\LogHT\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyBaiVietDaXoa\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyVideoDaXoa\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyAnhDaXoa\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyAudioDaXoa\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyVanBanDaXoa\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ThamSoHeThong\Index.cshtml" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\collapsibleItem\LICENSE" />
+    <Content Include="Content\CMSContent\assets\libs\ckeditor\plugins\collapsibleItem\README.md" />
+    <Content Include="Areas\Admin\Views\QuanLyChiHoi\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyChiHoi\_ThemMoi.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyVanBan\_DanhSachLoaiVanBan.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyVanBan\_ThemSuaLoaiVanBan.cshtml" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Customize.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jQuery.print.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\extensions\cards.js" />
+    <Content Include="Scripts\js\extensions\common-select.js" />
+    <Content Include="Scripts\js\extensions\common.js" />
+    <Content Include="Scripts\js\extensions\constants.js" />
+    <Content Include="Scripts\js\extensions\dataTable.js" />
+    <Content Include="Scripts\js\extensions\dateTimePicker.js" />
+    <Content Include="Scripts\js\extensions\fileUpload.js" />
+    <Content Include="Scripts\js\extensions\icheck.js" />
+    <Content Include="Scripts\js\extensions\inputmask.js" />
+    <Content Include="Scripts\js\extensions\modal.js" />
+    <Content Include="Scripts\js\extensions\notiflix.js" />
+    <Content Include="Scripts\js\extensions\select2.js" />
+    <Content Include="Scripts\js\extensions\starter.js" />
+    <Content Include="Scripts\js\extensions\sweetalert.js" />
+    <Content Include="Scripts\js\extensions\toastr.js" />
+    <Content Include="Scripts\js\extensions\validate.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\toast.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Template\BaoCaoThuChiDonVi.xlsx" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\AlbumAnh\Index.cshtml" />
+    <Content Include="Views\AlbumAnh\_ChiTiet.cshtml" />
+    <Content Include="Views\Video\Index.cshtml" />
+    <Content Include="Views\Video\XemChiTietVideo.cshtml" />
+    <Content Include="Views\Audio\Index.cshtml" />
+    <Content Include="Views\Audio\XemChiTietAudio.cshtml" />
+    <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\VanBan\Index.cshtml" />
+    <Content Include="Views\VanBan\ChiTietVanBan.cshtml" />
+    <Content Include="Views\ChuyenMuc\Index.cshtml" />
+    <Content Include="Views\ChuyenMuc\ChiTietBaiViet.cshtml" />
+    <Content Include="Views\VanBan\_DanhSach.cshtml" />
+    <Content Include="Views\ChuyenMuc\_DanhSach.cshtml" />
+    <Content Include="Views\ChuyenMuc\_DanhSachBL.cshtml" />
+    <Content Include="Views\Home\_DanhSachTimKiem.cshtml" />
+    <Content Include="Views\Home\_ChanTrangBP.cshtml" />
+    <Content Include="Views\Home\_ChanTrangBT.cshtml" />
+    <Content Include="Views\Home\_ChanTrang.cshtml" />
+    <Content Include="Views\ThongTinChiHoi\Index.cshtml" />
+    <Content Include="Views\AlbumAnh\_ChiTietAnhAlbum.cshtml" />
+    <Content Include="Views\ChuyenMuc\_DanhSachTinMoi.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Content\CMSContent\assets\libs\treegrid\" />
+    <Folder Include="FileUploaded\Upload\FILES\" />
+    <Folder Include="FileUploaded\Upload\Images\" />
+    <Folder Include="FileUploaded\Upload\VIDEO\" />
+    <Folder Include="Views\Common\" />
+    <Folder Include="Views\LogIn\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\APIServices\APIServices.csproj">
+      <Project>{ca90ce6f-06bd-4200-8e10-eddb6d3be391}</Project>
+      <Name>APIServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{0a885c23-2da9-4315-8966-bdbec93e42e9}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{ab3ce71e-13b3-4870-8b9d-101522b670ad}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <!-- <ItemGroup> -->
+  <!-- <ProjectReference Include="..\..\TemplateAPI\APIServices\APIServices.csproj"> -->
+  <!-- <Project>{f169e745-af9e-4ba1-be79-568427b3b962}</Project> -->
+  <!-- <ProjectReference Include="..\..\..\NamViet\APIServices\APIServices.csproj"> -->
+  <!-- <Project>{e39b47a4-78e3-49b1-bb90-b7205abf7568}</Project> -->
+  <!-- <Name>APIServices</Name> -->
+  <!-- </ProjectReference> -->
+  <!-- <ProjectReference Include="..\..\TemplateAPI\Models\Models.csproj"> -->
+  <!-- <Project>{0a885c23-2da9-4315-8966-bdbec93e42e9}</Project> -->
+  <!-- <Name>Models</Name> -->
+  <!-- </ProjectReference> -->
+  <!-- <ProjectReference Include="..\..\TemplateAPI\Utilities\Utilities.csproj"> -->
+  <!-- <Project>{ab3ce71e-13b3-4870-8b9d-101522b670ad}</Project> -->
+  <!-- <Name>Utilities</Name> -->
+  <!-- </ProjectReference> -->
+  <!-- </ItemGroup> -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59364</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44329/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

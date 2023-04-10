@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "_Sua";
+    var ChiTiet = ViewBag.ChiTiet;
+    Layout = null;
+}
+
+<div class="row">
+    <input type="hidden" value="@ChiTiet.ID" id="IdChuyenMuc" />
+    <div class="panel" style="margin-top: 10px !important;">
+        <div class="panel-body">
+            <div style="padding: 10px;">
+                <div class="row">
+                    <div class="col-lg-10 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Tên chuyên mục<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtTenChuyenMucSua" value="@ChiTiet.Name">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12  dp-flex">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="ckTrangThaiSua" @(ChiTiet.IsActive == true ? "checked" : "")>
+                            <label class="form-check-label" for="ckTrangThaiSua">
+                                Trạng thái
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Chuyên mục cha</label>
+                            <select class="form-control" id="slChuyenMucChaSua">
+                                <option value="0">Root</option>
+                                @Html.Raw(ViewBag.optionSelected)
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#slChuyenMucChaSua").select2({
+        dropdownParent: $('#ModalSua')
+    })
+</script>

@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Log hệ thống</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Lịch sử và log</a></li>
+                    <li class="breadcrumb-item active">Log hệ thống</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12" id="card-none1">
+        <div class="card" id="invoiceList">
+            <div class="card-header border-0">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h5 class="card-title mb-0 flex-grow-1">Danh sách log hệ thống</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body bg-soft-light border border-dashed border-start-0 border-end-0">
+                <div class="row g-3">
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Từ khóa" id="txtKey" value="" onchange="TimKiemLog()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Từ ngày" id="StartDate" value="" onchange="TimKiemLog()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Đến ngày" id="EndDate" value="" onchange="TimKiemLog()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="DanhSachLog" class="display nowrap" style="width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade show" id="ModelDuLieu" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="nv-modal-header">
+                <div class="nv-modal-title">Dữ liệu</div>
+                <span class="nv-modal-close  btn-close-modal"><i class="fal fa-times-circle"></i></span>
+            </div>
+            <div class="modal-body" id="DataModelDuLieu">
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Input:</h5>
+                        <pre id="DataInput"></pre>
+                    </div>
+                    <div class="col-6">
+                        <h5>Output:</h5>
+                        <pre id="DataOutput"></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="nv-modal-footer">
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+
+        function ChiTiet(Id) {
+            loading();
+            var model = {
+                Id: Id
+            }
+            $.post("/Admin/LogHT/ChiTiet", { "model": model }, function (data) {
+                $("#DataInput").empty();
+                $("#DataOutput").empty();
+                if (data != null) {
+                    debugger
+                    if (data.data.Message.includes("Input:")) {
+                        data.data.Message = data.data.Message.replace("Input:", "");
+                        if (data.data.Message.trim() != "") {
+                            var Data = JSON.parse(data.data.Message);
+                            document.getElementById("DataInput").innerHTML = JSON.stringify(Data, null, 4);
+                        }
+                    }
+                    if (data.data.Message.includes("Output:")) {
+                        data.data.Message = data.data.Message.replace("Output:", "");
+                        if (data.data.Message.trim() != "") {
+                            var Data = JSON.parse(data.data.Message);
+                            document.getElementById("DataOutput").innerHTML = JSON.stringify(Data, null, 4);
+                        }
+
+                    }
+                }
+                $("#ModelDuLieu").modal("show");
+                offLoading();
+            })
+        }
+
+
+        var table = null;
+        $(document).ready(function () {
+            GetData();
+        });
+
+        function TimKiemLog() {
+            table.ajax.reload(null, false);
+        }
+
+        $("#StartDate").flatpickr({
+            enableTime: true,
+            dateFormat: "d-m-Y H:i",
+        });
+
+        $("#EndDate").flatpickr({
+            enableTime: true,
+            dateFormat: "d-m-Y H:i",
+        });
+
+        function GetData() {
+
+            table = $.fn.initDataTable('#DanhSachLog', {
+                serverSide: true,
+                searching: false,
+                lengthMenu: [50],
+                scrollX: true,
+                scrollY: true,
+                columnDefs: [
+                    { className: "dt-center", targets: [0, 1, 2, 3, 4, 5, 6] }
+                ],
+                fixedHeader: true,
+                fixedColumns: {
+                    left: 0,
+                    right: 1
+                },
+                preDrawCallback: function () {
+                    loading()
+                },
+                columns: [
+                    { "data": "UserName", "className": 'dt-body-center', title: "Người dùng" },
+                    { "data": "IP", "className": 'dt-body-center', title: "IP" },
+                    {
+                        "data": "Date", "className": 'dt-body-center', title: "Ngày", "render": function (data) {
+                            if (data != null) {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                            return "";
+                        }
+                    },
+                    { "data": "Thread", "className": 'dt-body-center', title: "Luồng" },
+                    { "data": "Level", "className": 'dt-body-center', title: "Loại" },
+                    { "data": "Logger", "className": 'dt-body-center', title: "Api Controller" },
+                    {
+                        "data": "Id", "className": 'dt-body-center', title: `Thao tác`, "render": function (data, type, row, meta) {
+                            var StrHtml = `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" title="Chi tiết" onclick="ChiTiet(${data})"><i class="ri-edit-2-line"></i></a>`
+                            return StrHtml;
+                        }
+                    }
+                ],
+                ajax: {
+                    url: "/Admin/LogHT/DanhSachLog",
+                    type: "post",
+                    data: (params) => {
+                        params.txtKey = $("#txtKey").val();
+                        params.StartDate = moment($("#StartDate").val(), "DD-MM-YYYY HH:mm").format('YYYY-MM-DD HH:mm');
+                        params.EndDate = moment($("#EndDate").val(), "DD-MM-YYYY HH:mm").format('YYYY-MM-DD HH:mm');
+                    }
+                },
+                drawCallback: function () {
+                    offLoading();
+                },
+                initComplete: function (dt) {
+                    //offloading();
+                    if (dt.type == "error") {
+                        showErrorToast("Thất bại", dt.message, dt.type);
+                    }
+                }
+            });
+
+        }
+
+    </script>
+}

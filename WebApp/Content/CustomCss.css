@@ -1,0 +1,58 @@
+﻿.select2-container {
+    width: 100% !important
+}
+
+li.nav-item.waves-effect.waves-light a {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.ri-folder-open-fill, .ri-folder-fill {
+    color: #ffca28;
+}
+
+.color-dg {
+    color: red
+}
+
+.size-icon {
+    padding: 4px 8px;
+    margin: 3px 0;
+}
+
+.card-header {
+    padding: 0.5rem 1rem;
+}
+
+.text-on-pannel {
+    background: #fff none repeat scroll 0 0;
+    height: auto;
+    margin-left: 20px;
+    padding: 3px 5px;
+    position: absolute;
+    margin-top: -47px;
+}
+
+.panel {
+    /* for text on pannel */
+    margin-top: 27px !important;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #337ab7;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+}
+
+.color-input {
+    color: rgb(33, 37, 41);
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: var(--vz-heading-color);
+    font-family: 'Roboto', sans-serif;
+}

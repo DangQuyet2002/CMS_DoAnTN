@@ -1,0 +1,456 @@
+﻿
+@{
+
+}
+<style>
+    .swal2-deny {
+        background-color: #197e7e;
+    }
+</style>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">BTV duyệt bài viết</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Quản trị bài viết</a></li>
+                    <li class="breadcrumb-item active">BTV duyệt bài viết</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12" id="card-none1">
+        <div class="card" id="invoiceList">
+            <div class="card-header border-0">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h5 class="card-title mb-0 flex-grow-1">Danh sách bài viết</h5>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="javasceript:void(0);" class="btn btn-outline-primary waves-effect waves-light btn-sm" onclick="DuyetMultiBaiViet()">Duyệt nhiều</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body bg-soft-light border border-dashed border-start-0 border-end-0">
+                <div class="row g-3">
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <select class="form-control slTrangThai" id="slCategory" onchange="TimKiemBaiViet()">
+                                    <option value=""></option>
+                                    @Html.Raw(ViewBag.optionSelected)
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Tiêu đề" id="txtTieuDe" value="" onchange="TimKiemBaiViet()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <select class="form-control slTrangThai" id="slTrangThai" onchange="TimKiemBaiViet()">
+                                    <option value=""></option>
+                                    <option value="1">Đang đăng</option>
+                                    <option value="0">Chưa đăng</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <select class="form-control ckDuyet" id="ckDuyet" onchange="TimKiemBaiViet()">
+                                    <option value=""></option>
+                                    <option value="3">Trả lại</option>
+                                    <option value="2">Đã gửi</option>
+                                    <option value="4">Chưa gửi</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="DanhSachBaiViet" class="display nowrap" style="width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade show" id="ModalLyDoTuChoi" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="nv-modal-header">
+                <div class="nv-modal-title">Lý do từ chối</div>
+                <span class="nv-modal-close  btn-close-modal"><i class="fal fa-times-circle"></i></span>
+            </div>
+            <div class="modal-body" id="DataLyDoTuChoi">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Lý do <span class="color-danger">(*)</span></label>
+                            <textarea class="form-control" id="txtLyDoTuChoi" rows="3"></textarea>
+                            <input type="hidden" value="" id="IDBaiVietTuChoi" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nv-modal-footer">
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="LuuLyDoTuChoi()">Lưu</button>
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+
+        function TimKiemBaiViet() {
+            table.ajax.reload(null, false);
+        }
+
+        $(document).ready(function () {
+            GetData();
+        });
+
+        $("#slTrangThai").select2({
+            placeholder: "Trạng thái bài",
+            allowClear: true
+        })
+        $("#ckDuyet").select2({
+            placeholder: "Trạng thái duyệt",
+            allowClear: true
+        })
+        $("#slCategory").select2({
+            placeholder: "Chuyên mục",
+            allowClear: true
+        })
+
+        //$('#jstree-treeChuyenMuc').jstree({
+        //    core: {
+        //        data: {
+        //            url: '/Admin/Common/TreeChuyenMuc',
+        //            type: "POST"
+        //        }
+        //    },
+        //    types: {
+        //        "folder": {
+        //            "icon": "ri-file-text-line"
+        //        },
+        //        "default": {
+        //            "icon": "ri-file-text-line"
+        //        }
+        //    },
+        //    plugins: ["search", "themes", "types"],
+        //}).on('open_node.jstree', function (e, data) {
+        //    data.instance.set_icon(data.node, "ri-file-text-line");
+        //}).on('close_node.jstree', function (e, data) { data.instance.set_icon(data.node, "ri-file-text-line"); });
+
+        //var table = null;
+        //$("#jstree-treeChuyenMuc").bind("changed.jstree", function (e, data) {
+        //    debugger;
+        //    var Json = JSON.parse(data.node.id);
+        //    CategoryID = Json.id;
+        //    table.ajax.reload();
+        //});
+        //var CategoryID = null;
+
+        function GetData() {
+
+            table = $.fn.initDataTable('#DanhSachBaiViet', {
+                serverSide: true,
+                searching: false,
+                lengthMenu: [50],
+                scrollX: true,
+                scrollY: true,
+                columnDefs: [
+                    { width: 50, targets: 0 },
+                    { className: "dt-center", targets: [0, 2, 3, 4, 5,6, 9] },
+                    {
+                        render: function (data, type, full, meta) {
+                            return "<div class='text-wrap width-200'>" + data + "</div>";
+                        },
+                        targets: 1
+                    },
+                ],
+                fixedColumns: {
+                    left: 0,
+                    right: 1
+                },
+                preDrawCallback: function () {
+                    loading()
+                },
+                columns: [
+                    {
+                        "data": "ID", "className": 'dt-body-center', title: `#`, "render": function (data, type, row, meta) {
+                            if (row.IsActive == false) {
+                                if (row.IsPVDuyet == 1 || row.IsBTVDuyet == 3) {
+                                    return `<input class="form-check-input checkDL" type="checkbox" id="Check_${data}" onclick="CheckDL(${data})">`;
+                                }
+                            }
+                            return ``;
+                        }
+                    },
+                    { "data": "Title", title: "Tiêu đề" },
+                    { "data": "NumberViewer", "className": 'dt-body-center', title: "Lượt view" },
+                    { "data": "FullName", "className": 'dt-body-center', title: "Người tạo" },
+                    {
+                        "data": "CreatedAt", "className": 'dt-body-center', title: "Ngày tạo", "render": function (data) {
+                            if (data != null) {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "IsActive", title: "Trạng thái đăng", "className": 'dt-body-center', "render": function (data) {
+                            if (data) {
+                                return `<span class="badge bg-primary">Đã đăng</span>`;
+                            }
+                            return `<span class="badge bg-primary">Chưa đăng</span>`;
+                        }
+                    },
+                    {
+                        "data": "IsBTVDuyet", title: "Trạng thái gửi TK-GD", "className": 'dt-body-center', "render": function (data) {
+                            if (data == 3) {
+                                return `<span class="badge bg-danger">Trả lại</span>`;
+                            }
+                            else if (data == 2) {
+                                return `<span class="badge bg-primary">Đã gửi</span>`;
+                            }
+                            return `<span class="badge bg-primary">Chưa gửi</span>`;
+                        }
+                    },
+                    {
+                        "data": "LyDoTraLaiBTV", title: "Lý do trả BTV"
+                    },
+                    {
+                        "data": "LyDoTraLaiTK_GD", title: "Lý do trả TK-GD"
+                    },
+                    {
+                        "data": "ID", "className": 'dt-body-center', title: `Thao tác`, "render": function (data, type, row, meta) {
+                            var StrHtml = '';
+                            if (row.IsActive == false) {
+                                if (row.IsPVDuyet == 1 || row.IsBTVDuyet == 3) {
+                                    StrHtml += `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" onclick="DuyetHuyDuyet(${data})" title="Gửi bài viết"><i class=" ri-arrow-up-s-line"></i></a>
+<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="/Admin/SoanBaiViet/_SuaBaiViet?Id=${data}&Url=/Admin/BTVDuyetBaiViet/Index" title="Sửa"><i class="ri-edit-2-line"></i></a>
+<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" onclick="TraLaiBaiViet(${data})" title="Trả lại bài viết"><i class="ri-arrow-down-s-line"></i></a>
+<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="/ChuyenMuc/ChiTietBaiViet?ID=${data}&IsView=1" target="_blank" title="Xem"><i class="ri-eye-line"></i></a>
+<a class="btn btn-outline-warning waves-effect waves-light btn-xs" href="#" onclick="Xoa(${data})"  title="Xóa"><i class="ri-delete-bin-line"></i></a>`
+                                }
+                                else {
+                                    StrHtml += `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="/ChuyenMuc/ChiTietBaiViet?ID=${data}&IsView=1" target="_blank" title="Xem"><i class="ri-eye-line"></i></a>`
+                                }
+                            }
+                            else {
+                                StrHtml += `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="/ChuyenMuc/ChiTietBaiViet?ID=${data}&IsView=1" target="_blank" title="Xem"><i class="ri-eye-line"></i></a>`
+                            }
+                            return StrHtml;
+                        }
+                    }
+                ],
+                ajax: {
+                    url: "/Admin/BTVDuyetBaiViet/DanhSachBaiViet",
+                    type: "post",
+                    data: (params) => {
+                        params.Title = $("#txtTieuDe").val();
+                        params.CategoryID = $("#slCategory").val();
+                        params.IsActive = $("#slTrangThai").val();
+                        params.IsBTVDuyet = $("#ckDuyet").val();
+                    }
+                },
+                drawCallback: function () {
+                    $("#DanhSachBaiViet .checkDL").map((el, index) => {
+                        let tr = $(index).closest("tr");
+                        let row = table.row(tr).data();
+                        if (DLCheck.findIndex(i => i.ID === row.ID) > -1) {
+                            $("#Check_" + row.ID).prop("checked", true)
+                        }
+
+                    })
+
+                    offLoading();
+                },
+                initComplete: function (dt) {
+                    //offloading();
+                    if (dt.type == "error") {
+                        showErrorToast("Thất bại", dt.message, dt.type);
+                    }
+                }
+            });
+
+        }
+
+        var DLCheck = [];
+        function CheckAll() {
+            debugger
+            if ($("#ckCheckAll").is(":checked") == true) {
+                var dataRow = [];
+                dataRow = table.rows().data().toArray();
+                if (dataRow.length > 0) {
+                    [...dataRow].map((el, index) => {
+                        DLCheck.push(el);
+                    })
+                }
+                $(".checkDL").prop("checked", true);
+            }
+            else {
+                DLCheck = [];
+                $(".checkDL").prop("checked", false);
+            }
+        }
+
+        function CheckDL(ID) {
+            debugger
+            if (DLCheck.findIndex(i => i.ID === ID) == -1) {
+                var data = {
+                    ID: ID
+                }
+                DLCheck.push(data);
+            }
+            else {
+                DLCheck = DLCheck.filter(e => e.ID != ID);
+            }
+        }
+
+        function DuyetMultiBaiViet() {
+            if (DLCheck.length == 0) {
+                ToastMessage("Lỗi", "Danh sách bài duyệt trống", "error");
+                return;
+            }
+            var requestModel = {
+                lstIdBaiViet: DLCheck.map(row => row.ID),
+                IsBTVDuyet: 1,
+                LyDoTraLaiBTV: ""
+            }
+            $.post("/Admin/BTVDuyetBaiViet/DuyetHuyDuyetMulti", { "requestModel": requestModel }, function (data) {
+                if (data.icon == "success") {
+                    Message('', data.message, data.icon);
+                }
+                else {
+                    Message('', data.message, data.icon);
+                }
+                $(".checkDL").prop("checked", false);
+                DLCheck = [];
+                table.ajax.reload(null, false);
+                offLoading();
+            });
+        }
+
+        function DuyetHuyDuyet(Id) {
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn gửi bài viết",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        ID: Id,
+                        IsBTVDuyet: 1,
+                        LyDoTraLaiBTV: ""
+                    }
+
+                    $.post("/Admin/BTVDuyetBaiViet/DuyetHuyDuyet", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            Message('', data.message, data.icon);
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        table.ajax.reload(null, false);
+                        offLoading();
+                    });
+                }
+                else if (result.isDenied) {
+                    $("#IDBaiVietTuChoi").val(Id);
+                    $("#txtLyDoTuChoi").val();
+                    $("#ModalLyDoTuChoi").modal("show");
+                }
+            })
+        }
+        function Xoa(Id) {
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn xóa bài viết?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        ID: Id,
+                    }
+
+                    $.post("/Admin/SoanBaiViet/Xoa", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            Message('', data.message, data.icon);
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        table.ajax.reload(null, false);
+                        offLoading();
+                    });
+                }
+            })
+        }
+
+
+        function TraLaiBaiViet(Id) {
+            $("#IDBaiVietTuChoi").val(Id);
+            $("#txtLyDoTuChoi").val();
+            $("#ModalLyDoTuChoi").modal("show");
+        }
+
+        function LuuLyDoTuChoi() {
+            if ($("#txtLyDoTuChoi").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống lý do", "error");
+                return;
+            }
+
+            var requestModel = {
+                ID: $("#IDBaiVietTuChoi").val(),
+                LyDoTraLaiBTV: $("#txtLyDoTuChoi").val(),
+                IsBTVDuyet: 0
+            }
+            $.post("/Admin/BTVDuyetBaiViet/DuyetHuyDuyet", { "requestModel": requestModel }, function (data) {
+                if (data.icon == "success") {
+                    table.ajax.reload(null, false);
+                    Message('', data.message, data.icon);
+                }
+                else {
+                    Message('', data.message, data.icon);
+                }
+                offLoading();
+                $("#ModalLyDoTuChoi").modal("hide");
+            });
+        }
+    </script>
+}

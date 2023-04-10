@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+    var ChiTiet = ViewBag.ChiTiet;
+}
+<input type="hidden" value="@ChiTiet.Id" id="IdChiHoi" />
+<input type="hidden" value="@ChiTiet.ParentId" id="ParentId" />
+<div class="row">
+    <div class="panel" style="margin-top: 10px !important;">
+        <div class="panel-body">
+            <div style="padding: 10px;">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Tên nhóm/tên chi hội<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtTen" value="@ChiTiet.Ten">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Url</label>
+                            <input type="text" class="form-control" placeholder="" id="txtUrl" value="@ChiTiet.Url">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

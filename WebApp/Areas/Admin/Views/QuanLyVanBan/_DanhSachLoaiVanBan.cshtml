@@ -1,0 +1,100 @@
+﻿
+@{
+    Layout = null;
+}
+<div class="row">
+    <div class="col-xl-12" id="card-none1">
+        <div class="card" id="invoiceList">
+            <div class="card-body bg-soft-light border border-dashed border-start-0 border-end-0">
+                <div class="row g-3">
+
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Loại văn bản" id="txtTenLoaiVanBan" value="" onchange="TimKiemLoaiVanBan()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="DanhSachLoaiVanBan" class="display nowrap" style="width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function TimKiemLoaiVanBan() {
+        tableLoaiVanBan.ajax.reload();
+    }
+    $(document).ready(function () {
+        setTimeout(GetDataLoaiVanBan, 500);
+    });
+    var tableLoaiVanBan = null;
+    function GetDataLoaiVanBan() {
+
+        tableLoaiVanBan = $.fn.initDataTable('#DanhSachLoaiVanBan', {
+            serverSide: true,
+            searching: false,
+            lengthMenu: [50],
+            scrollX: false,
+            scrollY: false,
+            columnDefs: [
+                { className: "dt-center", targets: [1] },
+
+            ],
+            preDrawCallback: function () {
+                loading()
+            },
+            fixedColumns: {
+                left: 0,
+                right: 1
+            },
+            columns: [
+
+                { "data": "Ten", title: "Tên" },
+                {
+                    "data": "Id", "className": 'dt-body-center', title: `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" onclick="ThemSuaLoaiVanBan(0)" title="Thêm mới loại văn bản"><i class="ri-add-line"></i></a>`, "render": function (data, type, row, meta) {
+                        var StrHtml = `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" onclick="ThemSuaLoaiVanBan(${data})" title="Sửa"><i class="ri-edit-2-line"></i></a>
+<a class="btn btn-outline-warning waves-effect waves-light btn-xs" href="#" onclick="XoaLoaiVanBan(${data})" title="Xóa loại văn bản"><i class="ri-delete-bin-line"></i></a>`
+                        return StrHtml;
+                    }
+                }
+            ],
+            ajax: {
+                url: "/Admin/QuanLyVanBan/DanhSachLoaiVanBan",
+                type: "post",
+                data: (params) => {
+                    params.Ten = $("#txtTenLoaiVanBan").val();
+                }
+            },
+            drawCallback: function () {
+                offLoading();
+            },
+            initComplete: function (dt) {
+                //offloading();
+                if (dt.type == "error") {
+                    showErrorToast("Thất bại", dt.message, dt.type);
+                }
+            }
+        });
+
+    }
+
+
+    function ThemMoiLoaiVanBan(Id) {
+        $("#TitleLoaiVanBan").html("Thêm mới loại văn bản");
+        if (Id > 0) {
+            $("#TitleLoaiVanBan").html("Sửa loại văn bản");
+        }
+        loading();
+        $("#DataModalThemSuaLoaiVanBan").load("/Admin/QuanLyVanBan/_ThemSuaLoaiVanBan", { "Id": Id }, function (data) {
+            $("#ModalThemSuaLoaiVanBan").modal("show");
+            offLoading();
+        })
+    }
+
+</script>
+

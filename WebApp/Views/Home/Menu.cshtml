@@ -1,0 +1,158 @@
+﻿@using Models;
+
+@{
+    Layout = null;
+    ViewBag.Title = "Menu";
+    var DanhSachChuyenMuc = ViewBag.DanhSachChuyenMuc;
+    var LoaiVanBan = ViewBag.LoaiVanBan as List<tbl_LoaiVanBanModel>;
+}
+<div class="row" id="DataMenu">
+    <ul class="navbar-nav col-12" id="navbar-nav" style="padding-left:35px">
+        <li class="nav-item">
+            <a class="nav-link menu-link itemMenu font-w6001" href="/Trang-chu.htm" style=" padding-right: 0;" id="txtMenu">
+                <i class="bx bxs-home" style="font-size: 20px; padding-left: 0;"></i>
+            </a>
+        </li>
+
+        @if (DanhSachChuyenMuc != null)
+        {
+            foreach (var item in DanhSachChuyenMuc)
+            {
+                if (item.LoaiCategory_Khac != 0)
+                {
+                    if (item.LoaiCategory_Khac == Constants.LoaiChuyenMucKhac)
+                    {
+                        <li class="nav-item">
+
+                            <a class="nav-link menu-link itemMenu font-w6001" style="position: relative;" href="#Media" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                                <span data-key="t-layouts"> @item.Name</span>
+                                <i class="ri-arrow-drop-down-line" style="position: absolute; right: 0; padding-left: 1rem; "></i>
+                            </a>
+                            <div class="collapse menu-dropdown width-menu" id="Media">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="/Album_Anh.htm" class="nav-link" data-key="t-horizontal">TIN ẢNH</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Video.htm" class="nav-link" data-key="t-detached">VIDEO</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Audio.htm" class="nav-link" data-key="t-two-column">AUDIO</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                    else if (item.LoaiCategory_Khac == Constants.LoaiChuyenVanBan)
+                    {
+                        @*<li class="nav-item">*@
+
+
+                        @*<a class="nav-link menu-link itemMenu font-w6001" style="position: relative;" href="#VanBanDH" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                                <span data-key="t-layouts" onclick="LoadChuyenMuc('@Url')"> VĂN BẢN</span>
+                                <i class="ri-arrow-drop-down-line" style="position: absolute; right: 0; padding-left: 1rem; "></i>
+                            </a>*@
+                        @*<div class="collapse menu-dropdown width-menu" id="VanBanDH">
+                                <ul class="nav nav-sm flex-column">
+                                    @foreach (var itemVanBan in LoaiVanBan)
+                                    {
+                                        <li class="nav-item">
+                                            @{
+                                                var UrlCT = "/" + Utils.convertToUnSign2(itemVanBan.Ten).Replace(" ", "_") + "_vbdh-" + itemVanBan.Id + ".htm";
+                                            }
+                                            <a href="@UrlCT" class="nav-link" data-key="t-horizontal">@itemVanBan.Ten.ToUpper()</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>*@
+                        @*</li>*@
+                        <li class="nav-item">
+                            @{
+                                var Url = "/Van-ban.htm";
+                            }
+                            <a class="nav-link menu-link itemMenu font-w6001" href="@Url">
+                                VĂN BẢN
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link menu-link itemMenu font-w6001" href="@item.Url">
+                                @item.Name
+                            </a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    if (item.MenuSub.Count == 0)
+                    {
+                        <li class="nav-item">
+                            @{
+                                var UrlCT = "/" + Utils.convertToUnSign2(item.Name).Replace(" ", "_") + "_cm-" + item.IdCategory + ".htm";
+                            }
+                            <a class="nav-link menu-link itemMenu font-w6001" href="@UrlCT">
+                                @item.Name
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @{
+                                var Url = "/" + Utils.convertToUnSign2(item.Name).Replace(" ", "_") + "_cm-" + item.IdCategory + ".htm";
+                            }
+                            <a class="nav-link menu-link itemMenu font-w6001" style="position: relative;" href="@("#Menu_"+item.Id)" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                                <span data-key="t-layouts" onclick="LoadChuyenMuc('@Url')"> @item.Name</span>
+                                <i class="ri-arrow-drop-down-line" style="position: absolute; right: 0; padding-left: 1rem; "></i>
+                            </a>
+                            <div class="collapse menu-dropdown width-menu" id="@("Menu_"+item.Id)">
+                                <ul class="nav nav-sm flex-column">
+                                    @foreach (var itemSub in item.MenuSub)
+                                    {
+                                        <li class="nav-item">
+                                            @{
+                                                var UrlCT = "/" + Utils.convertToUnSign2(itemSub.Name).Replace(" ", "_") + "_cm-" + itemSub.IdCategory + ".htm";
+                                            }
+                                            <a href="@UrlCT" class="nav-link" data-key="t-horizontal">@itemSub.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                }
+
+            }
+        }
+    </ul>
+</div>
+
+
+<!--<div class="app-search d-none d-md-block  col-1 p-0 pt-1">-->
+@*<a href="#" id="popover" style=" font-size: 25px; color: white;float: right;" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+        <i class=" ri-search-line"></i>
+    </a>*@
+@*<a href="#" rel="comments" style=" font-size: 25px; color: white;float: right;" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" title="Right Popover" data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."> <i class=" ri-search-line"></i></a>*@
+@*<div class="position-relative">
+        <input type="text" class="form-control" placeholder="Tìm kiếm..." onchange="TimKiemTrangChu()" id="txtTuKhoa">
+        <span class="mdi mdi-magnify search-widget-icon"></span>
+        <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
+    </div>*@
+<!--</div>-->
+<!--<div class="app-search d-none d-md-block  col-1 p-0 pt-1">
+    <div class="position-relative">
+        <input type="text" class="form-control" placeholder="Tìm kiếm..." onchange="TimKiemTrangChu()" id="txtTuKhoa">
+        <span class="mdi mdi-magnify search-widget-icon"></span>
+        <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
+    </div>
+</div>-->
+<script>
+    function LoadChuyenMuc(url) {
+        window.location.href = url;
+    }
+</script>
+
+<!--<div class="d-flex">-->
+<!-- App Search-->

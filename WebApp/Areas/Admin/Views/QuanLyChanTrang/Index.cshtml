@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var ChiTiet = ViewBag.ChiTiet;
+}
+<input type="hidden" value="@ChiTiet.ChanTrangBP" id="IdChanTrangBP" />
+<input type="hidden" value="@ChiTiet.ChanTrangBT" id="IdChanTrangBT" />
+<input type="hidden" value="@ChiTiet.ChanTrang" id="IdChanTrang" />
+<input type="hidden" value="@ChiTiet.Id" id="IdCT" />
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Quản lý chân trang</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12" id="card-none1">
+        <div class="card" id="invoiceList">
+            <div class="card-body bg-soft-light border border-dashed border-start-0 border-end-0">
+                <div class="row g-3">
+                    <div class="col-lg-6 col-md-6 col-sm-12  mb-3">
+                        <div class="form-group">
+                            <label>Chân trang bên phải</label>
+                            <textarea id="ChanTrangBenPhai" style="height:500px"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12  mb-3">
+                        <div class="form-group">
+                            <label>Chân trang bên trái</label>
+                            <textarea id="ChanTrangBenTrai" style="height:500px"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12  mb-3">
+                        <div class="form-group">
+                            <label>Cuối chân trang</label>
+                            <textarea id="CuoiChanTrang" style="height:500px"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="javascript:void(0);" class="btn btn-outline-primary" onclick="LuuChanTrang()"><i class="ri-save-line"></i>Lưu</a>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        CKEDITOR.replace("ChanTrangBenPhai");
+        CKEDITOR.replace("ChanTrangBenTrai");
+        CKEDITOR.replace("CuoiChanTrang");
+        CKEDITOR.instances['ChanTrangBenPhai'].setData($("#IdChanTrangBP").val())
+        CKEDITOR.instances['ChanTrangBenTrai'].setData($("#IdChanTrangBT").val())
+        CKEDITOR.instances['CuoiChanTrang'].setData($("#IdChanTrang").val())
+
+        function LuuChanTrang() {
+
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn lưu chân trang",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        Id: $("#IdCT").val(),
+                        ChanTrangBP: CKEDITOR.instances.ChanTrangBenPhai.getData(),
+                        ChanTrangBT: CKEDITOR.instances.ChanTrangBenTrai.getData(),
+                        ChanTrang: CKEDITOR.instances.CuoiChanTrang.getData()
+                    }
+
+                    $.post("/Admin/QuanLyChanTrang/CapNhat", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            Message('', data.message, data.icon);
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        offLoading();
+                    });
+                }
+            })
+        }
+
+    </script>
+}

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "_ThemAnhTrongAblum";
+    Layout = null;
+}
+<div class="row">
+    <div class="panel" style="margin-top: 10px !important;">
+        <div class="panel-body">
+            <div style="padding: 10px;">
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-12  mb-3">
+                        <div>
+                            <label class="form-label">Ảnh <a class="btn btn-outline-primary waves-effect waves-light btn-xs" onclick="ChonAnhAlbum()" title="Thêm mới"><i class="ri-add-line"></i></a> </label>
+                            <div class="dropzoneAnhDaiDien" id="dropzoneAnhDaiDienAblum">
+                                <div style="padding: 50px;">Ảnh đại điện</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12  mb-3">
+                        <div>
+                            <label class="form-label">Nội dung ảnh <span class="text-danger">(*)</span></label>
+                            <textarea id="NoiDungAnh" class="form-control resizable_textarea" style="height: 145px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var AnhAlbum = "";
+    function ChonAnhAlbum() {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            AnhAlbum = url;
+            $("#dropzoneAnhDaiDienAblum").empty();
+            $("#dropzoneAnhDaiDienAblum").html(`<img src="${url}"/>`);
+            $("#dropzoneAnhDaiDienAblum").addClass("dropSua");
+        }
+        finder.popup();
+    }
+</script>

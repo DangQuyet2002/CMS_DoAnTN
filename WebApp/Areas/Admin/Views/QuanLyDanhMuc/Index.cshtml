@@ -1,0 +1,280 @@
+﻿
+@{
+
+}
+<link href="~/Content/CMSContent/assets/libs/treegrid/dist/css/jquery.treegrid.css" rel="stylesheet" />
+<style>
+    .width-table {
+        width: 5rem;
+        text-align: center;
+    }
+
+    .width-status-table {
+        width: 7rem;
+        text-align: center;
+    }
+</style>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Quản lý chuyên mục</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Quản lý chuyên mục</a></li>
+                    <li class="breadcrumb-item active">Quản lý chuyên mục</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12" id="card-none2">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h6 class="card-title mb-0">Danh sách chuyên mục</h6>
+                    </div>
+
+                    <div class="flex-shrink-1">
+                        <ul class="list-inline card-toolbar-menu d-flex align-items-center mb-0">
+                            <li class="list-inline-item">
+                                <a class="align-middle minimize-card" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="true" aria-controls="collapseExample2">
+                                    <i class="mdi mdi-plus align-middle plus"></i>
+                                    <i class="mdi mdi-minus align-middle minus"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <div class="dropdown card-header-dropdown">
+                            <a class="text-reset" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="text-muted fs-16"><i class="mdi mdi-dots-vertical align-middle"></i></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Thêm mới</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body collapse show" id="collapseExample2" style="">
+                <table class="table table-bordered tree-DataDanhMuc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tên chuyên mục</th>
+                            <th scope="col" class="width-status-table">Trạng thái</th>
+                            <th scope="col" class="width-table">
+                                <a href="#" onclick="ThemMoi()"><i class="ri-add-circle-line Size-icon "></i></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="DataDanhMuc">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!-- end col -->
+</div>
+<div class="modal fade show" id="ModalThemMoi" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="nv-modal-header">
+                <div class="nv-modal-title">Thêm mới chuyên mục</div>
+                <span class="nv-modal-close btn-close-modal"><i class="fal fa-times-circle"></i></span>
+            </div>
+            <div class="modal-body" id="DataModalThemMoi" style="padding-top: 0;">
+
+            </div>
+            <div class="nv-modal-footer">
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="ThemMoiLuu()"><i class="ri-save-line">Lưu</i></button>
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade show" id="ModalSua" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="nv-modal-header">
+                <div class="nv-modal-title">Sửa chuyên mục</div>
+                <span class="nv-modal-close btn-close-modal"><i class="fal fa-times-circle"></i></span>
+            </div>
+            <div class="modal-body" id="DataModalSua" style="padding-top: 0;">
+
+            </div>
+            <div class="nv-modal-footer">
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="SuaLuu()"><i class="ri-save-line">Sửa</i></button>
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Content/CMSContent/assets/libs/treegrid/dist/js/jquery.treegrid.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            LoadTreeTable();
+        });
+        var GridTree = null;
+
+        function LoadTreeTable() {
+            $("#DataDanhMuc").empty();
+            $.post("/Admin/QuanLyDanhMuc/TreeTableDanhMuc", {}, function (data) {
+                if (data.type == "success") {
+                    $("#DataDanhMuc").append(data.data);
+                }
+                else {
+                    $("#DataDanhMuc").append("");
+                }
+                if (GridTree == null) {
+                    setTimeout(reloadtreegrid, 500);
+                }
+                else {
+                    setTimeout(reloadtreegrid, 100);
+                    setTimeout(reloadtreegrid, 200);
+                }
+            })
+
+        }
+
+        function reloadtreegrid() {
+            GridTree = $('.tree-DataDanhMuc').treegrid();
+        }
+
+        function ThemMoi() {
+            loading();
+            $("#DataModalThemMoi").load("/Admin/QuanLyDanhMuc/_ThemMoi", {}, function (data) {
+                $("#ModalThemMoi").modal("show");
+                offLoading();
+            })
+        }
+
+
+        function Sua(Id) {
+            loading();
+            $("#DataModalSua").load("/Admin/QuanLyDanhMuc/_Sua", { "Id": Id }, function (data) {
+                $("#ModalSua").modal("show");
+                offLoading();
+            })
+        }
+
+        function ThemMoiLuu() {
+            if ($("#txtTenChuyenMucTM").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống tên chuyên mục", "error");
+                return;
+            }
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn thêm mới chuyên mục?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        Name: $("#txtTenChuyenMucTM").val(),
+                        IsActive: $("#ckTrangThaiTM").is(":checked"),
+                        ParentID: $("#slChuyenMucChaTM").val()
+                    }
+
+                    $.post("../QuanLyDanhMuc/ThemMoi", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            LoadTreeTable();
+                            Message('', data.message, data.icon);
+                            $("#ModalThemMoi").modal("hide");
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        offLoading();
+                    });
+                }
+            })
+        }
+
+        function SuaLuu() {
+            if ($("#txtTenChuyenMucSua").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống tên chuyên mục", "error");
+                return;
+            }
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn sửa chuyên mục?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        Name: $("#txtTenChuyenMucSua").val(),
+                        IsActive: $("#ckTrangThaiSua").is(":checked"),
+                        ParentID: $("#slChuyenMucChaSua").val(),
+                        ID: $("#IdChuyenMuc").val()
+                    }
+
+                    $.post("../QuanLyDanhMuc/CapNhat", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            LoadTreeTable();
+                            Message('', data.message, data.icon);
+                            $("#ModalSua").modal("hide");
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        offLoading();
+                    });
+                }
+            })
+        }
+
+
+
+        function Xoa(Id) {
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn xóa chuyên mục?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        ID: Id
+                    }
+
+                    $.post("../QuanLyDanhMuc/Xoa", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            LoadTreeTable();
+                            Message('', data.message, data.icon);
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        offLoading();
+                    });
+                }
+            })
+        }
+    </script>
+}
+

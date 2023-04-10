@@ -1,0 +1,397 @@
+﻿
+@{
+
+    var lstVideoDeXuat = ViewBag.lstVideoDeXuat;
+    var responseDsVideo = ViewBag.responseDsVideo;
+    var TinTucMoi = ViewBag.TinTucMoi;
+
+}
+<style>
+    .img-responevise {
+        width: 100%;
+        height: 10rem;
+        object-fit: cover;
+        object-position: 0px 0px;
+    }
+
+    .content-video {
+        padding-top: 10px
+    }
+
+    .avatar-sm-custom {
+        /* height: 5rem; */
+        width: 8rem;
+        object-fit: cover;
+        object-position: 0px 0px;
+    }
+</style>
+<input type="hidden" value="@ViewBag.lstIdVideoMoi" id="lstIdVideo"/>
+<div class="page-content">
+    <div class="container container-mg-bt content-video">
+        <div class="row mb-2">
+            <div class="col-12">
+                <h2 class="font-w600 Color-left-title text-black">Video</h2>
+            </div>
+        </div>
+
+        <div class="row border-bottom-cm mb-3">
+            @if (lstVideoDeXuat.Count > 0)
+            {
+                <div class="col-xl-8 col-lg-8 col-sm-6 padding-img-right">
+                    @{
+                        var UrlCT = "/" + Utils.convertToUnSign2(lstVideoDeXuat[0].MoTa).Replace(" ", "_") + "_vd-" + lstVideoDeXuat[0].Id + ".htm";
+                    }
+                    <div class="card card-custom">
+                        <a href="@UrlCT" class="text-black">
+                            @{
+                                var UrlImage = string.IsNullOrEmpty(lstVideoDeXuat[0].Image);
+                                if (lstVideoDeXuat[0].IsYouTube == 1)
+                                {
+                                    UrlImage = "https://img.youtube.com/vi/" + Utils.GetYouTubeVideoIdFromUrl(lstVideoDeXuat[0].Video) + "/maxresdefault.jpg";
+                                }
+                                <img class="card-img-top img-fluid img-Title_new" src="@UrlImage" alt="Card image cap">
+                            }
+
+                        </a>
+                        <div class="card-body  p-0 pt-3">
+                            <h4 class="title-new"><a href="@UrlCT" class="text-black">@lstVideoDeXuat[0].MoTa</a></h4>
+                        </div>
+                    </div>
+                </div>
+                if (lstVideoDeXuat.Count > 1)
+                {
+                    <div class="col-xl-4 col-lg-4 col-sm-6">
+                        <ul class="list-group list-group-flush">
+                            @for (var itemVD = 1; itemVD < lstVideoDeXuat.Count; itemVD++)
+                            {
+                                <li class="list-group-item p-0">
+                                    <div class="card border-bottom card-custom card-custom-new">
+                                        <div class="card-body p-0 pb-3 pt-3">
+                                            <div class="d-flex">
+
+                                                <div class="flex-grow-1">
+                                                    <div>
+                                                        @{
+                                                            var UrlCT1 = "/" + Utils.convertToUnSign2(lstVideoDeXuat[itemVD].MoTa).Replace(" ", "_") + "_vd-" + lstVideoDeXuat[itemVD].Id + ".htm";
+                                                        }
+                                                        <h5 class="card-text wraptext-heigth"><a href="@UrlCT1" class="text-black">@lstVideoDeXuat[itemVD].MoTa</a></h5>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-shrink-0">
+                                                    <a href="@UrlCT1" class="text-black">
+                                                        @{
+                                                            var UrlImage1 = string.IsNullOrEmpty(lstVideoDeXuat[itemVD].Image);
+                                                            if (lstVideoDeXuat[0].IsYouTube == 1)
+                                                            {
+                                                                UrlImage1 = "https://img.youtube.com/vi/" + Utils.GetYouTubeVideoIdFromUrl(lstVideoDeXuat[itemVD].Video) + "/maxresdefault.jpg";
+                                                            }
+                                                            <img src="@UrlImage1" alt="" class="avatar-sm-custom  rounded">
+                                                        }
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            }
+
+        </div>
+
+
+
+        @*<div class="row">
+
+                <div class="col-xl-6 col-lg-6 col-sm-12">
+                    @if (lstVideoDeXuat != null && lstVideoDeXuat.Count > 0)
+                    {
+
+                        <div class="gallery-box card light mb-0  pt-0">
+                            @{
+                                var UrlCT = "/" + Utils.convertToUnSign2(lstVideoDeXuat[0].MoTa).Replace(" ", "_") + "_vd-" + lstVideoDeXuat[0].Id + ".htm";
+                            }
+                            <div class="gallery-container">
+                                @{
+                                    var UrlImage = string.IsNullOrEmpty(lstVideoDeXuat[0].Image);
+                                    if (lstVideoDeXuat[0].IsYouTube == 1)
+                                    {
+                                        UrlImage = "https://img.youtube.com/vi/" + Utils.GetYouTubeVideoIdFromUrl(lstVideoDeXuat[0].Video) + "/maxresdefault.jpg";
+                                    }
+                                    <a href="@UrlCT" class="text-white">
+                                        <img class="gallery-img img-fluid mx-auto img-card-Video" src="@UrlImage" alt="" />
+                                        <span class="icon">
+                                            <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M46 23C46 35.7025 35.7025 46 23 46C10.2975 46 0 35.7025 0 23C0 10.2975 10.2975 0 23 0C35.7025 0 46 10.2975 46 23Z" fill="white" fill-opacity="0.2"></path>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M23 44.5625C34.9086 44.5625 44.5625 34.9086 44.5625 23C44.5625 11.0914 34.9086 1.4375 23 1.4375C11.0914 1.4375 1.4375 11.0914 1.4375 23C1.4375 34.9086 11.0914 44.5625 23 44.5625ZM23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46Z" fill="white"></path>
+                                                <path d="M17.1729 31.9226L32.621 23L17.1729 14.0774V31.9226Z" fill="white"></path>
+                                            </svg>
+                                        </span>
+                                    </a>
+                                }
+                                <div class="gallery-overlay" style=" opacity: 1; visibility: visible;top:0" onclick="RedirectPage('@UrlCT')">
+                                    <a href="@UrlCT" class="text-white">
+                                        <h6 class="overlay-caption">@lstVideoDeXuat[0].MoTa</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+
+                <div class="col-xl-6 col-lg-6 col-sm-6 card-video">
+                    <div class="row">
+                        @if (lstVideoDeXuat != null && lstVideoDeXuat.Count > 0)
+                        {
+                            foreach (var item in lstVideoDeXuat)
+                            {
+                                if (item != lstVideoDeXuat[0])
+                                {
+                                    <div class="col-xl-6 col-lg-6 col-sm-12 ">
+                                        @{
+                                            var UrlCT = "/" + Utils.convertToUnSign2(item.MoTa).Replace(" ", "_") + "_vd-" + item.Id + ".htm";
+                                        }
+                                        <div class="card card-videodeXuat">
+                                            @{
+                                                var UrlImage = string.IsNullOrEmpty(item.Image);
+                                                if (item.IsYouTube == 1)
+                                                {
+                                                    UrlImage = "https://img.youtube.com/vi/" + Utils.GetYouTubeVideoIdFromUrl(item.Video) + "/maxresdefault.jpg";
+                                                }
+                                                <a href="@UrlCT" class="text-black">
+                                                    <img class="card-img-top img-fluid img-responevise zoom" src="@UrlImage" alt="Card image cap">
+                                                    <span class="icon">
+                                                        <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M46 23C46 35.7025 35.7025 46 23 46C10.2975 46 0 35.7025 0 23C0 10.2975 10.2975 0 23 0C35.7025 0 46 10.2975 46 23Z" fill="white" fill-opacity="0.2"></path>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M23 44.5625C34.9086 44.5625 44.5625 34.9086 44.5625 23C44.5625 11.0914 34.9086 1.4375 23 1.4375C11.0914 1.4375 1.4375 11.0914 1.4375 23C1.4375 34.9086 11.0914 44.5625 23 44.5625ZM23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46Z" fill="white"></path>
+                                                            <path d="M17.1729 31.9226L32.621 23L17.1729 14.0774V31.9226Z" fill="white"></path>
+                                                        </svg>
+                                                    </span>
+                                                </a>
+                                            }
+                                            <div class="card-body p-0 pt-3">
+                                                <h5 class="card-text wraptext-heigth"><a href="@UrlCT" class="text-black">@item.MoTa</a> </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>*@
+        <div class="row pb-3">
+            <div class="col-sm-6 col-xl-9">
+                <h3 class="Color-left-title text-black">Cùng chuyên mục</h3>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Tìm trong chuyên mục" id="txtTimKiem">
+                    <button class="btn btn-secondary-search" type="button" onclick="TimKiemVideo()"><i class="ri-search-line"></i></button>
+                </div>
+            </div>
+            <input type="hidden" value="@ViewBag.recordsTotal" id="TongBanGhi" />
+            <input type="hidden" value="1" id="TrangHienTai" />
+        </div>
+        <div class="row" id="DataDSVideo">
+            @if (responseDsVideo != null)
+            {
+                foreach (var item in responseDsVideo)
+                {
+                    <div class="col-sm-6 col-xl-3">
+                        @{
+                            var UrlCT = "/" + Utils.convertToUnSign2(item.MoTa).Replace(" ", "_") + "_vd-" + item.Id + ".htm";
+                        }
+                        <div class="card card-custom">
+                            @{
+                                var UrlImage = string.IsNullOrEmpty(item.Image);
+                                if (item.IsYouTube == 1)
+                                {
+                                    UrlImage = "https://img.youtube.com/vi/" + Utils.GetYouTubeVideoIdFromUrl(item.Video) + "/maxresdefault.jpg";
+                                }
+                                <a href="@UrlCT" class="text-black">
+                                    <img class="card-img-top img-fluid img-card-video-audio zoom" src="@UrlImage" alt="Card image cap">
+                                    <span class="icon">
+                                        <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M46 23C46 35.7025 35.7025 46 23 46C10.2975 46 0 35.7025 0 23C0 10.2975 10.2975 0 23 0C35.7025 0 46 10.2975 46 23Z" fill="white" fill-opacity="0.2"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M23 44.5625C34.9086 44.5625 44.5625 34.9086 44.5625 23C44.5625 11.0914 34.9086 1.4375 23 1.4375C11.0914 1.4375 1.4375 11.0914 1.4375 23C1.4375 34.9086 11.0914 44.5625 23 44.5625ZM23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46Z" fill="white"></path>
+                                            <path d="M17.1729 31.9226L32.621 23L17.1729 14.0774V31.9226Z" fill="white"></path>
+                                        </svg>
+                                    </span>
+                                </a>
+                            }
+                            <div class="card-body p-0 pt-3">
+                                <p class="text-success fs-12 mb-0">@(item.CreatedDate != null ? ((DateTime)item.CreatedDate).ToString("dd-MM-yyyy HH:mm"):"")</p>
+                                <h5 class="card-text font-w600 wraptext-heigth"><a href="@UrlCT" class="text-black">@item.MoTa</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <div class="row pb-3" id="BtnLoadXemThem">
+            <div class="text-center">
+                <button type="button" class="btn btn-outline-secondary waves-effect waves-light" onclick="LoadXemThem()">Xem thêm</button>
+            </div>
+        </div>
+        <div class="row pb-3 pt-3">
+            <div class="col-sm-12 col-xl-12">
+                <h3 class="Title-TieuDe">Tin mới</h3>
+            </div>
+        </div>
+
+        @if (TinTucMoi.Count > 0)
+        {
+            <div class="row" id="DataDSVideo">
+                @foreach (var itemBV in TinTucMoi)
+                {
+
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card card-custom">
+                            <img class="card-img-top img-fluid img-card-video-audio zoom" src="@itemBV.Thumnail" alt="Card image cap">
+                            <div class="card-body  p-0 pt-3">
+                                @{
+                                    var Url = "/" + Utils.convertToUnSign2(itemBV.Title).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                                    if (!string.IsNullOrEmpty(itemBV.TuKhoaSeo))
+                                    {
+                                        Url = "/" + Utils.convertToUnSign2(itemBV.TuKhoaSeo).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                                    }
+                                }
+                                <p class="text-success fs-12 mb-0">@(itemBV.NgayPhatHanh != null?((DateTime)itemBV.NgayPhatHanh).ToString("dd-MM-yyyy HH:mm"):"")</p>
+                                <h5 class="card-text wraptext-heigth"><a href="@Url" class="text-black  font-w600">@itemBV.Title</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        }
+    </div>
+
+</div>
+@section scripts {
+    <script src="~/Content/SlideShow/script.js"></script>
+    <script>
+
+
+
+        $(document).ready(function () {
+            if ((parseInt($("#TrangHienTai").val())) * 8 > parseInt($("#TongBanGhi").val())) {
+                $("#BtnLoadXemThem").addClass("d-none");
+            }
+            else {
+                $("#BtnLoadXemThem").removeClass("d-none");
+            }
+        });
+
+
+        function LoadXemThem() {
+            var requestModel = {
+                start: parseInt($("#TrangHienTai").val()) * 8,
+                length: 8,
+                MoTa: $("#txtTimKiem").val(),
+                IsHienThi: null,
+                lstIdVideoMoi: $("#lstIdVideo").val(),
+                IsCheckVideoMoi: 1
+            }
+            if ((parseInt($("#TrangHienTai").val()) + 1) * 8 > parseInt($("#TongBanGhi").val())) {
+                $("#BtnLoadXemThem").addClass("d-none");
+            }
+            else {
+                $("#BtnLoadXemThem").removeClass("d-none");
+            }
+            $("#TrangHienTai").val(parseInt($("#TrangHienTai").val()) + 1);
+            $.post("/Video/DanhSach", { "requestModel": requestModel }, function (data) {
+                loading();
+                var StrHtml = "";
+                if (data.data.length > 0) {
+                    [...data.data].map((el, index) => {
+
+                        var UrlImage = el.Image;
+                        if (el.IsYouTube == 1) {
+                            UrlImage = "https://img.youtube.com/vi/" + youtube_parser(el.Video) + "/maxresdefault.jpg";
+                        }
+                        StrHtml += `<div class="col-sm-6 col-xl-3">
+<div class="card card-custom">
+<a href="${el.UrlCT}" class="text-black"><img class="card-img-top img-fluid img-card-video-audio zoom" src="${UrlImage}" alt="Card image cap">
+<span class="icon">
+<svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M46 23C46 35.7025 35.7025 46 23 46C10.2975 46 0 35.7025 0 23C0 10.2975 10.2975 0 23 0C35.7025 0 46 10.2975 46 23Z" fill="white" fill-opacity="0.2"></path>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M23 44.5625C34.9086 44.5625 44.5625 34.9086 44.5625 23C44.5625 11.0914 34.9086 1.4375 23 1.4375C11.0914 1.4375 1.4375 11.0914 1.4375 23C1.4375 34.9086 11.0914 44.5625 23 44.5625ZM23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46Z" fill="white"></path>
+<path d="M17.1729 31.9226L32.621 23L17.1729 14.0774V31.9226Z" fill="white"></path>
+</svg>
+</span>
+</a>
+<div class="card-body p-0 pt-3">
+<p class="text-success fs-12 mb-0">${moment(el.CreatedDate).format("DD-MM-YYYY HH:mm")}</p>
+<h5 class="card-text font-w600 wraptext-heigth"><a href="${el.UrlCT}" class="text-black">${el.MoTa}</a></h5>
+</div>
+</div>
+</div>`;
+                    });
+                    $("#DataDSVideo").append(StrHtml);
+                }
+                offLoading();
+            })
+        }
+
+
+        function TimKiemVideo() {
+            var requestModel = {
+                start: 1,
+                length: 8,
+                MoTa: $("#txtTimKiem").val(),
+                IsHienThi: null,
+                lstIdVideoMoi: $("#lstIdVideo").val(),
+                IsCheckVideoMoi:1
+            }
+
+            $.post("/Video/DanhSach", { "requestModel": requestModel }, function (data) {
+                loading();
+                var StrHtml = "";
+                if (data.data.length > 0) {
+                    [...data.data].map((el, index) => {
+                        var UrlImage = el.Image;
+                        if (el.IsYouTube == 1) {
+                            UrlImage = "https://img.youtube.com/vi/" + youtube_parser(el.Video) + "/maxresdefault.jpg";
+                        }
+
+                        StrHtml += `<div class="col-sm-6 col-xl-3">
+<div class="card card-custom">
+<a href="${el.UrlCT}" class="text-black"><img class="card-img-top img-fluid img-card-video-audio zoom" src="${UrlImage}" alt="Card image cap">
+<span class="icon">
+<svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M46 23C46 35.7025 35.7025 46 23 46C10.2975 46 0 35.7025 0 23C0 10.2975 10.2975 0 23 0C35.7025 0 46 10.2975 46 23Z" fill="white" fill-opacity="0.2"></path>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M23 44.5625C34.9086 44.5625 44.5625 34.9086 44.5625 23C44.5625 11.0914 34.9086 1.4375 23 1.4375C11.0914 1.4375 1.4375 11.0914 1.4375 23C1.4375 34.9086 11.0914 44.5625 23 44.5625ZM23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46Z" fill="white"></path>
+<path d="M17.1729 31.9226L32.621 23L17.1729 14.0774V31.9226Z" fill="white"></path>
+</svg>
+</span>
+</a>
+<div class="card-body p-0 pt-3">
+<p class="text-success fs-12 mb-0">${moment(el.CreatedDate).format("DD-MM-YYYY HH:mm")}</p>
+<h5 class="card-text font-w600 wraptext-heigth"><a href="${el.UrlCT}" class="text-black">${el.MoTa}</a></h5>
+</div>
+</div>
+</div>`;
+                    });
+                    $("#DataDSVideo").empty();
+                    $("#DataDSVideo").append(StrHtml);
+                    $("#TrangHienTai").val(1);
+                    $("#TongBanGhi").val(data.recordsTotal);
+                    if ((parseInt($("#TrangHienTai").val())) * 8 > parseInt($("#TongBanGhi").val())) {
+                        $("#BtnLoadXemThem").addClass("d-none");
+                    }
+                    else {
+                        $("#BtnLoadXemThem").removeClass("d-none");
+                    }
+                }
+                offLoading();
+            })
+        }
+
+    </script>
+}

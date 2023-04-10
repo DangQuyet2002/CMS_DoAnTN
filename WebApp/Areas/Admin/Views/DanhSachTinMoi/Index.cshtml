@@ -1,0 +1,199 @@
+﻿
+@{
+
+}
+<style>
+    .swal2-deny {
+        background-color: #197e7e;
+    }
+</style>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Danh sách tin mới</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Quản trị bài viết</a></li>
+                    <li class="breadcrumb-item active">Danh sách tin mới</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12" id="card-none1">
+        <div class="card" id="invoiceList">
+            <div class="card-header border-0">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title mb-0 flex-grow-1">Danh sách bài viết</h5>
+                </div>
+            </div>
+            <div class="card-body bg-soft-light border border-dashed border-start-0 border-end-0">
+                <div class="row g-3">
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <select class="form-control slTrangThai" id="slCategory" onchange="TimKiemBaiViet()">
+                                    <option value=""></option>
+                                    @Html.Raw(ViewBag.optionSelected)
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Tiêu đề" id="txtTieuDe" value="" onchange="TimKiemBaiViet()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-sm-12 dp-flex">
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="ckHienThiTinMoi" onclick="TimKiemBaiViet()">
+                                <label class="form-check-label" for="ckHienThiTinMoi">
+                                    Hiển thị tin mới
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="DanhSachBaiViet" class="display nowrap" style="width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+
+
+        function TimKiemBaiViet() {
+            table.ajax.reload(null, false);
+        }
+
+        $(document).ready(function () {
+            GetData();
+        });
+
+        $("#slTrangThai").select2({
+            placeholder: "Trạng thái",
+            allowClear: true
+        })
+        $("#slCategory").select2({
+            placeholder: "Chuyên mục",
+            allowClear: true
+        })
+        //$('#jstree-treeChuyenMuc').jstree({
+        //    core: {
+        //        data: {
+        //            url: '/Admin/Common/TreeChuyenMuc',
+        //            type: "POST"
+        //        }
+        //    },
+        //    types: {
+        //        "folder": {
+        //            "icon": "ri-file-text-line"
+        //        },
+        //        "default": {
+        //            "icon": "ri-file-text-line"
+        //        }
+        //    },
+        //    plugins: ["search", "themes", "types"],
+        //}).on('open_node.jstree', function (e, data) {
+        //    data.instance.set_icon(data.node, "ri-file-text-line");
+        //}).on('close_node.jstree', function (e, data) { data.instance.set_icon(data.node, "ri-file-text-line"); });
+
+        //var table = null;
+        $("#jstree-treeChuyenMuc").bind("changed.jstree", function (e, data) {
+            debugger;
+            var Json = JSON.parse(data.node.id);
+            CategoryID = Json.id;
+            table.ajax.reload();
+        });
+        var CategoryID = null;
+        function GetData() {
+
+            table = $.fn.initDataTable('#DanhSachBaiViet', {
+                serverSide: true,
+                searching: false,
+                lengthMenu: [50],
+                scrollX: true,
+                scrollY: true,
+                columnDefs: [
+                    { width: 50, targets: 0 },
+                    { className: "dt-center", targets: [1, 2, 3] }
+                ],
+                preDrawCallback: function () {
+                    loading()
+                },
+                columns: [
+
+                    { "data": "Title", title: "Tiêu đề" },
+                    { "data": "NumberViewer", "className": 'dt-body-center', title: "Lượt view" },
+                    {
+                        "data": "CreatedAt", "className": 'dt-body-center', title: "Ngày tạo", "render": function (data) {
+                            if (data != null) {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "IsTinMoi", title: "Tin mới", "className": 'dt-body-center', "render": function (data, type, row, meta) {
+                            if (data) {
+                                return `<input class="form-check-input" type="checkbox" checked onclick="CapNhatTinTucMoi(0,${row.ID})">`;
+                            }
+                            return `<input class="form-check-input" type="checkbox"  onclick="CapNhatTinTucMoi(1,${row.ID})">`;
+                        }
+                    }
+                ],
+                ajax: {
+                    url: "/Admin/TKGDDuyetBai/DanhSachBaiViet",
+                    type: "post",
+                    data: (params) => {
+                        params.Title = $("#txtTieuDe").val();
+                        params.CategoryID = $("#slCategory").val();
+                        params.IsActive = 1;
+                        params.IsTinMoi = $("#ckHienThiTinMoi").is(":checked") == true ? 1 : 0;
+                    }
+                },
+                drawCallback: function () {
+                    offLoading();
+                },
+                initComplete: function (dt) {
+                    //offloading();
+                    if (dt.type == "error") {
+                        showErrorToast("Thất bại", dt.message, dt.type);
+                    }
+                }
+            });
+
+        }
+
+
+        function CapNhatTinTucMoi(TrangThai, Id) {
+            var requestModel = {
+                IsTinMoi: TrangThai,
+                ID: Id
+            }
+            $.post("/Admin/DanhSachTinMoi/CapNhatTinTucMoi", { "requestModel": requestModel }, function (data) {
+                if (data.icon == "success") {
+                    ToastMessage("Thành công", data.message, data.icon);
+                }
+                else {
+                    ToastMessage("Lỗi", data.message, data.icon);
+                }
+                table.ajax.reload(null, false);
+                offLoading();
+            });
+        }
+    </script>
+}

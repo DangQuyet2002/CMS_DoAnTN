@@ -1,0 +1,225 @@
+﻿
+@{
+
+}
+<link href="~/Content/CMSContent/assets/libs/treegrid/dist/css/jquery.treegrid.css" rel="stylesheet" />
+<style>
+    .width-table {
+        width: 5rem;
+        text-align: center;
+    }
+
+    .width-status-table {
+        width: 7rem;
+        text-align: center;
+    }
+</style>
+<input type="hidden" value="/danh-sach-chi-hoi-truc-thuoc-chtt.htm" id="UrlChiHoi" />
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Quản lý chi hội</h4>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12" id="card-none2">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h6 class="card-title mb-0">Danh sách chi hội</h6>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="javasceript:void(0);" class="btn btn-outline-primary waves-effect waves-light btn-sm" onclick="copyToClipboard('#UrlChiHoi')">Copy link</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body collapse show" id="collapseExample2" style="">
+                <table class="table table-bordered tree-DataChiHoi">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tên nhóm/tên chi hội</th>
+                            <th scope="col" class="text-center">Link</th>
+                            <th scope="col" class="width-table">
+                                <a href="#" onclick="ThemMoi()"><i class="ri-add-circle-line Size-icon "></i></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="DataChiHoi">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!-- end col -->
+</div>
+<div class="modal fade show" id="Modal" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="IdTitlModal">Thêm mới văn bản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="DataModal" style="padding-top: 0;">
+
+            </div>
+            <div class="nv-modal-footer">
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="Luu()"><i class="ri-save-line">Lưu</i></button>
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade show" id="ModalSua" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="nv-modal-header">
+                    <div class="nv-modal-title">Sửa tên nhóm/tên chi hội</div>
+                    <span class="nv-modal-close btn-close-modal"><i class="fal fa-times-circle"></i></span>
+                </div>
+                <div class="modal-body" id="DataModalSua" style="padding-top: 0;">
+
+                </div>
+                <div class="nv-modal-footer">
+                    <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="SuaLuu()"><i class="ri-save-line">Sửa</i></button>
+                    <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+@section scripts {
+    <script src="~/Content/CMSContent/assets/libs/treegrid/dist/js/jquery.treegrid.min.js"></script>
+    <script type="text/javascript">
+
+        function copyToClipboard(element) {
+            debugger
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).val()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            ToastMessage("Thành công", "Copy đường dẫn thành công", "success");
+        }
+
+        $(document).ready(function () {
+            LoadTreeTable();
+        });
+        var GridTree = null;
+
+        function LoadTreeTable() {
+            $("#DataChiHoi").empty();
+            $.post("/Admin/QuanLyChiHoi/Tree", {}, function (data) {
+                if (data.type == "success") {
+                    $("#DataChiHoi").append(data.data);
+                }
+                else {
+                    $("#DataChiHoi").append("");
+                }
+                if (GridTree == null) {
+                    setTimeout(reloadtreegrid, 500);
+                }
+                else {
+                    setTimeout(reloadtreegrid, 100);
+                    setTimeout(reloadtreegrid, 200);
+                }
+            })
+
+        }
+
+        function reloadtreegrid() {
+            GridTree = $('.tree-DataChiHoi').treegrid();
+        }
+
+        function ThemMoi(Id, ParentId) {
+            $("#IdTitlModal").html("Thêm nhóm/chi hội");
+            if (Id > 0) {
+                $("#IdTitlModal").html("Sửa nhóm/chi hội");
+            }
+            loading();
+            $("#DataModal").load("/Admin/QuanLyChiHoi/_ThemMoi", { "ParentId": ParentId, "Id": Id }, function (data) {
+                $("#Modal").modal("show");
+                offLoading();
+            })
+        }
+
+        function Luu() {
+            if ($("#txtTen").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống tên nhóm/tên chi hội", "error");
+                return;
+            }
+            var StrThongBao = "Chắc chắn thêm mới nhóm/chi hội?";
+            if ($("#ParentId").val() > 0) {
+                StrThongBao = "Chắc chắn sửa nhóm/chi hội?";
+            }
+            Swal.fire({
+                title: '',
+                text: StrThongBao,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        Ten: $("#txtTen").val(),
+                        Url: $("#txtUrl").val(),
+                        ParentId: $("#ParentId").val(),
+                        Id: $("#IdChiHoi").val(),
+                    }
+
+                    $.post("/Admin/QuanLyChiHoi/Luu", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            LoadTreeTable();
+                            Message('', data.message, data.icon);
+                            $("#Modal").modal("hide");
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        offLoading();
+                    });
+                }
+            })
+        }
+
+        function Xoa(Id) {
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn xóa chuyên mục?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        ID: Id
+                    }
+
+                    $.post("/Admin/QuanLyChiHoi/Xoa", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            LoadTreeTable();
+                            Message('', data.message, data.icon);
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        offLoading();
+                    });
+                }
+            })
+        }
+    </script>
+}
+

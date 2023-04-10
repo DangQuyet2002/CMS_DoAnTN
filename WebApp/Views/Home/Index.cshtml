@@ -1,0 +1,658 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/ControllerCss/Home.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+<link href="~/Content/cssCanvas/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/CMSContent/assets/demos/car/css/car-icons/style.css" rel="stylesheet" />
+<link href="~/Content/cssCanvas/css/dark.css" rel="stylesheet" />
+<link href="~/Content/cssCanvas/css/font-icons.css" rel="stylesheet" />
+<link href="~/Content/cssCanvas/css/animate.css" rel="stylesheet" />
+<link href="~/Content/cssCanvas/css/magnific-popup.css" rel="stylesheet" />
+<link href="~/Content/cssCanvas/css/responsive.css" rel="stylesheet" />
+<link href="~/Content/cssCanvas/css/components/ion.rangeslider.css" rel="stylesheet" />
+<section>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="~/Content/Image/Banner/slide1.png" style="width:1349px ; height:691px ;object-fit:contain">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="~/Content/Image/Banner/slide2.png" style="width:1349px ; height:691px ;object-fit:cover">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="~/Content/Image/Banner/slide3.jpg" style="width:1349px ; height:691px ;object-fit:contain">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</section>
+<section>
+    <div class="container t3-mainbody mt-5">
+        <div class="row">
+            <!-- MAIN CONTENT -->
+            <div id="t3-content" class="t3-content col-xs-12">
+                <div id="system-message-container">
+                </div>
+
+                <div class="eshop-shop-introduction">
+                    <h1 style="text-align: center;">CHÀO MỪNG!</h1>
+                    <h2 style="text-align: center;">ĐẾN VỚI FASHIONGO</h2>
+                    <p style="text-align: center;">Với mục tiêu tạo ra những trải nghiệm mua sắm thời trang trực tuyến tuyệt vời, FashionGo (FG) ra đời và luôn nỗ lực để mang đến khách hàng mua sắm thời trang: Kho thời trang chất lượng, Giá cả cạnh tranh, Dịch vụ chăm sóc khách hàng tận tâm... và hơn thế chung tôi luôn cam kết bằng hành động của mình. Chúc bạn lựa chọn được phong cách phù hợp với mình cùng FG!</p>
+                    <p style="text-align: center;"><a class="btn btn-primary" href="" title="Giới thiệu về FashionGo">Đọc thêm</a></p>
+                </div>
+
+            </div>
+            <!-- //MAIN CONTENT -->
+        </div>
+    </div>
+</section>
+<section>
+    <div class="wrap t3-featured-product">
+        <div class="container">
+            <div class="t3-module module " id="Mod116">
+                <div class="module-inner">
+                    <h3 class="module-title mt-3 mb-3 "><span>Sản phẩm Mới</span></h3><div class="module-ct">
+                        <div class="eshop-product">
+                            <div class="row">
+                                <div class="eshop_product col-lg-3 col-xs-12 col-md-3">
+                                    <div class="eshop-wrap-product">
+                                        <div class="eshop-image-block">
+                                            <div class="image">
+                                                <span class="overlay-background-color">&nbsp;</span>
+                                                <a href="" title="Áo vải">
+                                                    <img id="product-image" class="image img-responsive" alt="" src="~/Content/CMSContent/assets/images/khoac-vest-co-gon-song3.jpg" />
+                                                </a>
+                                            </div>
+                                            <div class="eshop-buttons">
+                                                <p>
+                                                    <a class="button" style="cursor: pointer;" onclick="addToWishList()" title="Đánh dấu sản phẩm yêu thích"><i class="fa fa-heart"></i><span class="text-hide">Yêu thích</span></a>
+                                                    <a class="button" style="cursor: pointer;" href="" title="Xem chi tiết"><i class="fa fa-arrow-right"></i><span class="text-hide">Chi tiết</span></a>
+                                                </p>
+                                                <div class="eshop-items btn btn-primary">
+                                                    <a>
+                                                        <i class="fa fa-shopping-cart">&nbsp;</i>
+                                                        <span>Thêm giỏ hàng</span>
+                                                        @*<span id="eshop-cart-total">@ShoppingCart.Cart.Count</span>*@
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4 class="eshop-product-title">
+                                            <a href="" title="Áo vải">
+                                                ÁO KHOÁC VEST CỔ GỢN SÓNG
+                                            </a>
+                                        </h4>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-xs-6">
+                                                <div>
+                                                    <div class="product-review">
+                                                        <p>
+                                                            <i class="fa fa-tag" aria-hidden="true">5</i>  <i class="fa fa-eye" aria-hidden="true">25</i>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-xs-6">
+
+                                                <span class="eshop-base-price" style="font-size:16px">700.000đ</span>
+
+                                                <span class="eshop-price" style="font-size:18px">800.00đ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="eshop_product col-lg-3 col-xs-12 col-md-3">
+                                    <div class="eshop-wrap-product">
+                                        <div class="eshop-image-block">
+                                            <div class="image">
+                                                <span class="overlay-background-color">&nbsp;</span>
+                                                <a href="" title="Áo vải">
+                                                    <img id="product-image" class="image img-responsive" alt="" src="~/ContentApp/CMSContent/assets/images/khoac-vest-co-gon-song3.jpg" />
+                                                </a>
+                                            </div>
+                                            <div class="eshop-buttons">
+                                                <p>
+                                                    <a class="button" style="cursor: pointer;" onclick="addToWishList()" title="Đánh dấu sản phẩm yêu thích"><i class="fa fa-heart"></i><span class="text-hide">Yêu thích</span></a>
+                                                    <a class="button" style="cursor: pointer;" href="" title="Xem chi tiết"><i class="fa fa-arrow-right"></i><span class="text-hide">Chi tiết</span></a>
+                                                </p>
+                                                <div class="eshop-items btn btn-primary">
+                                                    <a>
+                                                        <i class="fa fa-shopping-cart">&nbsp;</i>
+                                                        <span>Thêm giỏ hàng</span>
+                                                        @*<span id="eshop-cart-total">@ShoppingCart.Cart.Count</span>*@
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4 class="eshop-product-title">
+                                            <a href="" title="Áo vải">
+                                                ÁO KHOÁC VEST CỔ GỢN SÓNG
+                                            </a>
+                                        </h4>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-xs-6">
+                                                <div>
+                                                    <div class="product-review">
+                                                        <p>
+                                                            <i class="fa fa-tag" aria-hidden="true">5</i>  <i class="fa fa-eye" aria-hidden="true">25</i>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-xs-6">
+
+                                                <span class="eshop-base-price" style="font-size:16px">700.000đ</span>
+
+                                                <span class="eshop-price" style="font-size:18px">800.00đ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="eshop_product col-lg-3 col-xs-12 col-md-3">
+                                    <div class="eshop-wrap-product">
+                                        <div class="eshop-image-block">
+                                            <div class="image">
+                                                <span class="overlay-background-color">&nbsp;</span>
+                                                <a href="" title="Áo vải">
+                                                    <img id="product-image" class="image img-responsive" alt="" src="~/ContentApp/CMSContent/assets/images/khoac-vest-co-gon-song3.jpg" />
+                                                </a>
+                                            </div>
+                                            <div class="eshop-buttons">
+                                                <p>
+                                                    <a class="button" style="cursor: pointer;" onclick="addToWishList()" title="Đánh dấu sản phẩm yêu thích"><i class="fa fa-heart"></i><span class="text-hide">Yêu thích</span></a>
+                                                    <a class="button" style="cursor: pointer;" href="" title="Xem chi tiết"><i class="fa fa-arrow-right"></i><span class="text-hide">Chi tiết</span></a>
+                                                </p>
+                                                <div class="eshop-items btn btn-primary">
+                                                    <a>
+                                                        <i class="fa fa-shopping-cart">&nbsp;</i>
+                                                        <span>Thêm giỏ hàng</span>
+                                                        @*<span id="eshop-cart-total">@ShoppingCart.Cart.Count</span>*@
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4 class="eshop-product-title">
+                                            <a href="" title="Áo vải">
+                                                ÁO KHOÁC VEST CỔ GỢN SÓNG
+                                            </a>
+                                        </h4>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-xs-6">
+                                                <div>
+                                                    <div class="product-review">
+                                                        <p>
+                                                            <i class="fa fa-tag" aria-hidden="true">5</i>  <i class="fa fa-eye" aria-hidden="true">25</i>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-xs-6">
+
+                                                <span class="eshop-base-price" style="font-size:16px">700.000đ</span>
+
+                                                <span class="eshop-price" style="font-size:18px">800.00đ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="eshop_product col-lg-3 col-xs-12 col-md-3">
+                                    <div class="eshop-wrap-product">
+                                        <div class="eshop-image-block">
+                                            <div class="image">
+                                                <span class="overlay-background-color">&nbsp;</span>
+                                                <a href="" title="Áo vải">
+                                                    <img id="product-image" class="image img-responsive" alt="" src="~/ContentApp/CMSContent/assets/images/khoac-vest-co-gon-song3.jpg" />
+                                                </a>
+                                            </div>
+                                            <div class="eshop-buttons">
+                                                <p>
+                                                    <a class="button" style="cursor: pointer;" onclick="addToWishList()" title="Đánh dấu sản phẩm yêu thích"><i class="fa fa-heart"></i><span class="text-hide">Yêu thích</span></a>
+                                                    <a class="button" style="cursor: pointer;" href="" title="Xem chi tiết"><i class="fa fa-arrow-right"></i><span class="text-hide">Chi tiết</span></a>
+                                                </p>
+                                                <div class="eshop-items btn btn-primary">
+                                                    <a>
+                                                        <i class="fa fa-shopping-cart">&nbsp;</i>
+                                                        <span>Thêm giỏ hàng</span>
+                                                        @*<span id="eshop-cart-total">@ShoppingCart.Cart.Count</span>*@
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4 class="eshop-product-title">
+                                            <a href="" title="Áo vải">
+                                                ÁO KHOÁC VEST CỔ GỢN SÓNG
+                                            </a>
+                                        </h4>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-xs-6">
+                                                <div>
+                                                    <div class="product-review">
+                                                        <p>
+                                                            <i class="fa fa-tag" aria-hidden="true">5</i>  <i class="fa fa-eye" aria-hidden="true">25</i>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-xs-6">
+
+                                                <span class="eshop-base-price" style="font-size:16px">700.000đ</span>
+
+                                                <span class="eshop-price" style="font-size:18px">800.00đ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <section id="content">
+
+        <div class="content-wrap">
+
+            <div class="container clearfix">
+
+                <!-- Portfolio Filter
+                ============================================= -->
+                <ul id="portfolio-filter" class="portfolio-filter clearfix">
+
+                    <li class="activeFilter"><a href="#" data-filter="*">Show All</a></li>
+                    <li><a href="#" data-filter=".pf-dress">Dress</a></li>
+                    <li><a href="#" data-filter=".pf-Shoes">Shoes</a></li>
+                    <li><a href="#" data-filter=".pf-sunglass">Sunglass</a></li>
+                    <li><a href="#" data-filter=".pf-watch">Watch</a></li>
+
+                </ul><!-- #portfolio-filter end -->
+
+                <div style="float:right; width:280px;">
+                    <input class="range_23" />
+                </div>
+
+                <div class="clear"></div>
+
+                <!-- Shop
+                ============================================= -->
+                <div id="shop" class="shop grid-container clearfix">
+
+                    <div class="product clearfix pf-dress">
+                        <div class="product-image">
+                            <a href="#"><img src="~/ContentApp/Image/Product/quan1.jpg" alt="Checked Short Dress"></a>
+                            <a href="#"><img src="~/ContentApp/Image/Product/quan3.jpg" alt="Checked Short Dress"></a>
+                            <div class="sale-flash">50% Off*</div>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Checked Short Dress</a></h3></div>
+                            <div class="product-price"><del>$24.99</del> <ins>$12.49</ins></div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-half-full"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-dress">
+                        <div class="product-image">
+                            <a href="#"><img src="~/ContentApp/Image/Product/quan3.jpg" alt="Slim Fit Chinos"></a>
+                            <a href="#"><img src="~/ContentApp/Image/Product/quan1.jpg" alt="Slim Fit Chinos"></a>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Slim Fit Chinos</a></h3></div>
+                            <div class="product-price">$39.99</div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-half-full"></i>
+                                <i class="icon-star-empty"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-Shoes">
+                        <div class="product-image">
+                            <div class="fslider" data-arrows="false">
+                                <div class="flexslider">
+                                    <div class="slider-wrap">
+                                        <div class="slide"><a href="#"><img src="~/ContentApp/Image/Product/quan1.jpg" alt="Dark Brown Boots"></a></div>
+                                        <div class="slide"><a href="#"><img src="images/shop/shoes/1-1.jpg" alt="Dark Brown Boots"></a></div>
+                                        <div class="slide"><a href="#"><img src="images/shop/shoes/1-2.jpg" alt="Dark Brown Boots"></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Dark Brown Boots</a></h3></div>
+                            <div class="product-price">$49</div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-empty"></i>
+                                <i class="icon-star-empty"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-dress">
+                        <div class="product-image">
+                            <a href="#"><img src="~/ContentApp/Image/Product/quan3.jpg" alt="Light Blue Denim Dress"></a>
+                            <a href="#"><img src="~/ContentApp/Image/Product/quan1.jpg" alt="Light Blue Denim Dress"></a>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Light Blue Denim Dress</a></h3></div>
+                            <div class="product-price">$19.95</div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-empty"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-sunglass">
+                        <div class="product-image">
+                            <a href="#"><img src="~/ContentApp/Image/Product/quan3.jpg" alt="Unisex Sunglasses"></a>
+                            <a href="#"><img src="" alt="Unisex Sunglasses"></a>
+                            <div class="sale-flash">Sale!</div>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Unisex Sunglasses</a></h3></div>
+                            <div class="product-price"><del>$19.99</del> <ins>$11.99</ins></div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-empty"></i>
+                                <i class="icon-star-empty"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-dress">
+                        <div class="product-image">
+                            <a href="#"><img src="" alt="Blue Round-Neck Tshirt"></a>
+                            <a href="#"><img src="" alt="Blue Round-Neck Tshirt"></a>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Blue Round-Neck Tshirt</a></h3></div>
+                            <div class="product-price">$9.99</div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-half-full"></i>
+                                <i class="icon-star-empty"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-watch">
+                        <div class="product-image">
+                            <a href="#"><img src="" alt="Silver Chrome Watch"></a>
+                            <a href="#"><img src="" alt="Silver Chrome Watch"></a>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Silver Chrome Watch</a></h3></div>
+                            <div class="product-price">$129.99</div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-half-full"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-Shoes">
+                        <div class="product-image">
+                            <a href="#"><img src="" alt="Men Grey Casual Shoes"></a>
+                            <a href="#"><img src="" alt="Men Grey Casual Shoes"></a>
+                            <div class="sale-flash">Sale!</div>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Men Grey Casual Shoes</a></h3></div>
+                            <div class="product-price"><del>$45.99</del> <ins>$39.49</ins></div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-half-full"></i>
+                                <i class="icon-star-empty"></i>
+                                <i class="icon-star-empty"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-dress">
+                        <div class="product-image">
+                            <div class="fslider" data-arrows="false">
+                                <div class="flexslider">
+                                    <div class="slider-wrap">
+                                        <div class="slide"><a href="#"><img src="images/shop/dress/3.jpg" alt="Pink Printed Dress"></a></div>
+                                        <div class="slide"><a href="#"><img src="images/shop/dress/3-1.jpg" alt="Pink Printed Dress"></a></div>
+                                        <div class="slide"><a href="#"><img src="images/shop/dress/3-2.jpg" alt="Pink Printed Dress"></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Pink Printed Dress</a></h3></div>
+                            <div class="product-price">$39.49</div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-empty"></i>
+                                <i class="icon-star-empty"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-dress">
+                        <div class="product-image">
+                            <a href="#"><img src="" alt="Green Trousers"></a>
+                            <a href="#"><img src="" alt="Green Trousers"></a>
+                            <div class="sale-flash">Sale!</div>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Green Trousers</a></h3></div>
+                            <div class="product-price"><del>$24.99</del> <ins>$21.99</ins></div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-half-full"></i>
+                                <i class="icon-star-empty"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-sunglass">
+                        <div class="product-image">
+                            <a href="#"><img src="" alt="Men Aviator Sunglasses"></a>
+                            <a href="#"><img src="" alt="Men Aviator Sunglasses"></a>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Men Aviator Sunglasses</a></h3></div>
+                            <div class="product-price">$13.49</div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star-empty"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product clearfix pf-dress">
+                        <div class="product-image">
+                            <a href="#"><img src="" alt="Black Polo Tshirt"></a>
+                            <a href="#"><img src="" alt="Black Polo Tshirt"></a>
+                            <div class="product-overlay">
+                                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                                <a href="include/ajax/shop-item.html" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                            </div>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title"><h3><a href="#">Black Polo Tshirt</a></h3></div>
+                            <div class="product-price">$11.49</div>
+                            <div class="product-rating">
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                                <i class="icon-star3"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- #shop end -->
+
+            </div>
+
+        </div>
+
+    </section>
+</section>
+<section>
+    <div class="bantindaotao container">
+        <div class="bantindaotao-title">
+            <h2 class="bantindaotao-name" style="font-size: 36px;">Bài Viết Nổi Bật</h2>
+
+        </div>
+        <div class="bantindaotao-content">
+            <div class="row">
+                @*@if (DanhSachBaiViet.Count > 0)
+                    {
+                        int count = 0;
+                        foreach (var item in DanhSachBaiViet)
+                        {
+
+                            if (count < 3)
+                            {*@
+                <div class="bantindaotao-content-list col-xl-4 col-12">
+                    @*@{
+                            var Url = "/" + Utils.convertToUnSign2(item.Title).Replace(" ", "_") + "_bv-" + item.ID + ".htm";
+                            if (!string.IsNullOrEmpty(item.TuKhoaSeo))
+                            {
+                                Url = "/" + Utils.convertToUnSign2(item.TuKhoaSeo).Replace(" ", "_") + "_bv-" + item.ID + ".htm";
+                            }
+                        }*@
+
+                    <a href="">
+                        <img class="bantindaotao-img" src="~/ContentApp/CMSContent/assets/images/baiviet1.png" style="width: 100%; height: 12rem;" />
+                    </a>
+                    <h4> <a href="" class="bantindaotao-content-title">Form Slim Fit là gì? Top 3 mẫu quần áo ôm tôn dáng nhất</a> </h4>
+                    <a href="">
+                        <div class="bantindaotao-content-text">
+                            Form Slim Fit là thuật ngữ khá quen thuộc trong ngành thời trang hiện nay. Tuy nhiên, bạn chưa chắc đã hiểu được Slim Fit là gì. Hãy cùng TOTODAY tìm hiểu chi tiết hơn về form Slim Fit là gì, cách chọn đồ phù hợp từng dáng người và top 3 mẫu quần áo Slim Fit trong bài viết sau đây nhé!
+                        </div>
+                    </a>
+                </div>
+                <div class="bantindaotao-content-list col-xl-4 col-12">
+                    <a href="">
+                        <img class="bantindaotao-img" src="~/ContentApp/CMSContent/assets/images/baiviet2.png" style="width: 100%; height: 12rem;" />
+                    </a>
+                    <h4> <a href="" class="bantindaotao-content-title">Form Slim Fit là gì? Top 3 mẫu quần áo ôm tôn dáng nhất</a> </h4>
+                    <a href="">
+                        <div class="bantindaotao-content-text">
+                            Form Slim Fit là thuật ngữ khá quen thuộc trong ngành thời trang hiện nay. Tuy nhiên, bạn chưa chắc đã hiểu được Slim Fit là gì. Hãy cùng TOTODAY tìm hiểu chi tiết hơn về form Slim Fit là gì, cách chọn đồ phù hợp từng dáng người và top 3 mẫu quần áo Slim Fit trong bài viết sau đây nhé!
+                        </div>
+                    </a>
+                </div>
+                <div class="bantindaotao-content-list col-xl-4 col-12">
+                    <a href="">
+                        <img class="bantindaotao-img" src="~/ContentApp/CMSContent/assets/images/baiviet3.png" style="width: 100%; height: 12rem;" />
+                    </a>
+                    <h4> <a href="" class="bantindaotao-content-title">Form Slim Fit là gì? Top 3 mẫu quần áo ôm tôn dáng nhất</a> </h4>
+                    <a href="">
+                        <div class="bantindaotao-content-text">
+                            Form Slim Fit là thuật ngữ khá quen thuộc trong ngành thời trang hiện nay. Tuy nhiên, bạn chưa chắc đã hiểu được Slim Fit là gì. Hãy cùng TOTODAY tìm hiểu chi tiết hơn về form Slim Fit là gì, cách chọn đồ phù hợp từng dáng người và top 3 mẫu quần áo Slim Fit trong bài viết sau đây nhé!
+                        </div>
+                    </a>
+                </div>
+
+                @*count++;
+                    }
+                    else
+                    {
+                        break;
+                    }*@
+                @*}
+
+                    }*@
+            </div>
+
+        </div>
+    </div>
+</section>

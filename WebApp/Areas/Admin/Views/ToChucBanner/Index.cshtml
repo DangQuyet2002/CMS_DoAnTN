@@ -1,0 +1,352 @@
+﻿@using Newtonsoft.Json;
+@{
+
+    var DanhSachViTri = ViewBag.DanhSachViTri;
+    var DanhSachChuyenMuc = ViewBag.DanhSachChuyenMuc;
+
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Quảng cáo</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Quảng cáo</a></li>
+                    <li class="breadcrumb-item active">Tổ chức banner</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12" id="card-none1">
+        <div class="card" id="invoiceList">
+            <div class="card-header border-0">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title mb-0 flex-grow-1">Tổ chức banner</h5>
+                </div>
+            </div>
+            <div class="card-body bg-soft-light border border-dashed border-start-0 border-end-0">
+                <div class="row g-3">
+
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <select class="form-control" id="slViTriBanner" onchange="LoadDataBanner()">
+                                    @*@if (DanhSachViTri != null)
+                                        {
+                                            foreach (var item in DanhSachViTri)
+                                            {
+                                                <option value="@item.ID">@item.Ten</option>
+                                            }
+                                        }*@
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <select class="form-control" id="slViTriChuyenMuc" onchange="LoadViTriBanner()">
+                                    @if (DanhSachChuyenMuc != null)
+                                    {
+                                        foreach (var item in DanhSachChuyenMuc)
+                                        {
+                                            <option value="@item.ID">@item.Name</option>
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="table-responsive">
+                            <table id="DanhSachBannerDaGanViTri" class="display nowrap" style="width:100%">
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="table-responsive">
+                            <table id="DanhSachBannerChuaGanViTri" class="display nowrap" style="width:100%">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="@JsonConvert.SerializeObject(DanhSachViTri)" id="JsonData" />
+@section scripts {
+    <script src="~/Content/CMSContent/assets/libs/treegrid/dist/js/jquery.treegrid.min.js"></script>
+    <script>
+        $("#slViTriBanner").select2();
+        $("#slViTriChuyenMuc").select2();
+        $(document).ready(function () {
+            GetDataDaGanVT();
+            GetDataChuaGanVT();
+            LoadViTriBanner();
+        });
+
+
+        function LoadViTriBanner() {
+            debugger
+            var DataOption = JSON.parse($("#JsonData").val());
+            var StrHtml = "";
+            if ($("#slViTriChuyenMuc").val() ==@Constants.LstChuyenDe[0].ID) {
+                 if (DataOption.length > 0) {
+                       [...DataOption].map((el, index) => {
+                    StrHtml += `<option value="${el.ID}">${el.Ten}</option>`
+                })
+                }
+            }
+            else {
+                if (DataOption.length > 0) {
+                    [...DataOption].map((el, index) => {
+                        if (el.ID !=@Constants.BSo1TrangChu && el.ID !=@Constants.BSo2TrangChuBT && el.ID !=@Constants.BSo2TrangChuBP && el.ID !=@Constants.BSo1BenPhaiTC && el.ID !=@Constants.BSo2BenTraiTC) {
+                            StrHtml += `<option value="${el.ID}">${el.Ten}</option>`
+                        }
+                    })
+                }
+            }
+            debugger
+            $("#slViTriBanner").empty();
+            $("#slViTriBanner").append(StrHtml);
+
+            tableDaGanVT.ajax.reload(null, false);
+            tableChuaGanVT.ajax.reload(null, false);
+        }
+
+        function LoadDataBanner() {
+            tableDaGanVT.ajax.reload(null, false);
+            tableChuaGanVT.ajax.reload(null, false);
+        }
+
+        var tableDaGanVT = null;
+        function GetDataDaGanVT() {
+
+            tableDaGanVT = $.fn.initDataTable('#DanhSachBannerDaGanViTri', {
+                serverSide: true,
+                searching: false,
+                lengthMenu: [50],
+                scrollX: true,
+                scrollY: true,
+                columnDefs: [
+                    { className: "dt-center", targets: [1, 2, 3, 4] }
+                ],
+                preDrawCallback: function () {
+                    loading()
+                },
+                columns: [
+
+                    { "data": "Name", title: "Tiêu đề" },
+                    {
+                        "data": "Image", "className": 'dt-body-center', title: "Ảnh", "render": function (data) {
+                            if (data != null) {
+                                return `<img src="${data}" width="50" height="50"/>`;
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "StartDate", "className": 'dt-body-center', title: "Ngày bắt đầu", "render": function (data) {
+                            if (data != null) {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "EndDate", "className": 'dt-body-center', title: "Ngày kết thúc", "render": function (data) {
+                            if (data != null) {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "IsSilde", "className": 'dt-body-center', title: "Hiển thị silde", "render": function (data, type, row, meta) {
+                            if ($("#slViTriBanner").val() ==@Constants.BSo1BenPhai || $("#slViTriBanner").val() ==@Constants.BSo2BenPhai) {
+                                if (row.IsSilde==1) {
+                                    return `<input class="form-check-input checkHienThiSlide" type="checkbox" id="CkSilde_${row.IdVT}" onclick="CheckHienThiSilde(${row.IdVT})" checked>`;
+                                }
+                                else {
+                                    return `<input class="form-check-input checkHienThiSlide" type="checkbox" id="CkSilde_${row.IdVT}" onclick="CheckHienThiSilde(${row.IdVT})">`;
+                                }
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "IdVT", "className": 'dt-body-center', title: `Thao tác`, "render": function (data, type, row, meta) {
+                            var StrHtml = `<a class="btn btn-outline-warning waves-effect waves-light btn-xs" href="#" onclick="Xoa(${data})" title="Xóa"><i class="ri-delete-bin-line"></i></a>`
+                            return StrHtml;
+                        }
+                    }
+                ],
+                ajax: {
+                    url: "/Admin/ToChucBanner/DanhSachBannerDaGanViTri",
+                    type: "post",
+                    data: (params) => {
+                        params.IdViTri = $("#slViTriBanner").val();
+                        params.IdChuyenMuc = $("#slViTriChuyenMuc").val();
+                    }
+                },
+                drawCallback: function () {
+                    @*$("#DanhSachBannerDaGanViTri .checkHienThiSlide").map((el, index) => {
+                        let tr = $(index).closest("tr");
+                        let row = tableDaGanVT.row(tr).data();
+                        if ($("#slViTriBanner").val() !=@Constants.BSo1BenPhaiTC && $("#slViTriBanner").val() !=@Constants.BSo2BenTraiTC) {
+
+                        }
+
+                    })*@
+                    offLoading();
+                },
+                initComplete: function (dt) {
+                    //offloading();
+                    if (dt.type == "error") {
+                        showErrorToast("Thất bại", dt.message, dt.type);
+                    }
+                }
+            });
+
+        }
+
+
+        function CheckHienThiSilde(IdVT) {
+            var IsHienThi = $("#CkSilde_" + IdVT).is(":checked") == true ? 1 : 0;
+            var requestModel = {
+                IdVT: IdVT,
+                IsSilde: IsHienThi
+            }
+            $.post("/Admin/ToChucBanner/CheckHienThiSilde", { "requestModel": requestModel }, function (data) {
+                if (data.icon == "success") {
+                    ToastMessage("Thành công", data.message, data.icon);
+                }
+                else {
+                    ToastMessage("Lỗi", data.message, data.icon);
+                }
+                LoadDataBanner();
+                offLoading();
+            });
+        }
+
+        var tableChuaGanVT = null;
+        function GetDataChuaGanVT() {
+
+            tableChuaGanVT = $.fn.initDataTable('#DanhSachBannerChuaGanViTri', {
+                serverSide: true,
+                searching: false,
+                lengthMenu: [50],
+                scrollX: true,
+                scrollY: true,
+                columnDefs: [
+                    { className: "dt-center", targets: [1, 2, 3, 4] }
+                ],
+                preDrawCallback: function () {
+                    loading()
+                },
+                columns: [
+
+                    { "data": "Name", title: "Tiêu đề" },
+                    {
+                        "data": "Image", "className": 'dt-body-center', title: "Ảnh", "render": function (data) {
+                            if (data != null) {
+                                return `<img src="${data}" width="50" height="50"/>`;
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "StartDate", "className": 'dt-body-center', title: "Ngày bắt đầu", "render": function (data) {
+                            if (data != null) {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "EndDate", "className": 'dt-body-center', title: "Ngày kết thúc", "render": function (data) {
+                            if (data != null) {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "ID", "className": 'dt-body-center', title: `Thao tác`, "render": function (data, type, row, meta) {
+                            var StrHtml = `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" onclick="Them(${data})" title="Thêm"><i class="ri-add-line"></i></a>`
+                            return StrHtml;
+                        }
+                    }
+                ],
+                ajax: {
+                    url: "/Admin/ToChucBanner/DanhSachBannerChuaGanViTri",
+                    type: "post",
+                    data: (params) => {
+                        params.IdViTri = $("#slViTriBanner").val();
+                        params.IdChuyenMuc = $("#slViTriChuyenMuc").val();
+                    }
+                },
+                drawCallback: function () {
+                    offLoading();
+                },
+                initComplete: function (dt) {
+                    //offloading();
+                    if (dt.type == "error") {
+                        showErrorToast("Thất bại", dt.message, dt.type);
+                    }
+                }
+            });
+
+        }
+
+
+        function Them(Id) {
+            var requestModel = {
+                Id_Banner: Id,
+                IdViTri: $("#slViTriBanner").val(),
+                IdChuyenMuc: $("#slViTriChuyenMuc").val(),
+            }
+
+            $.post("/Admin/ToChucBanner/ThemMoiViTri", { "requestModel": requestModel }, function (data) {
+                if (data.icon == "success") {
+                    ToastMessage("Thành công", data.message, data.icon);
+                }
+                else {
+                    ToastMessage("Lỗi", data.message, data.icon);
+                }
+                LoadDataBanner();
+                offLoading();
+            });
+        }
+
+        function Xoa(Id) {
+            var requestModel = {
+                Id: Id,
+            }
+
+            $.post("/Admin/ToChucBanner/XoaViTri", { "requestModel": requestModel }, function (data) {
+                if (data.icon == "success") {
+                    ToastMessage("Thành công", data.message, data.icon);
+                }
+                else {
+                    ToastMessage("Lỗi", data.message, data.icon);
+                }
+                LoadDataBanner();
+                offLoading();
+            });
+        }
+
+    </script>
+}

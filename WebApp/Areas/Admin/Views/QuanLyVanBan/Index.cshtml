@@ -1,0 +1,302 @@
+﻿
+@{
+
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Văn bản</h4>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12" id="card-none1">
+        <div class="card" id="invoiceList">
+            <div class="card-header border-0">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title mb-0 flex-grow-1">Danh sách văn bản</h5>
+                </div>
+            </div>
+            <div class="card-body bg-soft-light border border-dashed border-start-0 border-end-0">
+                <div class="row g-3">
+
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Tiêu đề" id="txtTitle" value="" onchange="TimKiemBaiViet()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="DanhSachVanBan" class="display nowrap" style="width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModelThemMoi" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fullscreeexampleModalLabel">Thêm mới văn bản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="DataModelThemMoi">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="ThemMoiLuu(0)"><i class="ri-save-line">Lưu</i></button>
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModelSua" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fullscreeexampleModalLabel">Sửa văn bản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="DataModelSua">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="SuaLuu(0)"><i class="ri-save-line">Lưu</i></button>
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModelDanhSachLoaiVanBan" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fullscreeexampleModalLabel">Danh sách loại văn bản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="DataModelDanhSachLoaiVanBan">
+
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModalThemSuaLoaiVanBan" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TitleLoaiVanBan">Thêm mới loại văn bản </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="DataModalThemSuaLoaiVanBan">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="ThemMoiLoaiVanBan(0)"><i class="ri-save-line">Lưu</i></button>
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+
+        function DanhSachLoaiVanBan() {
+            loading();
+            $("#DataModelDanhSachLoaiVanBan").load("/Admin/QuanLyVanBan/_DanhSachLoaiVanBan", {}, function (data) {
+                $("#ModelDanhSachLoaiVanBan").modal("show");
+                offLoading();
+            })
+        }
+
+
+
+        function ThemSuaLoaiVanBan(Id) {
+            loading();
+            $("#DataModalThemSuaLoaiVanBan").load("/Admin/QuanLyVanBan/_ThemSuaLoaiVanBan", { "Id": Id }, function (data) {
+                $("#ModalThemSuaLoaiVanBan").modal("show");
+                offLoading();
+            })
+        }
+
+
+        function ThemMoi() {
+            loading();
+            $("#DataModelThemMoi").load("/Admin/QuanLyVanBan/_ThemMoi", {}, function (data) {
+                $("#ModelThemMoi").modal("show");
+                offLoading();
+            })
+        }
+
+        function Sua(Id) {
+            loading();
+            $("#DataModelSua").load("/Admin/QuanLyVanBan/_Sua", { "Id": Id }, function (data) {
+                $("#ModelSua").modal("show");
+                offLoading();
+            })
+        }
+
+        function TimKiemBaiViet() {
+            table.ajax.reload(null, false);
+        }
+
+        $(document).ready(function () {
+            GetData();
+        });
+
+        var table = null;
+        function GetData() {
+
+            table = $.fn.initDataTable('#DanhSachVanBan', {
+                serverSide: true,
+                searching: false,
+                lengthMenu: [50],
+                scrollX: true,
+                scrollY: true,
+                columnDefs: [
+                    { className: "dt-center", targets: [1, 2, 3] },
+                    {
+                        render: function (data, type, full, meta) {
+                            return "<div class='text-wrap'>" + data + "</div>";
+                        },
+                        targets: 0
+                    },
+                ],
+                preDrawCallback: function () {
+                    loading()
+                },
+                fixedColumns: {
+                    left: 0,
+                    right: 1
+                },
+                columns: [
+
+                    { "data": "Title", title: "Tiêu đề" },
+                    //{
+                    //    "data": "Image", "className": 'dt-body-center', title: "Ảnh", "render": function (data) {
+                    //        if (data != null) {
+                    //            return `<img src="${data}" width="50" height="50"/>`;
+                    //        }
+                    //        return "";
+                    //    }
+                    //},
+                    { "data": "UserName", "className": 'dt-body-center', title: "Người tạo" },
+                    {
+                        "data": "NgayPhatHanh", "className": 'dt-body-center', title: "Ngày phát hành", "render": function (data) {
+                            if (data != null) {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "ID", "className": 'dt-body-center', title: `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" onclick="ThemMoi(24)" title="Thêm mới"><i class="ri-add-line"></i></a> <a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" onclick="DanhSachLoaiVanBan(24)" title="Thêm mới loại văn bản "><i class="ri-add-circle-line "></i></a>`, "render": function (data, type, row, meta) {
+                            var StrHtml = `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" onclick="Sua(${data})" title="Sửa"><i class="ri-edit-2-line"></i></a>
+<a class="btn btn-outline-primary waves-effect waves-light btn-xs" target="_blank" href="${row.File}" title="Tải "><i class="ri-file-download-line"></i></a>
+<a class="btn btn-outline-warning waves-effect waves-light btn-xs" href="#" onclick="Xoa(${data})" title="Xóa"><i class="ri-delete-bin-line"></i></a>`
+                            return StrHtml;
+                        }
+                    }
+                ],
+                ajax: {
+                    url: "/Admin/QuanLyVanBan/DanhSach",
+                    type: "post",
+                    data: (params) => {
+                        params.Title = $("#txtTitle").val();
+                    }
+                },
+                drawCallback: function () {
+                    offLoading();
+                },
+                initComplete: function (dt) {
+                    //offloading();
+                    if (dt.type == "error") {
+                        showErrorToast("Thất bại", dt.message, dt.type);
+                    }
+                }
+            });
+
+        }
+
+
+
+        function Xoa(Id) {
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn xóa văn bản?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        ID: Id,
+                    }
+
+                    $.post("/Admin/QuanLyVanBan/Xoa", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            Message('', data.message, data.icon);
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        table.ajax.reload(null, false);
+                        offLoading();
+                    });
+                }
+            })
+        }
+
+        function XoaLoaiVanBan(Id) {
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn xóa loại văn bản?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        Id: Id,
+                    }
+
+                    $.post("/Admin/QuanLyVanBan/XoaLoaiVanBan", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            Message('', data.message, data.icon);
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        tableLoaiVanBan.ajax.reload(null, false);
+                        offLoading();
+                    });
+                }
+            })
+        }
+
+    </script>
+}

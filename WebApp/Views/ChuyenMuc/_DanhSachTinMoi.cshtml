@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "_DanhSachTinMoi";
+    var TinTucMoi = ViewBag.TinTucMoi;
+}
+@*<div class="col-sm-12 col-xl-12">
+    <h3 class="Color-left-title">Tin mới</h3>
+</div>*@
+@if (TinTucMoi != null)
+{
+    foreach (var itemTTM in TinTucMoi)
+    {
+        <div class="col-xl-12 col-lg-12 col-sm-12 p-0 border-bottom-cm">
+            <div class="card-body">
+                <div class="d-sm-flex">
+                    @{
+                        var Url = "/" + Utils.convertToUnSign2(itemTTM.Title).Replace(" ", "_") + "_bv-" + itemTTM.ID + ".htm";
+                        if (!string.IsNullOrEmpty(itemTTM.TuKhoaSeo))
+                        {
+                            Url = "/" + Utils.convertToUnSign2(itemTTM.TuKhoaSeo).Replace(" ", "_") + "_bv-" + itemTTM.ID + ".htm";
+                        }
+                    }
+                    <div class="flex-shrink-0 width-TTMoi">
+                        <a href="@Url" class="text-black"><img src="@itemTTM.Thumnail" alt="" width="115" class="rounded-1 img-new-duoi-banner "></a>
+
+                    </div>
+                    <div class="flex-grow-1 ms-sm-4 mt-3 mt-sm-0">
+                        <h4 class="title-new"><a href="@Url" class="text-black">@itemTTM.Title</a></h4>
+                        <p class="text-success fs-12 mb-0">@(itemTTM.NgayPhatHanh!=null?((DateTime)itemTTM.NgayPhatHanh).ToString("dd-MM-yyyy HH:mm") :"")</p>
+                        <a href="@Url" class="text-black"><p class="article-excerpt">@itemTTM.ShortDescription</p></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+@*<div class="d-flex pb-3 pt-3">
+    @Html.Raw(ViewBag.HtmlPaging)
+</div>*@

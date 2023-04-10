@@ -1,0 +1,17 @@
+﻿@using Models;
+@{
+    Layout = null;
+    var lstRoleMenu = ViewBag.lstRoleMenu as List<tbl_RoleModel>;
+    var lstMenu = ViewBag.lstMenu as List<tbl_RoleModel>;
+}
+
+@if (lstMenu.Count > 0)
+{
+    foreach (var item in lstMenu)
+    {
+        <tr>
+            <td class="fw-medium text-center"><input class="form-check-input" type="checkbox" onclick="ThemMenuRole(@item.Id)" id="Menu_@item.Id" @(lstRoleMenu.Where(e => e.IdMenu == item.Id).ToList().Count > 0 ? "checked" : "")></td>
+            <td>@item.Menu</td>
+        </tr>
+    }
+}

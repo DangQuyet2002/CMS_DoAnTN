@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "_Sua";
+    Layout = null;
+    var ChiTiet = ViewBag.ChiTiet;
+}
+<input type="hidden" value="@ChiTiet.Id" id="IdCacCapHoi" />
+<div class="row">
+    <div class="panel" style="margin-top: 10px !important;">
+        <div class="panel-body">
+            <div style="padding: 10px;">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Mô tả<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtMoTaSua" value="@ChiTiet.MoTa">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Url<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtUrlSua" value="@ChiTiet.Url">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>STT<span class="text-danger">(*)</span></label>
+                            <input type="number" class="form-control" placeholder="" id="txtSTTSua" value="@ChiTiet.STT">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function SuaLuu() {
+        if ($("#txtMoTaSua").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống mô tả", "error");
+            return;
+        }
+        if ($("#txtUrlSua").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống url", "error");
+            return;
+        }
+        if ($("#txtSTTSua").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống STT", "error");
+            return;
+        }
+        Swal.fire({
+            title: '',
+            text: "Chắc chắn cập nhật liên kết giới thiệu?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Chắc chắn',
+            cancelButtonText: 'Thoát'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                loading();
+                var requestModel = {
+                    MoTa: $("#txtMoTaSua").val(),
+                    Url: $("#txtUrlSua").val(),
+                    STT: $("#txtSTTSua").val(),
+                    Id: $("#IdCacCapHoi").val()
+                }
+
+                $.post("/Admin/QuanLyLienKetGioiThieu/CapNhat", { "requestModel": requestModel }, function (data) {
+                    if (data.icon == "success") {
+                        Message('', data.message, data.icon);
+                        $("#ModelSua").modal("hide");
+                    }
+                    else {
+                        Message('', data.message, data.icon);
+                    }
+                    table.ajax.reload(null, false);
+                    offLoading();
+                });
+            }
+        })
+    }
+
+
+</script>

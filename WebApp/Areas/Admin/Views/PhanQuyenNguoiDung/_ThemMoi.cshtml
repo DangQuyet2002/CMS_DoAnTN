@@ -1,0 +1,67 @@
+﻿@using Models;
+@{
+    ViewBag.Title = "_ThemMoi";
+    Layout = null;
+    var ChiTietRole = ViewBag.ChiTietRole as tbl_RoleModel;
+}
+<input type="hidden" value="@ChiTietRole.Id" id="txtIdQuyen"/>
+<div class="row">
+    <div class="panel" style="margin-top: 10px !important;">
+        <div class="panel-body">
+            <div style="padding: 10px;">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Tên quyền<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtTenQuyen" value="@ChiTietRole.Ten">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function Luu() {
+
+        var StrThongBao = "Chắc chắn thêm mới quyền";
+        if ($("#txtIdQuyen").val() > 0) {
+            StrThongBao = "Chắc chắn sửa quyền";
+        }
+
+        if ($("#txtTenQuyen").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống tên quyền", "error");
+            return;
+        }
+        Swal.fire({
+            title: '',
+            text: StrThongBao,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Chắc chắn',
+            cancelButtonText: 'Thoát'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                loading();
+                var requestModel = {
+                    Ten: $("#txtTenQuyen").val(),
+                    Id: $("#txtIdQuyen").val(),
+                }
+
+                $.post("/Admin/PhanQuyenNguoiDung/ThemMoi", { "requestModel": requestModel }, function (data) {
+                    if (data.icon == "success") {
+                        Message('', data.message, data.icon);
+                        $("#ModelThemMoi").modal("hide");
+                    }
+                    else {
+                        Message('', data.message, data.icon);
+                    }
+                    LoadRole();
+                    offLoading();
+                });
+            }
+        })
+    }
+</script>

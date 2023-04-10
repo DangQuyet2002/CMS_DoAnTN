@@ -1,0 +1,563 @@
+﻿@using Models;
+@using APIServices;
+
+
+<!doctype html>
+<html lang="en" data-layout="horizontal" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-layout-style="default" data-layout-mode="light" data-layout-width="fluid" data-layout-position="scrollable" class="mdl-us">
+
+<!-- Mirrored from themesbrand.com/velzon/html/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 25 May 2022 13:13:54 GMT -->
+<head>
+
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/Content/Image/Logo/logo-hoi-nha-bao.png">
+
+    <!-- jsvectormap css -->
+    <link href="~/Content/CMSContent/assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+
+    <!--Swiper slider css-->
+    <link href="~/Content/CMSContent/assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Layout config Js -->
+    <script src="~/Content/CMSContent/assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="~/Content/CMSContent/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="~/Content/CMSContent/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/Content/CMSContent/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="~/Content/CMSContent/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/ControllerCss/Custommer.css" rel="stylesheet" />
+    <link href="~/Content/CMSContent/assets/css/base.css" rel="stylesheet" />
+    <link href="~/Content/CMSContent/assets/css/button.css" rel="stylesheet" />
+    <link href="~/Content/CMSContent/assets/css/keyframe.css" rel="stylesheet" />
+    <link href="~/Content/CMSContent/assets/css/loading.css" rel="stylesheet" />
+    <link href="~/Content/CMSContent/assets/css/modal.css" rel="stylesheet" />
+    <link href="~/Content/CMSContent/assets/libs/toast/toast.css" rel="stylesheet" />
+    <link href="~/Content/ControllerCss/CustomAdmin.css" rel="stylesheet" />
+    <link href="~/Content/CMSContent/assets/libs/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/CMSContent/assets/libs/Jstree/vakata-jstree-7a03954/dist/themes/default/style.min.css" rel="stylesheet" />
+</head>
+
+<body id="Menu__Open">
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        <input type="hidden" value="@ViewBag.ThongTinIDND" id="IdNguoiDung" />
+        <header id="page-topbar" class="Heading-Top" style="border:0">
+            <div class="layout-width" style="background-color: white ">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <!-- LOGO -->
+                        @*<div class="navbar-brand-box horizontal-logo">
+                                <a href="index.html" class="logo logo-dark">
+                                    <span class="logo-sm">
+                                        <img src="~/Content/CMSContent/assets/images/logo-sm.png" alt="" height="22">
+                                    </span>
+                                    <span class="logo-lg">
+                                        <img src="~/Content/CMSContent/assets/images/logo-dark.png" alt="" height="17">
+                                    </span>
+                                </a>
+
+                                <a href="index.html" class="logo logo-light">
+                                    <span class="logo-sm">
+                                        <img src="~/Content/CMSContent/assets/images/logo-sm.png" alt="" height="22">
+                                    </span>
+                                    <span class="logo-lg">
+                                        <img src="~/Content/CMSContent/assets/images/logo-light.png" alt="" height="17">
+                                    </span>
+                                </a>
+                            </div>*@
+
+                        <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger pb-3" id="topnav-hamburger-icon" onclick="OpenMenu()">
+                            @*<span class="hamburger-icon">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>*@
+                            <i class="hamburger-icon ri-align-justify" style="font-size: 25px; color: #060606;"></i>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        
+        <!-- ========== App Menu ========== -->
+        <div class="app-menu navbar-menu Heading-Menu">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <!-- Dark Logo-->
+                <a href="index.html" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="~/Content/CMSContent/assets/images/logo-sm.png" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="~/Content/CMSContent/assets/images/logo-dark.png" alt="" height="17">
+                    </span>
+                </a>
+                <!-- Light Logo-->
+                <a href="index.html" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="~/Content/CMSContent/assets/images/logo-sm.png" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="~/Content/CMSContent/assets/images/logo-light.png" alt="" height="17">
+                    </span>
+                </a>
+                <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                    <i class="ri-record-circle-line"></i>
+                </button>
+            </div>
+
+            <div id="scrollbar">
+                <div class="container-fluid ">
+                    <div id="two-column-menu">
+                    </div>
+                    <div class="row" id="DataMenu">
+                    </div>
+                    @*@{Html.RenderAction("Menu", "Home"); }*@
+                </div>
+                <!-- Sidebar -->
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- Vertical Overlay-->
+        <div class="vertical-overlay"></div>
+        <div id="toast_msg"></div>
+
+        <!-- loading -->
+        <div id="loading" class="">
+            <div>
+                <span class="loader"></span>
+                <span class="loader2">Loading</span>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content margin-top-Home">
+            <div class="padding-body">
+                @RenderBody()
+            </div>
+            <!-- End Page-content -->
+            <footer class="footer">
+                <div class="container-fluid container-footer">
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-4 col-footer" style="background-color: #3573C2;">
+                            <div class="logo-footer mt-3 ">
+                                <img src="~/Content/Image/Logo/logo-hoi-nha-bao.png" style="float: left; margin-right: 30px; height: 120px" />
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-8 col-footer" style="background-color: #3573C2;" id="ChanTrangBPView">
+                            <div class="text-logo-footer mt-3 line-heigth-footer">
+
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-footer" style="background-color: #3573C2;" id="ChanTrangBTView">
+                            <div class="text-gt-footer mt-3  mb-3 ">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-footer" id="ChanTrangCuoi">
+
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- end main content-->
+
+    </div>
+
+
+
+    <div id="loginModals" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 overflow-hidden">
+                <div class="modal-body login-modal p-5">
+                    <h5 class="text-white fs-20">Đăng nhập với</h5>
+                    <p class="text-white-50 mb-4">Bạn chưa có tài khoản <a href="javascript:void(0);" class="text-white" onclick="DangKyTK()">Đăng ký.</a></p>
+                    <div class="vstack gap-2 justify-content-center">
+                        <div id="g_id_onload"
+                             data-client_id="553263394427-5qj9kh9f4obgar42ftp01l7q6p2brrt8.apps.googleusercontent.com"
+                             data-auto_prompt="false"
+                             data-login_uri=""
+                             data-callback="handleCredentialResponse" style="width:100%">
+                        </div>
+                        <div class="g_id_signin"
+                             data-type="standard"
+                             data-size="large"
+                             data-theme="outline"
+                             data-text="sign_in_with"
+                             data-shape="rectangular"
+                             data-logo_alignment="left">
+                        </div>
+                        @*<button class="btn btn-info"><i class="ri-facebook-fill align-bottom"></i> Facebook</button>*@<button class="btn btn-info"><i class="ri-facebook-fill align-bottom"></i></button>
+                    </div>
+                </div>
+                <div class="modal-body p-5">
+                    <h5 class="mb-3">Đăng nhập</h5>
+                    <form>
+                        <div class="mb-2">
+                            <input type="text" class="form-control" id="txtTaiKhoanDN" placeholder="Tài khoản">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" id="txtMatKhauDN" placeholder="Mật khẩu">
+                            @*<div class="mt-1 text-end">
+                                    <a href="auth-pass-reset-basic.html">Forgot password ?</a>
+                                </div>*@<div class="mt-1 text-end">
+                                <a href="auth-pass-reset-basic.html"></a>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0)" class="btn btn-primary w-100" onclick="DangNhap_TK()">Đăng nhập</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="signupModals" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 overflow-hidden">
+                <div class="modal-header p-3 border-bottom-cm">
+                    <h4 class="card-title mb-0">Đăng ký</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Tài khoản</label>
+                            <input type="text" class="form-control" id="txtTaiKhoanDK" placeholder="Tài khoản">
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailInput" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="txtEmailDK" placeholder="Email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" id="txtMatKhauDK" placeholder="Mật khẩu">
+                        </div>
+                        <div>
+                            <label class="form-check-label" for="checkTerms"><a href="#" onclick="DangNhapTK()">Đăng nhập</a></label>
+                        </div>
+                        <div class="text-end">
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="DangKy_TK()">Đăng ký</a>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- END layout-wrapper -->
+    <!--start back-to-top-->
+    <div class="modal-backdrop_custom fade show d-none" id="Background-menu" onclick="CloseMenu()"></div>
+    <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+    <!--end back-to-top-->
+    <!-- JAVASCRIPT -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Content/CMSContent/assets/libs/moment/min/moment.min.js"></script>
+    <script src="~/Content/CMSContent/assets/js/base.js"></script>
+    <script src="~/Content/CMSContent/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/CMSContent/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/Content/CMSContent/assets/libs/node-waves/waves.min.js"></script>
+    <script src="~/Content/CMSContent/assets/libs/feather-icons/feather.min.js"></script>
+    <script src="~/Content/CMSContent/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="~/Content/CMSContent/assets/js/plugins.js"></script>
+
+    <!-- apexcharts -->
+    <script src="~/Content/CMSContent/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Vector map-->
+    <script src="~/Content/CMSContent/assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+    <script src="~/Content/CMSContent/assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+    <!--Swiper slider js-->
+    <script src="~/Content/CMSContent/assets/libs/swiper/swiper-bundle.min.js"></script>
+
+    <!-- App js -->
+    <!-- Dashboard init -->
+    <script src="~/Content/CMSContent/assets/js/pages/dashboard-ecommerce.init.js"></script>
+
+    <script src="~/Content/CMSContent/assets/js/app-init.js"></script>
+    <script src="~/Content/CMSContent/assets/libs/toast/toast.js"></script>
+    <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/Scripts/js/extensions/sweetalert.js"></script>
+    <script src="~/Content/CMSContent/assets/libs/select2/select2.min.js"></script>
+    <script src="~/Scripts/js/extensions/select2.js"></script>
+    <script>
+
+        function OpenMenu() {
+            if ($("#Background-menu").hasClass("d-none")) {
+                $("#Background-menu").removeClass("d-none");
+            }
+            else {
+                $("#Background-menu").addClass("d-none");
+            }
+        }
+
+        function CloseMenu() {
+            $("#Menu__Open").removeClass("menu");
+            $("#Menu__Open").removeClass("twocolumn-panel");
+            $("#Background-menu").addClass("d-none");
+        }
+
+        $("#DataMenu").load("/Home/Menu", {}, function (data) { })
+        $("#ChanTrangBPView").load("/Home/_ChanTrangBP", {}, function (data) { })
+        $("#ChanTrangBTView").load("/Home/_ChanTrangBT", {}, function (data) { })
+        $("#ChanTrangCuoi").load("/Home/_ChanTrang", {}, function (data) { })
+
+
+        function CheckMenu() {
+            if ($(window).width() < 1024) {
+                $("#txtMenu").empty();
+                $("#txtMenu").append(`<span data-key="t-layouts">TRANG CHỦ</span>`);
+            }
+            else {
+                $("#txtMenu").empty();
+                $("#txtMenu").append(` <i class="bx bxs-home" style="font-size: 20px; padding-left: 0;"></i>`);
+
+            }
+            setTimeout(CheckMenu, 500);
+        }
+
+        $(document).ready(function () {
+            CheckMenu();
+        });
+
+        function TimKKiemCapHoi() {
+            var requestModel = {
+                MoTa: $("#txtTuKhoaCapHoi").val()
+            }
+            $("#DataCapHoi").empty();
+            $.post("/Home/DanhSachCapHoi", { "requestModel": requestModel }, function (data) {
+                var StrHtml = "";
+                if (data.data.length > 0) {
+                    [...data.data].map((el, index) => {
+                        StrHtml += `<li class="py-1">
+<a href="${el.Url}" class="text-muted">${el.MoTa}</a>
+</li>`;
+                    });
+                    $("#DataCapHoi").append(StrHtml);
+                }
+            })
+        }
+
+        function youtube_parser(url) {
+            var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+            var match = url.match(regExp);
+            return (match && match[7].length == 11) ? match[7] : false;
+        }
+
+        function TimKiemTrangChu() {
+            debugger
+            loading();
+            if ($("#txtTuKhoa").val() == '') {
+                $("#resultTimKiem").addClass("d-none");
+                $("#resultTimKiem2").removeClass("d-none");
+                offLoading();
+            }
+            else {
+                $("#resultTimKiem").load("/Home/_DanhSachTimKiem", { "txtTuKhoa": $("#txtTuKhoa").val() }, function (data) {
+                    $("#resultTimKiem").removeClass("d-none");
+                    $("#resultTimKiem2").addClass("d-none");
+                    offLoading();
+                })
+            }
+        }
+
+        function ToastMessage(title, message, type) {
+            toast({
+                title: title,
+                message: message,
+                type: type,
+                duration: 5000
+            });
+        }
+
+        function Message(title, message, icon) {
+            Swal.fire({
+                title: "",
+                text: message,
+                icon: icon,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+
+        function ThemLuotView(Id) {
+            var requestModel = {
+                ID: Id
+            }
+            $.post("/Home/ThemLuotXem", { "requestModel": requestModel }, function (data) {
+            })
+        }
+
+        function DangKy_TK() {
+            if ($("#txtTaiKhoanDK").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống tài khoản", "error");
+                return;
+            }
+            if ($("#txtEmailDK").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống email", "error");
+                return;
+            }
+            if ($("#txtMatKhauDK").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống mật khẩu", "error");
+                return;
+            }
+            var requestModel = {
+                UserName: $("#txtTaiKhoanDK").val(),
+                Email: $("#txtEmailDK").val(),
+                Password: $("#txtMatKhauDK").val()
+            }
+            $.post("/LogIn/DangKyTK", { "requestModel": requestModel }, function (data) {
+                if (data.type == "success") {
+                    ToastMessage("Thành công", data.message, data.icon);
+                    $("#IdNguoiDung").val(data.data.ID);
+                    $("#signupModals").modal("hide");
+                    $("#loginModals").modal("show");
+                }
+                else {
+                    ToastMessage("Thành công", data.message, data.icon);
+                }
+            });
+        }
+
+        function DangKyTK() {
+            $("#loginModals").modal("hide");
+            $("#signupModals").modal("show");
+        }
+
+        function DangNhapTK() {
+            $("#loginModals").modal("show");
+            $("#signupModals").modal("hide");
+        }
+
+        function DangNhap_TK() {
+            if ($("#txtTaiKhoanDN").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống tài khoản", "error");
+                return;
+            }
+
+            if ($("#txtMatKhauDN").val() == "") {
+                ToastMessage("Lỗi", "Không được để trống mật khẩu", "error");
+                return;
+            }
+
+            var requestModel = {
+                UserName: $("#txtTaiKhoanDN").val(),
+                Password: $("#txtMatKhauDN").val()
+            }
+            $.post("/LogIn/DangNhapTK", { "requestModel": requestModel }, function (data) {
+                if (data.type == "success") {
+                    ToastMessage("Thành công", data.message, data.icon);
+                    $("#IdNguoiDung").val(data.data.ID);
+                    $("#ThongTinNDBinhLuan").html(data.data.UserName);
+                    $("#loginModals").modal("hide");
+                }
+                else {
+                    ToastMessage("Thành công", data.message, data.icon);
+                }
+            });
+        }
+
+
+        function handleCredentialResponse(response) {
+            const responsePayload = jwt_decode(response.credential);
+            var requestModel = {
+                Email: responsePayload.email,
+                UserName: responsePayload.name,
+                Image: responsePayload.picture
+            }
+            $.post("/LogIn/DangNhapGoole", { "requestModel": requestModel }, function (data) {
+                if (data.type == "success") {
+                    ToastMessage("Thành công", data.message, data.icon);
+                    $("#IdNguoiDung").val(data.data.ID);
+                    $("#ThongTinNDBinhLuan").html(data.data.UserName);
+                    $("#loginModals").modal("hide");
+                }
+                else {
+                    ToastMessage("Thành công", data.message, data.icon);
+                }
+            });
+        }
+        function RedirectPage(Url) {
+            window.location.href = Url;
+        }
+
+        $('.navbar-header').on('click', function () {
+            window.location.href = "/Trang-chu.htm"
+
+        }).children().on('click', function (event) {
+            event.stopPropagation();
+        });
+        //const button = document.getElementById("signout_button");
+        //button.onclick = () => {
+        //    google.accounts.id.disableAutoSelect();
+        //}
+
+
+        //function checkForChanges() {
+        //    debugger
+        //    $("._2p3a").width($(".GreenContainerTopMIddleNew1").width())
+        //    setTimeout(checkForChanges, 500);
+        //}
+
+        //$("[rel=comments]").popover({
+        //    trigger: 'click',
+        //    placement: 'top',
+        //    html: 'true',
+        //    content: '<textarea class="popover-textarea"></textarea>',
+        //    template: '<div class="popover"><div class="arrow"></div>' +
+        //        '<h3 class="popover-title"></h3><div class="popover-content">' +
+        //        '</div><div class="popover-footer"><button type="button" class="btn btn-primary popover-submit">' +
+        //        '<i class="icon-ok icon-white"></i></button>&nbsp;' +
+        //        '<button type="button" class="btn btn-default popover-cancel">' +
+        //        '<i class="icon-remove"></i></button></div></div>'
+        //})
+        //    .on('shown', function () {
+        //        debugger
+        //        //hide any visible comment-popover
+        //        $("[rel=comments]").not(this).popover('hide');
+        //        var $this = $(this);
+        //        //attach link text
+        //        $('.popover-textarea').val($this.text()).focus();
+        //        //close on cancel
+        //        $('.popover-cancel').click(function () {
+        //            $this.popover('hide');
+        //        });
+        //        //update link text on submit
+        //        $('.popover-submit').click(function () {
+        //            $this.text($('.popover-textarea').val());
+        //            $this.popover('hide');
+        //        });
+        //    });
+        function topFunction() {
+            document.body.scrollTop = 0, document.documentElement.scrollTop = 0
+        }
+
+    </script>
+    @RenderSection("scripts", false)
+</body>
+
+
+<!-- Mirrored from themesbrand.com/velzon/html/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 25 May 2022 13:14:37 GMT -->
+</html>
+
+
+

@@ -1,0 +1,299 @@
+﻿@{
+    var ChiTiet = ViewBag.ChiTiet;
+    var responseDsVideo = ViewBag.responseDsVideo;
+    var DanhSachBaiVietCungChuyenMuc = ViewBag.DanhSachBaiVietCungChuyenMuc;
+    var TinTucMoi = ViewBag.TinTucMoi;
+    var SrcYouTube = "https://www.youtube.com/embed/" + ViewBag.IdYouTube + "?origin=http://14.160.24.104:81";
+}
+<style>
+    .color-vd-au {
+        background-color: #242424;
+        padding: 0px !important
+    }
+
+    .container-video {
+        padding: 10px;
+    }
+
+    .sty-date {
+        font-style: italic;
+    }
+
+    .video-height {
+        min-height: 500px;
+    }
+</style>
+<div class="page-content color-vd-au">
+    <div class="container container-video">
+        <div class="row">
+            @if (ChiTiet != null)
+            {
+                <div class="col-xl-8 col-lg-8 col-sm-12">
+                    @if (ChiTiet.IsYouTube == 0)
+                    {
+                        <video controls="controls" class="w-100 video-height">
+                            <source src="@ChiTiet.Video" type="video/mp4" />
+                        </video>
+                    }
+                    else
+                    {
+                        @*<iframe class="w-100 video-height"
+                                    src="@ChiTiet.Video">
+                            </iframe>*@
+                        <iframe class="w-100 video-height" src="@SrcYouTube">
+                        </iframe>
+                        @*<video data-yt2html5="https://www.youtube.com/watch?v=7y1Ih96X-3s" controls></video>*@
+                    }
+
+                </div>
+                <div class="col-xl-4 col-lg-4 col-sm-12">
+                    <h4 class=" text-white">@ChiTiet.MoTa</h4>
+                    <div>
+                        <p class=" text-white sty-date">Ngày: @(ChiTiet.NgayDang != null ? ((DateTime)ChiTiet.NgayDang).ToString("dd-MM-yyyy HH:mm") : "")</p>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <div class="container container-mg-bt">
+        @*<div class="row pb-3 pt-3">
+                <div class="col-sm-12 col-xl-12">
+                    <h3 class="Title-TieuDe">Cùng chuyên mục</h3>
+                </div>
+            </div>
+
+            @if (DanhSachBaiVietCungChuyenMuc.Count > 0)
+            {
+                <div class="row">
+                    @foreach (var itemBV in DanhSachBaiVietCungChuyenMuc)
+                    {
+
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card card-custom">
+                                <img class="card-img-top img-fluid img-card-video-audio" src="@itemBV.Thumnail" alt="Card image cap">
+                                <div class="card-body  p-0 pt-3">
+                                    @{
+                                        var Url = "/" + Utils.convertToUnSign2(itemBV.Title).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                                        if (!string.IsNullOrEmpty(itemBV.TuKhoaSeo))
+                                        {
+                                            Url = "/" + Utils.convertToUnSign2(itemBV.TuKhoaSeo).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                                        }
+                                    }
+                                    <p class="card-text wraptext-heigth"><a href="@Url" class="text-black  font-w600">@itemBV.Title</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            }*@
+        <div class="row pb-3 mt-3">
+            <div class="col-sm-6 col-xl-9">
+                <h3 class="Title-TieuDe">Cùng chuyên mục</h3>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Tìm trong chuyên mục" id="txtTimKiem">
+                    <button class="btn btn-secondary-search" type="button" onclick="TimKiemVideo()"><i class="ri-search-line"></i></button>
+                </div>
+            </div>
+            <input type="hidden" value="@ViewBag.recordsTotal" id="TongBanGhi" />
+            <input type="hidden" value="1" id="TrangHienTai" />
+        </div>
+
+        <div class="row" id="DataDSVideo">
+            @if (responseDsVideo != null)
+            {
+                foreach (var item in responseDsVideo)
+                {
+                    <div class="col-sm-6 col-xl-3">
+                        @{
+                            var UrlCT = "/" + Utils.convertToUnSign2(item.MoTa).Replace(" ", "_") + "_vd-" + item.Id + ".htm";
+                        }
+                        <div class="card card-custom">
+                            @{
+                                var UrlImage = string.IsNullOrEmpty(item.Image);
+                                if (item.IsYouTube == 1)
+                                {
+                                    UrlImage = "https://img.youtube.com/vi/" + Utils.GetYouTubeVideoIdFromUrl(item.Video) + "/maxresdefault.jpg";
+                                }
+                                <a href="@UrlCT" class="text-black">
+                                    <img class="card-img-top img-fluid img-responevise img-card-video-audio zoom" src="@UrlImage" alt="Card image cap">
+                                    <span class="icon">
+                                        <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M46 23C46 35.7025 35.7025 46 23 46C10.2975 46 0 35.7025 0 23C0 10.2975 10.2975 0 23 0C35.7025 0 46 10.2975 46 23Z" fill="white" fill-opacity="0.2"></path>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M23 44.5625C34.9086 44.5625 44.5625 34.9086 44.5625 23C44.5625 11.0914 34.9086 1.4375 23 1.4375C11.0914 1.4375 1.4375 11.0914 1.4375 23C1.4375 34.9086 11.0914 44.5625 23 44.5625ZM23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46Z" fill="white"></path>
+                                            <path d="M17.1729 31.9226L32.621 23L17.1729 14.0774V31.9226Z" fill="white"></path>
+                                        </svg>
+                                    </span>
+                                </a>
+                            }
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-text font-w600 wraptext-heigth"><a href="@UrlCT" class="text-black">@item.MoTa</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row pb-3" id="BtnLoadXemThem">
+            <div class="text-center">
+                <button type="button" class="btn btn-outline-secondary waves-effect waves-light" onclick="LoadXemThem()">Xem thêm</button>
+            </div>
+        </div>
+
+        <div class="row pb-3 pt-3">
+            <div class="col-sm-12 col-xl-12">
+                <h3 class="Title-TieuDe">Tin mới</h3>
+            </div>
+        </div>
+
+        @if (TinTucMoi.Count > 0)
+        {
+            <div class="row" id="DataDSVideo">
+                @foreach (var itemBV in TinTucMoi)
+                {
+
+                    <div class="col-sm-6 col-xl-3">
+                        @{
+                            var Url = "/" + Utils.convertToUnSign2(itemBV.Title).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                            if (!string.IsNullOrEmpty(itemBV.TuKhoaSeo))
+                            {
+                                Url = "/" + Utils.convertToUnSign2(itemBV.TuKhoaSeo).Replace(" ", "_") + "_bv-" + itemBV.ID + ".htm";
+                            }
+                        }
+                        <div class="card card-custom">
+                            <a href="@Url" class="text-black  font-w600">
+                                <img class="card-img-top img-fluid img-card-video-audio zoom" src="@itemBV.Thumnail" alt="Card image cap">
+                            </a>
+                            <div class="card-body  p-0 pt-3">
+                                <h5 class="card-text wraptext-heigth"><a href="@Url" class="text-black  font-w600">@itemBV.Title</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        }
+    </div>
+</div>
+@section scripts {
+    @*<script src="~/Content/SlideShow/script.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/thelevicole/youtube-to-html5-loader@4.0.1/dist/YouTubeToHtml5.js"></script>*@
+    <script>new YouTubeToHtml5();</script>
+    <script>
+
+        $(document).ready(function () {
+            if ((parseInt($("#TrangHienTai").val())) * 8 > parseInt($("#TongBanGhi").val())) {
+                $("#BtnLoadXemThem").addClass("d-none");
+            }
+            else {
+                $("#BtnLoadXemThem").removeClass("d-none");
+            }
+        });
+
+
+        function LoadXemThem() {
+            var requestModel = {
+                start: parseInt($("#TrangHienTai").val()) * 8,
+                length: 8,
+                MoTa: $("#txtTimKiem").val(),
+                IsHienThi: null
+            }
+            if ((parseInt($("#TrangHienTai").val()) + 1) * 8 > parseInt($("#TongBanGhi").val())) {
+                $("#BtnLoadXemThem").addClass("d-none");
+            }
+            else {
+                $("#BtnLoadXemThem").removeClass("d-none");
+            }
+            $("#TrangHienTai").val(parseInt($("#TrangHienTai").val()) + 1);
+            $.post("/Video/DanhSach", { "requestModel": requestModel }, function (data) {
+                loading();
+                var StrHtml = "";
+                if (data.data.length > 0) {
+                    [...data.data].map((el, index) => {
+                        var UrlImage = el.Image;
+                        if (el.IsYouTube == 1) {
+                            UrlImage = "https://img.youtube.com/vi/" + youtube_parser(el.Video) + "/maxresdefault.jpg";
+                        }
+                        StrHtml += `<div class="col-sm-6 col-xl-3">
+<div class="card card-custom">
+<a href="${el.UrlCT}" class="text-black"><img class="card-img-top img-fluid img-card-video-audio zoom" src="${UrlImage}" alt="Card image cap">
+<span class="icon">
+<svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M46 23C46 35.7025 35.7025 46 23 46C10.2975 46 0 35.7025 0 23C0 10.2975 10.2975 0 23 0C35.7025 0 46 10.2975 46 23Z" fill="white" fill-opacity="0.2"></path>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M23 44.5625C34.9086 44.5625 44.5625 34.9086 44.5625 23C44.5625 11.0914 34.9086 1.4375 23 1.4375C11.0914 1.4375 1.4375 11.0914 1.4375 23C1.4375 34.9086 11.0914 44.5625 23 44.5625ZM23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46Z" fill="white"></path>
+<path d="M17.1729 31.9226L32.621 23L17.1729 14.0774V31.9226Z" fill="white"></path>
+</svg>
+</span>
+</a>
+<div class="card-body p-0 pt-3">
+<h5 class="card-text font-w600 wraptext-heigth"><a href="${el.UrlCT}" class="text-black">${el.MoTa}</a></h5>
+</div>
+</div>
+</div>`;
+                    });
+                    $("#DataDSVideo").append(StrHtml);
+                    offLoading();
+                }
+            })
+        }
+
+
+        function TimKiemVideo() {
+            var requestModel = {
+                start: 1,
+                length: 8,
+                MoTa: $("#txtTimKiem").val(),
+                IsHienThi: null
+            }
+
+            $.post("/Video/DanhSach", { "requestModel": requestModel }, function (data) {
+                loading();
+                var StrHtml = "";
+                $("#DataDSVideo").empty();
+                if (data.data.length > 0) {
+                    [...data.data].map((el, index) => {
+                        var UrlImage = el.Image;
+                        if (el.IsYouTube == 1) {
+                            UrlImage = "https://img.youtube.com/vi/" + youtube_parser(el.Video) + "/maxresdefault.jpg";
+                        }
+                        StrHtml += `<div class="col-sm-6 col-xl-3">
+<div class="card card-custom">
+<a href="${el.UrlCT}" class="text-black"><img class="card-img-top img-fluid img-card-video-audio zoom" src="${UrlImage}" alt="Card image cap">
+<span class="icon">
+<svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M46 23C46 35.7025 35.7025 46 23 46C10.2975 46 0 35.7025 0 23C0 10.2975 10.2975 0 23 0C35.7025 0 46 10.2975 46 23Z" fill="white" fill-opacity="0.2"></path>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M23 44.5625C34.9086 44.5625 44.5625 34.9086 44.5625 23C44.5625 11.0914 34.9086 1.4375 23 1.4375C11.0914 1.4375 1.4375 11.0914 1.4375 23C1.4375 34.9086 11.0914 44.5625 23 44.5625ZM23 46C35.7025 46 46 35.7025 46 23C46 10.2975 35.7025 0 23 0C10.2975 0 0 10.2975 0 23C0 35.7025 10.2975 46 23 46Z" fill="white"></path>
+<path d="M17.1729 31.9226L32.621 23L17.1729 14.0774V31.9226Z" fill="white"></path>
+</svg>
+</span>
+</a>
+<div class="card-body p-0 pt-3">
+<h5 class="card-text font-w600 wraptext-heigth"><a href="${el.UrlCT}" class="text-black">${el.MoTa}</a></h5>
+</div>
+</div>
+</div>`;
+                    });
+                    $("#DataDSVideo").append(StrHtml);
+                    $("#TrangHienTai").val(1);
+                    $("#TongBanGhi").val(data.recordsTotal);
+                    if ((parseInt($("#TrangHienTai").val())) * 8 > parseInt($("#TongBanGhi").val())) {
+                        $("#BtnLoadXemThem").addClass("d-none");
+                    }
+                    else {
+                        $("#BtnLoadXemThem").removeClass("d-none");
+                    }
+                }
+                else {
+                    $("#BtnLoadXemThem").removeClass("d-none");
+                }
+                offLoading();
+            })
+        }
+
+    </script>
+}

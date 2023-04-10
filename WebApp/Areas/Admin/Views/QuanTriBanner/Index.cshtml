@@ -1,0 +1,244 @@
+﻿
+@{
+
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Quảng cáo</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Quảng cáo</a></li>
+                    <li class="breadcrumb-item active">Danh sách banner</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12" id="card-none1">
+        <div class="card" id="invoiceList">
+            <div class="card-header border-0">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title mb-0 flex-grow-1">Danh sách banner</h5>
+                </div>
+            </div>
+            <div class="card-body bg-soft-light border border-dashed border-start-0 border-end-0">
+                <div class="row g-3">
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Tên" id="txtName" value="" onchange="TimKiemBaiViet()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Ngày bắt đầu" id="txtNgayBatDau" value="" onchange="TimKiemBaiViet()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-sm-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Ngày kết thúc" id="txtNgayKetThuc" value="" onchange="TimKiemBaiViet()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="DanhSachBanner" class="display nowrap" style="width:100%">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModelThemMoi" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fullscreeexampleModalLabel">Thêm mới văn bản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="DataModelThemMoi">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="ThemMoiLuu(0)"><i class="ri-save-line">Lưu</i></button>
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModelSua" data-bs-keyboard="false" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="fullscreeexampleModalLabel">Sửa văn bản</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="DataModelSua">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="SuaLuu(0)"><i class="ri-save-line">Lưu</i></button>
+                <a href="javascript:void(0);" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Đóng</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+
+
+        $("#txtNgayBatDau").flatpickr({
+            dateFormat: "d-m-Y",
+        });
+
+
+        $("#txtNgayKetThuc").flatpickr({
+            dateFormat: "d-m-Y",
+        });
+
+
+        function ThemMoi() {
+            loading();
+            $("#DataModelThemMoi").load("/Admin/QuanTriBanner/_ThemMoi", {}, function (data) {
+                $("#ModelThemMoi").modal("show");
+                offLoading();
+            })
+        }
+
+        function Sua(Id) {
+            loading();
+            $("#DataModelSua").load("/Admin/QuanTriBanner/_Sua", { "Id": Id }, function (data) {
+                $("#ModelSua").modal("show");
+                offLoading();
+            })
+        }
+
+        function TimKiemBaiViet() {
+            table.ajax.reload(null, false);
+        }
+
+        $(document).ready(function () {
+            GetData();
+        });
+
+        var table = null;
+        function GetData() {
+
+            table = $.fn.initDataTable('#DanhSachBanner', {
+                serverSide: true,
+                searching: false,
+                lengthMenu: [50],
+                scrollX: true,
+                scrollY: true,
+                columnDefs: [
+                    { className: "dt-center", targets: [1, 2, 3, 4, 5] }
+                ],
+                preDrawCallback: function () {
+                    loading()
+                },
+                columns: [
+
+                    { "data": "Name", title: "Tiêu đề" },
+                    {
+                        "data": "Image", "className": 'dt-body-center', title: "Ảnh", "render": function (data) {
+                            if (data != null) {
+                                return `<img src="${data}" width="50" height="50"/>`;
+                            }
+                            return "";
+                        }
+                    },
+                    { "data": "UserName", "className": 'dt-body-center', title: "Người tạo" },
+                    {
+                        "data": "StartDate", "className": 'dt-body-center', title: "Ngày bắt đầu", "render": function (data) {
+                            if (data != null) {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "EndDate", "className": 'dt-body-center', title: "Ngày kết thúc", "render": function (data) {
+                            if (data != null) {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                            return "";
+                        }
+                    },
+                    {
+                        "data": "ID", "className": 'dt-body-center', title: `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" onclick="ThemMoi()" title="Thêm mới"><i class="ri-add-line"></i></a>`, "render": function (data, type, row, meta) {
+                            var StrHtml = `<a class="btn btn-outline-primary waves-effect waves-light btn-xs" href="#" onclick="Sua(${data})" title="Sửa"><i class="ri-edit-2-line"></i></a>
+<a class="btn btn-outline-warning waves-effect waves-light btn-xs" href="#" onclick="Xoa(${data})" title="Xóa"><i class="ri-delete-bin-line"></i></a>`
+                            return StrHtml;
+                        }
+                    }
+                ],
+                ajax: {
+                    url: "/Admin/QuanTriBanner/DanhSach",
+                    type: "post",
+                    data: (params) => {
+                        params.Name = $("#txtName").val();
+                        params.StartDate = moment($("#txtNgayBatDau").val(), "DD-MM-YYYY").format('YYYY-MM-DD');
+                        params.EndDate = moment($("#txtNgayKetThuc").val(), "DD-MM-YYYY").format('YYYY-MM-DD');
+                    }
+                },
+                drawCallback: function () {
+                    offLoading();
+                },
+                initComplete: function (dt) {
+                    //offloading();
+                    if (dt.type == "error") {
+                        showErrorToast("Thất bại", dt.message, dt.type);
+                    }
+                }
+            });
+
+        }
+
+
+
+        function Xoa(Id) {
+            Swal.fire({
+                title: '',
+                text: "Chắc chắn xóa banner?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chắc chắn',
+                cancelButtonText: 'Thoát'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    loading();
+
+                    var requestModel = {
+                        Id: Id,
+                    }
+
+                    $.post("/Admin/QuanTriBanner/Xoa", { "requestModel": requestModel }, function (data) {
+                        if (data.icon == "success") {
+                            Message('', data.message, data.icon);
+                        }
+                        else {
+                            Message('', data.message, data.icon);
+                        }
+                        table.ajax.reload(null, false);
+                        offLoading();
+                    });
+                }
+            })
+        }
+
+
+
+    </script>
+}

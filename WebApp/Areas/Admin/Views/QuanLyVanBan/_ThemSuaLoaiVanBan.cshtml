@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "_ThemMoi";
+    Layout = null;
+    var ChiTietLoaiVanBan = ViewBag.ChiTietLoaiVanBan;
+}
+<input type="hidden" value="@ChiTietLoaiVanBan.Id" id="IdLoaiVanBan" />
+<div class="row">
+    <div class="panel" style="margin-top: 10px !important;">
+        <div class="panel-body">
+            <div style="padding: 10px;">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Tên<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtLoaiVanBanTS" value="@ChiTietLoaiVanBan.Ten">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function ThemMoiLoaiVanBan() {
+        if ($("#txtLoaiVanBanTS").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống tên", "error");
+            return;
+        }
+        Swal.fire({
+            title: '',
+            text: "Chắc chắn lưu loại văn bản?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Chắc chắn',
+            cancelButtonText: 'Thoát'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                loading();
+                var requestModel = {
+                    Id: $("#IdLoaiVanBan").val(),
+                    Ten: $("#txtLoaiVanBanTS").val()
+                }
+
+                $.post("/Admin/QuanLyVanBan/Luu", { "requestModel": requestModel }, function (data) {
+                    if (data.icon == "success") {
+                        Message('', data.message, data.icon);
+                        $("#ModalThemSuaLoaiVanBan").modal("hide");
+                    }
+                    else {
+                        Message('', data.message, data.icon);
+                    }
+                    tableLoaiVanBan.ajax.reload(null, false);
+                    offLoading();
+                });
+            }
+        })
+    }
+
+
+</script>

@@ -1,0 +1,118 @@
+﻿@using Models;
+@{
+    ViewBag.Title = "_Sua";
+    Layout = null;
+    var ChiTiet = ViewBag.ChiTiet as tbl_UserModel;
+}
+<input type="hidden" value="@ChiTiet.ID" id="IdNguoiDung" />
+<input type="hidden" value="@ChiTiet.ID" id="ImageNguoiDung" />
+
+<div class="row">
+    <div class="panel" style="margin-top: 10px !important;">
+        <div class="panel-body">
+            <div style="padding: 10px;">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Họ và tên<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtHoTenSua" value="@ChiTiet.FullName" disabled>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Tài khoản<span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" placeholder="" id="txtTaiKhoanSua" value="@ChiTiet.UserName">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" placeholder="" id="txtEmailSua" value="@ChiTiet.Email">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6  mb-3">
+                        <div class="form-group">
+                            <label>SĐT</label>
+                            <input type="text" class="form-control" placeholder="" id="txtSDTSua" value="@ChiTiet.Phone">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12  mb-3">
+                        <div>
+                            <label class="form-label">Ảnh đại diện<span class="text-danger">(*)</span>  <a class="btn btn-outline-primary waves-effect waves-light btn-xs" onclick="ChonAnhDaiDienSua()" title="Chọn"><i class="ri-add-line"></i></a></label>
+                            @if (!string.IsNullOrEmpty(ChiTiet.Image))
+                            {
+                                <div class="dropzoneAnhDaiDien dropSua" id="dropzoneAnhDaiDienSua">
+                                    <img src="@ChiTiet.Image" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="dropzoneAnhDaiDien" id="dropzoneAnhDaiDienSua">
+                                    <div style="padding: 50px;">Ảnh đại điện</div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var UrlAnhDaiDienSua = $("#ImageNguoiDung").val();
+    function ChonAnhDaiDienSua() {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            UrlAnhDaiDienSua = url;
+            $("#dropzoneAnhDaiDienSua").empty();
+            $("#dropzoneAnhDaiDienSua").html(`<img src="${url}"/>`);
+            $("#dropzoneAnhDaiDienSua").addClass("dropSua");
+        }
+        finder.popup();
+    }
+
+    function SuaLuu() {
+        if ($("#txtHoTenSua").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống họ tên", "error");
+            return;
+        }
+        if ($("#txtTaiKhoanSua").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống tài khoản", "error");
+            return;
+        }
+        Swal.fire({
+            title: '',
+            text: "Chắc chắn lưu người dùng?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Chắc chắn',
+            cancelButtonText: 'Thoát'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                loading();
+                var requestModel = {
+                    UserName: $("#txtTaiKhoanSua").val(),
+                    Email: $("#txtEmailSua").val(),
+                    Phone: $("#txtSDTSua").val(),
+                    ID: $("#IdNguoiDung").val(),
+                    Image: UrlAnhDaiDienSua
+                }
+
+                $.post("/Admin/QuanTriNguoiDung/Sua", { "requestModel": requestModel }, function (data) {
+                    if (data.icon == "success") {
+                        Message('', data.message, data.icon);
+                        $("#ModelSua").modal("hide");
+                    }
+                    else {
+                        Message('', data.message, data.icon);
+                    }
+                    table.ajax.reload(null, false);
+                    offLoading();
+                });
+            }
+        })
+    }
+
+</script>
