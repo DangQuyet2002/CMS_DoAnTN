@@ -16,6 +16,7 @@ namespace Models
 
     public class BaseModel
     {
+        public string Keywords { get; set; }
         public int start { get; set; }
         public int length { get; set; }
         public string FullName { get; set; }

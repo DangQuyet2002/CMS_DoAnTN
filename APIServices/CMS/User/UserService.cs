@@ -22,6 +22,7 @@ namespace APIServices.CMS
         private readonly string _CapNhat = "api/User/CapNhat";
         private readonly string _CheckUser = "api/User/CheckUser";
         private readonly string _ChiTiet = "api/User/ChiTiet";
+        private readonly string _DanhSachAdmin = "api/User/DanhSachAdmin";
         private readonly string _DanhSach = "api/User/DanhSach";
         private readonly string _ThemMoi = "api/User/ThemMoi";
         private readonly string _CheckMail = "api/User/CheckMail";
@@ -206,6 +207,23 @@ namespace APIServices.CMS
             }
         }
 
+        public async Task<BaseRespone<tbl_UserModel>> DanhSachAdmin(tbl_UserModel requestModel)
+        {
+            try
+            {
+                var resultAPI = await RestfulApi<Response>.PostAsync(_DanhSachAdmin, requestModel);
+                if (resultAPI.code == ResponseCode.SUCCESS)
+                {
+                    return JsonConvert.DeserializeObject<BaseRespone<tbl_UserModel>>(resultAPI.result.ToString());
+                }
+                return new BaseRespone<tbl_UserModel>();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error: {ex.Message}");
+                return new BaseRespone<tbl_UserModel>();
+            }
+        }
         public async Task<Response> ThemMoi(tbl_UserModel requestModel)
         {
             try

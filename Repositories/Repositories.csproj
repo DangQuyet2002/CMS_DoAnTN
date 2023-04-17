@@ -7,10 +7,43 @@
 	<ItemGroup>
 		<Compile Remove="Manage\AspNetRolesRepository\**" />
 		<Compile Remove="Manage\AspNetUserRolesRepository\**" />
+		<Compile Remove="Manage\CMS\CacCapHoi\**" />
+		<Compile Remove="Manage\CMS\Catedory\**" />
+		<Compile Remove="Manage\CMS\DanhMucDungChung\**" />
+		<Compile Remove="Manage\CMS\QuanLyAblumAnh\**" />
+		<Compile Remove="Manage\CMS\QuanLyAudio\**" />
+		<Compile Remove="Manage\CMS\QuanLyBaiDang\**" />
+		<Compile Remove="Manage\CMS\QuanLyChanTrang\**" />
+		<Compile Remove="Manage\CMS\QuanLyChiHoi\**" />
+		<Compile Remove="Manage\CMS\QuanLyVideo\**" />
+		<Compile Remove="Manage\CMS\QuanTriBanner\**" />
+		<Compile Remove="Manage\CMS\ThungRacVaLog\**" />
 		<EmbeddedResource Remove="Manage\AspNetRolesRepository\**" />
 		<EmbeddedResource Remove="Manage\AspNetUserRolesRepository\**" />
+		<EmbeddedResource Remove="Manage\CMS\CacCapHoi\**" />
+		<EmbeddedResource Remove="Manage\CMS\Catedory\**" />
+		<EmbeddedResource Remove="Manage\CMS\DanhMucDungChung\**" />
+		<EmbeddedResource Remove="Manage\CMS\QuanLyAblumAnh\**" />
+		<EmbeddedResource Remove="Manage\CMS\QuanLyAudio\**" />
+		<EmbeddedResource Remove="Manage\CMS\QuanLyBaiDang\**" />
+		<EmbeddedResource Remove="Manage\CMS\QuanLyChanTrang\**" />
+		<EmbeddedResource Remove="Manage\CMS\QuanLyChiHoi\**" />
+		<EmbeddedResource Remove="Manage\CMS\QuanLyVideo\**" />
+		<EmbeddedResource Remove="Manage\CMS\QuanTriBanner\**" />
+		<EmbeddedResource Remove="Manage\CMS\ThungRacVaLog\**" />
 		<None Remove="Manage\AspNetRolesRepository\**" />
 		<None Remove="Manage\AspNetUserRolesRepository\**" />
+		<None Remove="Manage\CMS\CacCapHoi\**" />
+		<None Remove="Manage\CMS\Catedory\**" />
+		<None Remove="Manage\CMS\DanhMucDungChung\**" />
+		<None Remove="Manage\CMS\QuanLyAblumAnh\**" />
+		<None Remove="Manage\CMS\QuanLyAudio\**" />
+		<None Remove="Manage\CMS\QuanLyBaiDang\**" />
+		<None Remove="Manage\CMS\QuanLyChanTrang\**" />
+		<None Remove="Manage\CMS\QuanLyChiHoi\**" />
+		<None Remove="Manage\CMS\QuanLyVideo\**" />
+		<None Remove="Manage\CMS\QuanTriBanner\**" />
+		<None Remove="Manage\CMS\ThungRacVaLog\**" />
 	</ItemGroup>
 
 	<ItemGroup>

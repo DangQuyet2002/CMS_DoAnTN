@@ -10,17 +10,20 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Admin hội nhà báo</title>
+    <title>Fashion Go</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="~/Content/Image/Logo/logo.gif">
+    <link rel="shortcut icon" href="~/Content/Image/Logo/LOGO-YDDN.png">
     <!-- jsvectormap css -->
     <link href="~/Content/CMSContent/assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
     <!--Swiper slider css-->
     <link href="~/Content/CMSContent/assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
     <!-- Layout config Js -->
+    <link href="~/Content/assets/css/modal.css" rel="stylesheet" />
+    <link href="~/Content/CMSContent/assets/css/modal.css" rel="stylesheet" />
+    <script src="~/Scripts/js/extensions/modal.js"></script>
     <script src="~/Content/CMSContent/assets/js/layout.js"></script>
     <!-- Bootstrap Css -->
     <link href="~/Content/CMSContent/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -65,10 +68,11 @@
             width: auto !important;
             display: block;
         }
+
         .flatpickr-wrapper {
             position: relative;
             display: block;
-            width:100%
+            width: 100%
         }
     </style>
 </head>
@@ -84,25 +88,7 @@
                     <div class="d-flex">
                         <!-- LOGO -->
                         @*<img src="~/Content/Image/Logo/logo.gif" />*@
-                        <div class="navbar-brand-box horizontal-logo">
-                            <a href="/Admin/Home/Index" class="logo logo-dark">
-                                <span class="logo-sm">
-                                    <img src="~/Content/Image/Logo/logo.gif" alt="" height="22">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="~/Content/Image/Logo/logo.gif" alt="" height="70">
-                                </span>
-                            </a>
 
-                            <a href="/Admin/Home/Index" class="logo logo-light">
-                                <span class="logo-sm">
-                                    <img src="~/Content/Image/Logo/logo.gif" alt="" height="22">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="~/Content/CMSContent/assets/images/logo-light.png" alt="" height="17">
-                                </span>
-                            </a>
-                        </div>
 
                         <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger"
                                 id="topnav-hamburger-icon">
@@ -113,6 +99,8 @@
                             </span>
                         </button>
                     </div>
+
+                    
 
                     <div class="d-flex align-items-center">
                         <div class="ms-1 header-item d-none d-sm-flex">
@@ -466,10 +454,10 @@
                 <!-- Light Logo-->
                 <a href="/Admin/Home/Index" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="~/Content/Image/Logo/logo-hoi-nha-bao.png" alt="" height="40">
+                        <img src="~/Content/Image/Banner/IconTitle.png" alt="" height="40">
                     </span>
                     <span class="logo-lg">
-                        <img src="~/Content/Image/Logo/logo.gif" alt="" height="70">
+                        <img src="~/Content/Image/Banner/IconTitle.png" alt="" height="70">
                     </span>
                 </a>
                 <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
@@ -530,6 +518,65 @@
         </div>
         <!-- end main content-->
 
+    </div>
+    <div class="nv-modal modal-mg" id="modal">
+        <div class="nv-modal-content">
+            <div class="nv-modal-header">
+                <h5 class="nv-modal-title">Modal title</h5>
+                <span class="nv-modal-close">
+                    <i class="ri-close-line"></i>
+                </span>
+            </div>
+            <div class="nv-modal-body">
+            </div>
+
+        </div>
+    </div>
+    <div class="nv-modal modal-lg" id="sub-modal">
+        <div class="nv-modal-content">
+            <div class="nv-modal-header">
+                <h5 class="nv-modal-title">Sub modal title</h5>
+                <span class="nv-modal-close">
+                    <i class="ri-close-line"></i>
+                </span>
+            </div>
+            <div class="nv-modal-body">
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal end -->
+    <!-- Modal start -->
+    <div class="nv-modal fade modal-lg" id="modal-file">
+        <div class="nv-modal-content">
+            <div class="nv-modal-header">
+                <h5 class="nv-modal-title">Modal title</h5>
+                <span class="nv-modal-close">
+                    <i class="ri-close-line"></i>
+                </span>
+            </div>
+            <div class="nv-modal-body">
+            </div>
+            @*<div class="nv-modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light btn-save"><i class="ri-save-line align-bottom"></i> Lưu</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger waves-effect waves-light close"><i class="ri-close-circle-line align-bottom"></i> Đóng</button>
+                </div>*@
+        </div>
+    </div>
+    <!-- Modal end -->
+    <!-- Modal start -->
+    <div class="nv-modal modal-lg" id="modal-pvfile">
+        <div class="nv-modal-content">
+            <div class="nv-modal-header">
+                <h5 class="nv-modal-title">Modal title</h5>
+                <span class="nv-modal-close">
+                    <i class="ri-close-line"></i>
+                </span>
+            </div>
+            <div class="nv-modal-body">
+            </div>
+
+        </div>
     </div>
     <!-- END layout-wrapper -->
     <!--start back-to-top-->
@@ -1077,7 +1124,22 @@
 
     <!-- Dashboard init -->
     <script src="~/Content/CMSContent/assets/js/pages/dashboard-ecommerce.init.js"></script>
-
+    <script src="~/Scripts/js/extensions/cards.js"></script>
+    <script src="~/Scripts/js/extensions/common-select.js"></script>
+    <script src="~/Scripts/js/extensions/constants.js"></script>
+    <script src="~/Scripts/js/extensions/common.js"></script>
+    <script src="~/Scripts/js/extensions/icheck.js"></script>
+    <script src="~/Scripts/js/extensions/modal.js"></script>
+    <script src="~/Scripts/js/extensions/validate.js"></script>
+    <script src="~/Scripts/js/extensions/toastr.js"></script>
+    <script src="~/Scripts/js/extensions/sweetalert.js"></script>
+    <script src="~/Scripts/js/extensions/starter.js"></script>
+    <script src="~/Scripts/js/extensions/select2.js"></script>
+    <script src="~/Scripts/js/extensions/notiflix.js"></script>
+    <script src="~/Scripts/js/extensions/inputmask.js"></script>
+    <script src="~/Scripts/js/extensions/fileUpload.js"></script>
+    <script src="~/Scripts/js/extensions/dataTable.js"></script>
+    <script src="~/Scripts/js/extensions/dateTimePicker.js"></script>
     <!-- App js -->
     <script src="~/Content/CMSContent/assets/js/app.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -1121,93 +1183,93 @@
                 timer: 1500
             })
         }
-        $(document).ready(function () {
+            //$(document).ready(function () {
 
-            $('.modal').on('hidden.bs.modal', function (event) {
-                $(this).removeClass('fv-modal-stack');
-                $('body').data('fv_open_modals', $('body').data('fv_open_modals') - 1);
-            });
+            //    $('.modal').on('hidden.bs.modal', function (event) {
+            //        $(this).removeClass('fv-modal-stack');
+            //        $('body').data('fv_open_modals', $('body').data('fv_open_modals') - 1);
+            //    });
 
-            $('.modal').on('shown.bs.modal', function (event) {
-                // keep track of the number of open modals
-                if (typeof ($('body').data('fv_open_modals')) == 'undefined') {
-                    $('body').data('fv_open_modals', 0);
-                }
+            //    $('.modal').on('shown.bs.modal', function (event) {
+            //        // keep track of the number of open modals
+            //        if (typeof ($('body').data('fv_open_modals')) == 'undefined') {
+            //            $('body').data('fv_open_modals', 0);
+            //        }
 
-                // if the z-index of this modal has been set, ignore.
-                if ($(this).hasClass('fv-modal-stack')) {
-                    return;
-                }
+            //        // if the z-index of this modal has been set, ignore.
+            //        if ($(this).hasClass('fv-modal-stack')) {
+            //            return;
+            //        }
 
-                $(this).addClass('fv-modal-stack');
-                $('body').data('fv_open_modals', $('body').data('fv_open_modals') + 1);
-                $(this).css('z-index', 1040 + (10 * $('body').data('fv_open_modals')));
-                $('.modal-backdrop').not('.fv-modal-stack').css('z-index', 1039 + (10 * $('body').data('fv_open_modals')));
-                $('.modal-backdrop').not('fv-modal-stack').addClass('fv-modal-stack');
+            //        $(this).addClass('fv-modal-stack');
+            //        $('body').data('fv_open_modals', $('body').data('fv_open_modals') + 1);
+            //        $(this).css('z-index', 1040 + (10 * $('body').data('fv_open_modals')));
+            //        $('.modal-backdrop').not('.fv-modal-stack').css('z-index', 1039 + (10 * $('body').data('fv_open_modals')));
+            //        $('.modal-backdrop').not('fv-modal-stack').addClass('fv-modal-stack');
 
-            });
-        });
+            //    });
+            //});
 
 
-                                                //CKEDITOR.on('instanceReady', function (ev) {
-                                                //    ev.editor.dataProcessor.htmlFilter.addRules({
-                                                //        elements: {
-                                                //            img: function (el) {
-                                                //                // Add bootstrap "img-responsive" class to each inserted image
-                                                //                //el.addClass('w-100');
+            //                                                                                                //CKEDITOR.on('instanceReady', function (ev) {
+                                                                                                            //    ev.editor.dataProcessor.htmlFilter.addRules({
+                                                                                                            //        elements: {
+                                                                                                            //            img: function (el) {
+                                                                                                            //                // Add bootstrap "img-responsive" class to each inserted image
+                                                                                                            //                //el.addClass('w-100');
 
-                                                //                // Remove inline "height" and "width" styles and
-                                                //                // replace them with their attribute counterparts.
-                                                //                // This ensures that the 'img-responsive' class works
-                                                //                var style = el.attributes.style;
-                                                //                debugger
-                                                //                if (style) {
-                                                //                    // Get the width from the style.
-                                                //                    var match = /(?:^|\s)width\s*:\s*(\d+)px/i.exec(style),
-                                                //                        width = match && match[1];
+                                                                                                            //                // Remove inline "height" and "width" styles and
+                                                                                                            //                // replace them with their attribute counterparts.
+                                                                                                            //                // This ensures that the 'img-responsive' class works
+                                                                                                            //                var style = el.attributes.style;
+                                                                                                            //                debugger
+                                                                                                            //                if (style) {
+                                                                                                            //                    // Get the width from the style.
+                                                                                                            //                    var match = /(?:^|\s)width\s*:\s*(\d+)px/i.exec(style),
+                                                                                                            //                        width = match && match[1];
 
-                                                //                    // Get the height from the style.
-                                                //                    match = /(?:^|\s)height\s*:\s*(\d+)px/i.exec(style);
-                                                //                    var height = match && match[1];
+                                                                                                            //                    // Get the height from the style.
+                                                                                                            //                    match = /(?:^|\s)height\s*:\s*(\d+)px/i.exec(style);
+                                                                                                            //                    var height = match && match[1];
 
-                                                //                    // Replace the width
-                                                //                    if (width) {
-                                                //                        el.attributes.style = el.attributes.style.replace(/(?:^|\s)width\s*:\s*(\d+)px;?/i, '');
-                                                //                        el.attributes.width = "600px";
-                                                //                    }
+                                                                                                            //                    // Replace the width
+                                                                                                            //                    if (width) {
+                                                                                                            //                        el.attributes.style = el.attributes.style.replace(/(?:^|\s)width\s*:\s*(\d+)px;?/i, '');
+                                                                                                            //                        el.attributes.width = "600px";
+                                                                                                            //                    }
 
-                                                //                    // Replace the height
-                                                //                    if (height) {
-                                                //                        el.attributes.style = el.attributes.style.replace(/(?:^|\s)height\s*:\s*(\d+)px;?/i, '');
-                                                //                        el.attributes.height = "auto !important;";
-                                                //                    }
-                                                //                }
+                                                                                                            //                    // Replace the height
+                                                                                                            //                    if (height) {
+                                                                                                            //                        el.attributes.style = el.attributes.style.replace(/(?:^|\s)height\s*:\s*(\d+)px;?/i, '');
+                                                                                                            //                        el.attributes.height = "auto !important;";
+                                                                                                            //                    }
+                                                                                                            //                }
 
-                                                //                // Remove the style tag if it is empty
-                                                //                if (!el.attributes.style)
-                                                //                    delete el.attributes.style;
-                                                //            }
-                                                //        }
-                                                //    });
-                                                //});
+                                                                                                            //                // Remove the style tag if it is empty
+                                                                                                            //                if (!el.attributes.style)
+                                                                                                            //                    delete el.attributes.style;
+                                                                                                            //            }
+                                                                                                            //        }
+                                                                                                            //    });
+                                                                                                            //});
 
-                                                //CKEDITOR.on('dialogDefinition', function (ev) {
-                                                //    debugger
-                                                //    var dialogName = ev.data.name,
-                                                //        dialogDefinition = ev.data.definition;
+                                                                                                            //CKEDITOR.on('dialogDefinition', function (ev) {
+                                                                                                            //    debugger
+                                                                                                            //    var dialogName = ev.data.name,
+                                                                                                            //        dialogDefinition = ev.data.definition;
 
-                                                //    if (dialogName == 'image') {
-                                                //        var onOk = dialogDefinition.onOk;
+                                                                                                            //    if (dialogName == 'image') {
+                                                                                                            //        var onOk = dialogDefinition.onOk;
 
-                                                //        dialogDefinition.onOk = function (e) {
-                                                //            debugger
-                                                //            var width = this.getContentElement('info', 'txtWidth');
-                                                //            width.setValue('600');//Set Default Width
+                                                                                                            //        dialogDefinition.onOk = function (e) {
+                                                                                                            //            debugger
+                                                                                                            //            var width = this.getContentElement('info', 'txtWidth');
+                                                                                                            //            width.setValue('600');//Set Default Width
 
-                                                //            onOk && onOk.apply(this, e);
-                                                //        };
-                                                //    }
-                                                //});
+                                                                                                            //            onOk && onOk.apply(this, e);
+                                                                                                            //        };
+                                                                                                            //    }
+                                                                                                            //});
 //jQuery(document).ready(function () {
 //    if (typeof CKEDITOR !== 'undefined') {
 //        CKEDITOR.on('dialogDefinition', function (e) {

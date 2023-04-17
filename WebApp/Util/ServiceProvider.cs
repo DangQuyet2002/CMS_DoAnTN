@@ -1,6 +1,5 @@
 ﻿using APIServices;
 using APIServices.CMS;
-using APIServices.CMS.QuanLyMenu;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Models;

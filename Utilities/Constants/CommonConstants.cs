@@ -48,5 +48,9 @@ namespace Utilities
         public static string ERROR = "error";
         public static string SUCCESS = "success";
         #endregion Session Name
+
+
+        public static string SessionAccountInfo = "SessionAccountInfo";
+        public static string SessionAccountAdminInfo = "SessionAccountAdminInfo";
     }
 }

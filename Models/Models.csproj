@@ -73,6 +73,9 @@
   <ItemGroup>
     <Compile Include="AspNetUsers\AspNetUsers.cs" />
     <Compile Include="BaseModel\BaseModel.cs" />
+    <Compile Include="CMS\DanhMucCategory\DanhMucCategory.cs" />
+    <Compile Include="CMS\DanhMucCategory\DanhMucCategoryPaging.cs" />
+    <Compile Include="CMS\DanhMucCategory\DanhMucCategoryRequest.cs" />
     <Compile Include="CMS\Log4NetLogModel.cs" />
     <Compile Include="CMS\Product\ProductPaging.cs" />
     <Compile Include="CMS\Product\ProductRequest.cs" />
@@ -83,16 +86,16 @@
     <Compile Include="CMS\tbl_CommentModel.cs" />
     <Compile Include="CMS\tbl_LienKetGioiThieuModel.cs" />
     <Compile Include="CMS\tbl_LikePostModel.cs" />
-    <Compile Include="CMS\Product\tbl_ProductModel.cs" />
+    <Compile Include="CMS\Product\Product.cs" />
     <Compile Include="CMS\tbl_RoleModel.cs" />
     <Compile Include="CMS\tbl_SettingMenu_CategoryModel.cs" />
-    <Compile Include="CMS\tbl_ThuVienAnhModel.cs" />
     <Compile Include="CMS\tbl_CategoryModel.cs" />
     <Compile Include="CMS\tbl_PostModel.cs" />
-    <Compile Include="CMS\tbl_ThuVienAudioModel.cs" />
-    <Compile Include="CMS\tbl_ThuVienVideoModel.cs" />
     <Compile Include="CMS\tbl_UserModel.cs" />
     <Compile Include="CMS\tbl_VanBanModel.cs" />
+    <Compile Include="CMS\TinTuc\TinTucModel.cs" />
+    <Compile Include="CMS\TinTuc\TinTucPaging.cs" />
+    <Compile Include="CMS\TinTuc\TinTucRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInfo\GiangVien.cs" />
     <Compile Include="UserInfo\HoSoCaNhan.cs" />

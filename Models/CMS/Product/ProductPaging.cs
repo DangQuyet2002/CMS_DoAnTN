@@ -8,7 +8,7 @@ namespace Models.CMS.Product
 {
     public class ProductPaging
     {
-        public List<tbl_ProductModel> lst { get; set; }
+        public List<Models.Product> lst { get; set; }
         public int totalCount { get; set; }
     }
 }

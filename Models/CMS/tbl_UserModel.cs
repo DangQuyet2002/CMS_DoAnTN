@@ -40,5 +40,6 @@ namespace Models
 
         public string Image { get; set; }
         public List<tbl_RoleModel> lstQuyen { get; set; } = new List<tbl_RoleModel>();
+        public List<tbl_UserModel> lst { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace Repositories
         Task<ProductPaging> GetAllDisCount(ProductRequest requestModel);
         Task<ProductPaging> GetByCate(ProductRequest requestModel);
         Task<int> Delete(ProductRequest requestModel);
-        Task<int> Update(tbl_ProductModel requestModel);
+        Task<int> Update(Product requestModel);
         Task<int> UpdateView(int Id);
-        Task<int> Create(tbl_ProductModel requestModel);
-        Task<tbl_ProductModel> GetById(int Id);
+        Task<int> Create(Product requestModel);
+        Task<Product> GetById(int Id);
         Task<ProductPaging> GetByView();
     }
 }

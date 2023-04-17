@@ -14,11 +14,11 @@ namespace APIServices
         Task<ProductPaging> GetAllDisCount(ProductRequest requestModel);
         Task<ProductPaging> GetByCate(ProductRequest requestModel);
         Task<int> Delete(ProductRequest requestModel);
-        Task<int> Create(tbl_ProductModel requestModel);
+        Task<int> Create(Product requestModel);
         Task<int> UpdateView(int Id);
         Task<ProductPaging> GetByView();
 
-        Task<int> Update(tbl_ProductModel requestModel);
-        Task<tbl_ProductModel> GetById(int Id);
+        Task<int> Update(Product requestModel);
+        Task<Product> GetById(int Id);
     }
 }

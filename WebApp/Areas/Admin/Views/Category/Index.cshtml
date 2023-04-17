@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="header_action d-flex" style="justify-content: space-between">
+    <div class="float-left mr-3">
+        <h3 class="site_title">
+            <span>Danh Sách Danh Mục Loại Sản Phẩm</span>
+        </h3>
+    </div>
+    <div class="float-right">
+        <input type="submit" value="Lọc" onclick="return false;" id="btnSearch" class="btn btn-outline-primary ml-2" data-toggle="modal" data-target="#modalSearch" style="line-height: 10px">
+        <input type="submit" value="Thêm mới" id="btnThemMoi" class="btn btn-outline-success ml-2" style="line-height: 10px" data-toggle="modal" data-target="#modalThemMoi">
+        <input type="submit" value="Xóa" onclick="deleteTable();" id="ContentPlaceHolder_btnDelete" class="btn btn-outline-danger ml-2" style="line-height: 10px">
+    </div>
+</div>
+<div class="loc" style="margin: 30px 0;">
+    <label>Nhập từ khóa: </label>
+    <input type="text" id="txtTukhoa" />
+</div>
+<div class="main_content form-row d-flex ">
+    <table class="table table-hover " id="tableDMCate">
+    </table>
+</div>
+@section scripts{
+
+    <script src="~/Areas/Admin/assets/js/ViewAdmin/DMCategory.js"></script>
+}
+
+

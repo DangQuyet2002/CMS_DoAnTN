@@ -37,8 +37,6 @@ body {
 
 
 .navbar-header {
-    height: 60px !important;
-    background-image: url('../Image/Logo/logo.gif');
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
@@ -274,7 +272,6 @@ element.style {
 }
 
 .icon {
-    position: absolute;
     left: 20px;
     bottom: 20px;
 }

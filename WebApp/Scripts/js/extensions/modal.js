@@ -6,11 +6,14 @@
         buttonSave: !0
     }
     defaultConfig = $.extend({}, defaultConfig, config);
-    $("#modal .modal-body").html(defaultConfig.bodyContent);
-    $("#modal .modal-title").html(defaultConfig.title);
-    $("#modal .modal-dialog").attr("class", "modal-dialog").addClass(defaultConfig.dialogClass);
+    $("#modal .nv-modal-body").html(defaultConfig.bodyContent);
+    $("#modal .nv-modal-title").html(defaultConfig.title);
+    $("#modal").attr("class", "nv-modal").addClass(defaultConfig.dialogClass);
     defaultConfig.buttonSave ? $("#modal #btnSave").show() : $("#modal #btnSave").hide();
-    $("#modal").modal('show');
+    $("#modal").fadeIn('', () => {
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
 }
 
 $.fn.showSubModal = (config) => {

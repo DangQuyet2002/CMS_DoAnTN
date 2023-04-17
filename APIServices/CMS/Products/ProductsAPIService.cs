@@ -12,7 +12,7 @@ namespace APIServices
 {
     public class ProductsAPIService : IProductsAPIService
     {
-        public async Task<int> Create(tbl_ProductModel requestModel)
+        public async Task<int> Create(Product requestModel)
         {
             var resultApi = await RestfulApi<Response>.PostAsync("api/Products/Create", requestModel);
             if (resultApi.code == ResponseCode.SUCCESS)
@@ -24,7 +24,7 @@ namespace APIServices
                 return 0;
             }
         }
-        public async Task<int> Update(tbl_ProductModel requestModel)
+        public async Task<int> Update(Product requestModel)
         {
             var resultApi = await RestfulApi<Response>.PostAsync("api/Products/Update", requestModel);
             if (resultApi.code == ResponseCode.SUCCESS)
@@ -36,12 +36,12 @@ namespace APIServices
                 return 0;
             }
         }
-        public async Task<tbl_ProductModel> GetById(int Id)
+        public async Task<Product> GetById(int Id)
         {
             var resultApi = await RestfulApi<Response>.GetAsync("api/Products/GetById?Id="+ Id);
             if (resultApi.code == ResponseCode.SUCCESS)
             {
-                return JsonConvert.DeserializeObject<tbl_ProductModel>(resultApi.result.ToString());
+                return JsonConvert.DeserializeObject<Product>(resultApi.result.ToString());
             }
             else
             {

@@ -1,8 +1,11 @@
 ﻿using APIServices.CMS;
 using APIServices.CMS.HomeAdmin;
 using Models;
+using Models.CMS.Product;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -30,7 +33,14 @@ namespace WebApp.Areas.Admin.Controllers
         {
             return View();
         }
-
+        public ActionResult DanhSachUser()
+        {
+            return View();
+        }
+        public ActionResult DanhSachAdmin()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<JsonResult> DangNhap(tbl_UserModel requestModel)
@@ -66,13 +76,58 @@ namespace WebApp.Areas.Admin.Controllers
         {
             try
             {
-                Session[Constants.SSUserLogIn] = null;
-                return RedirectToAction("Index");
+                Session[Constants.SSUserInforKH] = null;
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception e)
             {
                 return Json(new { type = CommonConstants.ERROR, message = e.Message });
             }
         }
+
+        [HttpPost]
+        public async Task<JsonResult>DanhSach(tbl_UserModel requestModel)
+        {
+            try
+            {
+                BaseRespone<tbl_UserModel> response = await _UserService.DanhSach(requestModel);
+                return Json(new
+                {
+                    data = response.Data.ToList(),
+                    recordsTotal = response.recordsTotal,
+                    recordsFiltered = response.recordsTotal,
+                    draw = 0,
+                    type = CommonConstants.SUCCESS
+                });
+            }
+            catch (Exception e)
+            {
+                return Json(new { type = CommonConstants.ERROR, message = e.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DanhSachAdmin(tbl_UserModel requestModel)
+        {
+            try
+            {
+                BaseRespone<tbl_UserModel> response = await _UserService.DanhSachAdmin(requestModel);
+                return Json(new
+                {
+                    data = response.Data.ToList(),
+                    recordsTotal = response.recordsTotal,
+                    recordsFiltered = response.recordsTotal,
+                    draw = 0,
+                    type = CommonConstants.SUCCESS
+                });
+            }
+            catch (Exception e)
+            {
+                return Json(new { type = CommonConstants.ERROR, message = e.Message });
+            }
+        }
+
+
+
     }
 }

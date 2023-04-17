@@ -16,6 +16,8 @@ namespace APIServices.CMS
         Task<tbl_UserModel> DangNhapTK(tbl_UserModel requestModel);
 
         Task<BaseRespone<tbl_UserModel>> DanhSach(tbl_UserModel requestModel);
+        Task<BaseRespone<tbl_UserModel>> DanhSachAdmin(tbl_UserModel requestModel);
+
         Task<Response> CapNhat(tbl_UserModel requestModel);
         Task<List<tbl_UserModel>> CheckUser(tbl_UserModel requestModel);
         Task<tbl_UserModel> ChiTiet(tbl_UserModel requestModel);

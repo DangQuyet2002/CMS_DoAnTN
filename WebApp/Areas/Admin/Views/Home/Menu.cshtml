@@ -2,233 +2,78 @@
 @{
     ViewBag.Title = "Menu";
     Layout = null;
-    var TTNguoiDung = ViewBag.TTNguoiDung as tbl_UserModel;
-    var lstMenuNguoiDung = ViewBag.lstMenuNguoiDung as List<tbl_RoleModel>;
+    
 }
 <ul class="navbar-nav" id="navbar-nav">
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "BV_BTV" || e.Ma == "BV_TK" || e.Ma == "BV_TINMOI").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="#menu_BaiDang_open" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản trị bài viết</span>
-            </a>
-            <div class="collapse menu-dropdown" id="menu_BaiDang_open">
-                <ul class="nav nav-sm flex-column">
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "BV_BTV").ToList().Count > 0)
-                    {
-                        <li class="nav-item">
-                            <a href="/Admin/BTVDuyetBaiViet/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">BTV duyệt bài viết</a>
-                        </li>
-                    }
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "BV_TK").ToList().Count > 0)
-                    {
-                        <li class="nav-item">
-                            <a href="/Admin/TKGDDuyetBai/Index" class="nav-link" data-key="t-mailbox">TK-GD duyệt bài viết</a>
-                        </li>
-                    }
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "BV_TINMOI").ToList().Count > 0)
-                    {
-                        <li class="nav-item">
-                            <a href="/Admin/DanhSachTinMoi/Index" class="nav-link" data-key="t-mailbox">Danh sách tin mới</a>
-                        </li>
-                    }
-
-                </ul>
-            </div>
-        </li>
-    }
-
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "BV_THEMMOI" || e.Ma == "BV_DS").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="#menu_BaiDangTM_open" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Tạo mới bài viết</span>
-            </a>
-            <div class="collapse menu-dropdown" id="menu_BaiDangTM_open">
-                <ul class="nav nav-sm flex-column">
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "BV_THEMMOI").ToList().Count > 0)
-                    {
-                        <li class="nav-item ">
-                            <a href="/Admin/SoanBaiViet/_ThemMoiBaiViet" class="nav-link" id="menu_Media_anh" data-key="t-calendar"> Thêm mới bài viết</a>
-                        </li>
-                    }
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "BV_DS").ToList().Count > 0)
-                    {
-                        <li class="nav-item">
-                            <a href="/Admin/SoanBaiViet/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">Danh sách bài viết</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </li>
-    }
-
-
-
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "TV_ANH" || e.Ma == "TV_AUDIO" || e.Ma == "TV_VIDEO").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="#menu_Media_open" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Media</span>
-            </a>
-            <div class="collapse menu-dropdown" id="menu_Media_open">
-                <ul class="nav nav-sm flex-column">
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "TV_ANH").ToList().Count > 0)
-                    {
-                        <li class="nav-item ">
-                            <a href="/Admin/QuanTriAlbumAnh/Index" class="nav-link" id="menu_Media_anh" data-key="t-calendar"> Thư viện ảnh</a>
-                        </li>
-                    }
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "TV_VIDEO").ToList().Count > 0)
-                    {
-                        <li class="nav-item">
-                            <a href="/Admin/QuanLyVideo/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">Thư viện video </a>
-                        </li>
-                    }
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "TV_AUDIO").ToList().Count > 0)
-                    {
-                        <li class="nav-item">
-                            <a href="/Admin/QuanLyAudio/Index" class="nav-link" data-key="t-mailbox">Thư viện audio </a>
-                        </li>
-                    }
-
-                </ul>
-            </div>
-        </li>
-    }
-
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "DMCM").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="/Admin/QuanLyDanhMuc/Index">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Danh mục chuyên mục</span>
-            </a>
-        </li>
-    }
-
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "QLVB").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="/Admin/QuanLyVanBan/Index">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý văn bản</span>
-            </a>
-        </li>
-    }
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "TC_MENU").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="/Admin/ToChucMenu/Index">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Tổ chức menu</span>
-            </a>
-        </li>
-    }
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "DS_BANNER" || e.Ma == "TC_BANNER").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="#menu_QuangCao_open" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quảng cáo</span>
-            </a>
-            <div class="collapse menu-dropdown" id="menu_QuangCao_open">
-                <ul class="nav nav-sm flex-column">
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "DS_BANNER").ToList().Count > 0)
-                    {
-                        <li class="nav-item ">
-                            <a href="/Admin/QuanTriBanner/Index" class="nav-link" id="menu_Media_anh" data-key="t-calendar">Danh sách banner</a>
-                        </li>
-                    }
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "TC_BANNER").ToList().Count > 0)
-                    {
-                        <li class="nav-item">
-                            <a href="/Admin/ToChucBanner/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">Tổ chức banner </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </li>
-    }
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "QL_CH").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="/Admin/QuanTriCacCapHoi/Index">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý cấp hội</span>
-            </a>
-        </li>
-    }
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "LKGT").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="/Admin/QuanLyLienKetGioiThieu/Index">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý liên kết giới thiệu</span>
-            </a>
-        </li>
-    }
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "DSND" || e.Ma == "PQND").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="#menu_NguoiDung_open" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý người dùng</span>
-            </a>
-            <div class="collapse menu-dropdown" id="menu_NguoiDung_open">
-                <ul class="nav nav-sm flex-column">
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "DSND").ToList().Count > 0)
-                    {
-                        <li class="nav-item ">
-                            <a href="/Admin/QuanTriNguoiDung/Index" class="nav-link" id="menu_Media_anh" data-key="t-calendar">Danh sách người dùng</a>
-                        </li>
-                    }
-                    @if (lstMenuNguoiDung.Where(e => e.Ma == "DSND").ToList().Count > 0)
-                    {
-                        <li class="nav-item">
-                            <a href="/Admin/PhanQuyenNguoiDung/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">Phân quyền người dùng</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </li>
-    }
-    @if (lstMenuNguoiDung.Where(e => e.Ma == "QLCT").ToList().Count > 0)
-    {
-        <li class="nav-item">
-            <a class="nav-link menu-link" id="menu_Media" href="/Admin/QuanLyChanTrang/Index">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý chân trang</span>
-            </a>
-        </li>
-    }
 
 
     <li class="nav-item">
-        <a class="nav-link menu-link" id="menu_Media" href="#LichSuLog" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý thùng rác và log</span>
+        <a class="nav-link menu-link" id="menu_Media" href="#menu_BaiDangTM_open" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý bài viết</span>
         </a>
-        <div class="collapse menu-dropdown" id="LichSuLog">
+        <div class="collapse menu-dropdown" id="menu_BaiDangTM_open">
             <ul class="nav nav-sm flex-column">
-                <li class="nav-item">
-                    <a href="/Admin/QuanLyBaiVietDaXoa/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">Danh sách bài đăng xóa</a>
+
+                <li class="nav-item ">
+                    <a href="@Url.Action("ThemMoi", "TinTuc")" class="nav-link" id="menu_Media_anh" data-key="t-calendar"> Thêm mới bài viết</a>
                 </li>
+
+
                 <li class="nav-item">
-                    <a href="/Admin/QuanLyVideoDaXoa/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">Danh sách video xóa</a>
+                    <a href="@Url.Action("Index", "TinTuc")" class="nav-link" data-key="t-chat" id="menu_Media_video">Danh sách bài viết</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/Admin/QuanLyAnhDaXoa/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">Danh sách album ảnh đã xóa</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/Admin/QuanLyAudioDaXoa/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">Danh sách audio đã xóa</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/Admin/QuanLyVanBanDaXoa/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">Danh sách văn bản đã xóa</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/Admin/LogHT/Index" class="nav-link" data-key="t-chat" id="menu_Media_video">Log hệ thống</a>
-                </li>
+
             </ul>
         </div>
     </li>
 
+
     <li class="nav-item">
+        <a class="nav-link menu-link" id="menu_Media" href="">
+            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý danh mục</span>
+        </a>
+    </li>
+
+    
+
+    <li class="nav-item">
+        <a class="nav-link menu-link" id="menu_Media" href="#menu_NguoiDung_open" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý Tài Khoản</span>
+        </a>
+        <div class="collapse menu-dropdown" id="menu_NguoiDung_open">
+            <ul class="nav nav-sm flex-column">
+
+                <li class="nav-item ">
+                    <a href="@Url.Action("DanhSachAdmin", "Login")" class="nav-link" id="menu_Media_anh" data-key="t-calendar"> Tài Khoản Admin</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachUser", "Login")" class="nav-link" data-key="t-chat" id="menu_Media_video">Tài Khoản Người Dùng</a>
+                </li>
+
+            </ul>
+        </div>
+    </li>
+    
+    <li class="nav-item">
+        <a class="nav-link menu-link" id="menu_Media" href="@Url.Action("DSSanPham", "Products")">
+            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý Sản Phẩm</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link menu-link" id="#" href="/Admin/QuanLyChiHoi/Index">
+            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý Bill</span>
+        </a>
+    </li>
+
+
+    @*<li class="nav-item">
         <a class="nav-link menu-link" id="#" href="/Admin/QuanLyChiHoi/Index">
             <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý chi hội</span>
         </a>
-    </li>
+    </li>*@
     @*<li class="nav-item">
             <a class="nav-link menu-link" id="menu_Media" href="/Admin/ThamSoHeThong/Index">
                 <i class="ri-apps-2-line"></i> <span data-key="t-apps">Tham số hệ thống</span>

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Models;
+using Models.CMS.Product;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,6 +28,8 @@ namespace Repositories.Manage.CMS
         private readonly string _tbl_User_ThemMoi = "tbl_User_ThemMoi";
         private readonly string _tbl_User_DanhSach = "tbl_User_DanhSach";
         private readonly string _tbl_User_Xoa = "tbl_User_Xoa";
+        private readonly string _tbl_Admin_DanhSach = "tbl_Admin_DanhSach";
+
         #endregion
 
         public UserRepository(IAppConfiguration appConfiguration, IBaseRepository baseRepository)
@@ -225,17 +228,39 @@ namespace Repositories.Manage.CMS
             try
             {
                 BaseRespone<tbl_UserModel> Respone = new BaseRespone<tbl_UserModel>();
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("FullName", requestModel.FullName);
-                parameters.Add("Start", requestModel.start);
-                parameters.Add("Length", requestModel.length);
-                parameters.Add("@Count", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                var result = await _baseRepository.GetMultipleList(_tbl_User_DanhSach, parameters, reader =>
+                var param = new DynamicParameters();
+                param.Add("@KeyWord", requestModel.Keywords);
+                param.Add("@Start", requestModel.start);
+                param.Add("@Length", requestModel.length);
+                param.Add("@Count", 0, System.Data.DbType.Int32, System.Data.ParameterDirection.InputOutput);
+                var result = await _baseRepository.GetMultipleList(_tbl_User_DanhSach, param, reader =>
                 {
                     Respone.Data = reader.Read<tbl_UserModel>().ToList();
-                    Respone.recordsTotal = parameters.Get<int>("@Count");
+                    Respone.recordsTotal = param.Get<int>("@Count");
                 });
-
+                return Respone;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("AspNetUsersRepository error: " + ex.Message);
+                return new BaseRespone<tbl_UserModel>();
+            }
+        }
+        public async Task<BaseRespone<tbl_UserModel>> DanhSachAdmin(tbl_UserModel requestModel)
+        {
+            try
+            {
+                BaseRespone<tbl_UserModel> Respone = new BaseRespone<tbl_UserModel>();
+                var param = new DynamicParameters();
+                param.Add("@KeyWord", requestModel.Keywords);
+                param.Add("@Start", requestModel.start);
+                param.Add("@Length", requestModel.length);
+                param.Add("@Count", 0, System.Data.DbType.Int32, System.Data.ParameterDirection.InputOutput);
+                var result = await _baseRepository.GetMultipleList(_tbl_Admin_DanhSach, param, reader =>
+                {
+                    Respone.Data = reader.Read<tbl_UserModel>().ToList();
+                    Respone.recordsTotal = param.Get<int>("@Count");
+                });
                 return Respone;
             }
             catch (Exception ex)

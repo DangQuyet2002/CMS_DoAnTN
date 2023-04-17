@@ -20,7 +20,10 @@ namespace WebApp.Controllers
         {
             _UserService = UserService;
         }
-
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         // GET: LogIn
         [HttpPost]
@@ -110,6 +113,7 @@ namespace WebApp.Controllers
                    .Replace("-", string.Empty)
                    .ToLower().ToString();
                 tbl_UserModel response = await _UserService.DangNhapTK(requestModel);
+                Session[Constants.SSUserInforKH] = await _UserService.DangNhapTK(requestModel);
                 if (response.ID == 0)
                 {
                     message.message = CommonConstants.MSG_LOGIN_FAILED;
@@ -130,5 +134,20 @@ namespace WebApp.Controllers
                 return Json(new { type = CommonConstants.ERROR, message = e.Message });
             }
         }
+
+        public ActionResult DangXuat()
+        {
+            try
+            {
+                Session[Constants.SSUserInforKH] = null;
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception e)
+            {
+                return Json(new { type = CommonConstants.ERROR, message = e.Message });
+            }
+        }
+        
+        
     }
 }

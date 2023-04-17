@@ -19,7 +19,7 @@ namespace Repositories
             _baseRepository = baseRepository;
         }
 
-        public async Task<int> Create(tbl_ProductModel requestModel)
+        public async Task<int> Create(Product requestModel)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace Repositories
                 return 0;
             }
         }
-        public async Task<int> Update(tbl_ProductModel requestModel)
+        public async Task<int> Update(Product requestModel)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace Repositories
                 param.Add("@Length", requestModel.Length);
                 param.Add("@totalCount", 0, System.Data.DbType.Int32, System.Data.ParameterDirection.InputOutput);
                 var model = new ProductPaging();
-                model.lst = await _baseRepository.GetList<tbl_ProductModel>("[dbo].[Product_GetAll]", param);
+                model.lst = await _baseRepository.GetList<Product>("[dbo].[Product_GetAll]", param);
                 model.totalCount = param.Get<int>("@totalCount");
                 return model;
             }
@@ -107,7 +107,7 @@ namespace Repositories
                 param.Add("@pageSize", requestModel.PageSize);
                 param.Add("@totalCount", 0, System.Data.DbType.Int32, System.Data.ParameterDirection.InputOutput);
                 var model = new ProductPaging();
-                model.lst = await _baseRepository.GetList<tbl_ProductModel>("[dbo].[Product_GetAllDisCount]", param);
+                model.lst = await _baseRepository.GetList<Product>("[dbo].[Product_GetAllDisCount]", param);
                 model.totalCount = param.Get<int>("@totalCount");
                 return model;
             }
@@ -128,7 +128,7 @@ namespace Repositories
                 param.Add("@Length", requestModel.Length);
                 param.Add("@totalCount", 0, System.Data.DbType.Int32, System.Data.ParameterDirection.InputOutput);
                 var model = new ProductPaging();
-                model.lst = await _baseRepository.GetList<tbl_ProductModel>("[dbo].[Product_GetByCate]", param);
+                model.lst = await _baseRepository.GetList<Product>("[dbo].[Product_GetByCate]", param);
                 model.totalCount = param.Get<int>("@totalCount");
                 return model;
             }
@@ -138,13 +138,13 @@ namespace Repositories
                 return null;
             }
         }
-        public async Task<tbl_ProductModel> GetById(int Id)
+        public async Task<Product> GetById(int Id)
         {
             try
             {
                 var param = new DynamicParameters();
                 param.Add("@Id", Id);
-                var model = await _baseRepository.GetList<tbl_ProductModel>("[dbo].[Product_GetById]", param);
+                var model = await _baseRepository.GetList<Product>("[dbo].[Product_GetById]", param);
                 return model.FirstOrDefault();
             }
             catch (Exception ex)
@@ -175,7 +175,7 @@ namespace Repositories
             {
                 var param = new DynamicParameters();
                 var model = new ProductPaging();
-                model.lst = await _baseRepository.GetList<tbl_ProductModel>("[dbo].[Product_GetByView]", param);
+                model.lst = await _baseRepository.GetList<Product>("[dbo].[Product_GetByView]", param);
                 return model;
             }
             catch (Exception ex)
