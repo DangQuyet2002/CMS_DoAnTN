@@ -1,0 +1,245 @@
+﻿@using Models
+@model Models.Product
+@{
+    ViewBag.Title = "ThuocTinh";
+}
+<style>
+    .button-btn {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        margin-top: 15px;
+    }
+
+        .button-btn button {
+            border: 1px solid #ccc;
+            background-color: rgb(0 177 86);
+            padding: 6px 16px;
+            color: #fff;
+        }
+</style>
+<link href="~/Scripts/css/chitiet.css" rel="stylesheet" />
+<div class="Thuoctinh container">
+    <div class="Chitiet-common">
+        <div class="Chitiet-common-header d-flex">
+            <div id="Mausac" class="Chitiet-common-header-link  col-xl-6">
+                <h5>Màu sắc</h5>
+            </div>
+            <div id="Kichthuoc" class="Chitiet-common-header-link lick-active col-xl-6">
+                <h5>Kích cỡ</h5>
+            </div>
+        </div>
+        <div class="Chitiet-common-content " id="ListMausac">
+            <table class="table table-hover" id="tbMausac">
+            </table>
+            <form id="form-mausac">
+                <input type="hidden" value="@Model.Id" name="ProductId" />
+                <input type="hidden" name="ListColorId" id="colorIdValue" />
+
+            </form>
+            <div class="button-btn">
+                <button type="button" onclick="Save_Table();">Xác nhận</button>
+            </div>
+        </div>
+        <div class="Chitiet-mota d-none" id="ListKichthuoc">
+            <table class="table table-hover" id="tbKichco">
+            </table>
+            <form id="form-kichthuoc">
+                <input type="hidden" value="@Model.Id" name="ProductId" />
+                <input type="hidden" name="ListSizeId" id="SizeIdValue" />
+
+            </form>
+            <div class="button-btn">
+                <button type="button" onclick="Save_TableSize();">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        tableMau();
+        tableKT();
+    })
+    tableMau = () => {
+            debugger;
+        let config = {
+            serverSide: true,
+            scrollCollapse: true,
+            ordering: false,
+            fixedHeader: true,
+            ajax: {
+                url: '/Admin/QuanLyColor/DanhSach',
+                type: 'POST',
+
+            },
+            columns: [
+                {
+                    data: "Id",
+                    name: "SelectBox",
+                    render: (data) => {
+                        return `<div class="custom-control custom-checkbox ml-2">
+                                <input type="checkbox" class="custom-control-input ckbChoDuyet" id="${data}" value="${data}">
+                                <label class="custom-control-label" for="${data}"></label>
+                            </div>`;
+                    }
+                },
+                {
+                    data: "Name",
+                    name: "Name",
+                    title: "Tên màu "
+                },
+
+
+            ],
+
+            headerCallback: function (thead, data, start, end, display) {
+                $(thead).find('th').eq(0).html('<input type="checkbox" class="form-check-input" id="chkNhomCanBoAll" />');
+                $('#chkNhomCanBoAll').change(function () {
+                    $('.ckbChoDuyet').each(function () {
+                        $(this).prop('checked', $('#chkNhomCanBoAll').prop('checked'));
+                        $(this).change();
+                    })
+                })
+            },
+        }
+        table = $.fn.initDataTable("#tbMausac", config);
+
+
+    }
+    tableKT = () => {
+        debugger;
+        let config = {
+            serverSide: true,
+            scrollCollapse: true,
+            ordering: false,
+            fixedHeader: true,
+            ajax: {
+                url: '/Admin/QuanLySize/DanhSach',
+                type: 'POST',
+
+            },
+            columns: [
+                {
+                    data: "Id",
+                    name: "SelectBox",
+                    render: (data) => {
+                        return `<div class="custom-control custom-checkbox ml-2">
+                                <input type="checkbox" class="custom-control-input ckbChoDuyet1" id="${data}" value="${data}">
+                                <label class="custom-control-label" for="${data}"></label>
+                            </div>`;
+                    }
+                },
+                {
+                    data: "Name",
+                    name: "Name",
+                    title: "Tên Size "
+                },
+
+
+            ],
+
+            headerCallback: function (thead, data, start, end, display) {
+                $(thead).find('th').eq(0).html('<input type="checkbox" class="form-check-input" id="chkNhomCanBoAll" />');
+                $('#chkNhomCanBoAll').change(function () {
+                    $('.ckbChoDuyet1').each(function () {
+                        $(this).prop('checked', $('#chkNhomCanBoAll').prop('checked'));
+                        $(this).change();
+                    })
+                })
+            },
+        }
+        table = $.fn.initDataTable("#tbKichco", config);
+
+
+    }
+    $("#Mausac").on("click", function () {
+        if ($("#Mausac").hasClass('lick-active')) {
+            $("#Mausac").removeClass("lick-active");
+            $("#Kichthuoc").addClass("lick-active");
+            if ($("#ListMausac").hasClass("d-none")) {
+                $("#ListMausac").removeClass("d-none");
+                $("#ListKichthuoc").addClass("d-none");
+            }
+        }
+    })
+    $("#Kichthuoc").on("click", function () {
+        if ($("#Kichthuoc").hasClass('lick-active')) {
+            $("#Kichthuoc").removeClass("lick-active");
+            $("#Mausac").addClass("lick-active");
+            if ($("#ListKichthuoc").hasClass("d-none")) {
+                $("#ListKichthuoc").removeClass("d-none");
+                $("#ListMausac").addClass("d-none");
+            }
+        }
+    })
+    function Save_Table() {
+        var listId = [];
+        $('.ckbChoDuyet').each(function () {
+            var _checked = $(this).is(":checked")
+            if (_checked) {
+                listId.push($(this).prop("value"));
+            }
+        })
+        if (listId.length == 0) {
+            $.fn.toastrMessage('Vui lòng chọn ít nhất một dữ liệu!!!', '', 'warning');
+            return;
+        }
+        debugger;
+        $("#colorIdValue").val(listId);
+
+        var data = $('#form-mausac').serialize();
+        $.ajax({
+            url: '/ProductColor/ThemMoi',
+            type: "post",
+            data: data,
+            success: function (data) {
+                if (data.type == "success") {
+                    $.fn.closeMainModal();
+                    table.ajax.reload();
+                }
+                $.fn.toastrMessage(data.msg, '', data.type);
+                $("#modal").hide();
+                location.reload();
+            },
+            error: function (errorThrown) {
+                $.fn.toastrMessage(errorThrown, '', 'error');
+            }
+        });
+
+        }
+    function Save_TableSize() {
+        var listId = [];
+        $('.ckbChoDuyet1').each(function () {
+            var _checked = $(this).is(":checked")
+            if (_checked) {
+                listId.push($(this).prop("value"));
+            }
+        })
+        if (listId.length == 0) {
+            $.fn.toastrMessage('Vui lòng chọn ít nhất một dữ liệu!!!', '', 'warning');
+            return;
+        }
+        debugger;
+        $("#SizeIdValue").val(listId);
+
+        var data = $('#form-kichthuoc').serialize();
+        $.ajax({
+            url: '/ProductSize/ThemMoi',
+            type: "post",
+            data: data,
+            success: function (data) {
+                if (data.type == "success") {
+                    $.fn.closeMainModal();
+                    table.ajax.reload();
+                }
+                $.fn.toastrMessage(data.msg, '', data.type);
+                $("#modal").hide();
+                location.reload();
+            },
+            error: function (errorThrown) {
+                $.fn.toastrMessage(errorThrown, '', 'error');
+            }
+        });
+
+    }
+</script>

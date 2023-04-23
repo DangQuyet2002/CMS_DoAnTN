@@ -1,0 +1,14 @@
+﻿
+@foreach (var item in Model)
+{
+    var a = ViewBag.id + "";
+    var b = item.Id + "";
+    if (a == b)
+    {
+        <option value="@item.Id" selected="selected">@item.Name</option>
+    }
+    else
+    {
+        <option value="@item.Id">@item.Name</option>
+    }
+}

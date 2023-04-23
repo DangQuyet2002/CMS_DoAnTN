@@ -34,23 +34,63 @@ $.fn.showSubModal = (config) => {
     }, 400);
 }
 
+$.fn.showFileModal = (config) => {
+    let defaultConfig = {
+        title: "",
+        bodyContent: "",
+        dialogClass: "",
+        buttonSave: !0
+    }
+    defaultConfig = $.extend({}, defaultConfig, config);
+    $("#modal-file .nv-modal-body").html(defaultConfig.bodyContent);
+    $("#modal-file .nv-modal-title").html(defaultConfig.title);
+    $("#modal-file").attr("class", "nv-modal").addClass(defaultConfig.dialogClass);
+    defaultConfig.buttonSave ? $("#modal-file .btn-save").show() : $("#modal-file .btn-save").hide();
+    $("#modal-file").fadeIn('', () => {
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
+}
+
+$.fn.showPreviewFileModal = (config) => {
+    let defaultConfig = {
+        title: "",
+        bodyContent: "",
+        dialogClass: "",
+        buttonSave: !0
+    }
+    defaultConfig = $.extend({}, defaultConfig, config);
+    $("#modal-pvfile .nv-modal-body").html(defaultConfig.bodyContent);
+    $("#modal-pvfile .nv-modal-title").html(defaultConfig.title);
+    $("#modal-pvfile").attr("class", "nv-modal").addClass(defaultConfig.dialogClass);
+    defaultConfig.buttonSave ? $("#modal-pvfile .btn-save").show() : $("#modal-pvfile .btn-save").hide();
+    $("#modal-pvfile").fadeIn('', () => {
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
+}
+
+$.fn.closeMainModal = () => {
+    $("#modal").fadeOut();
+    $('#modal .nv-modal-body').html("");
+}
+
 $.fn.closeSubModal = () => {
-    $('#sub-modal .modal-body').html("");
-    $("#sub-modal").modal('hide');
-    setTimeout(() => {
-        $("#modal").modal('show');
-    }, 400);
+    $('#sub-modal .nv-modal-body').html("");
+    $("#sub-modal").fadeOut();
+}
+
+$.fn.closeFileModal = () => {
+    $('#modal-file .nv-modal-body').html("");
+    $("#modal-file").fadeOut();
+}
+
+$.fn.closePreviewFileModal = () => {
+    $('#modal-pvfile .nv-modal-body').html("");
+    $("#modal-pvfile").fadeOut();
 }
 
 $.fn.closeModal = (elmModal) => {
-    $(elmModal + ' .modal-body').html("");
-    $(elmModal).modal('hide');
-}
-
-$.fn.reloadModal = (e) => {
-    let target = $(e).closest(".modal");
-    $(target).modal('hide');
-    setTimeout(() => {
-        $(target).modal('show');
-    }, 500);
+    $(elmModal + ' .nv-modal-body').html("");
+    $(elmModal).fadeOut();
 }

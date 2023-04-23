@@ -27,6 +27,7 @@ namespace Repositories
                 param.Add("@NamePro", requestModel.NamePro);
                 param.Add("@Price", requestModel.Price);
                 param.Add("@Image", requestModel.Image);
+                param.Add("@Image1", requestModel.Image1);
                 param.Add("@CategoryId", requestModel.CategoryId);
                 param.Add("@CategoryIdMin", requestModel.CategoryminId);
                 param.Add("@Discount", requestModel.Discount);
@@ -49,6 +50,8 @@ namespace Repositories
                 param.Add("@NamePro", requestModel.NamePro);
                 param.Add("@Price", requestModel.Price);
                 param.Add("@Image", requestModel.Image);
+                param.Add("@Image1", requestModel.Image1);
+
                 param.Add("@CategoryId", requestModel.CategoryId);
                 param.Add("@CategoryIdMin", requestModel.CategoryminId);
                 param.Add("@Discount", requestModel.Discount);

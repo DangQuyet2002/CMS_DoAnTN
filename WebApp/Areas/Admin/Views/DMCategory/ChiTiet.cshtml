@@ -1,0 +1,49 @@
+﻿@model Models.DanhMucCategory
+@{
+    ViewBag.Title = "ChiTiet";
+}
+
+<div class="container">
+    <form id="form-create" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="input_place">
+                <lalbel>Danh mục sản phẩm</lalbel>
+                <input name="Name" type="text" id="txtMaTaiLieu" class="form-control mb-3" value="@Model.Name">
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer modal-footer-center">
+    <input type="submit" name="btnSubmit" value="Xác nhận" onclick="btnSave_Onclick();" id="btSubmit" class="btn btn-outline-success" style="line-height: 10px">
+    <button style="line-height: 10px" type="button" class="btn btn-outline-danger" id="Dong" data-dismiss="modal">Đóng</button>
+
+</div>
+
+<script>
+    function btnSave_Onclick() {
+        var data = $('#form-create').serialize();
+        $.ajax({
+            url: '/Admin/DMCategory/Create',
+            type: "post",
+            data: data,
+            success: function (data) {
+                if (data.type == "success") {
+                    $.fn.closeMainModal();
+                    table.ajax.reload();
+                }
+                $.fn.toastrMessage(data.msg, '', data.type);
+                $("#modal").hide();
+                location.reload();
+            },
+            error: function (errorThrown) {
+                $.fn.toastrMessage(errorThrown, '', 'error');
+            }
+        });
+    }
+    $("#Dong").on("click", function () {
+        $("#modal").hide();
+    })
+</script>

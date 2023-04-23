@@ -29,6 +29,15 @@
 @section scripts{
 
     <script>
+        function ToastMessage(title, message, type) {
+            toast({
+                title: title,
+                message: message,
+                type: type,
+                duration: 1000
+            });
+        }
+
         var table = null;
         $(function () {
             tableTintuc();
@@ -136,12 +145,13 @@
                 }
             })
             if (listId.length == 0) {
-                $.fn.toastrMessage('Vui lòng chọn ít nhất một dữ liệu!!!', '', 'warning');
+                ToastMessage("Lỗi", "Vui lòng chọn ít nhất một dữ liệu!!!", "warning");
+                
                 return;
             }
             if (confirm("Bạn chắc chắn muốn xóa những dữ liệu này?")) {
                 $.fn.postData('/Admin/TinTuc/Delete', { listId: listId.join(",") }, res => {
-                    $.fn.toastrMessage(res.massage, '', res.type);
+                    ToastMessage("Thông báo", "Xóa dữ liệu thành công", "success");
                     table.ajax.reload();
                 });
 

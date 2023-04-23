@@ -1,0 +1,48 @@
+﻿@using Models
+@{
+    ViewBag.Title = "DoNam";
+    Layout = "~/Views/Shared/_LayoutCommon.cshtml";
+}
+<link href="~/Content/ControllerCss/Home.css" rel="stylesheet" />
+<link href="~/Content/ControllerCss/HomeProduct.css" rel="stylesheet" />
+<section id="content">
+
+    <div class="content-wrap">
+
+        <h4 style="margin-left: 8%;margin-bottom: 2.5rem"><a href="@Url.Action("Index","Home")">Trang Chủ / </a> <a>Áo Khoác</a></h4>
+        <div class="container clearfix">
+
+            <!-- Portfolio Filter
+            ============================================= -->
+            <ul id="portfolio-filter" class="portfolio-filter clearfix">
+                <li class="activeFilter"><a href="#" data-filter="*">Show All</a></li>
+                <li><a href="#" data-filter=".pf-T_shirt">Áo Khoác Nam</a></li>
+                <li><a href="#" data-filter=".pf-shirt">Áo Khoác Nữ</a></li>
+                <li><a href="#" data-filter=".pf-2">Áo Khoác Đôi</a></li>
+            </ul>
+            <div class="clear"></div>
+            <div id="AoKhoacLoad">
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+@section scripts {
+    <script>
+            $(document).ready(function () {
+                LoadPage1(1);
+            })
+
+        function LoadPage1(start) {
+            var requestModel = {
+                start: start,
+            }
+            $("#AoKhoacLoad").load("/DanhSachSP/_DSAoKhoac", { "requestModel": requestModel }, function (data) {
+            })
+        }
+    </script>
+} 

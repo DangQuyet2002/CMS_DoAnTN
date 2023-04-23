@@ -1,17 +1,18 @@
-﻿<ul class="nav nav-pills  nav-stacked">
-    @*@foreach (var item in Model)
-        {*@
-    <li class="">Xu hướng thời trang 2023</li>
-    <li class="">Sản phẩm mới</li>
-    <li class="">Thời trang Nam</li>
-    <li class="">Thời trang Nữ</li>
-    <li class="">Liên Hệ</li>
+﻿<link href="~/Content/ControllerCss/Home.css" rel="stylesheet" />
+<link href="~/Content/ControllerCss/HomeProduct.css" rel="stylesheet" />
 
-    @*}*@
+
+<ul class="nav nav-pills  nav-stacked">
+
+    <li><a href="#">Xu hướng thời trang 2023</a></li>
+    <li><a href="#">Sản phẩm mới</a></li>
+    <li><a href="@Url.Action("DoNam", "DanhSachSP")">Thời trang Nam</a></li>
+    <li><a href="@Url.Action("DoNu", "DanhSachSP")">Thời trang Nữ</a></li>
+    <li><a href="#">Liên Hệ</a></li>
 </ul>
 
 <style>
-    .nav-stacked > li {
+    .nav-stacked > li > a{
         color: #202634;
         font-family: "Cabin Condensed", Arial, sans-serif;
         font-size: 16px;
@@ -21,5 +22,6 @@
         padding-left: 18.33333333px;
         padding-right: 18.33333333px;
     }
+
 </style>
 

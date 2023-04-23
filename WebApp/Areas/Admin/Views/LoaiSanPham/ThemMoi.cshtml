@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "ThemMoi";
+}
+
+
+<div class="container">
+    <form id="form-create" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="input_place">
+                <lalbel>Tên sản phẩm</lalbel>
+                <input name="NamePro" type="text" id="txtMaTaiLieu" class="form-control mb-3">
+            </div>
+            <div class="input_place">
+                <span class="hold">Giá</span>
+                <input name="Price" type="text" id="txtTenTaiLieu" class="form-control mb-3">
+            </div>
+            <div class="input_place">
+                <span class="hold">Ảnh</span>
+                <input name="FileUpload" type="file" id="FileUpload" class="form-control mb-3">
+            </div>
+            <div class="input_place">
+                <span class="hold">Số lượng</span>
+                <input name="Quantity" type="text" id="FileUpload" class="form-control mb-3">
+            </div>
+            <div class="input_place">
+                <span class="hold">Giảm giá</span>
+                <input name="DisCount" type="text" class="form-control mb-3">
+            </div>
+            <div class="input_place">
+                <span class="hold">Loại sản phẩm</span>
+                <select class="form-select" name="CategoryId" aria-label="Default select example" id="CategoryId">
+                </select>
+                <input type="hidden" id="valCategoryId" />
+            </div>
+            <div class="input_place">
+                <span class="hold">Loại danh mục</span>
+                <select class="form-select" name="CategoryminId" aria-label="Default select example" id="Loai_Don_Vi_Id_Min">
+                </select>
+                <input type="hidden" id="valLoai_Don_Vi_Min" />
+            </div>
+            <div class="input_place">
+                <span class="hold">Mô tả</span>
+                <textarea name="MoTa" id="" class="form-control mb-3"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer modal-footer-center">
+    <input type="submit" name="btnSubmit" value="Xác nhận" onclick="btnSave_Onclick();" id="btSubmit" class="btn btn-outline-success" style="line-height: 10px">
+    <button style="line-height: 10px" type="button" class="btn btn-outline-danger" id="Dong" data-dismiss="modal">Đóng</button>
+
+</div>
+
+<script>
+    function btnSave_Onclick() {
+        var data = new FormData($('#form-create')[0]);
+        $.ajax({
+            url: '/Admin/Products/Create',
+            type: "post",
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            data: data,
+            success: function (data) {
+                if (data.type == "success") {
+                    $.fn.closeMainModal();
+                    table.ajax.reload();
+                }
+                $.fn.toastrMessage(data.msg, '', data.type);
+                $("#modal").hide();
+                location.reload();
+            },
+            error: function (errorThrown) {
+                $.fn.toastrMessage(errorThrown, '', 'error');
+            }
+        });
+    }
+    $("#Dong").on("click", function () {
+        $("#modal").hide();
+    })
+</script>

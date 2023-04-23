@@ -1,0 +1,172 @@
+﻿@using Models
+@{
+    ViewBag.Title = "_DSDoNam";
+    Layout = null;
+    var aothun = ViewBag.Aothun as List<Product>;
+    var somi = ViewBag.AoSoMiNam as List<Product>;
+    var sweater = ViewBag.AoSweater as List<Product>;
+    var jean = ViewBag.Quanjean as List<Product>;
+    var au = ViewBag.Quanau as List<Product>;
+    var sort = ViewBag.Quansort as List<Product>;
+
+
+}
+
+@if (aothun.Count > 0)
+{
+    <div id="shop" class="shop grid-container clearfix">
+        @foreach (var item in aothun)
+        {
+            <div class="product clearfix pf-T_shirt">
+                <div class="product-image">
+                    <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
+                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <div class="sale-flash">@item.Discount% Off*</div>
+                    <div class="product-overlay">
+                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                    </div>
+                </div>
+                <div class="product-desc">
+                    <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
+                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                    <div class="product-rating">
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star-half-full"></i>
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var item in somi)
+        {
+            <div class="product clearfix pf-shirt">
+                <div class="product-image">
+                    <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
+                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <div class="sale-flash">@item.Discount% Off*</div>
+                    <div class="product-overlay">
+                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                    </div>
+                </div>
+                <div class="product-desc">
+                    <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
+                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                    <div class="product-rating">
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star-half-full"></i>
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var item in sweater)
+        {
+            <div class="product clearfix pf-Sweater">
+                <div class="product-image">
+                    <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
+                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <div class="sale-flash">@item.Discount% Off*</div>
+                    <div class="product-overlay">
+                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                    </div>
+                </div>
+                <div class="product-desc">
+                    <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
+                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                    <div class="product-rating">
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star-half-full"></i>
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var item in jean)
+        {
+            <div class="product clearfix pf-Jean">
+                <div class="product-image">
+                    <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
+                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <div class="sale-flash">@item.Discount% Off*</div>
+                    <div class="product-overlay">
+                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                    </div>
+                </div>
+                <div class="product-desc">
+                    <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
+                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                    <div class="product-rating">
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star-half-full"></i>
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var item in au)
+        {
+            <div class="product clearfix pf-Trousers">
+                <div class="product-image">
+                    <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
+                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <div class="sale-flash">@item.Discount% Off*</div>
+                    <div class="product-overlay">
+                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                    </div>
+                </div>
+                <div class="product-desc">
+                    <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
+                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                    <div class="product-rating">
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star-half-full"></i>
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var item in sort)
+        {
+            <div class="product clearfix pf-Sort">
+                <div class="product-image">
+                    <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
+                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <div class="sale-flash">@item.Discount% Off*</div>
+                    <div class="product-overlay">
+                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                    </div>
+                </div>
+                <div class="product-desc">
+                    <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
+                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                    <div class="product-rating">
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star3"></i>
+                        <i class="icon-star-half-full"></i>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+
+

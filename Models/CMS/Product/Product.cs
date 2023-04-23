@@ -13,6 +13,8 @@ namespace Models
         public int Price { get; set; }
         public int PriceNew { get; set; }
         public string Image { get; set; }
+        public string Image1 { get; set; }
+
         public string TenCate { get; set; }
         public string TenCateMin { get; set; }
         public string MoTa { get; set; }

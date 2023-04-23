@@ -42,19 +42,13 @@ tableTintuc = () => {
             {
                 data: "Image",
                 name: "Image",
-                title: "Ảnh",
+                title: "Ảnh 1",
 
             },
             {
-                data: "TenCate",
-                name: "TenCate",
-                title: "Loại sản phẩm",
-
-            },
-            {
-                data: "Quantity",
-                name: "Quantity",
-                title: "Số lượng",
+                data: "Image1",
+                name: "Image1",
+                title: "Ảnh 2",
 
             },
             {
@@ -64,7 +58,19 @@ tableTintuc = () => {
 
             },
             {
-                data: "Id", title: "Hành động", name: "action",
+                data: "Quantity",
+                name: "Quantity",
+                title: "Số lượng",
+
+            },
+            {
+                data: "TenCate",
+                name: "TenCate",
+                title: "Loại sản phẩm",
+
+            },
+            {
+                data: "Id", title: "Sửa", name: "action",
                 render: function (data) {
                     return `<div class="d-flex align-items-center gap-1">
                                         <button type="button" class="btn btn-sm btn-outline-warning btn-icon waves-effect waves-light" title="Sửa" onclick="btnThongTin(${data})">
@@ -86,10 +92,12 @@ tableTintuc = () => {
         ],
         columnDefs: [
             { width: 50, targets: [0] },
-            { width: 250, targets: [1] },
-            { width: 550, targets: [2] },
-            { width: 150, targets: [3, 4] },
-            { width: 150, targets: [5, 6] }
+            { width: 350, targets: [1] },
+            { width: 250, targets: [2] },
+            { width: 250, targets: [3] },
+            { width: 150, targets: [4, 5] },
+            { width: 150, targets: [6] },
+            { width: 50, targets: [7,8] }
         ],
         drawCallback: () => {
             /* dsNhomCanBoInit();*/
@@ -160,7 +168,7 @@ function LoadDMCategory() {
     });
 }
 function btnThongTin(Id) {
-    $.fn.getData('/Admin/AdminProducts/ChiTiet', { Id: Id }, res => {
+    $.fn.getData('/Admin/Products/ChiTiet', { Id: Id }, res => {
         $.fn.showModal({
             title: "THÔNG TIN CHI TIẾT ",
             bodyContent: res,
@@ -172,7 +180,7 @@ function btnThongTin(Id) {
 
 }
 function btnThuocTinh(Id) {
-    $.fn.getData('/Admin/AdminProducts/ThuocTinh', { Id: Id }, res => {
+    $.fn.getData('/Admin/Products/ThuocTinh', { Id: Id }, res => {
         $.fn.showModal({
             title: "THÔNG TIN CHI TIẾT ",
             bodyContent: res,

@@ -64,7 +64,7 @@ namespace WebApp
             routes.MapRoute(
               name: "ChiTietBaiViet",
               url: "{alias}_bv-{ID}.htm",
-              defaults: new { controller = "ChuyenMuc", action = "ChiTietBaiViet", ID = UrlParameter.Optional },
+              defaults: new { controller = "TinTucView", action = "ChiTietTinTuc", ID = UrlParameter.Optional },
               new[] { "WebApp.Controllers" }
           );
 

@@ -53,8 +53,8 @@ namespace WebApp.Areas.Admin.Controllers
         [HttpPost]
         public string ProsessUpload(HttpPostedFileBase file)
         {
-            file.SaveAs(Server.MapPath("~/FileUploaded/Images/" + file.FileName));
-            return "~/FileUploaded/Images/" + file.FileName;
+            file.SaveAs(Server.MapPath("~/FileUploaded/" + file.FileName));
+            return "~/FileUploaded/" + file.FileName;
 
         }
         public async Task<ActionResult> Create(TinTucModel requestModel, HttpPostedFileBase FileUpload)

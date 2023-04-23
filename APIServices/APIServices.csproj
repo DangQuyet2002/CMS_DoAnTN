@@ -6,8 +6,6 @@
 
 	<ItemGroup>
 	  <Compile Remove="CMS\CacCapHoi\**" />
-	  <Compile Remove="CMS\Category\**" />
-	  <Compile Remove="CMS\DanhMucCategory\**" />
 	  <Compile Remove="CMS\LienKetGioiThieu\**" />
 	  <Compile Remove="CMS\PhanQuyen\**" />
 	  <Compile Remove="CMS\QuanLyAblumAnh\**" />
@@ -21,8 +19,6 @@
 	  <Compile Remove="CMS\QuanTriBanner\**" />
 	  <Compile Remove="CMS\ThungRacVaLog\**" />
 	  <EmbeddedResource Remove="CMS\CacCapHoi\**" />
-	  <EmbeddedResource Remove="CMS\Category\**" />
-	  <EmbeddedResource Remove="CMS\DanhMucCategory\**" />
 	  <EmbeddedResource Remove="CMS\LienKetGioiThieu\**" />
 	  <EmbeddedResource Remove="CMS\PhanQuyen\**" />
 	  <EmbeddedResource Remove="CMS\QuanLyAblumAnh\**" />
@@ -36,8 +32,6 @@
 	  <EmbeddedResource Remove="CMS\QuanTriBanner\**" />
 	  <EmbeddedResource Remove="CMS\ThungRacVaLog\**" />
 	  <None Remove="CMS\CacCapHoi\**" />
-	  <None Remove="CMS\Category\**" />
-	  <None Remove="CMS\DanhMucCategory\**" />
 	  <None Remove="CMS\LienKetGioiThieu\**" />
 	  <None Remove="CMS\PhanQuyen\**" />
 	  <None Remove="CMS\QuanLyAblumAnh\**" />

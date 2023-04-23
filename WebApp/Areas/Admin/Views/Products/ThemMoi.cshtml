@@ -1,6 +1,8 @@
 ﻿
 @{
     ViewBag.Title = "ThemMoi";
+    var category = ViewBag.DanhSachCategory;
+    var dmcategory = ViewBag.DanhSachDMCategory;
 }
 
 
@@ -15,13 +17,20 @@
                 <span class="hold">Giá</span>
                 <input name="Price" type="text" id="txtTenTaiLieu" class="form-control mb-3">
             </div>
-            <div class="input_place">
-                <span class="hold">Ảnh</span>
-                <input name="FileUpload" type="file" id="FileUpload" class="form-control mb-3">
+            <div class="row">
+                <div class="input_place col-6">
+                    <span class="hold">Ảnh 1</span>
+                    <input name="FileUpload1" type="file" id="FileUpload" class="form-control mb-3">
+                </div>
+                <div class="input_place col-6">
+                    <span class="hold">Ảnh 2</span>
+                    <input name="FileUpload" type="file" id="FileUpload1" class="form-control mb-3">
+                </div>
             </div>
+
             <div class="input_place">
                 <span class="hold">Số lượng</span>
-                <input name="Quantity" type="text" id="FileUpload" class="form-control mb-3">
+                <input name="Quantity" type="text" class="form-control mb-3">
             </div>
             <div class="input_place">
                 <span class="hold">Giảm giá</span>
@@ -30,15 +39,29 @@
             <div class="input_place">
                 <span class="hold">Loại sản phẩm</span>
                 <select class="form-select" name="CategoryId" aria-label="Default select example" id="CategoryId">
+                    <option>-- Chọn Danh Mục --</option>
+                    @foreach (var item in category.lst)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+
                 </select>
                 <input type="hidden" id="valCategoryId" />
             </div>
             <div class="input_place">
                 <span class="hold">Loại danh mục</span>
                 <select class="form-select" name="CategoryminId" aria-label="Default select example" id="Loai_Don_Vi_Id_Min">
+                    <option>-- Chọn Loại Sản Phẩm --</option>
+                    @foreach (var item in dmcategory.lst)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+
                 </select>
                 <input type="hidden" id="valLoai_Don_Vi_Min" />
             </div>
+
+
             <div class="input_place">
                 <span class="hold">Mô tả</span>
                 <textarea name="MoTa" id="" class="form-control mb-3"></textarea>
@@ -54,6 +77,66 @@
 </div>
 
 <script>
+    function ToastMessage(title, message, type) {
+        toast({
+            title: title,
+            message: message,
+            type: type,
+            duration: 5000
+        });
+    }
+
+    $('#FileUpload').change(function () {
+        debugger
+        if (window.FormData !== undefined) {
+            var fileUpload = $('#FileUpload').get(0);
+            var files = fileUpload.files;
+            var formData = new FormData();
+            formData.append('file', files[0]);
+            $.ajax({
+                type: "POST",
+                url: '/Admin/TinTuc/ProsessUpload',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (urlImage) {
+                    type: "GET",
+                    $('#pictureUpload').attr('src', urlImage);
+                    $('#picture').val(urlImage);
+
+                },
+                Error: function (err) {
+                    alert('Có lỗi khi upload : ' + err.status.text);
+                }
+            });
+        }
+    });
+    $('#FileUpload1').change(function () {
+        debugger
+        if (window.FormData !== undefined) {
+            var fileUpload = $('#FileUpload1').get(0);
+            var files = fileUpload.files;
+            var formData = new FormData();
+            formData.append('file', files[0]);
+            $.ajax({
+                type: "POST",
+                url: '/Admin/TinTuc/ProsessUpload',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (urlImage) {
+                    type: "GET",
+                        $('#pictureUpload').attr('src', urlImage);
+                    $('#picture').val(urlImage);
+
+                },
+                Error: function (err) {
+                    alert('Có lỗi khi upload : ' + err.status.text);
+                }
+            });
+        }
+    });
+
     function btnSave_Onclick() {
         var data = new FormData($('#form-create')[0]);
         $.ajax({
@@ -66,7 +149,8 @@
             data: data,
             success: function (data) {
                 if (data.type == "success") {
-                    $.fn.closeMainModal();
+                    ToastMessage("Thông báo", "Lưu thành công", "success");
+                    $("#modal").hide();
                     table.ajax.reload();
                 }
                 $.fn.toastrMessage(data.msg, '', data.type);
@@ -74,7 +158,7 @@
                 location.reload();
             },
             error: function (errorThrown) {
-                $.fn.toastrMessage(errorThrown, '', 'error');
+                ToastMessage("Lỗi", "Có lỗi sảy ra", "error");
             }
         });
     }
@@ -82,3 +166,4 @@
         $("#modal").hide();
     })
 </script>
+<script src="~/Scripts/js/extensions/modal.js"></script>

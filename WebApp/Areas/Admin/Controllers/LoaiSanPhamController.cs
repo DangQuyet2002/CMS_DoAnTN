@@ -35,6 +35,7 @@ namespace WebApp.Areas.Admin.Controllers
                 }
             }
             return Json(new { result = "success", data = model }, JsonRequestBehavior.AllowGet);
+            
         }
         [HttpPost]
         public async Task<ActionResult> DSLoaiSP(CategoryRequest requestModel)

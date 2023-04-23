@@ -17,10 +17,16 @@ namespace WebApp.Areas.Admin.Controllers
     {
         private readonly IUserService _userService;
         private readonly IProductsAPIService _productsAPIService;
+        private readonly ICategoryAPIService _categoryAPIService;
+        private readonly IDanhMucCategoryAPIService _danhMucCategoryAPIService;
+
+
         public ProductsController()
         {
             _userService = new UserService();
             _productsAPIService = new ProductsAPIService();
+            _categoryAPIService = new CategoryAPIService();
+            _danhMucCategoryAPIService = new DanhMucCategoryAPIService();
         }
         // GET: Admin/AdminProducts
         public ActionResult Index()
@@ -57,7 +63,7 @@ namespace WebApp.Areas.Admin.Controllers
             }
         }
         [HttpPost]
-        public async Task<ActionResult> Create(Product requestModel, HttpPostedFileBase FileUpload)
+        public async Task<ActionResult> Create(Product requestModel, HttpPostedFileBase FileUpload, HttpPostedFileBase FileUpload1)
         {
             try
             {
@@ -75,6 +81,7 @@ namespace WebApp.Areas.Admin.Controllers
                     if (FileUpload == null)
                     {
                         requestModel.Image = IdPro.Image;
+                        requestModel.Image1 = IdPro.Image1;
                     }
                     else if (FileUpload.ContentLength > 0 && FileUpload != null)
                     {
@@ -82,18 +89,20 @@ namespace WebApp.Areas.Admin.Controllers
                         string ten = Path.GetFileNameWithoutExtension(FileUpload.FileName);
                         string morong = Path.GetExtension(FileUpload.FileName);
                         string tendaydu = ten + morong;
-                        FileUpload.SaveAs(Path.Combine(Server.MapPath("~/Images/"), tendaydu));
+                        FileUpload.SaveAs(Path.Combine(Server.MapPath("~/FileUploaded/"), tendaydu));
+
+                        requestModel.Image1 = FileUpload1.FileName;
+                        string name = Path.GetFileNameWithoutExtension(FileUpload1.FileName);
+                        string duoi = Path.GetExtension(FileUpload1.FileName);
+                        string full = name + duoi;
+                        FileUpload1.SaveAs(Path.Combine(Server.MapPath("~/FileUploaded/"), tendaydu));
                     }
                     await _productsAPIService.Update(requestModel);
                 }
                 else if (FileUpload.ContentLength > 0 && FileUpload != null)
                 {
                     requestModel.Image = FileUpload.FileName;
-                    string ten = Path.GetFileNameWithoutExtension(FileUpload.FileName);
-                    string morong = Path.GetExtension(FileUpload.FileName);
-                    string tendaydu = ten + morong;
-                    FileUpload.SaveAs(Path.Combine(Server.MapPath("~/Images/"), tendaydu));
-
+                    requestModel.Image1 = FileUpload1.FileName;
                     await _productsAPIService.Create(requestModel);
                 }
                 return Json(new
@@ -156,8 +165,13 @@ namespace WebApp.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult ThemMoi()
+        public async Task<ActionResult> ThemMoi(DanhMucCategoryRequest requestModel)
         {
+            var result = await _categoryAPIService.LoadDS();
+            ViewBag.DanhSachCategory = result;
+
+            var resultDM = await _danhMucCategoryAPIService.GetAll(requestModel);
+            ViewBag.DanhSachDMCategory = resultDM;
             return PartialView();
         }
         [HttpGet]
