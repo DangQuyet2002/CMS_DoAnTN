@@ -1,19 +1,20 @@
 ﻿@using Models
-@model Models.TinTucModel
+
 @{
     ViewBag.Title = "ChiTietTinTuc";
-    Layout = "~/Views/Shared/_LayoutCommon.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var tintuc = ViewBag.Loadchitiettin;
 }
 
 <div class="container">
-    <h2>@Model.Title</h2>
-    <p style="color: rgb(0 177 86); font-weight: 600;"> @Model.dateCreate</p>
+    <h2>@tintuc.Title</h2>
+    <p style="color: rgb(0 177 86); font-weight: 600;"> @tintuc.dateCreate</p>
     <div>
         <div class="ChitietTinTuc-img" style="margin-top: 10px;">
-            <img src="~/FileUploaded/@Model.Image" style="width: 100%; height: 500px;" />
+            <img src="~/FileUploaded/@tintuc.Image" style="width: 100%; height: 500px;" />
         </div>
         <div class="ChitietTinTuc-content" style="margin-top: 15px;">
-            <p>@Model.Content</p>
+            <p>@tintuc.Content</p>
         </div>
     </div>
 </div>

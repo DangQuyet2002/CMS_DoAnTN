@@ -304,6 +304,22 @@ namespace Repositories.Manage.CMS
             }
         }
 
+        public async Task<tbl_UserModel> GetById(int Id)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@Id", Id);
+                var model = await _baseRepository.GetList<tbl_UserModel>("tbl_User_GetbyId", param);
+                return model.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error:" + ex.Message);
+                return null;
+            }
+        }
+
         public async Task<Response> Xoa(tbl_UserModel requestModel)
         {
             Response message = new Response();

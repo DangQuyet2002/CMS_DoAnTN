@@ -1,0 +1,168 @@
+﻿@using Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var check = ViewBag.Check as List<GioHang>;
+    var datagiohang = ViewBag.DataGH;
+}
+
+
+
+<div class="container">
+    <input type="hidden" id="idND" value="@Session["IdUser"]" />
+    @if (Session["IdUser"] == null)
+    {
+        <h2 style="opacity: 0.7; text-align: center; padding: 200px 0;">Vui lòng đăng nhập</h2>
+    }
+    else
+    {
+
+        <h2 style="padding: 50px 0; color: rgb(0 177 86);"> Giỏ hàng của: @Session["NameUser"] </h2>
+        <table id="cart" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th style="width:50%">Tên sản phẩm</th>
+                    <th style="width:10%">Giá</th>
+                    <th style="width:8%">Số lượng</th>
+                    <th style="width:22%" class="text-center">Thành tiền</th>
+                    <th style="width:10%"> </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in datagiohang.lst)
+                {
+                    <tr>
+                        <td data-th="Product">
+                            <div class="row" style="vertical-align: middle">
+                                <div class="col-sm-2 hidden-xs center">
+                                    <img src="~/FileUploaded/@item.Image" alt="" class="img-responsive" width="100">
+                                </div>
+                                <div class="col-sm-10">
+                                    <h4 class="nomargin">@item.ProductName</h4>
+                                </div>
+                                <input type="hidden" name="Image" value="@item.Image" />
+                            </div>
+                        </td>
+                        <td data-th="Price" class="nomargin" style="vertical-align: middle">@item.Price.ToString("N0")đ</td>
+                        <td data-th="Quantity">
+                            <input class="form-control text-center cart-quantity-input" style="margin-top: 30%" value="@item.Quantity" type="number">
+                        </td>
+                        <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px">@(((decimal)item.Price * (decimal)item.Quantity).ToString("N0"))đ</td>
+
+                        <td class="actions" data-th="">
+                            <button class="btn btn-info btn-sm" onclick="xoaSanPham(@item.Id)">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                @{
+                    decimal total = 0;
+                    foreach (var item in datagiohang.lst)
+                    {
+                        total += item.Price * item.Quantity;
+                    }
+                }
+                <tr>
+                    <td>
+                        <a href="http://hocwebgiare.com/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
+                    </td>
+                    <td colspan="2" class="hidden-xs"> </td>
+                    <td class="hidden-xs text-center">
+                        <strong>Tổng tiền @total.ToString("C")</strong>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Index","ThanhToan" , new {Id = @Session["IdUser"]})" class="btn btn-success btn-block">Thanh toán <i class="fa fa-angle-right"></i></a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    
+
+
+
+        <div class="container-fluid btnSave">
+            <div class="d-flex container ">
+                <form id="formDathang" class="container col-xl-6">
+                    <input type="hidden" name="IdUser" value="@Session["IdUser"]" />
+                    <input type="hidden" name="UserName" value="@Session["NameUser"]" />
+                    <input type="hidden" name="Phone" value="@Session["PhoneUser"]" />
+                    <input type="hidden" name="Email" value="@Session["EmailUser"]" />
+                    <input type="hidden" name="Address" id="Address" value="@Session["AddressUser"]" />
+        
+                </form>
+                
+            </div>
+        </div>
+    }
+
+</div>
+
+@section scripts{
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <link href="~/Content/ControllerCss/GioHang.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+        
+
+        function xoaSanPham(Id) {
+            debugger
+            if (confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) {
+                $.ajax({
+                    url: '/GioHang/Xoa',
+                    type: 'POST',
+                    data: { id: Id },
+                    success: function (result) {
+                        if (result.success) {
+                            ToastMessage("Thành Công", "Xóa sản phẩm thành công", "succer");
+                            location.reload();
+                        } else {
+                            ToastMessage("Thành Công", "Xóa sản phẩm thành công", "succer");
+                            location.reload();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        ToastMessage("Thành Công", "Xóa sản phẩm thành công", "succer");
+                        location.reload();
+                    }
+                });
+            }
+        }
+
+
+        
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Lắng nghe sự kiện thay đổi số lượng sản phẩm
+            $('.cart-quantity-input').change(function () {
+                // Lấy số lượng mới
+                var newQuantity = $(this).val();
+
+                // Lấy giá sản phẩm
+                var price = $(this).closest('tr').find('.cart-price').data('price');
+
+                // Tính lại giá trị thành tiền
+                var newTotal = newQuantity * price;
+
+                // Cập nhật giá trị thành tiền vào cột "Thành tiền"
+                $(this).closest('tr').find('.cart-subtotal').text(newTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+
+                // Tính lại tổng tiền
+                var total = 0;
+                $('.cart-subtotal').each(function () {
+                    total += Number($(this).text().replace(/\D/g, ''));
+                });
+                $('.cart-total').text(total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+            });
+        });
+    </script>
+
+}

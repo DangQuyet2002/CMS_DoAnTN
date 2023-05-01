@@ -73,6 +73,12 @@
   <ItemGroup>
     <Compile Include="AspNetUsers\AspNetUsers.cs" />
     <Compile Include="BaseModel\BaseModel.cs" />
+    <Compile Include="CMS\BillInfo\BillInfo.cs" />
+    <Compile Include="CMS\BillInfo\BillInfoPaging.cs" />
+    <Compile Include="CMS\BillInfo\BillInfoRequest.cs" />
+    <Compile Include="CMS\Bill\Bill.cs" />
+    <Compile Include="CMS\Bill\BillPaging.cs" />
+    <Compile Include="CMS\Bill\BillRequest.cs" />
     <Compile Include="CMS\Category\Category.cs" />
     <Compile Include="CMS\Category\CategoryPaging.cs" />
     <Compile Include="CMS\Category\CategoryRequest.cs" />
@@ -82,6 +88,9 @@
     <Compile Include="CMS\DanhMucCategory\DanhMucCategory.cs" />
     <Compile Include="CMS\DanhMucCategory\DanhMucCategoryPaging.cs" />
     <Compile Include="CMS\DanhMucCategory\DanhMucCategoryRequest.cs" />
+    <Compile Include="CMS\GioHang\GioHang.cs" />
+    <Compile Include="CMS\GioHang\GioHangPaging.cs" />
+    <Compile Include="CMS\GioHang\GioHangRequest.cs" />
     <Compile Include="CMS\Log4NetLogModel.cs" />
     <Compile Include="CMS\ProductColor\ProductColor.cs" />
     <Compile Include="CMS\ProductColor\ProductColorPaging.cs" />

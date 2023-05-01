@@ -99,7 +99,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                log.Info("Input: " + JsonConvert.SerializeObject(requestModel));
+                
                 var model = await _UserRepository.DangKyTK(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
@@ -136,6 +136,27 @@ namespace APIDoAn.Controllers.CMS
                 res.message = ResponseDetail.UNKNOWN_ERRORDETAIL + " - " + ex.Message;
                 res.result = null;
                 log.Error("Error: " + JsonConvert.SerializeObject(res));
+            }
+            return res;
+        }
+
+        [Route("GetById")]
+        [HttpGet]
+        public async Task<object> GetById(int ID)
+        {
+            Response res = new Response();
+            try
+            {
+                var model = await _UserRepository.GetById(ID);
+                res.code = ResponseCode.SUCCESS;
+                res.message = ResponseDetail.SUCCESSDETAIL;
+                res.result = model;
+            }
+            catch (Exception ex)
+            {
+                res.code = ResponseCode.UNKNOWN_ERROR;
+                res.message = ResponseDetail.UNKNOWN_ERRORDETAIL;
+                res.result = null;
             }
             return res;
         }
@@ -263,7 +284,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                log.Info("Input: " + JsonConvert.SerializeObject(requestModel));
+                
                 var model = await _UserRepository.ThemMoi(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;

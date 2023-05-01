@@ -43,7 +43,7 @@ $.fn.initDataTable = (elm, exSetting) => {
         autoWidth: false,
         responsive: false,
         select: true,
-        pageLength: 10
+        pageLength: 20
     };
     let settings = $.extend({}, defaultSetting, exSetting);
     return $(elm).DataTable(settings);

@@ -56,6 +56,16 @@
     </div>
 </div>
 <script>
+
+    function ToastMessage(title, message, type) {
+        toast({
+            title: title,
+            message: message,
+            type: type,
+            duration: 500000
+        });
+    }
+
     $(function () {
         tableMau();
         tableKT();
@@ -181,7 +191,7 @@
             }
         })
         if (listId.length == 0) {
-            $.fn.toastrMessage('Vui lòng chọn ít nhất một dữ liệu!!!', '', 'warning');
+            ToastMessage("Lỗi", "Vui lòng chọn ít nhất một dữ liệu!!!", "warning");
             return;
         }
         debugger;
@@ -194,15 +204,14 @@
             data: data,
             success: function (data) {
                 if (data.type == "success") {
-                    $.fn.closeMainModal();
                     table.ajax.reload();
+                    ToastMessage("Thông báo", "Lưu dữ liệu thành công", "success");
                 }
-                $.fn.toastrMessage(data.msg, '', data.type);
                 $("#modal").hide();
                 location.reload();
             },
             error: function (errorThrown) {
-                $.fn.toastrMessage(errorThrown, '', 'error');
+                ToastMessage("Lỗi", "Không lưu được dữ liệu", "error");
             }
         });
 
@@ -216,7 +225,7 @@
             }
         })
         if (listId.length == 0) {
-            $.fn.toastrMessage('Vui lòng chọn ít nhất một dữ liệu!!!', '', 'warning');
+            ToastMessage("Lỗi", "Vui lòng chọn ít nhất một dữ liệu!!!", "warning");
             return;
         }
         debugger;
@@ -229,7 +238,6 @@
             data: data,
             success: function (data) {
                 if (data.type == "success") {
-                    $.fn.closeMainModal();
                     table.ajax.reload();
                 }
                 $.fn.toastrMessage(data.msg, '', data.type);

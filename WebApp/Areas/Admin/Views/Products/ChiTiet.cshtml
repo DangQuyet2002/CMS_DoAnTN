@@ -1,6 +1,9 @@
 ﻿@model Models.Product
 @{
     ViewBag.Title = "ThemMoi";
+    var category = ViewBag.DanhSachCategory;
+    var dmcategory = ViewBag.DanhSachDMCategory;
+    var danhsach = ViewBag.DanhSach;
 }
 
 
@@ -40,26 +43,22 @@
             <div class="input_place">
                 <span class="hold">Loại sản phẩm</span>
                 <select class="form-select" name="CategoryId" aria-label="Default select example" id="CategoryId">
-                    <option value=""></option>
-                    @{
-                            if (@Model.CategoryId > 0)
-                            {
-                                <option value="@Model.CategoryId" selected>@Model.TenCate</option>
-                            }
-                        }
+                    
+
+                    @foreach (var item in category.lst)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
                 </select>
                 <input type="hidden" id="valCategoryId" value="@Model.TenCate" />
             </div>
             <div class="input_place">
                 <span class="hold">Loại danh mục</span>
                 <select class="form-select" name="CategoryminId" aria-label="Default select example" id="Loai_Don_Vi_Id_Min">
-                    <option value=""></option>
-                    @{
-                            if (@Model.CategoryminId > 0)
-                            {
-                                <option value="@Model.CategoryminId" selected>@Model.TenCateMin</option>
-                            }
-                        }
+                    @foreach (var item in dmcategory.lst)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
                 </select>
             </div>
             <div class="input_place">

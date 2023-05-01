@@ -252,11 +252,19 @@
     <Compile Include="Areas\Admin\Controllers\TinTucController.cs" />
     <Compile Include="Controllers\AuthenController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ChiTietNguoiDungController.cs" />
+    <Compile Include="Controllers\ChiTietSanPhamController.cs" />
     <Compile Include="Controllers\DanhSachSPController.cs" />
+    <Compile Include="Controllers\DatHangController.cs" />
+    <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\ProductColorController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductSizeController.cs" />
+    <Compile Include="Controllers\SinUpController.cs" />
+    <Compile Include="Controllers\ThanhToanController.cs" />
     <Compile Include="Controllers\TinTucViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1691,6 +1699,8 @@
     <Content Include="Content\CMSContent\assets\plugins\datatables\js\jquery.dataTables.min.js" />
     <Content Include="Content\ControllerCss\CustomAdmin.css" />
     <Content Include="Content\ControllerCss\Custommer.css" />
+    <Content Include="Content\ControllerCss\GioHang.css" />
+    <Content Include="Content\ControllerCss\ProductChiTiet.css" />
     <Content Include="Content\ControllerCss\Login.css" />
     <Content Include="Content\ControllerCss\HomeProduct.css" />
     <Content Include="Content\ControllerCss\Home.css" />
@@ -6895,6 +6905,7 @@
     <Content Include="Content\Image\Banner\logo-fashiongo.png" />
     <Content Include="Content\Image\Banner\quote.png" />
     <Content Include="Content\Image\Banner\Rectangle 263.png" />
+    <Content Include="Content\Image\Banner\Screenshot 2023-04-24 194049.png" />
     <Content Include="Content\Image\Banner\sl-1.jpg" />
     <Content Include="Content\Image\Banner\sl-2.jpg" />
     <Content Include="Content\Image\Banner\sl-3.jpg" />
@@ -6921,6 +6932,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-simple-tree-table.js" />
+    <Content Include="Scripts\js\data\GioHang.js" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
@@ -7252,6 +7264,12 @@
     <Content Include="Views\DanhSachSP\_DSAoKhoac.cshtml" />
     <Content Include="Views\DanhSachSP\PhuKien.cshtml" />
     <Content Include="Views\DanhSachSP\_DSPhuKien.cshtml" />
+    <Content Include="Views\ChiTietSanPham\Index.cshtml" />
+    <Content Include="Views\GioHang\Index.cshtml" />
+    <Content Include="Views\LogIn\DangKy.cshtml" />
+    <Content Include="Views\SinUp\Index.cshtml" />
+    <Content Include="Views\ChiTietNguoiDung\ChiTiet.cshtml" />
+    <Content Include="Views\ThanhToan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -7265,6 +7283,9 @@
     <Folder Include="FileUploaded\" />
     <Folder Include="Template\" />
     <Folder Include="Views\Common\" />
+    <Folder Include="Views\DatHang\" />
+    <Folder Include="Views\ProductColor\" />
+    <Folder Include="Views\ProductSize\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

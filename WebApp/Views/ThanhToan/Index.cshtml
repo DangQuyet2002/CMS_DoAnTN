@@ -1,0 +1,246 @@
+﻿@using Models
+@using Newtonsoft.Json;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listGH = ViewBag.listGioHang as List<GioHang>;
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-7 " style=" margin-top: 30px;">
+            <h3 class="block-title"><i class="fa fa-user" aria-hidden="true"></i> THÔNG TIN NGƯỜI NHẬN</h3>
+            <div class="block block-white  block-bordered">
+
+
+                <p class="alert alert-info">Bạn đã có tài khoản <i class="fa fa-hand-o-right" aria-hidden="true"></i> <a href="#loginform" class="btn-toggle text-danger" data-toggle="toggle" title="đăng nhập tại đây">đăng nhập tại đây. </a>Nếu chưa có tài khoản vui lòng điền thông tin của bạn vào form dưới đây.</p>
+
+                <div id="loginform" class="alert alert-info" style="display: none;">
+                    <a href="#loginform" class="close btn-toggle" data-dismiss="alert" aria-hidden="true">&times;</a>
+
+                    <div class="form-inline">
+                        <p id="status" style="color: orangered; font-weight:bold;"></p>
+
+                        <div class="form-group">
+                            <input placeholder="Mật khẩu..." />
+                        </div>
+                        <div class="form-group">
+                            <input placeholder="Mật khẩu..." />
+                        </div>
+                        <div class="form-group">
+                            <a id="btnLogin" class="btn btn-success"><i class="fa fa-sign-in"></i> Đăng nhập</a>
+                        </div>
+                    </div>
+                    <hr />
+
+                </div>
+
+
+                <!-- Thông tin người nhận -->
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label class="control-label col-xl-4">Họ và tên</label>
+                            <input placeholder="Nhập tên người nhận hàng..." />
+
+                        </div>
+                        <div class="col-md-8">
+                            <label class="control-label col-xl-4">Số điện thoại</label>
+                            <input placeholder="Số điện thoại..." />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label class="control-label col-xl-4">Địa chỉ</label>
+                            <input placeholder="Địa chỉ nhận hàng..." />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label class="control-label">Tỉnh/Thành phố</label>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Quận/Huyện</label>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chọn nhà vận chuyển -->
+            <h3 class="block-title"><i class="fa fa-truck" aria-hidden="true"></i> CHỌN NHÀ VẬN CHUYỂN</h3>
+            <div id="transport-table" class="block block-white  block-bordered">
+                <p class="alert alert-info">
+                    Vui lòng chọn Tỉnh thành > Quận huyện để tìm nhà vận chuyển cho bạn.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-5" style=" margin-top: 30px;">
+            <h3 class="block-title"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> THÔNG TIN ĐƠN HÀNG</h3>
+            <div class="block block-white block-bordered">
+                <form id="form-dathang">
+                    <table class="table mycart">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th class="text-center">Xóa</th>
+                                <th class="text-center">Giá tiền</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-right">Thành tiền</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (listGH.Count > 0)
+                            {
+                                foreach (var item in listGH)
+                                {
+                                    <tr class="start-item ">
+                                        <td rowspan="2"><img src="~/FileUploaded/@item.Image" style="width: 52px;" class="img-thumbnail" /></td>
+                                        <td class="action removeProduct text-center">
+                                            <a href="#" class="removeProduct" title="Xóa khỏi giỏ hàng">
+                                                <i class="removeProduct fa fa-close text-danger"></i>
+                                            </a>
+                                        </td>
+
+                                        <td class="text-center">@item.Price.ToString("N0")<sup>đ</sup></td>
+                                        <td class="text-center">
+                                            <div class="d-flex">
+                                                <button class="decrease-btn" type="button">-</button>
+                                                <input class="quantity-input" style="width: 30px" type="number" value="@item.Quantity" />
+                                                <button class="increase-btn" type="button">+</button>
+                                            </div>
+                                        </td>
+                                        <td>@(((decimal)item.Price * (decimal)item.Quantity).ToString("N0"))đ</td>
+                                    </tr>
+                                    <input type="hidden" name="ProductName" value="@item.ProductName" />
+                                    <tr class="end-item">
+                                        <td colspan="4">@item.NameColor</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            @{
+                                decimal total = 0;
+                                foreach (var item in listGH)
+                                {
+                                    total += item.Price * item.Quantity;
+                                }
+                            }
+                            <tr>
+                                <th id="couponbox" colspan="2" rowspan="4" style="vertical-align: top;">
+
+                                    <label class="control-label" for="couponcode">Mã giảm giá (nếu có)</label>
+
+                                    <div class="input-group">
+
+                                        <input type="text" name="couponCode" id="couponCode" class="form-control" value="">
+                                        <span class="input-group-btn">
+                                            <button id="applyCoupon" class="btn btn-danger" type="button">
+                                                Áp dụng <i class="fa fa-angle-right"></i>
+                                            </button>
+                                        </span>
+                                    </div><!-- /input-group -->
+
+                                    <p class="status"></p>
+
+                                </th>
+                                <th colspan="2">Tổng đơn hàng:</th>
+                                <th class="text-right">
+                                    <span class="nn-cart-total">@total.ToString("N0")</span>đ
+                                </th>
+                            </tr>
+                            <tr class="text-right">
+                                <td colspan="2">Phí vận chuyển:</td>
+                                <td id="orderTransportCost" class="text-right">12000đ</td>
+                            </tr>
+                            <tr class="text-right">
+                                <td colspan="2">Giảm giá: <span id="discountDescription">222222đ</span></td>
+                                <td id="orderDiscount" class="text-right">12223đ</td>
+                            </tr>
+                            <tr style="font-weight: 700; color: orangered">
+                                <th colspan="2" class="text-right">Tổng thành tiền:</th>
+                                <th class="text-right">
+                                    <span id="totalOrder">1000000đ</span>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="form-horizontal">
+                        <div class="actions">
+                            <button class="btn btn-warning btn-checkout" type="button" onclick="SaveBill()">
+                                <i class="fa fa-hand-o-right" aria-hidden="true"></i> Đặt Hàng
+                            </button>
+                            <a href="/" class="btn btn-info">
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i> Thêm sản phẩm khác
+                            </a>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="control-label">Ghi chú đơn hàng</label>
+                                <textarea name="note" id="note" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function SaveBill() {
+        debugger
+        var listGH = @Html.Raw(JsonConvert.SerializeObject(ViewBag.listGioHang));
+        var listId = listGH.map(function (item) {
+            return item.Id;
+        });
+        debugger
+        console.log(listId)
+        debugger
+        $.ajax({
+            type: 'POST',
+            url: '/DatHang/ThemMoi',
+            data: {
+                ListIdCart: listId.join(','), //truyền danh sách sản phẩm vào đối tượng dữ liệu
+                otherData: $('#form-dathang').serialize() //truyền các dữ liệu khác trong form
+            },
+            dataType: 'json',
+            encode: true,
+            success: function (response) {
+                //Xử lý kết quả trả về từ server
+            }
+        });
+    }
+
+
+
+
+    $(document).ready(function () {
+        const decreaseBtn = $('.decrease-btn');
+        const increaseBtn = $('.increase-btn');
+        const quantityInput = $('.quantity-input');
+
+        decreaseBtn.click(function () {
+            const quantity = parseInt(quantityInput.val()) || 0;
+            if (quantity > 1) {
+                quantityInput.val(quantity - 1);
+            }
+        });
+
+        increaseBtn.click(function () {
+            const quantity = parseInt(quantityInput.val()) || 0;
+            quantityInput.val(quantity + 1);
+        });
+    });
+
+
+</script>

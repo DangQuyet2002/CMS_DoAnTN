@@ -348,7 +348,8 @@ span.middot {
 }
 
 .nomargin {
-    margin: 0 !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .noleftmargin {

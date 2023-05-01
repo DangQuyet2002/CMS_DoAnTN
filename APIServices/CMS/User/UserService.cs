@@ -242,7 +242,21 @@ namespace APIServices.CMS
             }
         }
 
-        public async Task<Response> Xoa(tbl_UserModel requestModel)
+        public async Task<tbl_UserModel> GetById(int Id)
+        {
+            var resultApi = await RestfulApi<Response>.GetAsync("api/User/GetById?Id=" + Id);
+            if (resultApi.code == ResponseCode.SUCCESS)
+            {
+                return JsonConvert.DeserializeObject<tbl_UserModel>(resultApi.result.ToString());
+            }
+            else
+            {
+                return null;
+
+            }
+        }
+
+            public async Task<Response> Xoa(tbl_UserModel requestModel)
         {
             try
             {

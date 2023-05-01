@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -127,7 +128,41 @@ namespace WebApp.Areas.Admin.Controllers
             }
         }
 
+        //[HttpPost]
+        //public async Task<ActionResult> Update(tbl_UserModel requestModel, HttpPostedFileBase FileUpload)
+        //{
+        //    try
+        //    {
+        //        var Iduser = await _UserService.GetById(requestModel.ID);
+        //        if (FileUpload == null)
+        //        {
+        //            requestModel.Image = Iduser.Image;
+        //        }
+        //        else if (FileUpload.ContentLength > 0 && FileUpload != null)
+        //        {
+        //            requestModel.Image = FileUpload.FileName;
+        //            string ten = Path.GetFileNameWithoutExtension(FileUpload.FileName);
+        //            string morong = Path.GetExtension(FileUpload.FileName);
+        //            string tendaydu = ten + morong;
+        //            FileUpload.SaveAs(Path.Combine(Server.MapPath("~/Images/"), tendaydu));
 
+        //        }
+        //        await _UserService.(requestModel);
+        //        return Json(new
+        //        {
+        //            type = CommonConstants.SUCCESS,
+        //            massage = "Cập nhật thành công"
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new
+        //        {
+        //            type = CommonConstants.ERROR,
+        //            massage = "Thất bại!"
+        //        });
+        //    }
+        //}
 
     }
 }

@@ -93,7 +93,7 @@
     border-radius: 0px !important;
     background: #f2533d;
     border: none;
-    padding: 11px 12px 12px;
+    padding: 14px 12px 12px;
     height: auto;
     color: white;
     width: 100%;
@@ -723,18 +723,6 @@ featured-product .image, .mega-dropdown-inner .image {
     padding: 66px 0;
     margin: -44px 0 22px;
 }
-
-    .eshop-shop-introduction:before {
-        background: #eeeeee;
-        content: "";
-        height: 100%;
-        left: -100%;
-        position: absolute;
-        top: 0;
-        width: 100%;
-    }
-
-
 
     .eshop-shop-introduction h1 {
         color: #000000;

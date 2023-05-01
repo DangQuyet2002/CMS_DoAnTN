@@ -11,32 +11,35 @@
 
 <link href="~/Content/ControllerCss/Home.css" rel="stylesheet" />
 <link href="~/Content/ControllerCss/HomeProduct.css" rel="stylesheet" />
-<div id="carouselExampleIndicators" class="carousel slide">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+<section>
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/Content/Image/Banner/slide3.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/Image/Banner/slide1.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/Image/Banner/slide2.png" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="~/Content/Image/Banner/slide1.png" style="width:1349px ; height:691px ;object-fit:contain" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="~/Content/Image/Banner/slide2.png" style="width:1349px ; height:691px ;object-fit:cover" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="~/Content/Image/Banner/slide3.jpg" style="width:1349px ; height:691px ;object-fit:contain" class="d-block w-100" alt="...">
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+</section>
+
 <section>
     <div class="container t3-mainbody mt-5">
         <div class="row">
@@ -206,6 +209,29 @@
             <h2 class="bantindaotao-name" style="font-size: 36px;">Bài Viết Nổi Bật</h2>
 
         </div>
+        @*<div class="home-newfeed col-xl-10" style="margin: auto;" ">
+            <h2 class="home-newfeed-title">_________Tin tức mỗi ngày_________</h2>
+            <div class="home-newfeed-list">
+                <div id="tintuc" class="row">
+
+                    @foreach (var item in dsmoinhat)
+                    {
+                        <a href="@Url.Action("ChiTietTinTuc", "TinTucView", new { Id = item.Id })" class="col-xl-4 col-6">
+                            <div class="home-newfeed-item-list d-flex">
+                                <img src="~/Images/@item.Image" class="home-newfeed-item-img-val col-xl-4 col-4" style="padding: 0 !important" />
+                                <div class="home-newfeed-item-content col-xl-8 col-8">
+                                    <p style="padding-top: 12px">@item.Title</p>
+                                    <div>@item.dateCreate</div>
+
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+
+            </div>
+        </div>*@
+
         <div class="bantindaotao-content">
             <div class="row">
                 @if (dsmoinhat.Count > 0)
@@ -213,19 +239,13 @@
                     int count = 0;
                     foreach (var item in dsmoinhat)
                     {
-                         
+
                         if (count < 3)
                         {
                             <div class="bantindaotao-content-list col-4">
-                                @{
-                                    var Url = "/" + Utils.convertToUnSign2(item.Title).Replace(" ", "_") + "_bv-" + item.Id + ".htm";
-                                    if (!string.IsNullOrEmpty(item.Keywords))
-                                    {
-                                        Url = "/" + Utils.convertToUnSign2(item.Keywords).Replace(" ", "_") + "_bv-" + item.Id + ".htm";
-                                    }
-                                }                               
+                                
                                 <div class="bantindaotao-content-list">
-                                    <a href="@Url">
+                                    <a href="@Url.Action("ChiTietTinTuc","TinTucView", new { Id = item.Id })">
                                         <img class="bantindaotao-img" src="~/FileUploaded/@item.Image" style="width: 100%; height: 12rem;" />
                                     </a>
 

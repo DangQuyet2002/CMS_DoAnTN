@@ -24,7 +24,7 @@ $.fn.singleSelect = (elm, url, params, callback) => {
                     id: '', // the value of the option
                     text: params.placeholder != null ? params.placeholder : "--Lựa chọn--",
                 },
-                width: "100%",
+                width: "100%",sssss
                 allowClear: true
             })
             //callback

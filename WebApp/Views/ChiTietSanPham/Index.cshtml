@@ -1,0 +1,237 @@
+﻿@model Models.Product
+@using Models
+@{
+    tbl_UserModel UserLogin = (tbl_UserModel)Session[Constants.SSUserInforKH];
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //var ListComment = ViewBag.ListComment as List<tbl_PhanHoiModel>;
+    var ListSize = ViewBag.ListSize as List<ProductSize>;
+    var ListColor = ViewBag.ListColor as List<ProductColor>;
+}
+
+<style>
+    .body-content{
+        display:flex;
+        padding-left:100px;
+        padding-right:100px;
+    }
+</style>
+<link href="~/Content/ControllerCss/ProductChiTiet.css" rel="stylesheet" />
+<link href="~/Content/ControllerCss/HomeProduct.css" rel="stylesheet" />
+<div class="body-content">
+    <div class="Chitiet-content container col-9">
+        
+            <input type="hidden" name="Id" value="@Model.Id" id="idkq" />
+            <form id="form-giohang" class="row">
+                <div class="Chitiet-content-list col-xl-5">
+                    <img src="~/FileUploaded/@Model.Image" class="Chitiet-content-list-img" />
+                    <div class="d-flex justify-content-between">
+                        <div class="mt-2" style="width:45%">
+                            <img src="~/FileUploaded/@Model.Image1" class="" />
+                        </div>
+                        <div class="mt-2" style="width:45%">
+                            <img src="~/FileUploaded/@Model.Image" class="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="Chitiet-content-list col-xl-7">
+                    <h2 class="Chitiet-content-name">@Model.NamePro</h2>
+                    <a>@Model.MoTa</a>
+                    <div><del>@Model.Price.ToString("N0")đ</del></div>
+                    <div class="Chitiet-content-price">@Model.PriceNew.ToString("N0")đ</div>
+                    <input type="hidden" name="ProductId" value="@Model.Id" />
+                    @if (@UserLogin == null)
+                    {
+                        <input type="hidden" name="UserId" id="UserId" value="0" />
+                    }
+                    else
+                    {
+                        <input type="hidden" name="UserId" id="UserId" value="@UserLogin.ID" />
+                    }
+                    <input type="hidden" name="ProductName" value="@Model.NamePro" />
+                    <input type="hidden" name="Price" value="@Model.PriceNew" />
+
+
+                    <input type="hidden" name="Status" value="1" />
+                    <input type="hidden" name="Image" value="@Model.Image" />
+                    <div class="Chitiet-content-hd">
+                        @*<select class="form-select col-xl-5 col-12" name="ColorId" aria-label="Default select example" id="Chitietmau">
+            </select>*@
+                        @if (ListColor.Count > 0)
+                        {
+                            <p>Hướng dẫn chọn màu:</p>
+                            foreach (var item in ListColor)
+                            {
+                                <button type="button" value="@item.ColorId" class="btn-Color">@item.ColorName</button>
+
+                            }
+                            <input type="hidden" name="ColorId" id="ColorId" />
+                        }
+                    </div>
+                    <div class="Chitiet-content-hd">
+                        <p>Hướng dẫn chọn Size:</p>
+                        @*<select class="form-select col-xl-5 col-12" name="SizeId" aria-label="Default select example" id="Chitietsize">
+            </select>*@
+                        @if (ListSize.Count > 0)
+                        {
+                            foreach (var item in ListSize)
+                            {
+                                <button type="button" value="@item.SizeId" class="btn-Size">@item.SizeName</button>
+
+                            }
+                            <input type="hidden" name="SizeId" id="SizeId" />
+
+                        }
+                    </div>
+                    <div class="Chitiet-content-hd">
+                        <p>Số lượng:</p>
+                        <input aria-label="quantity" class="input-qty" name="Quantity" type="number" value="">
+
+                    </div>
+                    <div class="Chitiet-content-btn d-flex">
+                        <button type="submit" class="btn-cart col-xl-6" onclick="SaveGioHang();">THÊM VÀO GIỎ HÀNG</button>
+                        <button type="submit" class="btn-mua col-xl-6">MUA NGAY</button>
+                    </div>
+
+
+                </div>
+            </form>
+        
+    </div>
+    <div class="col-3 Chitiet-content-name">
+        <img src="~/Content/Image/Banner/Screenshot 2023-04-24 194049.png" />
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $('.btn-Size').on('click', function () {
+            this.style.border = "2px solid red";
+            $("#SizeId").val($(this).val());
+        })
+        $('.btn-Color').on('click', function () {
+            this.style.border = "2px solid red";
+            $("#ColorId").val($(this).val());
+        })
+        var kq = parseInt($("#idkq").val());
+        $(function () {
+            LoadMau(kq);
+            LoadSize(kq);
+        })
+        function btnSave() {
+            if ($("#IdUser").val() == 0) {
+                alert("");
+                ToastMessage("Lỗi", "Vui lòng đăng nhập!", "warning");
+            }
+            else {
+                if ($("#HoVaTen").val() != "" || $("#Email").val() != "" || $("#NoiDung").val() != "") {
+                    var formdata = $("#form-data").serialize();
+                    console.log(formdata);
+                    $.ajax({
+                        url: "/ChiTietSanPham/ThemMoiPhanHoi",
+                        type: "post",
+                        dataType: "json",
+                        data: formdata,
+
+                        success: (data) => {
+                            if (data.type == "success") {
+                                ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
+                                $("#form-data input").val('');
+                                $("#form-data textarea").val('');
+                                location.reload();
+                            }
+                            else {
+                                ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+                            }
+                        }
+                    })
+                }
+                else {
+                    ToastMessage("Lỗi", "Vui lòng nhập đầy đủ thông tin!", "warning");
+
+
+                }
+            }
+        }
+        $("#Mota").on("click", function () {
+            if ($("#Mota").hasClass('lick-active')) {
+                $("#Mota").removeClass("lick-active");
+                $("#Phanhoi").addClass("lick-active");
+                if ($("#ListMoTa").hasClass("d-none")) {
+                    $("#ListMoTa").removeClass("d-none");
+                    $("#ListPhanHoi").addClass("d-none");
+                }
+            }
+        })
+        $("#Phanhoi").on("click", function () {
+            if ($("#Phanhoi").hasClass('lick-active')) {
+                $("#Phanhoi").removeClass("lick-active");
+                $("#Mota").addClass("lick-active");
+                if ($("#ListPhanHoi").hasClass("d-none")) {
+                    $("#ListPhanHoi").removeClass("d-none");
+                    $("#ListMoTa").addClass("d-none");
+                }
+            }
+        })
+        function LoadMau(Id) {
+            $.fn.destroySelect2('#Chitietmau');
+            var data = {
+                Id: Id,
+                placeholder: '--Màu--'
+            }
+            $.fn.singleSelect('#Chitietmau', '/ProductColor/LoadProductColor', data, res => {
+            });
+        }
+        function LoadSize(Id) {
+            $.fn.destroySelect2('#Chitietsize');
+            var data = {
+                Id: Id,
+                placeholder: '--Size--'
+            }
+            $.fn.singleSelect('#Chitietsize', '/ProductSize/LoadProductSize', data, res => {
+            });
+        }
+
+        function SaveGioHang() {
+            debugger
+            if ($("#UserId").val() == 0) {
+                alert("Vui lòng đăng nhập!");
+            }
+            else {
+                if ($("#SizeId").val() != "" || $("#ColorId").val() != "") {
+                    var formdata = $("#form-giohang").serialize();
+                    debugger
+                    console.log(formdata);
+                    $.ajax({
+                        url: "/GioHang/ThemMoi",
+                        type: "post",
+                        dataType: "json",
+                        
+                        data: formdata,
+                        
+                        success: (data) => {
+                            if (data.type == "success") {
+                                ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
+
+
+
+                            }
+                            else {
+                                ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+
+                            }
+                        }
+                    })
+                }
+                else {
+                    confirm("");
+                    ToastMessage("Lỗi", "Vui lòng nhập đầy đủ thông tin Size và Màu!", "warning");
+
+                }
+            }
+        }
+
+
+    </script>
+
+}

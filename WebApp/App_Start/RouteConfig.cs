@@ -61,12 +61,8 @@ namespace WebApp
                defaults: new { controller = "ChuyenMuc", action = "Index", ID = UrlParameter.Optional },
                new[] { "WebApp.C  ontrollers" }
            );
-            routes.MapRoute(
-              name: "ChiTietBaiViet",
-              url: "{alias}_bv-{ID}.htm",
-              defaults: new { controller = "TinTucView", action = "ChiTietTinTuc", ID = UrlParameter.Optional },
-              new[] { "WebApp.Controllers" }
-          );
+            
+            
 
             routes.MapRoute(
                name: "VanBan",
@@ -104,7 +100,7 @@ namespace WebApp
                defaults: new { controller = "ThongTinChiHoi", action = "Index", ID = UrlParameter.Optional },
                new[] { "WebApp.Controllers" }
            );
-
+           
 
             routes.MapRoute(
                 name: "Default",

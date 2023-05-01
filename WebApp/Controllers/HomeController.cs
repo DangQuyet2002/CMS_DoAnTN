@@ -19,11 +19,13 @@ namespace WebApp.Controllers
     {
         private readonly ITinTucAPIService _tinTucAPIService;
         private readonly IProductsAPIService productsAPIService;
+        private readonly IGioHangAPIService gioHangAPIService;
+
         //private readonly IGioHangAPIService gioHangAPIService;
         public HomeController()
         {
             _tinTucAPIService = new TinTucAPIService();
-            //gioHangAPIService = new GioHangAPIService();
+            gioHangAPIService = new GioHangAPIService();
             productsAPIService = new ProductsAPIService();
         }
 
@@ -31,7 +33,14 @@ namespace WebApp.Controllers
         // GET: Home
         public async Task<ActionResult> Index(ProductRequest request)
         {
-           
+
+            if (Session[CommonConstants.SessionAccountInfo] != null)
+            {
+                GioHangRequest requestModel = new GioHangRequest();
+                var data = await gioHangAPIService.GetByUser(requestModel);
+                Session["totalCart"] = data.totalCount;
+            }
+
             ViewBag.Title = "Trang chủ";
             request.Length = 4;
             request.Start = 1;

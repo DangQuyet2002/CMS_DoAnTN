@@ -1,0 +1,150 @@
+﻿.select2 {
+    width: 50% !important;
+    height: 35px !important;
+}
+
+.Chitiet {
+}
+
+.lick-active {
+    background-color: #ccc;
+}
+
+.Chitiet-header {
+}
+
+.Chitiet-content {
+}
+
+.Chitiet-content-list {
+}
+
+.Chitiet-content-list-img {
+    width: 100%;
+    margin-top: 20%;
+    vertical-align: text-top;
+    object-fit: contain;
+}
+
+.Chitiet-content-price {
+    font-size: 24px;
+    color: red;
+}
+.Chitiet-content-name{
+    margin-top:4rem;
+}
+
+.Chitiet-content-btn {
+    margin: 20px 0;
+}
+
+.btn-mua,
+.btn-cart {
+    padding: 8px 0;
+}
+
+.btn-mua {
+    margin-left: 15px;
+    border: 2px solid red;
+    color: red;
+}
+
+.Chitiet-content-tb {
+    padding: 8px 0;
+    background-color: #000;
+    border: 2px solid #ccc;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+}
+
+.Chitiet-content-cs {
+    margin: 15px 0;
+}
+
+    .Chitiet-content-cs p {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+.Chitiet-header {
+    background-color: #ccc;
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 30px
+}
+
+    .Chitiet-header h2 {
+        font-weight: 400;
+    }
+
+.Chitiet-common {
+    margin-top: 30px;
+}
+
+.Chitiet-comment-logo {
+    border-bottom: 1px solid #ccc;
+}
+
+.Chitiet-common-header-link h5 {
+    padding: 20px 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.Chitiet-common-email {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.Chitiet-common-email-btn {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+}
+
+.btn-phanhoi {
+    padding: 4px 30px;
+    border: 1px solid #ccc;
+    outline: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+    .btn-phanhoi:hover {
+        background-color: cadetblue;
+    }
+
+.Chitiet-comment-logo {
+    margin: 12px 0;
+}
+
+.Chitiet-comment-logo-img {
+    width: 100%;
+    border-radius: 50%;
+    height: 85px;
+}
+
+.Chitiet-comment-tt {
+    padding-top: 10px;
+    font-size: 13px;
+    color: #1e6c52;
+    font-weight: 600;
+}
+
+.Chitiet-comment-name {
+    padding: 10px 0 20px 0;
+}
+
+    .Chitiet-comment-name p {
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+.btn-Color,
+.btn-Size {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+}

@@ -1,0 +1,116 @@
+﻿@using Models
+@model Models.tbl_UserModel
+@{
+    ViewBag.Title = "ChiTiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .ChiTietNguoiDung-header {
+        display: flex;
+        text-align: center;
+        padding: 24px 0;
+        border-bottom: 2px solid #ccc;
+    }
+
+        .ChiTietNguoiDung-header h2 {
+            margin: auto 0;
+            width: 100%;
+        }
+
+    .ChiTietNguoiDung-content {
+        padding: 30px 0;
+    }
+
+    .ChiTietNguoiDung-btn {
+        margin: 15px 0;
+    }
+
+    .ChiTietNguoiDung-item {
+        margin: 10px 0;
+    }
+
+    .ChiTietNguoiDung-capnhat {
+        display: flex;
+        justify-content: end;
+        padding: 4px 20px;
+        border: 1px solid #ccc;
+        outline: none;
+    }
+
+    .ChiTietNguoiDung-giohang {
+        margin: 12px 0;
+        font-size: 20px;
+    }
+</style>
+<div class="ChiTietNguoiDung">
+    <div class="ChiTietNguoiDung-header">
+        <h2>Xin chào :&nbsp; @Model.FullName </h2>
+    </div>
+    <div class="ChiTietNguoiDung-content col-xl-8" style="margin: auto;">
+        <a href="" class="ChiTietNguoiDung-giohang"> <i class="fa-solid fa-cart-shopping"></i> &nabla; Lịch sử mua hàng</a>
+        <form id="form-data" class="row">
+            <input type="hidden" name="ID" value="@Model.ID" />
+            <input type="hidden" name="TypeUser" value="2" />
+            <div class="ChiTietNguoiDung-item col-xl-12">
+                <label>Ảnh đại diện:</label>
+                <div class="ChiTietNguoiDung-list-img col-xl-3">
+                    <img class="" src="~/Images/@Model.Image" style="height:200px; object-fit: cover;" />
+                    <input type="file" name="FileUpload" />
+                </div>
+            </div>
+            <div class="ChiTietNguoiDung-item col-xl-6">
+                <label>Tên:</label>
+                <input type="text" class="form-control" name="FullName" value="@Model.FullName" />
+            </div>
+            <div class="ChiTietNguoiDung-item col-xl-6">
+                <label>Tài khoản:</label>
+                <input type="text" class="form-control" name="UserName" value="@Model.UserName" />
+            </div>
+            <div class="ChiTietNguoiDung-item col-xl-6">
+                <label>Mật khẩu:</label>
+                <input type="password" class="form-control" name="PassWord" value="@Model.Password" />
+            </div>
+            <div class="ChiTietNguoiDung-item col-xl-6">
+                <label>Email:</label>
+                <input type="email" class="form-control" name="Email" value="@Model.Email" />
+            </div>
+            <div class="ChiTietNguoiDung-item col-xl-6">
+                <label>Số điện thoại:</label>
+                <input type="text" class="form-control" name="Phone" value="@Model.Phone" />
+            </div>
+            @*<div class="ChiTietNguoiDung-item col-xl-6">
+                    <label>Địa chỉ:</label>
+                    <input type="text" class="form-control" name="Address" value="@Model.Address" />
+                </div>*@
+        </form>
+        <div class="ChiTietNguoiDung-btn ">
+            <button type="button" class="ChiTietNguoiDung-capnhat" onclick="btnSave_Onclick();">Cập nhật</button>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        function btnSave_Onclick() {
+            var data = new FormData($('#form-data')[0]);
+            $.ajax({
+                url: '/Admin/AccountAdmin/Update',
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                cache: false,
+                type: "post",
+                data: data,
+                success: function (res) {
+                    if (res.type == "success") {
+                        alert("Cập nhật thành công");
+                    }
+
+                },
+                error: function (errorThrown) {
+                    alert("Cập nhật thất bại!");
+                }
+            });
+        }
+    </script>
+}
+

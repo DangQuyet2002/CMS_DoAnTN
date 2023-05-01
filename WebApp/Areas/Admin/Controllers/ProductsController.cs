@@ -175,7 +175,7 @@ namespace WebApp.Areas.Admin.Controllers
             return PartialView();
         }
         [HttpGet]
-        public async Task<ActionResult> ChiTiet(int Id = 0)
+        public async Task<ActionResult> ChiTiet(DanhMucCategoryRequest requestModel , int Id = 0)
         {
             var data = new Product();
             if (Id > 0)
@@ -183,6 +183,13 @@ namespace WebApp.Areas.Admin.Controllers
                 data = await _productsAPIService.GetById(Id);
 
             }
+
+            ViewBag.DanhSach = data;
+            var result = await _categoryAPIService.LoadDS();
+            ViewBag.DanhSachCategory = result;
+
+            var resultDM = await _danhMucCategoryAPIService.GetAll(requestModel);
+            ViewBag.DanhSachDMCategory = resultDM;
             return PartialView(data);
         }
         [HttpGet]

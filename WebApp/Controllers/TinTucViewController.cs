@@ -13,9 +13,9 @@ namespace WebApp.Controllers
     public class TinTucViewController : Controller
     {
         private readonly TinTucAPIService _tinTucAPIService;
-        public TinTucViewController(TinTucAPIService tinTucAPIService)
+        public TinTucViewController( )
         {
-            _tinTucAPIService = tinTucAPIService;
+            _tinTucAPIService = new TinTucAPIService();
         }
         // GET: TinTucView
         public ActionResult Index()
@@ -30,10 +30,11 @@ namespace WebApp.Controllers
             ViewBag.TinTucLoad = data.lst;
             return PartialView(data.lst);
         }
-        public async Task<ActionResult> ChiTietTinTuc(int Id)
-        {
-            var data = await _tinTucAPIService.GetById(Id);
-            return View(data);
-        }
+        //public async Task<ActionResult> ChiTietTinTuc(int Id)
+        //{
+        //    var data = await _tinTucAPIService.GetById(Id);
+        //    ViewBag.Loadchitiettin = data;
+        //    return View(data);
+        //}
     }
 }

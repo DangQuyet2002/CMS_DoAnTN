@@ -23,6 +23,8 @@ namespace Repositories.Manage.CMS
 
         Task<tbl_UserModel> ChiTiet(tbl_UserModel requestModel);
         Task<Response> ThemMoi(tbl_UserModel requestModel);
+        Task<tbl_UserModel> GetById(int ID);
+
         Task<Response> Xoa(tbl_UserModel requestModel);
 
     }

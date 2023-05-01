@@ -24,6 +24,7 @@ namespace APIServices.CMS
         Task<Response> ThemMoi(tbl_UserModel requestModel);
         Task<List<tbl_UserModel>> CheckMail(tbl_UserModel requestModel);
         Task<Response> Xoa(tbl_UserModel requestModel);
+        Task<tbl_UserModel> GetById(int Id);
 
     }
 }

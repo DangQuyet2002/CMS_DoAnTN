@@ -83,7 +83,7 @@ namespace Repositories
             {
                 var param = new DynamicParameters();
                 param.Add("@Id", Id);
-                var model = await _baseRepository.GetList<TinTucModel>("[dbo].[TinTuc_GetById]", param);
+                var model = await _baseRepository.GetList<TinTucModel>("TinTuc_GetById", param);
                 return model.FirstOrDefault();
             }
             catch (Exception ex)
