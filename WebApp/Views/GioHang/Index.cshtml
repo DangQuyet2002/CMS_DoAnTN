@@ -2,8 +2,9 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var check = ViewBag.Check as List<GioHang>;
-    var datagiohang = ViewBag.DataGH;
+    var datagiohang = ViewBag.DataGH as List<GioHang>;
+    var color = ViewBag.ColorList;
+    var size = ViewBag.SizeList;
 }
 
 
@@ -21,7 +22,9 @@
         <table id="cart" class="table table-hover table-condensed">
             <thead>
                 <tr>
-                    <th style="width:50%">Tên sản phẩm</th>
+                    <th style="width:40%">Tên sản phẩm</th>
+                    <th style="width:5%">Size</th>
+                    <th style="width:5%">Color</th>
                     <th style="width:10%">Giá</th>
                     <th style="width:8%">Số lượng</th>
                     <th style="width:22%" class="text-center">Thành tiền</th>
@@ -29,7 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in datagiohang.lst)
+                @foreach (var item in datagiohang)
                 {
                     <tr>
                         <td data-th="Product">
@@ -43,6 +46,29 @@
                                 <input type="hidden" name="Image" value="@item.Image" />
                             </div>
                         </td>
+
+                        
+                        <td data-th="Size" class="nomargin" style="vertical-align: middle">
+                            <select>
+                                <option value="">@item.NameSize</option>
+                                @foreach (var s in size.lst)
+                                {
+                                    <option value="@s.Id">@s.Name</option>
+                                }
+                            </select>
+                        </td>
+                        
+                        <td data-th="Color" class="nomargin" style="vertical-align: middle">
+                            <select>
+                                <option value="">@item.NameColor</option>
+                                @foreach (var c in color.lst)
+                                {
+                                    <option value="@c.Id">@c.Name</option>
+                                }
+                            </select>
+                        </td>
+
+
                         <td data-th="Price" class="nomargin" style="vertical-align: middle">@item.Price.ToString("N0")đ</td>
                         <td data-th="Quantity">
                             <input class="form-control text-center cart-quantity-input" style="margin-top: 30%" value="@item.Quantity" type="number">
@@ -50,10 +76,10 @@
                         <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px">@(((decimal)item.Price * (decimal)item.Quantity).ToString("N0"))đ</td>
 
                         <td class="actions" data-th="">
-                            <button class="btn btn-info btn-sm" onclick="xoaSanPham(@item.Id)">
+                            @*<button class="btn btn-info btn-sm" onclick="xoaSanPham(@item.Id)">
                                 <i class="fa fa-edit"></i>
-                            </button>
-                            <button class="btn btn-danger btn-sm">
+                            </button>*@
+                            <button class="btn btn-danger btn-sm" onclick="xoaSanPham(@item.Id)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>
@@ -63,21 +89,24 @@
             <tfoot>
                 @{
                     decimal total = 0;
-                    foreach (var item in datagiohang.lst)
+                    foreach (var item in datagiohang)
                     {
                         total += item.Price * item.Quantity;
                     }
                 }
                 <tr>
                     <td>
-                        <a href="http://hocwebgiare.com/" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
+                        <a href="@Url.Action("Index","Home")" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
                     </td>
                     <td colspan="2" class="hidden-xs"> </td>
                     <td class="hidden-xs text-center">
-                        <strong>Tổng tiền @total.ToString("C")</strong>
+                        <strong>Tổng tiền @total.ToString("N0") đ</strong>
                     </td>
                     <td>
                         <a href="@Url.Action("Index","ThanhToan" , new {Id = @Session["IdUser"]})" class="btn btn-success btn-block">Thanh toán <i class="fa fa-angle-right"></i></a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Index","ThanhToan" , new {Id = @Session["IdUser"]})" class="btn btn-success btn-block">Cập Nhật Giỏ Hàng <i class="fa fa-angle-right"></i></a>
                     </td>
                 </tr>
             </tfoot>
@@ -109,7 +138,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script>
-        
+        function ToastMessage(title, message, type) {
+            toast({
+                title: title,
+                message: message,
+                type: type,
+                duration: 5000
+            });
+        }
 
         function xoaSanPham(Id) {
             debugger
@@ -120,23 +156,20 @@
                     data: { id: Id },
                     success: function (result) {
                         if (result.success) {
-                            ToastMessage("Thành Công", "Xóa sản phẩm thành công", "succer");
+                            ToastMessage("Thông báo", "Xóa sản phẩm thành công", "success");
                             location.reload();
                         } else {
                             ToastMessage("Thành Công", "Xóa sản phẩm thành công", "succer");
                             location.reload();
                         }
                     },
-                    error: function (xhr, status, error) {
-                        ToastMessage("Thành Công", "Xóa sản phẩm thành công", "succer");
-                        location.reload();
-                    }
+                    
                 });
             }
         }
 
 
-        
+
 
     </script>
     <script>

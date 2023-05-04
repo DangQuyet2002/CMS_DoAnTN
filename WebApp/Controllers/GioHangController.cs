@@ -1,4 +1,5 @@
 ﻿using APIServices;
+using Azure.Core;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -12,18 +13,48 @@ namespace WebApplication1.Controllers
 {
     public class GioHangController : Controller
     {
+        
         private readonly IGioHangAPIService gioHangAPIService;
+        private readonly IColorAPIService ColorAPIService;
+        private readonly ISizeAPIService SizeAPIService;
         public GioHangController()
         {
             gioHangAPIService = new GioHangAPIService();
+            ColorAPIService = new ColorAPIService();
+            SizeAPIService = new SizeAPIService();
         }
         // GET: GioHang
-        public async Task<ActionResult> Index(GioHangRequest requestModel)
+
+        public async Task<ActionResult> Index(GioHangRequest requestModel, ColorRequest Modelcolor, SizeRequest SizeModel)
         {
             var data = await gioHangAPIService.GetByUser(requestModel);
-            ViewBag.DataGH = data;
+            ViewBag.DataGH = data.lst;
+
+            var colorResult = await ColorAPIService.GetAll(Modelcolor);
+            
+            ViewBag.ColorList = colorResult;
+
+
+            var sizeResult = await SizeAPIService.GetAll(SizeModel);
+            ViewBag.SizeList = sizeResult;
+
+
             return View();
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Action(int Id)
+        {
+            var gioHangRequest = new GioHangRequest
+            {
+                Id = Id,
+            };
+
+            var data = await gioHangAPIService.GetByUser(gioHangRequest);
+            Session["datagiohang"] = data;
+            return PartialView();
+        }
+
         [HttpPost]
         public async Task<ActionResult> Themmoi(GioHang requestModel)
         {
@@ -31,6 +62,7 @@ namespace WebApplication1.Controllers
             {
                 requestModel.Total = requestModel.Price * requestModel.Quantity;
                 await gioHangAPIService.Create(requestModel);
+                
                 return Json(new
                 {
                     type = CommonConstants.SUCCESS,
@@ -53,6 +85,7 @@ namespace WebApplication1.Controllers
             try
             {
                 await gioHangAPIService.Detele(requestModel);
+                
                 return Json(new
                 {
                     type = CommonConstants.SUCCESS,
@@ -63,12 +96,12 @@ namespace WebApplication1.Controllers
             {
                 return Json(new
                 {
-
                     type = CommonConstants.ERROR,
                     message = "Xóa thất bại"
                 });
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> GetByUser(GioHangRequest requestModel)
         {

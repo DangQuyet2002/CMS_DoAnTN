@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "CartGH";
+    var datagiohang = ViewBag.DataCartGH;
+}
+
+<div id="top-cart">
+    @if (datagiohang == null)
+    {
+        <div class="top-cart-content" style="height:150px;text-align:center">
+            <a>Đăng Nhập để xem giỏ hàng của bạn</a>
+        </div>
+    }
+    else
+    {
+        <div class="top-cart-content">
+            <div class="top-cart-title">
+                <h4>Shopping Cart</h4>
+            </div>
+            @foreach (var item in datagiohang.lst)
+            {
+                <div class="top-cart-items">
+                    <div class="top-cart-item clearfix">
+                        <div class="top-cart-item-image">
+                            <a href="#"><img src="~/FileUploaded/@item.Image" alt="@item.ProductName" /></a>
+                        </div>
+                        <div class="top-cart-item-desc">
+                            <a href="#">@item.ProductName</a>
+                            <span class="top-cart-item-price">@item.Price</span>
+                            <span class="top-cart-item-quantity">@item.Quantity</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="top-cart-action clearfix">
+                <span class="fleft top-checkout-price">$114.95</span>
+                <button class="button button-3d button-small nomargin fright">View Cart</button>
+            </div>
+        </div>
+    }
+</div>

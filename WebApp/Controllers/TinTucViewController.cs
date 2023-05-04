@@ -30,11 +30,11 @@ namespace WebApp.Controllers
             ViewBag.TinTucLoad = data.lst;
             return PartialView(data.lst);
         }
-        //public async Task<ActionResult> ChiTietTinTuc(int Id)
-        //{
-        //    var data = await _tinTucAPIService.GetById(Id);
-        //    ViewBag.Loadchitiettin = data;
-        //    return View(data);
-        //}
+        public async Task<ActionResult> ChiTietTinTuc(int Id)
+        {
+            var data = await _tinTucAPIService.GetById(Id);
+            ViewBag.Loadchitiettin = data;
+            return View(data);
+        }
     }
 }

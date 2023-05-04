@@ -10,5 +10,7 @@ namespace Models
     {
         public List<ColorModel> lst { get; set; }
         public int totalCount { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

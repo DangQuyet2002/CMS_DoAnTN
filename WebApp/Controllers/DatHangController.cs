@@ -1,4 +1,5 @@
 ﻿using APIServices;
+using Azure.Core;
 using Microsoft.Graph;
 using Models;
 using System;
@@ -21,8 +22,10 @@ namespace WebApp.Controllers
             _giohangAPIService = new GioHangAPIService();
         }
         // GET: DatHang
-        public ActionResult Index()
+        public async Task<ActionResult> Index(BillRequest request)
         {
+            var data = await _billAPIService.GetByUser(request);
+            ViewBag.Data = data.lst;
             return View();
         }
         [HttpPost]
@@ -86,17 +89,24 @@ namespace WebApp.Controllers
                     var data = await _giohangAPIService.GetByIdBill(idGioHang);
                     if (data != null)
                     {
-
+                        requestModel.IdUser = data.UserId;
+                        requestModel.Address = requestModel.Address;
+                        requestModel.Phone = requestModel.Phone;
+                        requestModel.Status = 0;
                         requestModel.IdPro = data.ProductId;
                         requestModel.Product = data.ProductName;
                         requestModel.ColorId = data.ColorId;
                         requestModel.SizeId = data.SizeId;
                         requestModel.Quantity = data.Quantity;
+                        requestModel.Image = data.Image;
+
                         requestModel.Price = data.Price;
                         requestModel.Total = data.Total;
                         await _billAPIService.Create(requestModel);
                     }
-                    
+                    GioHangRequest requestGioHang = new GioHangRequest();
+                    requestGioHang.ListId = item;
+                    await _giohangAPIService.DeleteAll(requestGioHang);
                 }
                 return Json(new
                 {

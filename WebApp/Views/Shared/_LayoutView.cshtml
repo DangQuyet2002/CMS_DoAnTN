@@ -1,5 +1,4 @@
 ﻿@using Models;
-@model Models.Product
 @{
 
     Layout = null;
@@ -59,10 +58,10 @@
     <link href="~/Content/ControllerCss/CustomAdmin.css" rel="stylesheet" />
     <link href="~/Content/CMSContent/assets/libs/select2/select2.min.css" rel="stylesheet" />
     <link href="~/Content/CMSContent/assets/libs/Jstree/vakata-jstree-7a03954/dist/themes/default/style.min.css" rel="stylesheet" />
+
 </head>
 
 <body class="bd">
-    <div id="toast_msg"></div>
     <!-- Begin page -->
     <div id="wrapper" class="clearfix">
 
@@ -177,11 +176,11 @@
                                                 @if (UserLogin == null)
                                                 {
                                                     <div class="eshop-items">
-                                                        <a id="top-cart-trigger">
+                                                        <a>
                                                             <i class="fa fa-shopping-cart">&nbsp;</i>
                                                             <span style="margin-right:10px">Xem Giỏ hàng</span>
 
-                                                            <a><i class="icon-shopping-cart"></i><span>0</span></a>
+                                                            <a href="" id="top-cart-trigger"><i class="icon-shopping-cart"></i><span>0</span></a>
 
                                                         </a>
                                                     </div>
@@ -214,18 +213,18 @@
                                                         <div class="top-cart-title">
                                                             <h4>Shopping Cart</h4>
                                                         </div>
-                                                        @if (data.lst.Count == 0)
+                                                        @foreach (var item in data.lst)
                                                         {
-                                                            <div style="height:150px;text-align:center">
-                                                                <a>Bạn chưa có sản phẩm nào</a>
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            foreach (var item in data.lst)
+                                                            if (data.lst.Count == 0)
+                                                            {
+                                                                <div class="top-cart-content" style="height:150px;text-align:center">
+                                                                    <a>Bạn chưa có sản phẩm nào</a>
+                                                                </div>
+                                                            }
+                                                            else
                                                             {
 
-                                                                <div class="top-cart-items">
+                                                                <div class="top-cart-items ">
                                                                     <div class="top-cart-item clearfix">
                                                                         <div class="top-cart-item-image">
                                                                             <a href="#"><img src="~/FileUploaded/@item.Image" alt="@item.ProductName" /></a>
@@ -237,9 +236,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+
                                                             }
                                                         }
-
                                                         @{
                                                             decimal total = 0;
                                                             foreach (var item in data.lst)
@@ -538,7 +538,9 @@
     <!-- App js -->
     <!-- Dashboard init -->
     <script src="~/Content/CMSContent/assets/js/pages/dashboard-ecommerce.init.js"></script>
+
     <script src="~/Content/CMSContent/assets/js/app-init.js"></script>
+    <script src="~/Content/CMSContent/assets/libs/toast/toast.js"></script>
     <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/Scripts/js/extensions/sweetalert.js"></script>
@@ -589,6 +591,7 @@
     <script src="~/Scripts/js/extensions/common.js"></script>
     <script src="~/Scripts/js/extensions/icheck.js"></script>
     <script src="~/Scripts/js/extensions/validate.js"></script>
+    <script src="~/Scripts/js/extensions/toastr.js"></script>
     <script src="~/Scripts/js/extensions/sweetalert.js"></script>
     <script src="~/Scripts/js/extensions/starter.js"></script>
     <script src="~/Scripts/js/extensions/select2.js"></script>
@@ -599,7 +602,22 @@
     <script src="~/Scripts/js/extensions/dateTimePicker.js"></script>
     <!-- App js -->
     <script src="~/Content/CMSContent/assets/js/pages/dashboard-ecommerce.init.js"></script>
-
+    <script src="~/Scripts/js/extensions/cards.js"></script>
+    <script src="~/Scripts/js/extensions/common-select.js"></script>
+    <script src="~/Scripts/js/extensions/constants.js"></script>
+    <script src="~/Scripts/js/extensions/common.js"></script>
+    <script src="~/Scripts/js/extensions/icheck.js"></script>
+    <script src="~/Scripts/js/extensions/modal.js"></script>
+    <script src="~/Scripts/js/extensions/validate.js"></script>
+    <script src="~/Scripts/js/extensions/toastr.js"></script>
+    <script src="~/Scripts/js/extensions/sweetalert.js"></script>
+    <script src="~/Scripts/js/extensions/starter.js"></script>
+    <script src="~/Scripts/js/extensions/select2.js"></script>
+    <script src="~/Scripts/js/extensions/notiflix.js"></script>
+    <script src="~/Scripts/js/extensions/inputmask.js"></script>
+    <script src="~/Scripts/js/extensions/fileUpload.js"></script>
+    <script src="~/Scripts/js/extensions/dataTable.js"></script>
+    <script src="~/Scripts/js/extensions/dateTimePicker.js"></script>
     <!-- App js -->
     <script src="~/Content/CMSContent/assets/js/app.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -696,7 +714,7 @@
                 title: title,
                 message: message,
                 type: type,
-                duration: 3000
+                duration: 5000
             });
         }
 

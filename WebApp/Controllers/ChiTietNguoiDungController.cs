@@ -1,4 +1,6 @@
 ﻿using APIServices.CMS;
+using Azure.Core;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +21,11 @@ namespace WebApp.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> ChiTiet(int Id)
+        public async Task<ActionResult> ChiTiet(tbl_UserModel requestModel)
         {
-            var data = await actionAPIService.GetById(Id);
+            var data = await actionAPIService.ChiTiet(requestModel);
            
-            return View(data);
+            return PartialView(data);
         }
 
     }

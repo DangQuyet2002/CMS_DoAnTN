@@ -242,6 +242,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminQuanLyHoaDonController.cs" />
     <Compile Include="Areas\Admin\Controllers\DMCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoaiSanPhamController.cs" />
@@ -289,6 +290,7 @@
     <Content Include="Areas\Admin\assets\fonts\materialdesignicons-webfont1d2d.html" />
     <Content Include="Areas\Admin\assets\fonts\remixicondf6d.html" />
     <Content Include="Areas\Admin\assets\fonts\remixicondf6d.svg" />
+    <Content Include="Areas\Admin\assets\img\th.jpg" />
     <Content Include="Areas\Admin\assets\js\app.js" />
     <Content Include="Areas\Admin\assets\js\layout.js" />
     <Content Include="Areas\Admin\assets\js\pages\animation-aos.init.js" />
@@ -1685,6 +1687,10 @@
     <Content Include="Content\CMSContent\assets\libs\sweetalert2\sweetalert2.min.js" />
     <Content Include="Content\CMSContent\assets\libs\swiper\swiper-bundle.min.css" />
     <Content Include="Content\CMSContent\assets\libs\swiper\swiper-bundle.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\toastr\css\toastr.min.css" />
+    <Content Include="Content\CMSContent\assets\libs\toastr\js\toastr.min.js" />
+    <Content Include="Content\CMSContent\assets\libs\toast\toast.css" />
+    <Content Include="Content\CMSContent\assets\libs\toast\toast.js" />
     <Content Include="Content\CMSContent\assets\libs\wnumb\wNumb.min.js" />
     <Content Include="Content\CMSContent\assets\plugins\datatables\css\fixedHeader.dataTables.min.css" />
     <Content Include="Content\CMSContent\assets\plugins\datatables\css\jquery.dataTables.min.css" />
@@ -7196,6 +7202,7 @@
     <Content Include="Content\cssCanvas\sass\variables.scss" />
     <Content Include="Content\cssCanvas\sass\widgets.scss" />
     <Content Include="Areas\Admin\Views\Products\ThuocTinh.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminQuanLyHoaDon\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Customize.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -7268,8 +7275,12 @@
     <Content Include="Views\GioHang\Index.cshtml" />
     <Content Include="Views\LogIn\DangKy.cshtml" />
     <Content Include="Views\SinUp\Index.cshtml" />
-    <Content Include="Views\ChiTietNguoiDung\ChiTiet.cshtml" />
     <Content Include="Views\ThanhToan\Index.cshtml" />
+    <Content Include="Views\GioHang\CartGH.cshtml" />
+    <Content Include="Views\GioHang\Action.cshtml" />
+    <Content Include="Views\ChiTietNguoiDung\ChiTiet.cshtml" />
+    <Content Include="Views\DatHang\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -7283,7 +7294,6 @@
     <Folder Include="FileUploaded\" />
     <Folder Include="Template\" />
     <Folder Include="Views\Common\" />
-    <Folder Include="Views\DatHang\" />
     <Folder Include="Views\ProductColor\" />
     <Folder Include="Views\ProductSize\" />
   </ItemGroup>

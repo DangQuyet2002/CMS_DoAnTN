@@ -1,0 +1,110 @@
+﻿@using Models
+@{
+    ViewBag.Title = "Index";
+    var datagiohang = ViewBag.Data as List<Bill>; ;
+}
+
+
+
+<div class="container">
+    <input type="hidden" id="idND" value="@Session["IdUser"]" />
+    @if (Session["IdUser"] == null)
+    {
+        <h2 style="opacity: 0.7; text-align: center; padding: 200px 0;">Vui lòng đăng nhập</h2>
+    }
+    else
+    {
+
+        <h2 style="padding: 50px 0; color: rgb(0 177 86);">Đơn Hàng của bạn đã được lưu </h2>
+        <table id="cart" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th style="width:35%">Tên sản phẩm</th>
+                    <th style="width:5%">Size</th>
+                    <th style="width:5%">Color</th>
+                    <th style="width:10%">Giá</th>
+                    <th style="width:8%">Số lượng</th>
+                    <th style="width:22%" class="text-center">Thành tiền</th>
+                    <th style="width:15%">Trạng Thái Đơn </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in datagiohang)
+                {
+                    <tr>
+                        <td data-th="Product">
+                            <div class="row" style="vertical-align: middle">
+                                <div class="col-sm-2 hidden-xs center">
+                                    <img src="~/FileUploaded/@item.Image" alt="" class="img-responsive" width="100">
+                                </div>
+                                <div class="col-sm-10">
+                                    <h4 class="nomargin">@item.Product</h4>
+                                </div>
+                                <input type="hidden" name="Image" value="" />
+                            </div>
+                        </td>
+
+
+                        <td data-th="Size" class="nomargin" style="vertical-align: middle">
+                            @item.NameSize
+                        </td>
+
+                        <td data-th="Color" class="nomargin" style="vertical-align: middle">
+                            @item.NameColor
+                        </td>
+
+
+                        <td data-th="Price" class="nomargin" style="vertical-align: middle">@item.Price.ToString("N0")đ</td>
+                        <td data-th="Quantity">
+                            <input class="form-control text-center cart-quantity-input" style="margin-top: 30%" value="@item.Quantity" type="number">
+                        </td>
+                        <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px">@(((decimal)item.Price * (decimal)item.Quantity).ToString("N0"))đ</td>
+                        @if (@item.Status == 0)
+                        {
+                            <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px;color:aquamarine">Đang chờ duyệt</td>
+                        }@if (@item.Status == 1)
+                        {
+                            <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px;color:aquamarine">Đang Chuẩn Bị Hàng</td>
+                        }@if (@item.Status == 2)
+                        {
+                            <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px;color:aquamarine">Đang Vận Chuyển</td>
+                        }
+
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Index","Home")" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
+                    </td>
+                    <td colspan="2" class="hidden-xs"> </td>
+                    <td class="hidden-xs text-center">
+                        <strong>Tổng tiền  đ</strong>
+                    </td>
+
+                </tr>
+            </tfoot>
+        </table>
+
+
+
+
+        <div class="container-fluid btnSave">
+            <div class="d-flex container ">
+                <form id="formDathang" class="container col-xl-6">
+                    <input type="hidden" name="IdUser" value="@Session["IdUser"]" />
+                    <input type="hidden" name="UserName" value="@Session["NameUser"]" />
+                    <input type="hidden" name="Phone" value="@Session["PhoneUser"]" />
+                    <input type="hidden" name="Email" value="@Session["EmailUser"]" />
+                    <input type="hidden" name="Address" id="Address" value="@Session["AddressUser"]" />
+
+                </form>
+
+            </div>
+        </div>
+    }
+
+</div>
+

@@ -62,7 +62,7 @@
             title: title,
             message: message,
             type: type,
-            duration: 500000
+            duration: 2000
         });
     }
 
@@ -208,7 +208,6 @@
                     ToastMessage("Thông báo", "Lưu dữ liệu thành công", "success");
                 }
                 $("#modal").hide();
-                location.reload();
             },
             error: function (errorThrown) {
                 ToastMessage("Lỗi", "Không lưu được dữ liệu", "error");
@@ -240,9 +239,8 @@
                 if (data.type == "success") {
                     table.ajax.reload();
                 }
-                $.fn.toastrMessage(data.msg, '', data.type);
+                ToastMessage("Thông báo", "Lưu dữ liệu thành công", "success");
                 $("#modal").hide();
-                location.reload();
             },
             error: function (errorThrown) {
                 $.fn.toastrMessage(errorThrown, '', 'error');

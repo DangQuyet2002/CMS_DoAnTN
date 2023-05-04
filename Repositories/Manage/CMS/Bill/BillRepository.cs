@@ -35,6 +35,8 @@ namespace Repositories
                 param.Add("@Status", requestModel.Status);
                 param.Add("@Describe", requestModel.Describe);
                 param.Add("@Total", requestModel.Total);
+                
+
                 return await _baseRepository.GetValue<int>("[dbo].[Bill_Create]", param);
             }
             catch(Exception ex)
@@ -50,17 +52,13 @@ namespace Repositories
             {
                 var param = new DynamicParameters();
                 param.Add("@Id", requestModel.Id);
-                param.Add("@pageIndex", requestModel.Page);
-                param.Add("@pageSize", requestModel.PageSize);
-                param.Add("@totalCount", 0, System.Data.DbType.Int32, System.Data.ParameterDirection.InputOutput);
                 var model = new BillPaging();
                 model.lst = await _baseRepository.GetList<Bill>("[dbo].[Bill_GetByUser]", param);
-                model.totalCount = param.Get<int>("@totalCount");
                 return model;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Debug.WriteLine("ERROR" + ex.Message);
+                Debug.WriteLine("ERROR:" + ex.Message);
                 return null;
             }
         }

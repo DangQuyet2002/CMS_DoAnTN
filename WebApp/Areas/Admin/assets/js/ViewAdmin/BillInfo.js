@@ -35,13 +35,13 @@ tableTintuc = () => {
                 }
             },
             {
-                data: "FullName",
-                name: "FullName",
+                data: "UserName",
+                name: "UserName",
                 title: "Tên Khách Hàng"
             },
             {
-                data: "CreateDate",
-                name: "CreateDate",
+                data: "DateCreate",
+                name: "DateCreate",
                 title: " Ngày Mua Hàng",
                 render: (data) => {
                     return $.fn.convertDate(data, 1);

@@ -18,9 +18,10 @@ namespace Models
         public string NameSize { get; set; }
         public int IdPro { get; set; }
         public string Product { get; set; }
-        public string Anh { get; set; }
+        public string Image { get; set; }
         public int Quantity { get; set; }
         public float Price { get; set; }
+        public string DateCreate { get; set; }
         public float Total { get; set; }
         public int ColorId { get; set; }
         public int SizeId { get; set; }

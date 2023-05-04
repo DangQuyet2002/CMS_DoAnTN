@@ -3,6 +3,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var listGH = ViewBag.listGioHang as List<GioHang>;
+    tbl_UserModel UserLogin = (tbl_UserModel)Session[Constants.SSUserInforKH];
+
 }
 <div class="container">
     <div class="row">
@@ -11,7 +13,7 @@
             <div class="block block-white  block-bordered">
 
 
-                <p class="alert alert-info">Bạn đã có tài khoản <i class="fa fa-hand-o-right" aria-hidden="true"></i> <a href="#loginform" class="btn-toggle text-danger" data-toggle="toggle" title="đăng nhập tại đây">đăng nhập tại đây. </a>Nếu chưa có tài khoản vui lòng điền thông tin của bạn vào form dưới đây.</p>
+                <p class="alert alert-info">Bạn vui lòng điền thông tin của bạn vào form dưới đây để chúng tôi có thể giao hàng đến tận tay cho bạn.</p>
 
                 <div id="loginform" class="alert alert-info" style="display: none;">
                     <a href="#loginform" class="close btn-toggle" data-dismiss="alert" aria-hidden="true">&times;</a>
@@ -35,54 +37,71 @@
 
 
                 <!-- Thông tin người nhận -->
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-md-8">
-                            <label class="control-label col-xl-4">Họ và tên</label>
-                            <input placeholder="Nhập tên người nhận hàng..." />
+                <form id="form-dathang">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <label class="control-label col-xl-4">Họ và tên</label>
+                                <input type="text" class="form-control" placeholder="Nhập tên người nhận hàng..." value="@UserLogin.UserName" />
+                                <input value="@UserLogin.ID" id="txtname" name="IdUser" hidden/>
 
+                            </div>
+                            <div class="col-md-8">
+                                <label class="control-label col-xl-4">Số điện thoại</label>
+                                <input type="text" class="form-control" id="txtsdt" placeholder="Số điện thoại..." value="@UserLogin.Phone" name="Phone" />
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <label class="control-label col-xl-4">Số điện thoại</label>
-                            <input placeholder="Số điện thoại..." />
+
+
+                        <div class="form-group">
+                            <div class="col-md-8 ">
+                                <label class="control-label col-xl-4">Địa chỉ</label>
+                                <input type="text" class="form-control" id="txtdiachi" placeholder="Địa chỉ nhận hàng..." name="diachi" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-3">
+                            <div class="col-md-6">
+                                <label class="control-label">Quận/Huyện</label>
+                                <input type="text" class="form-control" id="txtquanhuyen" placeholder="Quận/Huyện..." name="huyen" />
+
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Tỉnh/Thành phố</label>
+                                <input type="text" class="form-control" id="txtthanhpho" placeholder="Tỉnh/Thành phố..." name="thanhpho" />
+
+                            </div>
                         </div>
                     </div>
-
-
-                    <div class="form-group">
-                        <div class="col-md-8">
-                            <label class="control-label col-xl-4">Địa chỉ</label>
-                            <input placeholder="Địa chỉ nhận hàng..." />
-
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <label class="control-label">Tỉnh/Thành phố</label>
-
-                        </div>
-                        <div class="col-md-6">
-                            <label class="control-label">Quận/Huyện</label>
-
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
 
             <!-- Chọn nhà vận chuyển -->
             <h3 class="block-title"><i class="fa fa-truck" aria-hidden="true"></i> CHỌN NHÀ VẬN CHUYỂN</h3>
-            <div id="transport-table" class="block block-white  block-bordered">
-                <p class="alert alert-info">
-                    Vui lòng chọn Tỉnh thành > Quận huyện để tìm nhà vận chuyển cho bạn.
-                </p>
+            <div class="shipping-method-list">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="shipping-method-info">
+                            <h5 class="mb-1 text-primary">Tên nhà vận chuyển</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    FashionGo.vn  / ShipCode 30k vnđ toàn quốc
+                                </label>
+                            </div>
+                            
+                        </div>
+                    </li>
+                    
+                </ul>
             </div>
         </div>
 
         <div class="col-md-5" style=" margin-top: 30px;">
             <h3 class="block-title"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> THÔNG TIN ĐƠN HÀNG</h3>
             <div class="block block-white block-bordered">
-                <form id="form-dathang">
+                
                     <table class="table mycart">
                         <thead>
                             <tr>
@@ -118,9 +137,10 @@
                                         </td>
                                         <td>@(((decimal)item.Price * (decimal)item.Quantity).ToString("N0"))đ</td>
                                     </tr>
-                                    <input type="hidden" name="ProductName" value="@item.ProductName" />
                                     <tr class="end-item">
-                                        <td colspan="4">@item.NameColor</td>
+                                        <td colspan="1"><span>Màu : </span>@item.NameColor</td>
+                                        <td colspan="1"><span>Size : </span>@item.NameSize</td>
+
                                     </tr>
                                 }
                             }
@@ -158,17 +178,18 @@
                             </tr>
                             <tr class="text-right">
                                 <td colspan="2">Phí vận chuyển:</td>
-                                <td id="orderTransportCost" class="text-right">12000đ</td>
+                                <td id="orderTransportCost" class="text-right">30.000đ</td>
                             </tr>
                             <tr class="text-right">
-                                <td colspan="2">Giảm giá: <span id="discountDescription">222222đ</span></td>
-                                <td id="orderDiscount" class="text-right">12223đ</td>
+                                <td colspan="2">Giảm giá: <span id="discountDescription"></span></td>
+                                <td id="orderDiscount" class="text-right">0đ</td>
                             </tr>
                             <tr style="font-weight: 700; color: orangered">
                                 <th colspan="2" class="text-right">Tổng thành tiền:</th>
                                 <th class="text-right">
-                                    <span id="totalOrder">1000000đ</span>
+                                    <span id="totalOrder">@((@total + 30_000).ToString("N0"))đ</span>
                                 </th>
+
                             </tr>
                         </tfoot>
                     </table>
@@ -188,7 +209,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                
 
 
             </div>
@@ -196,6 +217,7 @@
     </div>
 </div>
 <script>
+    
 
     function SaveBill() {
         debugger
@@ -203,20 +225,50 @@
         var listId = listGH.map(function (item) {
             return item.Id;
         });
-        debugger
-        console.log(listId)
-        debugger
+        var totalOrder = $("#totalOrder").text();
+        var idUser = $("input[name='IdUser']").val();
+        var Phone = $("input[name='Phone']").val();
+        var diachi = $("input[name='diachi']").val();
+        var thanhpho = $("input[name='thanhpho']").val();
+        var huyen = $("input[name='huyen']").val();
+
+        if ($("#txtname").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống Tên", "error");
+            return;
+        }
+        if ($("#txtsdt").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống Số điện thoại", "error");
+            return;
+        }
+        if ($("#txtdiachi").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống địa chỉ", "error");
+            return;
+        }
+        if ($("#txtquanhuyen").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống quận/huyện", "error");
+            return;
+        }
+        if ($("#txtthanhpho").val() == "") {
+            ToastMessage("Lỗi", "Không được để trống thành phố", "error");
+            return;
+        }
         $.ajax({
             type: 'POST',
             url: '/DatHang/ThemMoi',
             data: {
                 ListIdCart: listId.join(','), //truyền danh sách sản phẩm vào đối tượng dữ liệu
-                otherData: $('#form-dathang').serialize() //truyền các dữ liệu khác trong form
+                IdUser: idUser,
+                Phone: Phone,
+                TotalNew: totalOrder,
+                Address: diachi + '/' + thanhpho + '/' + huyen//truyền các dữ liệu khác trong form
             },
             dataType: 'json',
+            
             encode: true,
             success: function (response) {
-                //Xử lý kết quả trả về từ server
+                debugger
+                
+                window.location.href = `/DatHang/Index?id=${idUser}`;
             }
         });
     }
@@ -224,23 +276,7 @@
 
 
 
-    $(document).ready(function () {
-        const decreaseBtn = $('.decrease-btn');
-        const increaseBtn = $('.increase-btn');
-        const quantityInput = $('.quantity-input');
-
-        decreaseBtn.click(function () {
-            const quantity = parseInt(quantityInput.val()) || 0;
-            if (quantity > 1) {
-                quantityInput.val(quantity - 1);
-            }
-        });
-
-        increaseBtn.click(function () {
-            const quantity = parseInt(quantityInput.val()) || 0;
-            quantityInput.val(quantity + 1);
-        });
-    });
+    
 
 
 </script>

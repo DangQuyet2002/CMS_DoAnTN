@@ -114,11 +114,11 @@
                                             <a href="">Forget Password</a>
                                             <a href="@Url.Action("Index","SinUp")">Sign Up</a>
                                         </div>
-                                        <div style="text-align:center">Hoặc</div>
+                                        @*<div style="text-align:center">Hoặc</div>
                                         <div class="center d-flex">
                                             
                                             <a class="btn w-100 gg" style="border:1px" onclick="">Google</a>
-                                        </div>
+                                        </div>*@
                                     </form>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                 title: title,
                 message: message,
                 type: type,
-                duration: 500000
+                duration: 5000
             });
         }
         function DangNhap() {
@@ -186,12 +186,12 @@
                 ToastMessage("Lỗi", "Không được để trống mật khẩu", "error");
                 return;
             }
-            
+
             var requestModel = {
                 UserName: $("#username").val(),
                 Password: $("#password-input").val()
-            }
-            debugger
+            };
+
             $.post("/LogIn/DangNhapTK", { "requestModel": requestModel }, function (data) {
                 if (data.type == "success") {
                     debugger
@@ -200,15 +200,29 @@
                     }
                     else {
                         ToastMessage("Thông báo", "Đăng nhập thành công", "success");
-                        window.location.href = '/Home/Index'
+                        // Lấy IdUser từ dữ liệu trả về và truyền vào controller
+                        var userId = data.data.ID;
+                        $.ajax({
+                            url: '/GioHang/Action', // Thay đổi đường dẫn cho phù hợp
+                            type: 'POST',
+                            dataType: 'json',
+                            data: { Id: userId }, // Truyền IdUser vào trong request
+                            success: function (result) {
+                                // Xử lý kết quả trả về (nếu có)
+                            },
+                            error: function (xhr, status, error) {
+                                // Xử lý lỗi (nếu có)
+                            }
+                        });
+                        window.location.href = '/Home/Index';
                     }
                 }
                 else {
                     ToastMessage("Lỗi", data.message, data.icon);
                 }
-                
             });
         }
+
     </script>
 </body>
 

@@ -8,159 +8,171 @@
     var tuisach = ViewBag.TuiSach as List<Product>;
     var vongtay = ViewBag.VongTay as List<Product>;
     var dongho = ViewBag.Dongho as List<Product>;
-
+    var UserLogin = Session["IdUser"];
 
 }
 
 @if (non.Count > 0)
 {
-    <div id="shop" class="shop grid-container clearfix">
+    <div id="shop" class="shop grid-container clearfix" >
         @foreach (var item in non)
         {
-            <div class="product clearfix pf-Non">
+            <div class="product clearfix pf-Non" onclick="UpdateView(@item.Id)">
                 <div class="product-image">
+                    <input value="@UserLogin" name="IdUser" hidden />
+                    <input value="@item.NamePro" name="NamePro" hidden />
                     <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
-                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
                     <div class="sale-flash">@item.Discount% Off*</div>
                     <div class="product-overlay">
-                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
                         <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
                     </div>
                 </div>
                 <div class="product-desc">
                     <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
-                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
+                    <div class="d-flex justify-content-sm-between">
+                        <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                        <div class="product-review">
+                            <p>
+                                <i class="fa fa-eye" aria-hidden="true">@item.View</i>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         }
         @foreach (var item in balo)
         {
-            <div class="product clearfix pf-Balo">
+            <div class="product clearfix pf-Non" onclick="UpdateView(@item.Id)">
                 <div class="product-image">
+                    <input value="@UserLogin" name="IdUser" hidden />
+                    <input value="@item.NamePro" name="NamePro" hidden />
                     <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
-                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
                     <div class="sale-flash">@item.Discount% Off*</div>
                     <div class="product-overlay">
-                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
                         <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
                     </div>
                 </div>
                 <div class="product-desc">
                     <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
-                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
+                    <div class="d-flex justify-content-sm-between">
+                        <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                        <div class="product-review">
+                            <p>
+                                <i class="fa fa-eye" aria-hidden="true">@item.View</i>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         }
         @foreach (var item in thatlung)
         {
-            <div class="product clearfix pf-Belt">
+            <div class="product clearfix pf-Non" onclick="UpdateView(@item.Id)">
                 <div class="product-image">
+                    <input value="@UserLogin" name="IdUser" hidden />
+                    <input value="@item.NamePro" name="NamePro" hidden />
                     <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
-                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
                     <div class="sale-flash">@item.Discount% Off*</div>
                     <div class="product-overlay">
-                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
                         <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
                     </div>
                 </div>
                 <div class="product-desc">
                     <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
-                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
+                    <div class="d-flex justify-content-sm-between">
+                        <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                        <div class="product-review">
+                            <p>
+                                <i class="fa fa-eye" aria-hidden="true">@item.View</i>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         }
         @foreach (var item in tuisach)
         {
-            <div class="product clearfix pf-Bags">
+            <div class="product clearfix pf-Non" onclick="UpdateView(@item.Id)">
                 <div class="product-image">
+                    <input value="@UserLogin" name="IdUser" hidden />
+                    <input value="@item.NamePro" name="NamePro" hidden />
                     <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
-                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
                     <div class="sale-flash">@item.Discount% Off*</div>
                     <div class="product-overlay">
-                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
                         <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
                     </div>
                 </div>
                 <div class="product-desc">
                     <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
-                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
+                    <div class="d-flex justify-content-sm-between">
+                        <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                        <div class="product-review">
+                            <p>
+                                <i class="fa fa-eye" aria-hidden="true">@item.View</i>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         }
         @foreach (var item in vongtay)
         {
-            <div class="product clearfix pf-Sort">
+            <div class="product clearfix pf-Non" onclick="UpdateView(@item.Id)">
                 <div class="product-image">
+                    <input value="@UserLogin" name="IdUser" hidden />
+                    <input value="@item.NamePro" name="NamePro" hidden />
                     <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
-                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
                     <div class="sale-flash">@item.Discount% Off*</div>
                     <div class="product-overlay">
-                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
                         <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
                     </div>
                 </div>
                 <div class="product-desc">
                     <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
-                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
+                    <div class="d-flex justify-content-sm-between">
+                        <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                        <div class="product-review">
+                            <p>
+                                <i class="fa fa-eye" aria-hidden="true">@item.View</i>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         }
         @foreach (var item in dongho)
         {
-            <div class="product clearfix pf-Watch">
+            <div class="product clearfix pf-Non" onclick="UpdateView(@item.Id)">
                 <div class="product-image">
+                    <input value="@UserLogin" name="IdUser" hidden />
+                    <input value="@item.NamePro" name="NamePro" hidden />
                     <a href="#"><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress"></a>
-                    <a href="#"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
+                    <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
                     <div class="sale-flash">@item.Discount% Off*</div>
                     <div class="product-overlay">
-                        <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                        <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
                         <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
                     </div>
                 </div>
                 <div class="product-desc">
                     <div class="product-title"><h3><a href="#">@item.NamePro</a></h3></div>
-                    <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
-                    <div class="product-rating">
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star3"></i>
-                        <i class="icon-star-half-full"></i>
+                    <div class="d-flex justify-content-sm-between">
+                        <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                        <div class="product-review">
+                            <p>
+                                <i class="fa fa-eye" aria-hidden="true">@item.View</i>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -168,5 +180,64 @@
     </div>
 }
 
+<script>
 
+    function UpdateView(Id) {
+        $.ajax({
+            url: "/Products/UpdateView",
+            method: "POST",
+            data: { Id: Id },
+            success: function (res) {
+                // Xử lý khi kết quả trả về thành công
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Xử lý khi có lỗi xảy ra trong quá trình gửi Ajax
+            }
+        });
+    }
+
+    var idUser = $("input[name='IdUser']").val();
+
+    function SaveGioHang(Id, PriceNew, NamePro, Image) {
+        debugger
+        if ($("#UserId").val() == 0) {
+            alert("Vui lòng đăng nhập!");
+        }
+        else {
+            ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
+            $.ajax({
+                url: "/GioHang/ThemMoi",
+                type: "post",
+                dataType: "json",
+
+                data: {
+                    ProductId: Id,
+                    UserId: idUser,
+                    Image: Image,
+                    ProductName: NamePro,
+                    Price: PriceNew,
+                    Quantity: 1,
+                    ColorId: 1,
+                    SizeId: 2,
+
+                },
+
+                success: (data) => {
+                    if (data.type == "success") {
+                        ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
+
+
+
+                    }
+                    else {
+                        ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+
+                    }
+                }
+            })
+
+
+        }
+    }
+</script>
 

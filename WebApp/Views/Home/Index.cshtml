@@ -3,7 +3,7 @@
     var ListTinTuc = ViewBag.ListTinTuc as List<TinTucModel>;
     var dsmoinhat = ViewBag.TinTucLoad as List<TinTucModel>;
     var SanPhamNew = ViewBag.SanPhamNew as List<Product>;
-
+    var UserLogin = Session["IdUser"];
 }
 @{
     ViewBag.Title = "Index";
@@ -11,6 +11,7 @@
 
 <link href="~/Content/ControllerCss/Home.css" rel="stylesheet" />
 <link href="~/Content/ControllerCss/HomeProduct.css" rel="stylesheet" />
+<link href="~/Content/cssCanvas/css/components/ion.rangeslider.css" rel="stylesheet" />
 <section>
     <div id="carouselExampleIndicators" class="carousel slide">
         <div class="carousel-indicators">
@@ -72,7 +73,7 @@
                                 {
                                     foreach (var item in SanPhamNew)
                                     {
-                                        <div class="eshop_product col-lg-3 col-xs-12 col-md-3">
+                                        <div class="eshop_product col-lg-3 col-xs-12 col-md-3" onclick="UpdateView(@item.Id)">
                                             <div class="eshop-wrap-product">
                                                 <div class="eshop-image-block">
                                                     <div class="image">
@@ -81,15 +82,18 @@
                                                             <img id="product-image" class="image img-responsive" alt="" src="~/FileUploaded/@item.Image" />
                                                         </a>
                                                     </div>
+                                                    <input value="@UserLogin" name="IdUser" hidden />
                                                     <div class="eshop-buttons">
                                                         <p>
                                                             <a class="button" style="cursor: pointer;" onclick="addToWishList()" title="Đánh dấu sản phẩm yêu thích"><i class="fa fa-heart"></i><span class="text-hide">Yêu thích</span></a>
-                                                            <a class="button" style="cursor: pointer;" href="" title="Xem chi tiết"><i class="fa fa-arrow-right"></i><span class="text-hide">Chi tiết</span></a>
+                                                            <a class="button" style="cursor: pointer;" href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" title="Xem chi tiết"><i class="fa fa-arrow-right"></i><span class="text-hide">Chi tiết</span></a>
                                                         </p>
                                                         <div class="eshop-items btn btn-primary">
                                                             <a>
                                                                 <i class="fa fa-shopping-cart">&nbsp;</i>
-                                                                <span>Thêm giỏ hàng</span>
+                                                                <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><span style="color:white">Thêm giỏ hàng</span></a>
+
+
                                                                 @*<span id="eshop-cart-total">@ShoppingCart.Cart.Count</span>*@
                                                             </a>
                                                         </div>
@@ -105,16 +109,18 @@
                                                         <div>
                                                             <div class="product-review">
                                                                 <p>
-                                                                    <i class="fa fa-eye" aria-hidden="true">25</i>
+                                                                    <i class="fa fa-eye" aria-hidden="true">@item.View</i>
                                                                 </p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-6">
+                                                    <div class="col-lg-6 col-md-6 col-xs-6 d-flex">
 
-                                                        <span class="eshop-base-price" style="font-size:16px">@item.Price.ToString("N0")đ</span>
+                                                        <span class="eshop-base-price" style="font-size:16px;margin-right:8px">@item.Price.ToString("N0")đ</span>
 
                                                         <span class="eshop-price" style="font-size:18px">@item.PriceNew.ToString("N0")đ</span>
+
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,25 +184,27 @@
 </section>
 <div id="content">
 
-        <div class="container clearfix">
+    <div class="container clearfix">
 
-            <ul class="portfolio-filter clearfix">
-                <li class="activeFilter"><a href="#">Show All</a></li>
-                <li><a href="@Url.Action("DoNam", "DanhSachSP")">Thời Trang Nam</a></li>
-                <li><a href="@Url.Action("DoNu", "DanhSachSP")">Thời Trang Nữ</a></li>
-                <li><a href="@Url.Action("AoKhoac", "DanhSachSP")">Áo Khoác Unisex</a></li>
-                <li><a href="@Url.Action("PhuKien", "DanhSachSP")">Phụ Kiện</a></li>
-            </ul>
-            <div class="clear"></div>
+        <ul class="portfolio-filter clearfix">
+            <li class="activeFilter"><a href="#">Show All</a></li>
+            <li><a href="@Url.Action("DoNam", "DanhSachSP")">Thời Trang Nam</a></li>
+            <li><a href="@Url.Action("DoNu", "DanhSachSP")">Thời Trang Nữ</a></li>
+            <li><a href="@Url.Action("AoKhoac", "DanhSachSP")">Áo Khoác Unisex</a></li>
+            <li><a href="@Url.Action("PhuKien", "DanhSachSP")">Phụ Kiện</a></li>
+        </ul>
 
-            <!-- Shop
+       
+        <div class="clear"></div>
+
+        <!-- Shop
     ============================================= -->
-            <div id="SanPhamLoad">
-
-            </div>
-            <!-- #shop end -->
+        <div id="SanPhamLoad">
 
         </div>
+        <!-- #shop end -->
+
+    </div>
 
  
 
@@ -250,7 +258,7 @@
                                     </a>
 
                                     <h4> <a href="" class="bantindaotao-content-title">@item.Title</a> </h4>
-                                    <a style="color:aqua">@item.dateCreate</a>
+                                    <a style="color:aquamarine">@item.dateCreate</a>
                                     <a href="">
                                         <div class="bantindaotao-content-text">
                                             @item.Content
@@ -278,10 +286,52 @@
     $(document).ready(function () {
         $(document).ready(function () {
             LoadPage1(1);
-            
+
         })
 
     })
+
+    var idUser = $("input[name='IdUser']").val();
+
+    function SaveGioHang(Id, PriceNew, NamePro, Image) {
+        debugger
+        if ($("#UserId").val() == 0) {
+            alert("Vui lòng đăng nhập!");
+        }
+        else {
+
+            $.ajax({
+                url: "/GioHang/ThemMoi",
+                type: "post",
+                dataType: "json",
+
+                data: {
+                    ProductId: Id,
+                    UserId: idUser,
+                    Image: Image,
+                    ProductName: NamePro,
+                    Price: PriceNew,
+                    Quantity: 1,
+
+                },
+
+                success: (data) => {
+                    if (data.type == "success") {
+                        ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
+
+
+
+                    }
+                    else {
+                        ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+
+                    }
+                }
+            })
+
+
+        }
+    }
 
     function LoadPage1(start) {
         var request = {
@@ -295,7 +345,16 @@
     
 
     function UpdateView(Id) {
-        $.fn.postData("Admin/AdminProducts/UpdateView", { Id: Id }, res => {
-        })
+        $.ajax({
+            url: "/Products/UpdateView",
+            method: "POST",
+            data: { Id: Id },
+            success: function (res) {
+                // Xử lý khi kết quả trả về thành công
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Xử lý khi có lỗi xảy ra trong quá trình gửi Ajax
+            }
+        });
     }
 </script>
