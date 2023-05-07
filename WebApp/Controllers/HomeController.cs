@@ -69,5 +69,23 @@ namespace WebApp.Controllers
             return View();
         }
 
+        public async Task<ActionResult> _DanhSachTimKiem(string txtTuKhoa, ProductRequest request)
+        {
+            try
+            {
+                Product requestModel = new Product();
+                requestModel.start = 0;
+                requestModel.length = 6;
+                requestModel.NamePro = txtTuKhoa;
+                var sanpham = await productsAPIService.GetAll(request);
+                ViewBag.sanpham = sanpham.lst;
+                return View();
+            }
+            catch (Exception e)
+            {
+                return Json(new { type = CommonConstants.ERROR, message = e.Message });
+            }
+        }
+
     }
 }

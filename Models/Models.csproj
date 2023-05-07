@@ -76,6 +76,9 @@
     <Compile Include="CMS\BillInfo\BillInfo.cs" />
     <Compile Include="CMS\BillInfo\BillInfoPaging.cs" />
     <Compile Include="CMS\BillInfo\BillInfoRequest.cs" />
+    <Compile Include="CMS\BillStatus\BillStatus.cs" />
+    <Compile Include="CMS\BillStatus\BillStatusPaging.cs" />
+    <Compile Include="CMS\BillStatus\BillStatusRequest.cs" />
     <Compile Include="CMS\Bill\Bill.cs" />
     <Compile Include="CMS\Bill\BillPaging.cs" />
     <Compile Include="CMS\Bill\BillRequest.cs" />

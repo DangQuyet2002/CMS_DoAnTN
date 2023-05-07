@@ -19,58 +19,90 @@
         <table id="cart" class="table table-hover table-condensed">
             <thead>
                 <tr>
-                    <th style="width:35%">Tên sản phẩm</th>
-                    <th style="width:5%">Size</th>
-                    <th style="width:5%">Color</th>
-                    <th style="width:10%">Giá</th>
-                    <th style="width:8%">Số lượng</th>
-                    <th style="width:22%" class="text-center">Thành tiền</th>
-                    <th style="width:15%">Trạng Thái Đơn </th>
+                    
+                    <th>
+                        Người Nhận
+                    </th>
+                    <th>
+                        Phí Vận Chuyển
+                    </th>
+
+                    <th>
+                        Tiền Hàng
+                    </th>
+
+                    <th>
+                        Tổng đơn hàng
+                    </th>
+                    
+                    <th>
+                        Ngày đặt
+                    </th>
+                    <th>
+                        Trạng Thái
+                    </th>
+                    
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in datagiohang)
-                {
-                    <tr>
-                        <td data-th="Product">
-                            <div class="row" style="vertical-align: middle">
-                                <div class="col-sm-2 hidden-xs center">
-                                    <img src="~/FileUploaded/@item.Image" alt="" class="img-responsive" width="100">
-                                </div>
-                                <div class="col-sm-10">
-                                    <h4 class="nomargin">@item.Product</h4>
-                                </div>
-                                <input type="hidden" name="Image" value="" />
-                            </div>
-                        </td>
+                @{
 
-
-                        <td data-th="Size" class="nomargin" style="vertical-align: middle">
-                            @item.NameSize
-                        </td>
-
-                        <td data-th="Color" class="nomargin" style="vertical-align: middle">
-                            @item.NameColor
-                        </td>
-
-
-                        <td data-th="Price" class="nomargin" style="vertical-align: middle">@item.Price.ToString("N0")đ</td>
-                        <td data-th="Quantity">
-                            <input class="form-control text-center cart-quantity-input" style="margin-top: 30%" value="@item.Quantity" type="number">
-                        </td>
-                        <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px">@(((decimal)item.Price * (decimal)item.Quantity).ToString("N0"))đ</td>
-                        @if (@item.Status == 0)
+                    List<int> usedIds = new List<int>();
+                    foreach (var item in datagiohang)
+                    {
+                        if (!usedIds.Contains(item.IdUser))
                         {
-                            <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px;color:aquamarine">Đang chờ duyệt</td>
-                        }@if (@item.Status == 1)
-                        {
-                            <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px;color:aquamarine">Đang Chuẩn Bị Hàng</td>
-                        }@if (@item.Status == 2)
-                        {
-                            <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px;color:aquamarine">Đang Vận Chuyển</td>
+                            usedIds.Add(item.IdUser);
+                            <tr id="@item.Id">
+
+                                <td>
+                                    @item.NameReceiver
+
+                                </td>
+                                <td>
+                                    30.000đ
+                                </td>
+                                <td>
+                                    @item.TotalNew
+                                </td>
+                                <td>
+                                    @((@item.TotalNew + 30_000).ToString("N0"))đ
+                                </td>
+                                
+                                <td>
+                                    @item.DateCreate
+                                </td>
+
+                                
+                                    @if (@item.Status == 1)
+                                    {
+                                        <td style="color:deepskyblue ">Đơn hàng mới</td>
+                                    }@if (@item.Status == 2)
+                                    {
+                                        <td style="color:deepskyblue ">Đang xử lý</td>
+                                    }@if (@item.Status == 3)
+                                    {
+                                        <td style="color:deepskyblue ">Đang vận chuyển</td>
+                                    }@if (@item.Status == 4)
+                                    {
+                                        <td style="color:deepskyblue ">Đã giao hàng</td>
+                                    }@if (@item.Status == 5)
+                                    {
+                                        <td style="color:deepskyblue ">Đơn hàng bị hủy</td>
+                                    }@if (@item.Status == 6)
+                                    {
+                                        <td style="color:deepskyblue ">Đã hoàn tất</td>
+                                    }@if (@item.Status == 7)
+                                    {
+                                        <td style="color:deepskyblue ">Đang hoàn trả</td>
+                                    }
+                                
+                                    
+                                    
+                                 
+                            </tr>
                         }
-
-                    </tr>
+                    }
                 }
             </tbody>
             <tfoot>
@@ -80,9 +112,7 @@
                         <a href="@Url.Action("Index","Home")" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
                     </td>
                     <td colspan="2" class="hidden-xs"> </td>
-                    <td class="hidden-xs text-center">
-                        <strong>Tổng tiền  đ</strong>
-                    </td>
+                    
 
                 </tr>
             </tfoot>

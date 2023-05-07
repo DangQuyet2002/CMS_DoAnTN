@@ -264,6 +264,7 @@
     <Compile Include="Controllers\ProductColorController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductSizeController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SinUpController.cs" />
     <Compile Include="Controllers\ThanhToanController.cs" />
     <Compile Include="Controllers\TinTucViewController.cs" />
@@ -6927,9 +6928,12 @@
     <Content Include="Content\Image\Logo\logo-hoi-nha-bao.png" />
     <Content Include="Content\Image\Logo\logo.gif" />
     <Content Include="Content\Image\Logo\logo1 %281%29.png" />
+    <Content Include="Content\Image\Product\cac-mon-phu-kien-mix-di-kem-cung-trang-phuc-thoi-trang-xuan-he-cho-nam.jpg" />
+    <Content Include="Content\Image\Product\quan-baggy-nam-phoi-voi-ao-thun-cho-nam.jpg" />
     <Content Include="Content\Image\Product\quan1.jpg" />
     <Content Include="Content\Image\Product\quan2.jpg" />
     <Content Include="Content\Image\Product\quan3.jpg" />
+    <Content Include="Content\Image\Product\xu-huong-thoi-trang-nam-quan-short-nam-ong-rong.jpg" />
     <Content Include="Content\SlideShow\script.js" />
     <Content Include="Content\SlideShow\style.css" />
     <Content Include="Global.asax" />
@@ -7203,6 +7207,7 @@
     <Content Include="Content\cssCanvas\sass\widgets.scss" />
     <Content Include="Areas\Admin\Views\Products\ThuocTinh.cshtml" />
     <Content Include="Areas\Admin\Views\AdminQuanLyHoaDon\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminQuanLyHoaDon\ChiTietBill.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Customize.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -7255,8 +7260,6 @@
     <Content Include="Views\Home\_DanhSachTimKiem.cshtml" />
     <Content Include="Views\ThongTinChiHoi\Index.cshtml" />
     <Content Include="Views\ChuyenMuc\_DanhSachTinMoi.cshtml" />
-    <Content Include="Views\Product\_HeaderSearchForm.cshtml" />
-    <Content Include="Views\Cart\_MiniCart.cshtml" />
     <Content Include="Views\Menu\_MobileMenu.cshtml" />
     <Content Include="Views\LogIn\Index.cshtml" />
     <Content Include="Views\TinTuc\Index.cshtml" />
@@ -7281,6 +7284,8 @@
     <Content Include="Views\ChiTietNguoiDung\ChiTiet.cshtml" />
     <Content Include="Views\DatHang\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutView.cshtml" />
+    <Content Include="Views\TinTucView\Index.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

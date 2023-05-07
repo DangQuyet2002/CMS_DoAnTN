@@ -36,7 +36,7 @@
                 </div>
                 <div class="Chitiet-content-list col-xl-7">
                     <h2 class="Chitiet-content-name">@Model.NamePro</h2>
-                    <a>@Model.MoTa</a>
+                  
                     <div><del>@Model.Price.ToString("N0")đ</del></div>
                     <div class="Chitiet-content-price">@Model.PriceNew.ToString("N0")đ</div>
                     <input type="hidden" name="ProductId" value="@Model.Id" />
@@ -194,37 +194,55 @@
 
         function SaveGioHang() {
             debugger
+            var soLuongTonKho = @Model.Quantity; 
             if ($("#UserId").val() == 0) {
                 alert("Vui lòng đăng nhập!");
-            }
+            } 
             else {
                 if ($("#SizeId").val() != "" || $("#ColorId").val() != "") {
                     var formdata = $("#form-giohang").serialize();
-                    debugger
-                    console.log(formdata);
-                    $.ajax({
-                        url: "/GioHang/ThemMoi",
-                        type: "post",
-                        dataType: "json",
-                        
-                        data: formdata,
-                        
-                        success: (data) => {
-                            if (data.type == "success") {
-                                ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
+                    var formArray = formdata.split("&");
 
-
-
-                            }
+                    var quantity = 0;
+                    for (var i = 0; i < formArray.length; i++) {
+                        var pair = formArray[i].split("=");
+                        if (pair[0] === "Quantity") {
+                            quantity = pair[1];
+                            if (quantity > soLuongTonKho) {
+                                ToastMessage("Lỗi", "Sản phẩm kho không đủ", "error");
+                                break
+                            }                             
                             else {
-                                ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+                                console.log(formdata);
+                                $.ajax({
+                                    url: "/GioHang/ThemMoi",
+                                    type: "post",
+                                    dataType: "json",
 
+                                    data: formdata,
+
+
+                                    success: (data) => {
+                                        if (data.type == "success") {
+                                            ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
+
+
+
+                                        }
+                                        else {
+                                            ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+
+                                        }
+                                    }
+                                })
                             }
+                            
                         }
-                    })
+                    }
+                    
+                    
                 }
                 else {
-                    confirm("");
                     ToastMessage("Lỗi", "Vui lòng nhập đầy đủ thông tin Size và Màu!", "warning");
 
                 }

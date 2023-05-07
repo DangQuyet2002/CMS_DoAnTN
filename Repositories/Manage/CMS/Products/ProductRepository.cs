@@ -65,6 +65,23 @@ namespace Repositories
                 return 0;
             }
         }
+
+        public async Task<int> UpdateQuantity(Product requestModel)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@Id", requestModel.Id);
+                param.Add("@Quantity", requestModel.Quantity);
+
+                return await _baseRepository.GetValue<int>("[dbo].[Quantity_Update]", param);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error:" + ex.Message);
+                return 0;
+            }
+        }
         public async Task<int> Delete(ProductRequest requestModel)
         {
             try

@@ -49,5 +49,18 @@ namespace APIServices
                 return null;
             }
         }
+
+        public async Task<int> Update(Bill requestModel)
+        {
+            var resultApi = await RestfulApi<Response>.PostAsync("api/Bill/Update", requestModel);
+            if (resultApi.code == ResponseCode.SUCCESS)
+            {
+                return JsonConvert.DeserializeObject<int>(resultApi.result.ToString());
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

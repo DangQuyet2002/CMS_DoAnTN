@@ -22,6 +22,7 @@ namespace Repositories
                 var param = new DynamicParameters();
                 param.Add("@IdUser", requestModel.IdUser);
                 param.Add("@UserName", requestModel.UserName);
+                param.Add("@NameReceiver", requestModel.NameReceiver);
                 param.Add("@Email", requestModel.Email);
                 param.Add("@Address", requestModel.Address);
                 param.Add("@Phone", requestModel.Phone);
@@ -35,7 +36,9 @@ namespace Repositories
                 param.Add("@Status", requestModel.Status);
                 param.Add("@Describe", requestModel.Describe);
                 param.Add("@Total", requestModel.Total);
-                
+                param.Add("@TotalNew", requestModel.TotalNew);
+
+
 
                 return await _baseRepository.GetValue<int>("[dbo].[Bill_Create]", param);
             }
@@ -45,6 +48,25 @@ namespace Repositories
                 return 0;
             }
         }
+
+        public async Task<int> Update(Bill requestModel)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@Id", requestModel.Id);
+                param.Add("@Status", requestModel.Status);
+
+                return await _baseRepository.GetValue<int>("[dbo].[Bill_Update]", param);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error:" + ex.Message);
+                return 0;
+            }
+        }
+
+        
 
         public async Task<BillPaging> GetByUser(BillRequest requestModel)
         {

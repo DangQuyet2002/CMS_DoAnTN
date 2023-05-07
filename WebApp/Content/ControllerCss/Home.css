@@ -404,6 +404,10 @@ featured-product .image, .mega-dropdown-inner .image {
     color: #ffffff;
 }
 
+.eshop-items{
+    cursor:pointer;
+}
+
 .t3-header .t3-module .eshop-cart .eshop-total,
 .t3-header .t3-module .eshop-cart .eshop-price {
     color: #f2533d;

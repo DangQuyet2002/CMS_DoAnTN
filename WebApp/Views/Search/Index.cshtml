@@ -1,12 +1,12 @@
 ﻿@using Models;
 @{
-    ViewBag.Title = "_DanhSachTimKiem";
-    Layout = "~/Views/Shared/_LayoutView.cshtml";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var ListSanPham = ViewBag.sanpham;
 
 }
 
-<section id="content">
+
     <div class="container clearfix pf-Man">
         @if (ListSanPham.Count > 0)
         {
@@ -44,4 +44,3 @@
         <!-- #shop end -->
 
     </div>
-</section>

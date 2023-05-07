@@ -36,6 +36,19 @@ namespace APIServices
                 return 0;
             }
         }
+
+        public async Task<int> UpdateQuantity(Product requestModel)
+        {
+            var resultApi = await RestfulApi<Response>.PostAsync("api/Products/UpdateQuantity", requestModel);
+            if (resultApi.code == ResponseCode.SUCCESS)
+            {
+                return JsonConvert.DeserializeObject<int>(resultApi.result.ToString());
+            }
+            else
+            {
+                return 0;
+            }
+        }
         public async Task<Product> GetById(int Id)
         {
             var resultApi = await RestfulApi<Response>.GetAsync("api/Products/GetById?Id="+ Id);

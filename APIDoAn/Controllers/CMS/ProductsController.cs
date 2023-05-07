@@ -138,6 +138,28 @@ namespace APIDoAn.Controllers.CMS
             }
             return res;
         }
+
+        [Route("UpdateQuantity")]
+        [HttpPost]
+        public async Task<object> UpdateQuantity(Product requestModel)
+        {
+            Response res = new Response();
+            try
+            {
+                var model = await _productRepository.UpdateQuantity(requestModel);
+                res.code = ResponseCode.SUCCESS;
+                res.message = ResponseDetail.SUCCESSDETAIL;
+                res.result = model;
+            }
+            catch (Exception ex)
+            {
+                res.code = ResponseCode.UNKNOWN_ERROR;
+                res.message = ResponseDetail.UNKNOWN_ERRORDETAIL;
+                res.result = null;
+            }
+            return res;
+        }
+
         [Route("Delete")]
         [HttpPost]
         public async Task<object> Delete(ProductRequest requestModel)

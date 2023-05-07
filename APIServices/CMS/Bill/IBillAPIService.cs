@@ -12,6 +12,7 @@ namespace APIServices
         Task<int> Create(Bill requestModel);
         Task<BillPaging> GetByUser(BillRequest requestModel);
         Task<BillPaging> GetAll(BillRequest requestModel);
+        Task<int> Update(Bill requestModel);
 
     }
 }

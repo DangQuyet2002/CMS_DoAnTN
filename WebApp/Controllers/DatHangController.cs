@@ -16,10 +16,13 @@ namespace WebApp.Controllers
     {
         private readonly IBillAPIService _billAPIService;
         private readonly IGioHangAPIService _giohangAPIService;
+        private readonly IProductsAPIService _productAPIService;
+
         public DatHangController()
         {
             _billAPIService = new BillAPIService();
             _giohangAPIService = new GioHangAPIService();
+            _productAPIService = new ProductsAPIService();
         }
         // GET: DatHang
         public async Task<ActionResult> Index(BillRequest request)
@@ -85,29 +88,42 @@ namespace WebApp.Controllers
             {
                 foreach (var item in requestModel.ListIdCart.Split(','))
                 {
+                    // Lấy thông tin sản phẩm trong giỏ hàng
                     var idGioHang = Int32.Parse(item);
                     var data = await _giohangAPIService.GetByIdBill(idGioHang);
                     if (data != null)
                     {
                         requestModel.IdUser = data.UserId;
                         requestModel.Address = requestModel.Address;
+                        requestModel.NameReceiver = requestModel.NameReceiver;
                         requestModel.Phone = requestModel.Phone;
-                        requestModel.Status = 0;
+                        requestModel.Status = 1;
                         requestModel.IdPro = data.ProductId;
                         requestModel.Product = data.ProductName;
                         requestModel.ColorId = data.ColorId;
                         requestModel.SizeId = data.SizeId;
                         requestModel.Quantity = data.Quantity;
                         requestModel.Image = data.Image;
-
+                        requestModel.TotalNew = requestModel.TotalNew;
                         requestModel.Price = data.Price;
                         requestModel.Total = data.Total;
                         await _billAPIService.Create(requestModel);
+
+                        // Trừ số lượng sản phẩm trong product
+                        var product = await _productAPIService.GetById(requestModel.IdPro);
+                        if (product != null)
+                        {
+                            product.Quantity -= requestModel.Quantity;
+                            await _productAPIService.UpdateQuantity(product);
+                        }
                     }
+
+                    // Xóa giỏ hàng
                     GioHangRequest requestGioHang = new GioHangRequest();
                     requestGioHang.ListId = item;
                     await _giohangAPIService.DeleteAll(requestGioHang);
                 }
+
                 return Json(new
                 {
                     type = "success",

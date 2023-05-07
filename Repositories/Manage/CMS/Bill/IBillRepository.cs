@@ -11,5 +11,8 @@ namespace Repositories
         Task<BillPaging> GetByUser(BillRequest requestModel);
         Task<BillPaging> GetAll(BillRequest requestModel);
         Task<int> Create(Bill requestModel);
+        Task<int> Update(Bill requestModel);
+
+
     }
 }

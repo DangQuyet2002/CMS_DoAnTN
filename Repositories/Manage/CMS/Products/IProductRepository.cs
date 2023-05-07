@@ -14,6 +14,8 @@ namespace Repositories
         Task<ProductPaging> GetByCate(ProductRequest requestModel);
         Task<int> Delete(ProductRequest requestModel);
         Task<int> Update(Product requestModel);
+        Task<int> UpdateQuantity(Product requestModel);
+
         Task<int> UpdateView(int Id);
         Task<int> Create(Product requestModel);
         Task<Product> GetById(int Id);

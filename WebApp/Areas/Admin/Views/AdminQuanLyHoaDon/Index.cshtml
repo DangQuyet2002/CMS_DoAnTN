@@ -2,32 +2,116 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-
+    var bill = ViewBag.Data;
+    var status = ViewBag.StatusList;
 
 }
+<h4>Quản Lý Đơn Hàng</h4>
+<div class="box">
+    <table class="table table-bordered table-striped datatable">
+        <thead>
+            <tr>
+                <th>
+                    Trạng Thái
+                </th>
+                <th>
+                    Người Nhận
+                </th>
+                <th>
+                    Phí Vận Chuyển
+                </th>
 
-<div class="header_action d-flex" style="justify-content: space-between">
-    <div class="float-left mr-3">
-        <h3 class="site_title">
-            <span>Đơn hàng</span>
-        </h3>
-    </div>
-    <div class="float-right">
-        <input type="submit" value="Lọc" onclick="return false;" id="btnSearch" class="btn btn-outline-primary ml-2" data-toggle="modal" data-target="#modalSearch" style="line-height: 10px">
-        <input type="submit" value="Thêm mới" id="btnThemMoi" class="btn btn-outline-success ml-2" style="line-height: 10px" data-toggle="modal" data-target="#modalThemMoi">
-        <input type="submit" value="Xóa" onclick="deleteTable();" id="ContentPlaceHolder_btnDelete" class="btn btn-outline-danger ml-2" style="line-height: 10px">
-    </div>
-</div>
-<div class="loc" style="margin: 30px 0;">
-    <label>Nhập từ khóa: </label>
-    <input type="text" id="txtTukhoa" />
-</div>
-<div class="main_content form-row d-flex ">
-    <table class="table table-hover " id="tableBillInfo">
+                <th>
+                    Tiền Hàng
+                </th>
+
+                <th>
+                    Tổng đơn hàng
+                </th>
+                <th>
+                    Ghi chú đơn
+                </th>
+                <th>
+                    Ngày đặt
+                </th>
+
+                <th>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+
+                List<int> usedIds = new List<int>();
+                foreach (var item in bill.lst)
+                {
+                    if (!usedIds.Contains(item.IdUser))
+                    {
+                        usedIds.Add(item.IdUser);
+                        <tr id="@item.Id">
+                            <td style="color:deepskyblue">
+                                <select>
+                                    <option value="">@item.NameStatus</option>
+                                    @foreach (var s in status)
+                                    {
+                                        <option id="statusSelect" value="@s.Id">@s.Name</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                @item.NameReceiver
+                               
+                            </td>
+                            <td>
+                                30.000đ
+                            </td>
+                            <td>
+                                @item.TotalNew
+                            </td>
+                            <td>
+                                @((@item.TotalNew + 30_000).ToString("N0"))đ
+                            </td>
+                            <td>
+                            </td>
+
+                            <td>
+                                @item.DateCreate
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("ChiTietBill", "AdminQuanLyHoaDon", new { Id = item.IdUser })">Xem</a>
+                                @Html.ActionLink("Sửa", "Edit", new { @class = "btn btn-xs btn-warning" })
+                                @Html.ActionLink("Xóa", "Delete", new { @class = "btn btn-xs btn-danger", onclick = "return confirm('Bạn có chắc muốn xóa?')" })
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+
+
     </table>
+
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-@section scripts{
+<script>
+    $('select').on('change', function () {
+        var selectedValue = $(this).val(); // Lấy giá trị option được chọn
+        var idUser = $(this).closest('tr').attr('id'); // Lấy giá trị ID của thẻ tr chứa select đó
+        $.ajax({
+            url: '@Url.Action("Update", "AdminQuanLyHoaDon")', // Thay thế YourControllerName bằng tên của Controller của bạn
+            type: 'POST',
+            data: { Id: idUser, Status: selectedValue },
+            success: function(result) {
+                // Xử lý kết quả trả về nếu cần
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Xử lý lỗi nếu cần
+            }
+        }); // In ra giá trị để kiểm tra
+    });
 
-    <script src="~/Areas/Admin/assets/js/ViewAdmin/BillInfo.js"></script>
-}
+
+</script>

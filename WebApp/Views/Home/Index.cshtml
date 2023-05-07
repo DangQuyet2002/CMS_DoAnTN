@@ -12,275 +12,279 @@
 <link href="~/Content/ControllerCss/Home.css" rel="stylesheet" />
 <link href="~/Content/ControllerCss/HomeProduct.css" rel="stylesheet" />
 <link href="~/Content/cssCanvas/css/components/ion.rangeslider.css" rel="stylesheet" />
-<section>
-    <div id="carouselExampleIndicators" class="carousel slide">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="~/Content/Image/Banner/slide3.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="~/Content/Image/Banner/slide1.png" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="~/Content/Image/Banner/slide2.png" class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</section>
+<div id="resultTimKiem" class="col-xl-9 col-lg-12 col-sm-12 SearchTk d-none">
 
-<section>
-    <div class="container t3-mainbody mt-5">
-        <div class="row">
-            <!-- MAIN CONTENT -->
-            <div id="t3-content" class="t3-content col-xs-12">
-                <div id="system-message-container">
+</div>
+<div id="resultTimKiem2 d-none">
+    <section>
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/Content/Image/Banner/slide3.jpg" class="d-block w-100" alt="...">
                 </div>
-
-                <div class="eshop-shop-introduction">
-                    <h1 style="text-align: center;">CHÀO MỪNG!</h1>
-                    <h2 style="text-align: center;">ĐẾN VỚI FASHIONGO</h2>
-                    <p style="text-align: center;">Với mục tiêu tạo ra những trải nghiệm mua sắm thời trang trực tuyến tuyệt vời, FashionGo (FG) ra đời và luôn nỗ lực để mang đến khách hàng mua sắm thời trang: Kho thời trang chất lượng, Giá cả cạnh tranh, Dịch vụ chăm sóc khách hàng tận tâm... và hơn thế chung tôi luôn cam kết bằng hành động của mình. Chúc bạn lựa chọn được phong cách phù hợp với mình cùng FG!</p>
-                    <p style="text-align: center;"><a class="btn btn-primary" href="" title="Giới thiệu về FashionGo">Đọc thêm</a></p>
+                <div class="carousel-item">
+                    <img src="~/Content/Image/Banner/slide1.png" class="d-block w-100" alt="...">
                 </div>
-
+                <div class="carousel-item">
+                    <img src="~/Content/Image/Banner/slide2.png" class="d-block w-100" alt="...">
+                </div>
             </div>
-            <!-- //MAIN CONTENT -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-    </div>
-</section>
-<section>
-    <div class="wrap t3-featured-product " id="spm">
-        <div class="container">
-            <div class="t3-module module " id="Mod116">
-                <div class="module-inner">
-                    <h3 class="module-title mt-3 mb-3 "><span>Sản phẩm Mới</span></h3><div class="module-ct">
-                        <div class="eshop-product" id="sanphammoi">
-                            <div class="row">
-                                @if (SanPhamNew.Count > 0)
-                                {
-                                    foreach (var item in SanPhamNew)
+    </section>
+
+    <section>
+        <div class="container t3-mainbody mt-5">
+            <div class="row">
+                <!-- MAIN CONTENT -->
+                <div id="t3-content" class="t3-content col-xs-12">
+                    <div id="system-message-container">
+                    </div>
+
+                    <div class="eshop-shop-introduction">
+                        <h1 style="text-align: center;">CHÀO MỪNG!</h1>
+                        <h2 style="text-align: center;">ĐẾN VỚI FASHIONGO</h2>
+                        <p style="text-align: center;">Với mục tiêu tạo ra những trải nghiệm mua sắm thời trang trực tuyến tuyệt vời, FashionGo (FG) ra đời và luôn nỗ lực để mang đến khách hàng mua sắm thời trang: Kho thời trang chất lượng, Giá cả cạnh tranh, Dịch vụ chăm sóc khách hàng tận tâm... và hơn thế chung tôi luôn cam kết bằng hành động của mình. Chúc bạn lựa chọn được phong cách phù hợp với mình cùng FG!</p>
+                        <p style="text-align: center;"><a class="btn btn-primary" href="" title="Giới thiệu về FashionGo">Đọc thêm</a></p>
+                    </div>
+
+                </div>
+                <!-- //MAIN CONTENT -->
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="wrap t3-featured-product " id="spm">
+            <div class="container">
+                <div class="t3-module module " id="Mod116">
+                    <div class="module-inner">
+                        <h3 class="module-title mt-3 mb-3 "><span>Sản phẩm Mới</span></h3><div class="module-ct">
+                            <div class="eshop-product" id="sanphammoi">
+                                <div class="row">
+                                    @if (SanPhamNew.Count > 0)
                                     {
-                                        <div class="eshop_product col-lg-3 col-xs-12 col-md-3" onclick="UpdateView(@item.Id)">
-                                            <div class="eshop-wrap-product">
-                                                <div class="eshop-image-block">
-                                                    <div class="image">
-                                                        <span class="overlay-background-color">&nbsp;</span>
-                                                        <a href="" title=@item.TenCate>
-                                                            <img id="product-image" class="image img-responsive" alt="" src="~/FileUploaded/@item.Image" />
-                                                        </a>
-                                                    </div>
-                                                    <input value="@UserLogin" name="IdUser" hidden />
-                                                    <div class="eshop-buttons">
-                                                        <p>
-                                                            <a class="button" style="cursor: pointer;" onclick="addToWishList()" title="Đánh dấu sản phẩm yêu thích"><i class="fa fa-heart"></i><span class="text-hide">Yêu thích</span></a>
-                                                            <a class="button" style="cursor: pointer;" href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" title="Xem chi tiết"><i class="fa fa-arrow-right"></i><span class="text-hide">Chi tiết</span></a>
-                                                        </p>
-                                                        <div class="eshop-items btn btn-primary">
-                                                            <a>
-                                                                <i class="fa fa-shopping-cart">&nbsp;</i>
-                                                                <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><span style="color:white">Thêm giỏ hàng</span></a>
-
-
-                                                                @*<span id="eshop-cart-total">@ShoppingCart.Cart.Count</span>*@
+                                        foreach (var item in SanPhamNew)
+                                        {
+                                            <div class="eshop_product col-lg-3 col-xs-12 col-md-3" onclick="UpdateView(@item.Id)">
+                                                <div class="eshop-wrap-product">
+                                                    <div class="eshop-image-block">
+                                                        <div class="image">
+                                                            <span class="overlay-background-color">&nbsp;</span>
+                                                            <a href="" title=@item.TenCate>
+                                                                <img id="product-image" class="image img-responsive" alt="" src="~/FileUploaded/@item.Image" />
                                                             </a>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <h4 class="eshop-product-title">
-                                                    <a href="" title="Áo vải">
-                                                        @item.NamePro
-                                                    </a>
-                                                </h4>
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-xs-6">
-                                                        <div>
-                                                            <div class="product-review">
-                                                                <p>
-                                                                    <i class="fa fa-eye" aria-hidden="true">@item.View</i>
-                                                                </p>
+                                                        <input value="@UserLogin" name="IdUser" hidden />
+                                                        <div class="eshop-buttons">
+                                                            <p>
+                                                                <a class="button" style="cursor: pointer;" onclick="addToWishList()" title="Đánh dấu sản phẩm yêu thích"><i class="fa fa-heart"></i><span class="text-hide">Yêu thích</span></a>
+                                                                <a class="button" style="cursor: pointer;" href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" title="Xem chi tiết"><i class="fa fa-arrow-right"></i><span class="text-hide">Chi tiết</span></a>
+                                                            </p>
+                                                            <div class="eshop-items btn btn-primary">
+                                                                <a>
+                                                                    <i class="fa fa-shopping-cart">&nbsp;</i>
+                                                                    <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><span style="color:white">Thêm giỏ hàng</span></a>
+
+
+                                                                    @*<span id="eshop-cart-total">@ShoppingCart.Cart.Count</span>*@
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-6 d-flex">
+                                                    <h4 class="eshop-product-title">
+                                                        <a href="" title="Áo vải">
+                                                            @item.NamePro
+                                                        </a>
+                                                    </h4>
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-xs-6">
+                                                            <div>
+                                                                <div class="product-review">
+                                                                    <p>
+                                                                        <i class="fa fa-eye" aria-hidden="true">@item.View</i>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-xs-6 d-flex">
 
-                                                        <span class="eshop-base-price" style="font-size:16px;margin-right:8px">@item.Price.ToString("N0")đ</span>
+                                                            <span class="eshop-base-price" style="font-size:16px;margin-right:8px">@item.Price.ToString("N0")đ</span>
 
-                                                        <span class="eshop-price" style="font-size:18px">@item.PriceNew.ToString("N0")đ</span>
+                                                            <span class="eshop-price" style="font-size:18px">@item.PriceNew.ToString("N0")đ</span>
 
 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                     }
-                                }
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<section>
-    <div class="section nobottommargin">
+    </section>
+    <section>
+        <div class="section nobottommargin">
+            <div class="container clearfix">
+
+                <div class="col_one_fourth nobottommargin">
+                    <div class="feature-box fbox-plain fbox-dark fbox-small">
+                        <div class="fbox-icon">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                        </div>
+                        <h3>100% Bản Gốc</h3>
+                        <p class="notopmargin">Chúng tôi đảm bảo cho bạn việc bán các nhãn hiệu gốc.</p>
+                    </div>
+                </div>
+
+                <div class="col_one_fourth nobottommargin">
+                    <div class="feature-box fbox-plain fbox-dark fbox-small">
+                        <div class="fbox-icon">
+                            <i class="fa-solid fa-credit-card-front"></i>
+                        </div>
+                        <h3>CÁC LỰA CHỌN THANH TOÁN</h3>
+                        <p class="notopmargin">Chúng tôi chấp nhận Visa, MasterCard và American Express.</p>
+                    </div>
+                </div>
+
+                <div class="col_one_fourth nobottommargin">
+                    <div class="feature-box fbox-plain fbox-dark fbox-small">
+                        <div class="fbox-icon">
+                            <i class="fa-solid fa-truck"></i>
+                        </div>
+                        <h3>MIỄN PHÍ VẬN CHUYỂN</h3>
+                        <p class="notopmargin">Giao hàng miễn phí tới hơn 100 địa điểm với đơn hàng trên $40.</p>
+                    </div>
+                </div>
+
+                <div class="col_one_fourth nobottommargin col_last">
+                    <div class="feature-box fbox-plain fbox-dark fbox-small">
+                        <div class="fbox-icon">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </div>
+                        <h3>TRẢ LẠI TRONG 30 NGÀY</h3>
+                        <p class="notopmargin">Trả lại hoặc trao đổi các mặt hàng đã mua trong vòng 30 ngày.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <div id="content">
+
         <div class="container clearfix">
 
-            <div class="col_one_fourth nobottommargin">
-                <div class="feature-box fbox-plain fbox-dark fbox-small">
-                    <div class="fbox-icon">
-                        <i class="fa-solid fa-thumbs-up"></i>
-                    </div>
-                    <h3>100% Bản Gốc</h3>
-                    <p class="notopmargin">Chúng tôi đảm bảo cho bạn việc bán các nhãn hiệu gốc.</p>
-                </div>
-            </div>
+            <ul class="portfolio-filter clearfix">
+                <li class="activeFilter"><a href="#">Show All</a></li>
+                <li><a href="@Url.Action("DoNam", "DanhSachSP")">Thời Trang Nam</a></li>
+                <li><a href="@Url.Action("DoNu", "DanhSachSP")">Thời Trang Nữ</a></li>
+                <li><a href="@Url.Action("AoKhoac", "DanhSachSP")">Áo Khoác Unisex</a></li>
+                <li><a href="@Url.Action("PhuKien", "DanhSachSP")">Phụ Kiện</a></li>
+            </ul>
 
-            <div class="col_one_fourth nobottommargin">
-                <div class="feature-box fbox-plain fbox-dark fbox-small">
-                    <div class="fbox-icon">
-                        <i class="fa-solid fa-credit-card-front"></i>
-                    </div>
-                    <h3>CÁC LỰA CHỌN THANH TOÁN</h3>
-                    <p class="notopmargin">Chúng tôi chấp nhận Visa, MasterCard và American Express.</p>
-                </div>
-            </div>
 
-            <div class="col_one_fourth nobottommargin">
-                <div class="feature-box fbox-plain fbox-dark fbox-small">
-                    <div class="fbox-icon">
-                        <i class="fa-solid fa-truck"></i>
-                    </div>
-                    <h3>MIỄN PHÍ VẬN CHUYỂN</h3>
-                    <p class="notopmargin">Giao hàng miễn phí tới hơn 100 địa điểm với đơn hàng trên $40.</p>
-                </div>
-            </div>
+            <div class="clear"></div>
 
-            <div class="col_one_fourth nobottommargin col_last">
-                <div class="feature-box fbox-plain fbox-dark fbox-small">
-                    <div class="fbox-icon">
-                        <i class="fa-solid fa-rotate-left"></i>
-                    </div>
-                    <h3>TRẢ LẠI TRONG 30 NGÀY</h3>
-                    <p class="notopmargin">Trả lại hoặc trao đổi các mặt hàng đã mua trong vòng 30 ngày.</p>
-                </div>
+            <!-- Shop
+            ============================================= -->
+            <div id="SanPhamLoad">
+
             </div>
+            <!-- #shop end -->
 
         </div>
-    </div>
-</section>
-<div id="content">
 
-    <div class="container clearfix">
 
-        <ul class="portfolio-filter clearfix">
-            <li class="activeFilter"><a href="#">Show All</a></li>
-            <li><a href="@Url.Action("DoNam", "DanhSachSP")">Thời Trang Nam</a></li>
-            <li><a href="@Url.Action("DoNu", "DanhSachSP")">Thời Trang Nữ</a></li>
-            <li><a href="@Url.Action("AoKhoac", "DanhSachSP")">Áo Khoác Unisex</a></li>
-            <li><a href="@Url.Action("PhuKien", "DanhSachSP")">Phụ Kiện</a></li>
-        </ul>
 
-       
-        <div class="clear"></div>
-
-        <!-- Shop
-    ============================================= -->
-        <div id="SanPhamLoad">
-
-        </div>
-        <!-- #shop end -->
-
-    </div>
-
- 
-
-</div><!-- #content end -->
-
-@*Tin Tuc*@
-<section id="baiviet">
-    <div class="bantindaotao container">
-        <div class="bantindaotao-title">
-            <h2 class="bantindaotao-name" style="font-size: 36px;">Bài Viết Nổi Bật</h2>
-
-        </div>
-        @*<div class="home-newfeed col-xl-10" style="margin: auto;" ">
-            <h2 class="home-newfeed-title">_________Tin tức mỗi ngày_________</h2>
-            <div class="home-newfeed-list">
-                <div id="tintuc" class="row">
-
-                    @foreach (var item in dsmoinhat)
-                    {
-                        <a href="@Url.Action("ChiTietTinTuc", "TinTucView", new { Id = item.Id })" class="col-xl-4 col-6">
-                            <div class="home-newfeed-item-list d-flex">
-                                <img src="~/Images/@item.Image" class="home-newfeed-item-img-val col-xl-4 col-4" style="padding: 0 !important" />
-                                <div class="home-newfeed-item-content col-xl-8 col-8">
-                                    <p style="padding-top: 12px">@item.Title</p>
-                                    <div>@item.dateCreate</div>
-
-                                </div>
-                            </div>
-                        </a>
-                    }
-                </div>
+    </div><!-- #content end -->
+    @*Tin Tuc*@
+    <section id="baiviet">
+        <div class="bantindaotao container">
+            <div class="bantindaotao-title">
+                <h2 class="bantindaotao-name" style="font-size: 36px;">Bài Viết Nổi Bật</h2>
 
             </div>
-        </div>*@
+            @*<div class="home-newfeed col-xl-10" style="margin: auto;" ">
+                    <h2 class="home-newfeed-title">_________Tin tức mỗi ngày_________</h2>
+                    <div class="home-newfeed-list">
+                        <div id="tintuc" class="row">
 
-        <div class="bantindaotao-content">
-            <div class="row">
-                @if (dsmoinhat.Count > 0)
-                {
-                    int count = 0;
-                    foreach (var item in dsmoinhat)
-                    {
+                            @foreach (var item in dsmoinhat)
+                            {
+                                <a href="@Url.Action("ChiTietTinTuc", "TinTucView", new { Id = item.Id })" class="col-xl-4 col-6">
+                                    <div class="home-newfeed-item-list d-flex">
+                                        <img src="~/Images/@item.Image" class="home-newfeed-item-img-val col-xl-4 col-4" style="padding: 0 !important" />
+                                        <div class="home-newfeed-item-content col-xl-8 col-8">
+                                            <p style="padding-top: 12px">@item.Title</p>
+                                            <div>@item.dateCreate</div>
 
-                        if (count < 3)
-                        {
-                            <div class="bantindaotao-content-list col-4">
-                                
-                                <div class="bantindaotao-content-list">
-                                    <a href="@Url.Action("ChiTietTinTuc","TinTucView", new { Id = item.Id })">
-                                        <img class="bantindaotao-img" src="~/FileUploaded/@item.Image" style="width: 100%; height: 12rem;" />
-                                    </a>
-
-                                    <h4> <a href="" class="bantindaotao-content-title">@item.Title</a> </h4>
-                                    <a style="color:aquamarine">@item.dateCreate</a>
-                                    <a href="">
-                                        <div class="bantindaotao-content-text">
-                                            @item.Content
                                         </div>
-                                    </a>
-                                </div>
-                            </div>
+                                    </div>
+                                </a>
+                            }
+                        </div>
 
-                            count++;
-                        }
-                        else
+                    </div>
+                </div>*@
+
+            <div class="bantindaotao-content">
+                <div class="row">
+                    @if (dsmoinhat.Count > 0)
+                    {
+                        int count = 0;
+                        foreach (var item in dsmoinhat)
                         {
-                            break;
+
+                            if (count < 3)
+                            {
+                                <div class="bantindaotao-content-list col-4">
+
+                                    <div class="bantindaotao-content-list">
+                                        <a href="@Url.Action("ChiTietTinTuc","TinTucView", new { Id = item.Id })">
+                                            <img class="bantindaotao-img" src="~/FileUploaded/@item.Image" style="width: 100%; height: 12rem;" />
+                                        </a>
+
+                                        <h4> <a href="" class="bantindaotao-content-title">@item.Title</a> </h4>
+                                        <a style="color:aquamarine">@item.dateCreate</a>
+                                        <a href="">
+                                            <div class="bantindaotao-content-text">
+                                                @item.Content
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                count++;
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
+
                     }
+                </div>
 
-                }
             </div>
-
         </div>
-    </div>
-</section>
+    </section>
+</div>
 
 <script>
     $(document).ready(function () {

@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace Models.CMS.BillStatus
 {
-    public class BillRequest : BaseRequest
+    public class BillStatusRequest : BaseRequest
     {
         public string ListId { get; set; }
-        public int Id { get; set; }
-
     }
 }

@@ -38,6 +38,28 @@ namespace APIDoAn.Controllers.CMS
             }
             return res;
         }
+
+        [Route("Update")]
+        [HttpPost]
+        public async Task<object> Update(Bill requestModel)
+        {
+            Response res = new Response();
+            try
+            {
+                var model = await _billRepository.Update(requestModel);
+                res.code = ResponseCode.SUCCESS;
+                res.message = ResponseDetail.SUCCESSDETAIL;
+                res.result = model;
+            }
+            catch (Exception ex)
+            {
+                res.code = ResponseCode.UNKNOWN_ERROR;
+                res.message = ResponseDetail.UNKNOWN_ERRORDETAIL;
+                res.result = null;
+            }
+            return res;
+        }
+
         [Route("GetByUser")]
         [HttpPost]
         public async Task<object> GetByUser(BillRequest requestModel)

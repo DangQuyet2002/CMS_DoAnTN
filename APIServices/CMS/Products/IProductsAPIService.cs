@@ -19,6 +19,8 @@ namespace APIServices
         Task<ProductPaging> GetByView();
 
         Task<int> Update(Product requestModel);
+        Task<int> UpdateQuantity(Product requestModel);
+
         Task<Product> GetById(int Id);
     }
 }
