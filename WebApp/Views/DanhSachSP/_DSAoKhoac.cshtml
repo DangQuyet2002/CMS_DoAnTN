@@ -10,12 +10,12 @@
 
 }
 
-@if (aokhoacnam.Count > 0)
-{
+
+
     <div id="shop" class="shop grid-container clearfix">
         @foreach (var item in aokhoacnam)
         {
-            <div class="product clearfix pf-Non" onclick="UpdateView(@item.Id)">
+            <div class="product clearfix pf-T_shirt" onclick="UpdateView(@item.Id)">
                 <div class="product-image">
                     <input value="@UserLogin" name="IdUser" hidden />
                     <input value="@item.NamePro" name="NamePro" hidden />
@@ -42,7 +42,7 @@
         }
         @foreach (var item in aokhoacnu)
         {
-            <div class="product clearfix pf-Non" onclick="UpdateView(@item.Id)">
+            <div class="product clearfix pf-shirt" onclick="UpdateView(@item.Id)">
                 <div class="product-image">
                     <input value="@UserLogin" name="IdUser" hidden />
                     <input value="@item.NamePro" name="NamePro" hidden />
@@ -69,7 +69,7 @@
         }
         @foreach (var item in aokhoacdoi)
         {
-            <div class="product clearfix pf-Non" onclick="UpdateView(@item.Id)">
+            <div class="product clearfix pf-2" onclick="UpdateView(@item.Id)">
                 <div class="product-image">
                     <input value="@UserLogin" name="IdUser" hidden />
                     <input value="@item.NamePro" name="NamePro" hidden />
@@ -97,7 +97,7 @@
         
 
     </div>
-}
+
 <script>
     function UpdateView(Id) {
         $.ajax({

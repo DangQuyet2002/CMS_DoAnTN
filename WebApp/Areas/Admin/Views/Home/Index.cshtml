@@ -1,6 +1,7 @@
 ﻿
 @{
-
+    var bill = ViewBag.Data;
+    var pro = ViewBag.Datasp;
 }
 <script src="https://cdn.lordicon.com/fudrjiwc.js"></script>
 
@@ -11,9 +12,16 @@
         <div class="card card-animate">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
+                    @{
+                        decimal total = 0;
+                        foreach (var item in pro.lst)
+                        {
+                            total += 1;
+                        }
+                    }
                     <div>
-                        <p class="fw-medium text-muted mb-0">Tổng bài đăng</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@ViewBag.TongBaiDang">@ViewBag.TongBaiDang</span></h2>
+                        <p class="fw-medium text-muted mb-0">Tổng Sản Phẩm</p>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@total">@total</span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -59,9 +67,24 @@
         <div class="card card-animate">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
+                    @{
+                        decimal totalBill = 0;
+                        List<int> checkedIdusers = new List<int>();
+
+                        foreach (var item in bill.lst)
+                        {
+                            if (!checkedIdusers.Contains(item.IdUser))
+                            {
+                                checkedIdusers.Add(item.IdUser);
+                                totalBill += 1;
+                            }
+                        }
+
+                        
+                    }
                     <div>
-                        <p class="fw-medium text-muted mb-0">Tổng comment</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@ViewBag.TongComment">@ViewBag.TongComment</span></h2>
+                        <p class="fw-medium text-muted mb-0">Đơn Hàng</p>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@totalBill">@totalBill</span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -83,9 +106,16 @@
         <div class="card card-animate">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
+                    @{
+                        decimal totalView = 0;
+                        foreach (var item in pro.lst)
+                        {
+                            totalView += item.View;
+                        }
+                    }
                     <div>
                         <p class="fw-medium text-muted mb-0">Tổng lượt xem</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@ViewBag.TongLuotXem">@ViewBag.TongLuotXem </span></h2>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@totalView">@totalView </span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -102,24 +132,90 @@
             </div><!-- end card body -->
         </div> <!-- end card-->
     </div> <!-- end col-->
-    <div class="col-6 mt-3">
-        <div class="card">
-            <div class="card-body collapse show" id="collapseexample1">
-                <canvas id="ChartLuotXem"></canvas>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body collapse show" id="collapseexample1">
-                <canvas id="ChartBinhLuan"></canvas>
-            </div>
-        </div>
+    <div class="col-md-8">
+        <!-- TABLE: LATEST ORDERS -->
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Đơn hàng gần đây</h3>
+                
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table no-margin">
+                        <thead>
+                            <tr>
+                                <th>Khách hàng</th>
+                                <th>Trạng thái</th>
+                                <th>Số Tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+
+                                List<int> usedIds = new List<int>();
+                                foreach (var item in bill.lst)
+                                {
+                                    if (!usedIds.Contains(item.IdUser))
+                                    {
+                                        usedIds.Add(item.IdUser);
+                                        <tr id="@item.Id">
+                                            
+                                            <td>
+                                                @item.NameReceiver
+
+                                            </td>
+                                            <td style="color:deepskyblue">
+                                                    @item.NameStatus
+                                            </td>
+                                            
+                                            <td>
+                                                @((@item.TotalNew + 30_000).ToString("N0"))đ
+                                            </td>
+                                            <td>
+                                            </td>
+
+                                            
+                                            
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.table-responsive -->
+            </div><!-- /.box-body -->
+            
+        </div><!-- /.box -->
     </div>
-    <div class="col-6 mt-3">
-        <div class="card">
-            <div class="card-body collapse show" id="collapseexample1">
-                <canvas id="JsonChartTopLuotThich"></canvas>
-            </div>
-        </div>
+    <div class="col-md-4">
+        <!-- PRODUCT LIST -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Sản phẩm mới thêm</h3>
+                
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <ul class="products-list product-list-in-box">
+                    @foreach (var p in pro.lst.GetRange(0, 5))
+                    {
+                        <li class="item">
+                            <div class="product-img">
+                                <img src="~/FileUploaded/@p.Image" width="50" alt="Name">
+                            </div>
+                            <div class="product-info">
+                                <a href="javascript::;" class="product-title">@p.NamePro</a>
+                                <span class="label pull-right product-description" style="color:orangered">
+                                    @p.Price.ToString("N0") đ
+                                </span>
+                            </div>
+                        </li><!-- /.item -->
+                    }
+                </ul>
+            </div><!-- /.box-body -->
+            <div class="box-footer text-center">
+                <a href="javascript::;" class="uppercase">Xem tất cả sản phẩm</a>
+            </div><!-- /.box-footer -->
+        </div><!-- /.box -->
     </div>
 </div>
 @section scripts {

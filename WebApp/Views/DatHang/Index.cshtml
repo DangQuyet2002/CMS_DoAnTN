@@ -1,140 +1,181 @@
 ﻿@using Models
-@{
-    ViewBag.Title = "Index";
-    var datagiohang = ViewBag.Data as List<Bill>; ;
-}
-
-
-
-<div class="container">
-    <input type="hidden" id="idND" value="@Session["IdUser"]" />
-    @if (Session["IdUser"] == null)
-    {
-        <h2 style="opacity: 0.7; text-align: center; padding: 200px 0;">Vui lòng đăng nhập</h2>
+@using System.Globalization;
+    @{
+        ViewBag.Title = "Index";
+        var datagiohang = ViewBag.Data as List<Bill>; ;
     }
-    else
-    {
 
-        <h2 style="padding: 50px 0; color: rgb(0 177 86);">Đơn Hàng của bạn đã được lưu </h2>
-        <table id="cart" class="table table-hover table-condensed">
-            <thead>
-                <tr>
-                    
-                    <th>
-                        Người Nhận
-                    </th>
-                    <th>
-                        Phí Vận Chuyển
-                    </th>
 
-                    <th>
-                        Tiền Hàng
-                    </th>
 
-                    <th>
-                        Tổng đơn hàng
-                    </th>
-                    
-                    <th>
-                        Ngày đặt
-                    </th>
-                    <th>
-                        Trạng Thái
-                    </th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                @{
+    <div class="container">
+        <input type="hidden" id="idND" value="@Session["IdUser"]" />
+        @if (Session["IdUser"] == null)
+        {
+            <h2 style="opacity: 0.7; text-align: center; padding: 200px 0;">Vui lòng đăng nhập</h2>
+        }
+        else
+        {
 
-                    List<int> usedIds = new List<int>();
-                    foreach (var item in datagiohang)
-                    {
-                        if (!usedIds.Contains(item.IdUser))
+            <h2 style="padding: 40px 0; color: rgb(0 177 86);">Đơn Hàng của bạn </h2>
+            <table id="cart" class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+
+                        <th>
+                            Người Nhận
+                        </th>
+                        <th>
+                            Phí Vận Chuyển
+                        </th>
+
+                        <th>
+                            Tiền Hàng
+                        </th>
+
+                        <th>
+                            Tổng đơn hàng
+                        </th>
+
+                        <th>
+                            Ngày đặt
+                        </th>
+                        <th>
+                            Trạng Thái
+                        </th>
+                        <th>
+                            
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+
+                        List<int> usedIds = new List<int>();
+                        foreach (var item in datagiohang)
                         {
-                            usedIds.Add(item.IdUser);
-                            <tr id="@item.Id">
+                            if (!usedIds.Contains(item.IdUser))
+                            {
+                                usedIds.Add(item.IdUser);
+                                        <tr id="@item.Id">
 
-                                <td>
-                                    @item.NameReceiver
+                                            <td>
+                                                @item.NameReceiver
 
-                                </td>
-                                <td>
-                                    30.000đ
-                                </td>
-                                <td>
-                                    @item.TotalNew
-                                </td>
-                                <td>
-                                    @((@item.TotalNew + 30_000).ToString("N0"))đ
-                                </td>
-                                
-                                <td>
-                                    @item.DateCreate
-                                </td>
+                                            </td>
+                                            <td>
+                                                30.000đ
+                                            </td>
+                                            <td>
+                                                @item.TotalNew
+                                            </td>
+                                            <td>
+                                                @((@item.TotalNew + 30_000).ToString("N0"))đ
+                                            </td>
+                                            @{
+                                                DateTime date = DateTime.ParseExact(@item.DateCreate, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                                            }
+                                            <td>
+                                                @date.ToString("dd/MM/yyyy")
 
-                                
-                                    @if (@item.Status == 1)
-                                    {
-                                        <td style="color:deepskyblue ">Đơn hàng mới</td>
-                                    }@if (@item.Status == 2)
-                                    {
-                                        <td style="color:deepskyblue ">Đang xử lý</td>
-                                    }@if (@item.Status == 3)
-                                    {
-                                        <td style="color:deepskyblue ">Đang vận chuyển</td>
-                                    }@if (@item.Status == 4)
-                                    {
-                                        <td style="color:deepskyblue ">Đã giao hàng</td>
-                                    }@if (@item.Status == 5)
-                                    {
-                                        <td style="color:deepskyblue ">Đơn hàng bị hủy</td>
-                                    }@if (@item.Status == 6)
-                                    {
-                                        <td style="color:deepskyblue ">Đã hoàn tất</td>
-                                    }@if (@item.Status == 7)
-                                    {
-                                        <td style="color:deepskyblue ">Đang hoàn trả</td>
-                                    }
-                                
-                                    
-                                    
-                                 
-                            </tr>
+                                            </td>
+
+                                            <td id="status" hidden>
+                                                @item.Status
+                                            </td>
+                                            @if (@item.Status == 1)
+                                            {
+                                                <td style="color:deepskyblue ">Đơn hàng mới</td>
+                                            }@if (@item.Status == 2)
+                                            {
+                                                <td style="color:deepskyblue ">Đang xử lý</td>
+                                            }@if (@item.Status == 3)
+                                            {
+                                                <td style="color:deepskyblue ">Đang vận chuyển</td>
+                                            }@if (@item.Status == 4)
+                                            {
+                                                <td style="color:deepskyblue ">Đã giao hàng</td>
+                                            }@if (@item.Status == 5)
+                                            {
+                                                <td style="color:deepskyblue ">Đơn hàng bị hủy</td>
+                                            }@if (@item.Status == 6)
+                                            {
+                                                <td style="color:deepskyblue ">Đã hoàn tất</td>
+                                            }@if (@item.Status == 7)
+                                            {
+                                                <td style="color:deepskyblue ">Đang hoàn trả</td>
+                                            }
+
+                                        <td class="actions" data-th="">
+
+                                            <button class="btn btn-danger btn-sm" onclick="huydonhang('@item.Id')">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+
+                                        </td>
+
+
+                                     </tr>
+                            }
                         }
                     }
-                }
-            </tbody>
-            <tfoot>
+                </tbody>
+                <tfoot>
 
-                <tr>
-                    <td>
-                        <a href="@Url.Action("Index","Home")" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
-                    </td>
-                    <td colspan="2" class="hidden-xs"> </td>
-                    
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Index","Home")" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
+                        </td>
+                        <td colspan="2" class="hidden-xs"> </td>
 
-                </tr>
-            </tfoot>
-        </table>
 
+                    </tr>
+                </tfoot>
+            </table>
 
 
 
-        <div class="container-fluid btnSave">
-            <div class="d-flex container ">
-                <form id="formDathang" class="container col-xl-6">
-                    <input type="hidden" name="IdUser" value="@Session["IdUser"]" />
-                    <input type="hidden" name="UserName" value="@Session["NameUser"]" />
-                    <input type="hidden" name="Phone" value="@Session["PhoneUser"]" />
-                    <input type="hidden" name="Email" value="@Session["EmailUser"]" />
-                    <input type="hidden" name="Address" id="Address" value="@Session["AddressUser"]" />
 
-                </form>
+            <div class="container-fluid btnSave">
+                <div class="d-flex container ">
+                    <form id="formDathang" class="container col-xl-6">
+                        <input type="hidden" name="IdUser" value="@Session["IdUser"]" />
+                        <input type="hidden" name="UserName" value="@Session["NameUser"]" />
+                        <input type="hidden" name="Phone" value="@Session["PhoneUser"]" />
+                        <input type="hidden" name="Email" value="@Session["EmailUser"]" />
+                        <input type="hidden" name="Address" id="Address" value="@Session["AddressUser"]" />
 
+                    </form>
+
+                </div>
             </div>
-        </div>
+        }
+
+    </div>
+
+<script>
+    function huydonhang(Id) {
+        var status = $("#status").text();
+        debugger
+        if (status == 3) {
+            ToastMessage("Thông báo", "Đơn hàng đang vận chuyển k thể hủy", "warning");
+        } else if (status == 4) {
+            ToastMessage("Thông báo", "Đơn hàng đã được giao", "warning");
+        } else if (status == 5) {
+            ToastMessage("Thông báo", "Đơn hàng đã bị hủy", "warning");
+        } else {
+            debugger
+            $.ajax({
+                url: '/DatHang/XoaDonHang',
+                type: 'POST',
+                data: { Id: Id, Status: status },
+                success: function (response) {
+                    ToastMessage("Thông báo", "Hủy đơn hàng thành công", "success");
+                },
+                error: function (xhr, status, error) {
+                    // handle error
+                }
+            });
+        }
     }
 
-</div>
-
+</script>

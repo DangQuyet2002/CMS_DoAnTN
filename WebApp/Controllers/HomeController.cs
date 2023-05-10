@@ -43,7 +43,7 @@ namespace WebApp.Controllers
 
             ViewBag.Title = "Trang chủ";
             request.Length = 4;
-            request.Start = 1;
+            request.Start = 0;
             var sanpham = await productsAPIService.GetAll(request);
             ViewBag.SanPhamNew = sanpham.lst;
 

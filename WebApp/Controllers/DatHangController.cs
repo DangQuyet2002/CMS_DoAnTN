@@ -139,6 +139,28 @@ namespace WebApp.Controllers
                 });
             }
         }
+        [HttpPost]
+        public async Task<ActionResult> XoaDonHang(Bill requestModel)
+        {
+            try
+            {
+                requestModel.Status = 5;
+                await _billAPIService.Update(requestModel);
 
+                return Json(new
+                {
+                    type = CommonConstants.SUCCESS,
+                    message = "Xóa thành công"
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    type = CommonConstants.ERROR,
+                    message = "Xóa thất bại"
+                });
+            }
+        }
     }
 }

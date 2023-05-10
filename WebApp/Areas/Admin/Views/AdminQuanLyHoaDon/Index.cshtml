@@ -1,102 +1,106 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-    var bill = ViewBag.Data;
-    var status = ViewBag.StatusList;
+﻿@using System.Globalization;
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+        var bill = ViewBag.Data;
+        var status = ViewBag.StatusList;
 
-}
-<h4>Quản Lý Đơn Hàng</h4>
-<div class="box">
-    <table class="table table-bordered table-striped datatable">
-        <thead>
-            <tr>
-                <th>
-                    Trạng Thái
-                </th>
-                <th>
-                    Người Nhận
-                </th>
-                <th>
-                    Phí Vận Chuyển
-                </th>
+    }
+    <h4>Quản Lý Đơn Hàng</h4>
+    <div class="box">
+        <table class="table table-bordered table-striped datatable">
+            <thead>
+                <tr>
+                    <th>
+                        Trạng Thái
+                    </th>
+                    <th>
+                        Người Nhận
+                    </th>
+                    <th>
+                        Phí Vận Chuyển
+                    </th>
 
-                <th>
-                    Tiền Hàng
-                </th>
+                    <th>
+                        Tiền Hàng
+                    </th>
 
-                <th>
-                    Tổng đơn hàng
-                </th>
-                <th>
-                    Ghi chú đơn
-                </th>
-                <th>
-                    Ngày đặt
-                </th>
+                    <th>
+                        Tổng đơn hàng
+                    </th>
+                    <th>
+                        Ghi chú đơn
+                    </th>
+                    <th>
+                        Ngày đặt
+                    </th>
 
-                <th>
-                </th>
-            </tr>
-        </thead>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
 
-        <tbody>
-            @{
+            <tbody>
+                @{
 
-                List<int> usedIds = new List<int>();
-                foreach (var item in bill.lst)
-                {
-                    if (!usedIds.Contains(item.IdUser))
+                    List<int> usedIds = new List<int>();
+                    foreach (var item in bill.lst)
                     {
-                        usedIds.Add(item.IdUser);
-                        <tr id="@item.Id">
-                            <td style="color:deepskyblue">
-                                <select>
-                                    <option value="">@item.NameStatus</option>
-                                    @foreach (var s in status)
-                                    {
-                                        <option id="statusSelect" value="@s.Id">@s.Name</option>
-                                    }
-                                </select>
-                            </td>
-                            <td>
-                                @item.NameReceiver
-                               
-                            </td>
-                            <td>
-                                30.000đ
-                            </td>
-                            <td>
-                                @item.TotalNew
-                            </td>
-                            <td>
-                                @((@item.TotalNew + 30_000).ToString("N0"))đ
-                            </td>
-                            <td>
-                            </td>
+                        if (!usedIds.Contains(item.IdUser))
+                        {
+                            usedIds.Add(item.IdUser);
+                            <tr id="@item.Id">
+                                <td style="color:deepskyblue">
+                                    <select>
+                                        <option value="">@item.NameStatus</option>
+                                        @foreach (var s in status)
+                                        {
+                                            <option id="statusSelect" value="@s.Id">@s.Name</option>
+                                        }
+                                    </select>
+                                </td>
 
-                            <td>
-                                @item.DateCreate
-                            </td>
+                                <td>
+                                    @item.NameReceiver
 
-                            <td>
-                                <a href="@Url.Action("ChiTietBill", "AdminQuanLyHoaDon", new { Id = item.IdUser })">Xem</a>
-                                @Html.ActionLink("Sửa", "Edit", new { @class = "btn btn-xs btn-warning" })
-                                @Html.ActionLink("Xóa", "Delete", new { @class = "btn btn-xs btn-danger", onclick = "return confirm('Bạn có chắc muốn xóa?')" })
-                            </td>
-                        </tr>
+                                </td>
+                                <td>
+                                    30.000đ
+                                </td>
+                                <td>
+                                    @item.TotalNew
+                                </td>
+                                <td>
+                                    @((@item.TotalNew + 30_000).ToString("N0"))đ
+                                </td>
+                                <td>
+                                </td>
+                                @{
+                                    DateTime date = DateTime.ParseExact(@item.DateCreate, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                                }
+                                <td>
+                                    @date.ToString("dd/MM/yyyy")
+
+                                </td>
+
+                                <td>
+                                    <a href="@Url.Action("ChiTietBill", "AdminQuanLyHoaDon", new { Id = item.IdUser })">Xem</a>
+                                    @Html.ActionLink("Sửa", "Edit", new { @class = "btn btn-xs btn-warning" })
+                                    @Html.ActionLink("Xóa", "Delete", new { @class = "btn btn-xs btn-danger", onclick = "return confirm('Bạn có chắc muốn xóa?')" })
+                                </td>
+                            </tr>
+                        }
                     }
                 }
-            }
-        </tbody>
+            </tbody>
 
 
-    </table>
+        </table>
 
-</div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
+    <script>
     $('select').on('change', function () {
         var selectedValue = $(this).val(); // Lấy giá trị option được chọn
         var idUser = $(this).closest('tr').attr('id'); // Lấy giá trị ID của thẻ tr chứa select đó
@@ -114,4 +118,4 @@
     });
 
 
-</script>
+    </script>

@@ -129,21 +129,21 @@ namespace WebApp.Controllers
         public async Task<ActionResult> _DSAoKhoac(ProductRequest requestModel)
         {
             requestModel.CategoryMinId = "16";
-            requestModel.Start = requestModel.Start - 1;
+            requestModel.Start = 0;
             requestModel.Length = 20;
             var aokhoacnam = await _productsAPIService.GetByCate(requestModel);
             ViewBag.HtmlPaging = Utils.HtmlPaging(requestModel.Start + 20, requestModel.Length, aokhoacnam.totalCount);
             ViewBag.AokhoacNam = aokhoacnam.lst;
 
             requestModel.CategoryMinId = "17";
-            requestModel.Start = requestModel.Start - 1;
+            requestModel.Start = 0;
             requestModel.Length = 20;
             var aokhoacnu = await _productsAPIService.GetByCate(requestModel);
             ViewBag.HtmlPaging = Utils.HtmlPaging(requestModel.Start + 20, requestModel.Length, aokhoacnu.totalCount);
             ViewBag.AokhoacNu = aokhoacnu.lst;
 
             requestModel.CategoryMinId = "18";
-            requestModel.Start = requestModel.Start - 1;
+            requestModel.Start = 0;
             requestModel.Length = 20;
             var aokhoacdoi = await _productsAPIService.GetByCate(requestModel);
             ViewBag.HtmlPaging = Utils.HtmlPaging(requestModel.Start + 20, requestModel.Length, aokhoacdoi.totalCount);
