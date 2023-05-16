@@ -126,15 +126,17 @@
                             <div class="module-inner">
                                 <div class="module-ct">
                                     <ul class="nav  nav-pills  nav-pills">
-                                        <li class="item-109"><a href=""><i class="icon fa fa-heart"></i> Sản phẩm yêu thích</a></li>
 
                                         @if (UserLogin == null)
                                         {
+                                            <li class="item-109"><a href="@Url.Action("Index","ProductLike", new {Id = @Session["IdUser"]})"><i class="icon fa fa-heart"></i> Sản phẩm yêu thích</a></li>
                                             <li class="item-108"><a href="@Url.Action("Index","GioHang", new {Id = @Session["IdUser"]})"><i class="fa fa-shopping-bag"></i> Giỏ hàng</a></li>
                                             <li class="item-107"><a href="@Url.Action("Index","LogIn")"><i class="fa fa-user" style="margin-right:10px"></i>Đăng Nhập</a></li>
                                         }
                                         else
                                         {
+                                            <li class="item-109"><a href="@Url.Action("Index","ProductLike", new {Id =  UserLogin.ID})"><i class="icon fa fa-heart"></i> Sản phẩm yêu thích</a></li>
+
                                             <li class="item-108"><a href="@Url.Action("Index","GioHang", new {Id =  UserLogin.ID })"><i class="fa fa-shopping-bag"></i> Giỏ hàng</a></li>
 
                                             <li class="item-107 d-flex"><a href="@Url.Action("ChiTiet","ChiTietNguoiDung" , new { Id = UserLogin.ID })"><i class="fa fa-user" style="margin-right:10px"></i>@UserLogin.UserName</a><a href="@Url.Action("DangXuat","LogIn")"><i class="fa-solid fa-right-from-bracket" title="Log Out"></i></a></li>

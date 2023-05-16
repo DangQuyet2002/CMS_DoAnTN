@@ -37,6 +37,27 @@ namespace APIDoAn.Controllers.CMS
             }
             return res;
         }
+
+        [Route("CreateProductLike")]
+        [HttpPost]
+        public async Task<object> CreateProductLike(GioHang requestModel)
+        {
+            Response res = new Response();
+            try
+            {
+                var model = await _gioHangRepository.CreateProductLike(requestModel);
+                res.code = ResponseCode.SUCCESS;
+                res.message = ResponseDetail.SUCCESSDETAIL;
+                res.result = model;
+            }
+            catch (Exception ex)
+            {
+                res.code = ResponseCode.UNKNOWN_ERROR;
+                res.message = ResponseDetail.UNKNOWN_ERRORDETAIL;
+                res.result = null;
+            }
+            return res;
+        }
         [Route("GetByUser")]
         [HttpPost]
         public async Task<object> GetByUser(GioHangRequest requestModel)
@@ -45,6 +66,26 @@ namespace APIDoAn.Controllers.CMS
             try
             {
                 var model = await _gioHangRepository.GetByUser(requestModel);
+                res.code = ResponseCode.SUCCESS;
+                res.message = ResponseDetail.SUCCESSDETAIL;
+                res.result = model;
+            }
+            catch (Exception ex)
+            {
+                res.code = ResponseCode.UNKNOWN_ERROR;
+                res.message = ResponseDetail.UNKNOWN_ERRORDETAIL;
+                res.result = null;
+            }
+            return res;
+        }
+        [Route("GetByUserProductLike")]
+        [HttpPost]
+        public async Task<object> GetByUserProductLike(GioHangRequest requestModel)
+        {
+            Response res = new Response();
+            try
+            {
+                var model = await _gioHangRepository.GetByUserProductLike(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;
@@ -187,6 +228,26 @@ namespace APIDoAn.Controllers.CMS
             try
             {
                 var model = await _gioHangRepository.Delete(requestModel);
+                res.code = ResponseCode.SUCCESS;
+                res.message = ResponseDetail.SUCCESSDETAIL;
+                res.result = model;
+            }
+            catch (Exception ex)
+            {
+                res.code = ResponseCode.UNKNOWN_ERROR;
+                res.message = ResponseDetail.UNKNOWN_ERRORDETAIL;
+                res.result = null;
+            }
+            return res;
+        }
+        [Route("DeleteProductLike")]
+        [HttpPost]
+        public async Task<object> DeleteProductLike(GioHangRequest requestModel)
+        {
+            Response res = new Response();
+            try
+            {
+                var model = await _gioHangRepository.DeleteProductLike(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;

@@ -39,6 +39,30 @@ namespace Repositories
             }
         }
 
+        public async Task<int> CreateProductLike(GioHang requestModel)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@ProductId", requestModel.ProductId);
+                param.Add("@UserId", requestModel.UserId);
+                param.Add("@ProductName", requestModel.ProductName);
+                param.Add("@Image", requestModel.Image);
+                param.Add("@Quantity", requestModel.Quantity);
+                param.Add("@Price", requestModel.Price);
+                param.Add("@ColorId", requestModel.ColorId);
+                param.Add("@SizeId", requestModel.SizeId);
+                param.Add("@Status", requestModel.Status);
+                param.Add("@Total", requestModel.Total);
+                return await _baseRepository.GetValue<int>("[dbo].[ProductLike_Create]", param);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR:" + ex.Message);
+                return 0;
+            }
+        }
+
         public async Task<int> DeleteAll(GioHangRequest requestModel)
         {
             try
@@ -67,6 +91,20 @@ namespace Repositories
                 return 0;
             }
         }
+        public async Task<int> DeleteProductLike(GioHangRequest requestModel)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@Id", requestModel.Id);
+                return await _baseRepository.GetValue<int>("[dbo].[ProductLike_Delete]", param);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR:" + ex.Message);
+                return 0;
+            }
+        }
 
         public async Task<GioHangPaging> GetByUser(GioHangRequest requestModel)
         {
@@ -76,6 +114,23 @@ namespace Repositories
                 param.Add("@Id", requestModel.Id);
                 var model = new GioHangPaging();
                model.lst =  await _baseRepository.GetList<GioHang>("[dbo].[GioHang_GetById]", param);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR:" + ex.Message);
+                return null;
+            }
+        }
+
+        public async Task<GioHangPaging> GetByUserProductLike(GioHangRequest requestModel)
+        {
+            try
+            {
+                var param = new DynamicParameters();
+                param.Add("@Id", requestModel.Id);
+                var model = new GioHangPaging();
+                model.lst = await _baseRepository.GetList<GioHang>("[dbo].[ProductLike_GetById]", param);
                 return model;
             }
             catch (Exception ex)

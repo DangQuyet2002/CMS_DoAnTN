@@ -1,0 +1,298 @@
+﻿@using Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var datagiohang = ViewBag.DataGH as List<GioHang>;
+    var color = ViewBag.ColorList;
+    var size = ViewBag.SizeList;
+    var UserLogin = Session["IdUser"];
+}
+
+
+
+<div class="container">
+    <input type="hidden" id="idND" value="@Session["IdUser"]" />
+    @if (Session["IdUser"] == null)
+    {
+        <h2 style="opacity: 0.7; text-align: center; padding: 200px 0;">Vui lòng đăng nhập</h2>
+    }
+    else
+    {
+        <input value="@UserLogin" name="IdUser" id="UserId" hidden />
+        <h2 style="padding: 50px 0; color: rgb(0 177 86);"> Sản phẩm được yêu thích của bạn : </h2>
+        <table id="cart" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th style="width:40%">Tên sản phẩm</th>
+                    <th style="width:5%">Size</th>
+                    <th style="width:5%">Color</th>
+                    <th style="width:10%">Giá</th>
+                    <th style="width:8%">Số lượng</th>
+                    <th style="width:18%" class="text-center">Thành tiền</th>
+                    <th style="width:4%">Xóa</th>
+                    <th style="width:10%">Thêm Giỏ Hàng</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in datagiohang)
+                {
+                    <tr>
+                        <td data-th="Product">
+                            <div class="row" style="vertical-align: middle">
+                                <div class="col-sm-2 hidden-xs center">
+                                    <img src="~/FileUploaded/@item.Image" alt="" class="img-responsive" width="100">
+                                </div>
+                                <div class="col-sm-10">
+                                    <h4 class="nomargin">@item.ProductName</h4>
+                                </div>
+                                <input type="hidden" name="Image" value="@item.Image" />
+                            </div>
+                        </td>
+
+
+                        <td data-th="Size" class="nomargin" style="vertical-align: middle">
+                            <select class="size-select">
+                                <option value="">@item.NameSize</option>
+                                @foreach (var s in size.lst)
+                                {
+                                    <option value="@s.Id">@s.Name</option>
+                                }
+                            </select>
+                            <input value="@item.Id" id="txtname" name="Id" hidden />
+                        </td>
+
+                        <td data-th="Color" class="nomargin" style="vertical-align: middle">
+                            <select class="color-select">
+                                <option value="">@item.NameColor</option>
+                                @foreach (var c in color.lst)
+                                {
+                                    <option value="@c.Id">@c.Name</option>
+                                }
+                            </select>
+                            <input value="@item.Id" id="txtname" name="Id" hidden />
+                        </td>
+
+
+                        <td data-th="Price" class="nomargin" style="vertical-align: middle">@item.Price.ToString("N0")đ</td>
+                        <td data-th="Quantity">
+                            <input class="form-control text-center cart-quantity-input" style="margin-top: 30%" value="@item.Quantity" type="number" data-url="@Url.Action("UpdateQuantity", "GioHang")" data-id="@item.Id">
+                        </td>
+                        <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px">@(((decimal)item.Price * (decimal)item.Quantity).ToString("N0"))đ</td>
+
+                        <td class="actions" data-th="">
+
+                            <button class="btn btn-danger btn-sm" onclick="xoaSanPham(@item.Id)">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                        </td>
+                        <td class="actions" data-th="">
+
+                            <button class="btn btn-danger btn-sm" onclick="SaveGioHang(@item.Id , @item.Price , '@item.ProductName' , '@item.Image')">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                @{
+                    decimal total = 0;
+                    foreach (var item in datagiohang)
+                    {
+                        total += item.Price * item.Quantity;
+                    }
+                }
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Index","Home")" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
+                    </td>
+
+                </tr>
+            </tfoot>
+        </table>
+
+
+
+
+        <div class="container-fluid btnSave">
+            <div class="d-flex container ">
+                <form id="formDathang" class="container col-xl-6">
+                    <input type="hidden" name="IdUser" value="@Session["IdUser"]" />
+                    <input type="hidden" name="UserName" value="@Session["NameUser"]" />
+                    <input type="hidden" name="Phone" value="@Session["PhoneUser"]" />
+                    <input type="hidden" name="Email" value="@Session["EmailUser"]" />
+                    <input type="hidden" name="Address" id="Address" value="@Session["AddressUser"]" />
+
+                </form>
+
+            </div>
+        </div>
+    }
+
+</div>
+
+@section scripts{
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <link href="~/Content/ControllerCss/GioHang.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+        function ToastMessage(title, message, type) {
+            toast({
+                title: title,
+                message: message,
+                type: type,
+                duration: 5000
+            });
+        }
+
+        function capNhatGioHang() {
+            location.reload();
+        }
+
+        var idUser = $("#UserId").val();
+        function SaveGioHang(Id, Price, ProductName, Image) {
+            debugger
+            if ($("#UserId").val() == 0) {
+                ToastMessage("Thông báo", "Vui lòng đăng nhập!", "warning");
+            }
+            else {
+                $.ajax({
+                    url: "/GioHang/ThemMoi",
+                    type: "post",
+                    dataType: "json",
+
+                    data: {
+                        ProductId: Id,
+                        UserId: idUser,
+                        Image: Image,
+                        ProductName: ProductName,
+                        Price: Price,
+                        Quantity: 1,
+                        ColorId: 1,
+                        SizeId: 2,
+
+                    },
+
+                    success: (data) => {
+                        if (data.type == "success") {
+                            ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
+                            // Gọi ajax khác để xóa sản phẩm
+
+                            $.ajax({
+                                url: "/ProductLike/Xoa",
+                                type: "post",
+                                dataType: "json",
+                                data: {
+                                    Id: Id
+                                },
+                                success: (deleteData) => {
+                                    if (deleteData.type == "success") {
+                                        location.reload();
+                                    } else {
+                                        ToastMessage("Lỗi", "Xóa sản phẩm thất bại", "error");
+                                    }
+                                },
+                                error: () => {
+                                    ToastMessage("Lỗi", "Xảy ra lỗi khi gọi ajax", "error");
+                                }
+                            });
+                        } else {
+                            ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+                        }
+                    }
+                })
+
+
+            }
+        }
+
+
+        function xoaSanPham(Id) {
+            debugger
+            if (confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) {
+                $.ajax({
+                    url: '/ProductLike/Xoa',
+                    type: 'POST',
+                    data: { id: Id },
+                    success: function (result) {
+                        if (result.success) {
+                            ToastMessage("Thông báo", "Xóa sản phẩm thành công", "success");
+                            location.reload();
+                        } else {
+                            ToastMessage("Thành Công", "Xóa sản phẩm thành công", "succer");
+                            location.reload();
+                        }
+                    },
+
+                });
+            }
+        }
+
+        $('select.size-select').on('change', function () {
+            debugger
+          var selectedValue = $(this).val();
+          var id = $(this).closest('tr').find("input[name='Id']").val();
+
+          if ($(this).hasClass('size-select')) {
+            // Xử lý khi chọn select size
+            $.ajax({
+              url: '@Url.Action("Update", "GioHang")',
+              type: 'POST',
+              data: { Id: id, SizeId: selectedValue },
+              success: function(result) {
+                // Xử lý kết quả trả về nếu cần
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                // Xử lý lỗi nếu cần
+              }
+            });
+          }
+        });
+
+        $('select.color-select').on('change', function () {
+            debugger
+          var selectedValueColor = $(this).val();
+          var id = $(this).closest('tr').find("input[name='Id']").val();
+
+          if ($(this).hasClass('color-select')) {
+            // Xử lý khi chọn select size
+            $.ajax({
+              url: '@Url.Action("UpdateColor", "GioHang")',
+              type: 'POST',
+                data: { Id: id, ColorId: selectedValueColor },
+              success: function(result) {
+                // Xử lý kết quả trả về nếu cần
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                // Xử lý lỗi nếu cần
+              }
+            });
+          }
+        });
+
+        $('input.cart-quantity-input').on('change', function () {
+            debugger
+            var newQuantity = $(this).val();
+            var id = $(this).data('id');
+            var url = $(this).data('url');
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: { Id: id, Quantity: newQuantity },
+                success: function(result) {
+                    // Xử lý kết quả trả về nếu cần
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // Xử lý lỗi nếu cần
+                }
+            });
+        });
+    </script>
+
+
+}

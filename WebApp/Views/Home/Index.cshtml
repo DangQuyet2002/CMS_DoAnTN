@@ -305,7 +305,8 @@
                     ProductName: NamePro,
                     Price: PriceNew,
                     Quantity: 1,
-
+                    ColorId: 1,
+                    SizeId: 2,
                 },
 
                 success: (data) => {
@@ -325,45 +326,46 @@
 
         }
     }
-    //function SaveProductLike(Id, PriceNew, NamePro, Image) {
-    //    debugger
-    //    if ($("#UserId").val() == 0) {
-    //        alert("Vui lòng đăng nhập!");
-    //    }
-    //    else {
+    function SaveProductLike(Id, PriceNew, NamePro, Image) {
+        debugger
+        if ($("#UserId").val() == 0) {
+            alert("Vui lòng đăng nhập!");
+        }
+        else {
 
-    //        $.ajax({
-    //            url: "/ProductLike/ThemMoi",
-    //            type: "post",
-    //            dataType: "json",
+            $.ajax({
+                url: "/ProductLike/ThemMoiProductLike",
+                type: "post",
+                dataType: "json",
 
-    //            data: {
-    //                ProductId: Id,
-    //                UserId: idUser,
-    //                Image: Image,
-    //                ProductName: NamePro,
-    //                Price: PriceNew,
-    //                Quantity: 1,
+                data: {
+                    ProductId: Id,
+                    UserId: idUser,
+                    Image: Image,
+                    ProductName: NamePro,
+                    Price: PriceNew,
+                    Quantity: 1,
+                    ColorId: 1,
+                    SizeId: 2,
+                },
 
-    //            },
-
-    //            success: (data) => {
-    //                if (data.type == "success") {
-    //                    ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
-
-
-
-    //                }
-    //                else {
-    //                    ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
-
-    //                }
-    //            }
-    //        })
+                success: (data) => {
+                    if (data.type == "success") {
+                        ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
 
 
-    //    }
-    //}
+
+                    }
+                    else {
+                        ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+
+                    }
+                }
+            })
+
+
+        }
+    }
 
     function LoadPage1(start) {
         var request = {

@@ -265,6 +265,7 @@
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ProductColorController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductLikeController.cs" />
     <Compile Include="Controllers\ProductSizeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SinUpController.cs" />
@@ -7290,6 +7291,7 @@
     <Content Include="Views\Shared\_LayoutView.cshtml" />
     <Content Include="Views\TinTucView\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\ProductLike\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -7305,7 +7307,6 @@
     <Folder Include="Views\Common\" />
     <Folder Include="Views\EmailLienHe\" />
     <Folder Include="Views\ProductColor\" />
-    <Folder Include="Views\ProductLike\" />
     <Folder Include="Views\ProductSize\" />
   </ItemGroup>
   <ItemGroup>

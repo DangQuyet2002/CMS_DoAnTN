@@ -29,10 +29,23 @@
                                 <div class="product-title"><h3><a href="#" class="product-link">@item.NamePro</a></h3></div>
                                 <div class="d-flex justify-content-sm-between">
                                     <div class="product-price"><del>@item.Price.ToString("N0")đ</del> <ins>@item.PriceNew.ToString("N0")đ</ins></div>
+                                    
                                     <div class="product-review">
-                                        <p>
+                                        <div>
+                                            <a style="cursor: pointer; font-size: 16px;" onclick="SaveProductLike(@item.Id, @item.PriceNew, '@item.NamePro', '@item.Image'); this.classList.add('color-red')" title="Đánh dấu sản phẩm yêu thích">
+                                                <i class="fa fa-heart ql-color-red"></i><span class="text-hide">Yêu thích</span>
+                                            </a>
+                                            <style>
+                                                .color-red {
+                                                    color: red !important;
+                                                }
+                                            </style>
+                                        </div>
+                                    </div>
+                                    <div class="product-review">
+                                        <div>
                                             <i class="fa fa-eye" aria-hidden="true">@item.View</i>
-                                        </p>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -118,6 +131,47 @@
             })
             
             
+        }
+    }
+
+    function SaveProductLike(Id, PriceNew, NamePro, Image) {
+        debugger
+        if ($("#UserId").val() == 0) {
+            alert("Vui lòng đăng nhập!");
+        }
+        else {
+
+            $.ajax({
+                url: "/ProductLike/ThemMoiProductLike",
+                type: "post",
+                dataType: "json",
+
+                data: {
+                    ProductId: Id,
+                    UserId: idUser,
+                    Image: Image,
+                    ProductName: NamePro,
+                    Price: PriceNew,
+                    Quantity: 1,
+                    ColorId: 1,
+                    SizeId:2,
+                },
+
+                success: (data) => {
+                    if (data.type == "success") {
+                        ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
+
+
+
+                    }
+                    else {
+                        ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+
+                    }
+                }
+            })
+
+
         }
     }
 </script>

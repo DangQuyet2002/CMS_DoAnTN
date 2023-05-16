@@ -13,7 +13,6 @@ namespace WebApplication1.Controllers
 {
     public class ProductLikeController : Controller
     {
-        private readonly IProductLikeAPIService productlikeAPIService;
 
         private readonly IGioHangAPIService gioHangAPIService;
         private readonly IColorAPIService ColorAPIService;
@@ -28,7 +27,7 @@ namespace WebApplication1.Controllers
 
         public async Task<ActionResult> Index(GioHangRequest requestModel, ColorRequest Modelcolor, SizeRequest SizeModel)
         {
-            var data = await gioHangAPIService.GetByUser(requestModel);
+            var data = await gioHangAPIService.GetByUserProductLike(requestModel);
             ViewBag.DataGH = data.lst;
 
             var colorResult = await ColorAPIService.GetAll(Modelcolor);
@@ -46,12 +45,12 @@ namespace WebApplication1.Controllers
         
 
         [HttpPost]
-        public async Task<ActionResult> Themmoi(GioHang requestModel)
+        public async Task<ActionResult> ThemmoiProductLike(GioHang requestModel)
         {
             try
             {
                 
-                await gioHangAPIService.Create(requestModel);
+                await gioHangAPIService.CreateProductLike(requestModel);
 
                 return Json(new
                 {
@@ -74,7 +73,7 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                await gioHangAPIService.Detele(requestModel);
+                await gioHangAPIService.DeleteProductLike(requestModel);
 
                 return Json(new
                 {
@@ -98,6 +97,33 @@ namespace WebApplication1.Controllers
             try
             {
                 var data = await gioHangAPIService.GetByUser(requestModel);
+                var count = data.totalCount;
+                ViewBag.Check = count;
+                Session["totalCart"] = data.totalCount;
+                return Json(new
+                {
+                    data = data.lst,
+                    recordsTotal = count,
+                    recordsFiltered = count,
+                    type = CommonConstants.SUCCESS,
+                    message = "Thêm mới thành công"
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    type = CommonConstants.ERROR,
+                    message = "Thêm mới thất bại"
+                });
+            }
+        }
+        [HttpPost]
+        public async Task<ActionResult> GetByUserProductLike(GioHangRequest requestModel)
+        {
+            try
+            {
+                var data = await gioHangAPIService.GetByUserProductLike(requestModel);
                 var count = data.totalCount;
                 ViewBag.Check = count;
                 Session["totalCart"] = data.totalCount;

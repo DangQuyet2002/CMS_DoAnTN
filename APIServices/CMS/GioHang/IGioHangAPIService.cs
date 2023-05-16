@@ -10,8 +10,14 @@ namespace APIServices
     public interface IGioHangAPIService
     {
         Task<int> Create(GioHang requestModel);
+        Task<int> CreateProductLike(GioHang requestModel);
+
         Task<int> Detele(GioHangRequest requestModel);
+        Task<int> DeleteProductLike(GioHangRequest requestModel);
+
         Task<GioHangPaging> GetByUser(GioHangRequest requestModel);
+        Task<GioHangPaging> GetByUserProductLike(GioHangRequest requestModel);
+
         Task<GioHangPaging> GetListByUser(GioHangRequest requestModel);
         Task<int> DeleteAll(GioHangRequest requestModel);
         Task<GioHang> GetById(int Id);
