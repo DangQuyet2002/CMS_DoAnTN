@@ -76,7 +76,7 @@
                                 <td>
                                 </td>
                                 @{
-                                    DateTime date = DateTime.ParseExact(@item.DateCreate, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                                    DateTime date = DateTime.ParseExact(@item.DateCreate, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                                 }
                                 <td>
                                     @date.ToString("dd/MM/yyyy")
@@ -84,9 +84,7 @@
                                 </td>
 
                                 <td>
-                                    <a href="@Url.Action("ChiTietBill", "AdminQuanLyHoaDon", new { Id = item.IdUser })">Xem</a>
-                                    @Html.ActionLink("Sửa", "Edit", new { @class = "btn btn-xs btn-warning" })
-                                    @Html.ActionLink("Xóa", "Delete", new { @class = "btn btn-xs btn-danger", onclick = "return confirm('Bạn có chắc muốn xóa?')" })
+                                    <a href="@Url.Action("ChiTietBill", "AdminQuanLyHoaDon", new { Id = item.IdUser })">Xem Chi Tiết </a>
                                 </td>
                             </tr>
                         }

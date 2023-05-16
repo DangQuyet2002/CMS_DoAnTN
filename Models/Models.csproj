@@ -109,6 +109,7 @@
     <Compile Include="CMS\tbl_CacCapHoiModel.cs" />
     <Compile Include="CMS\tbl_ChiHoiTTModel.cs" />
     <Compile Include="CMS\tbl_CommentModel.cs" />
+    <Compile Include="CMS\tbl_EmailLienHe.cs" />
     <Compile Include="CMS\tbl_LienKetGioiThieuModel.cs" />
     <Compile Include="CMS\tbl_LikePostModel.cs" />
     <Compile Include="CMS\Product\Product.cs" />

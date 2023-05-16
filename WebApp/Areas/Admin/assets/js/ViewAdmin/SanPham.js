@@ -43,13 +43,18 @@ tableTintuc = () => {
                 data: "Image",
                 name: "Image",
                 title: "Ảnh 1",
+                render: function (data) {
+                    return `<img src="/FileUploaded/${data}" width="50" height="60"/>`;
+                }
 
             },
             {
                 data: "Image1",
                 name: "Image1",
                 title: "Ảnh 2",
-
+                render: function (data) {
+                    return `<img src="/FileUploaded/${data}" width="50" height="60"/>`;
+                }
             },
             {
                 data: "TenCateMin",
@@ -92,9 +97,9 @@ tableTintuc = () => {
         ],
         columnDefs: [
             { width: 50, targets: [0] },
-            { width: 350, targets: [1] },
-            { width: 250, targets: [2] },
-            { width: 250, targets: [3] },
+            { width: 450, targets: [1] },
+            { width: 200, targets: [2] },
+            { width: 200, targets: [3] },
             { width: 150, targets: [4, 5] },
             { width: 150, targets: [6] },
             { width: 50, targets: [7,8] }

@@ -47,38 +47,40 @@
                             </div>
                         </td>
 
-                        
+
                         <td data-th="Size" class="nomargin" style="vertical-align: middle">
-                            <select>
+                            <select class="size-select">
                                 <option value="">@item.NameSize</option>
                                 @foreach (var s in size.lst)
                                 {
                                     <option value="@s.Id">@s.Name</option>
                                 }
                             </select>
+                            <input value="@item.Id" id="txtname" name="Id" hidden />
                         </td>
-                        
+
                         <td data-th="Color" class="nomargin" style="vertical-align: middle">
-                            <select>
+                            <select class="color-select">
                                 <option value="">@item.NameColor</option>
                                 @foreach (var c in color.lst)
                                 {
                                     <option value="@c.Id">@c.Name</option>
                                 }
                             </select>
+                            <input value="@item.Id" id="txtname" name="Id" hidden />
                         </td>
 
 
                         <td data-th="Price" class="nomargin" style="vertical-align: middle">@item.Price.ToString("N0")đ</td>
                         <td data-th="Quantity">
-                            <input class="form-control text-center cart-quantity-input" style="margin-top: 30%" value="@item.Quantity" type="number">
+                            <input class="form-control text-center cart-quantity-input" style="margin-top: 30%" value="@item.Quantity" type="number" data-url="@Url.Action("UpdateQuantity", "GioHang")" data-id="@item.Id">
                         </td>
                         <td data-th="Subtotal" class="text-center nomargin" style="padding-top: 45px">@(((decimal)item.Price * (decimal)item.Quantity).ToString("N0"))đ</td>
 
                         <td class="actions" data-th="">
                             @*<button class="btn btn-info btn-sm" onclick="xoaSanPham(@item.Id)">
-                                <i class="fa fa-edit"></i>
-                            </button>*@
+                <i class="fa fa-edit"></i>
+            </button>*@
                             <button class="btn btn-danger btn-sm" onclick="xoaSanPham(@item.Id)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
@@ -106,7 +108,7 @@
                         <a href="@Url.Action("Index","ThanhToan" , new {Id = @Session["IdUser"]})" class="btn btn-success btn-block">Thanh toán <i class="fa fa-angle-right"></i></a>
                     </td>
                     <td>
-                        <a href="@Url.Action("Index","ThanhToan" , new {Id = @Session["IdUser"]})" class="btn btn-success btn-block">Cập Nhật Giỏ Hàng <i class="fa fa-angle-right"></i></a>
+                        <a href="#" class="btn btn-success btn-block" onclick="capNhatGioHang()">Cập Nhật Giỏ Hàng <i class="fa fa-angle-right"></i></a>
                     </td>
                 </tr>
             </tfoot>
@@ -147,6 +149,10 @@
             });
         }
 
+        function capNhatGioHang() {
+            location.reload();
+        }
+
         function xoaSanPham(Id) {
             debugger
             if (confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) {
@@ -163,39 +169,72 @@
                             location.reload();
                         }
                     },
-                    
+
                 });
             }
         }
 
+        $('select.size-select').on('change', function () {
+            debugger
+          var selectedValue = $(this).val();
+          var id = $(this).closest('tr').find("input[name='Id']").val();
 
+          if ($(this).hasClass('size-select')) {
+            // Xử lý khi chọn select size
+            $.ajax({
+              url: '@Url.Action("Update", "GioHang")',
+              type: 'POST',
+              data: { Id: id, SizeId: selectedValue },
+              success: function(result) {
+                // Xử lý kết quả trả về nếu cần
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                // Xử lý lỗi nếu cần
+              }
+            });
+          }
+        });
 
+        $('select.color-select').on('change', function () {
+            debugger
+          var selectedValueColor = $(this).val();
+          var id = $(this).closest('tr').find("input[name='Id']").val();
 
-    </script>
-    <script>
-        $(document).ready(function () {
-            // Lắng nghe sự kiện thay đổi số lượng sản phẩm
-            $('.cart-quantity-input').change(function () {
-                // Lấy số lượng mới
-                var newQuantity = $(this).val();
+          if ($(this).hasClass('color-select')) {
+            // Xử lý khi chọn select size
+            $.ajax({
+              url: '@Url.Action("UpdateColor", "GioHang")',
+              type: 'POST',
+                data: { Id: id, ColorId: selectedValueColor },
+              success: function(result) {
+                // Xử lý kết quả trả về nếu cần
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                // Xử lý lỗi nếu cần
+              }
+            });
+          }
+        });
 
-                // Lấy giá sản phẩm
-                var price = $(this).closest('tr').find('.cart-price').data('price');
+        $('input.cart-quantity-input').on('change', function () {
+            debugger
+            var newQuantity = $(this).val();
+            var id = $(this).data('id');
+            var url = $(this).data('url');
 
-                // Tính lại giá trị thành tiền
-                var newTotal = newQuantity * price;
-
-                // Cập nhật giá trị thành tiền vào cột "Thành tiền"
-                $(this).closest('tr').find('.cart-subtotal').text(newTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
-
-                // Tính lại tổng tiền
-                var total = 0;
-                $('.cart-subtotal').each(function () {
-                    total += Number($(this).text().replace(/\D/g, ''));
-                });
-                $('.cart-total').text(total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: { Id: id, Quantity: newQuantity },
+                success: function(result) {
+                    // Xử lý kết quả trả về nếu cần
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // Xử lý lỗi nếu cần
+                }
             });
         });
     </script>
+    
 
 }

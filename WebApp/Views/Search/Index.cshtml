@@ -20,8 +20,8 @@
                             <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
                             <div class="sale-flash">@item.Discount% Off*</div>
                             <div class="product-overlay">
-                                <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
-                                <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                                <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Thêm Giỏ Hàng</span></a>
+                                <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Chi Tiết</span></a>
                             </div>
                         </div>
                         <div class="product-desc">

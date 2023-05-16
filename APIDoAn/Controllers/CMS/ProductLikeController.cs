@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace APIDoAn.Controllers.CMS
 {
-    [Route("api/GioHang")]
+    [Route("api/ProductLike")]
     [ApiController]
-    public class GioHangController : Controller
+    public class ProductLikeController : Controller
     {
-        private readonly IGioHangRepository _gioHangRepository;
-        public GioHangController(IGioHangRepository gioHangRepository)
+        private readonly IProductLikeRepository _productlikeRepository;
+        public ProductLikeController(IProductLikeRepository productlikeRepository)
         {
-            _gioHangRepository = gioHangRepository;
+            _productlikeRepository = productlikeRepository;
         }
         [Route("Create")]
         [HttpPost]
@@ -24,7 +24,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                var model = await _gioHangRepository.Create(requestModel);
+                var model = await _productlikeRepository.Create(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;
@@ -44,7 +44,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                var model = await _gioHangRepository.GetByUser(requestModel);
+                var model = await _productlikeRepository.GetByUser(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;
@@ -64,7 +64,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                var model = await _gioHangRepository.GetById(Id);
+                var model = await _productlikeRepository.GetById(Id);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;
@@ -85,7 +85,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                var model = await _gioHangRepository.Update(requestModel);
+                var model = await _productlikeRepository.Update(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;
@@ -105,7 +105,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                var model = await _gioHangRepository.UpdateColor(requestModel);
+                var model = await _productlikeRepository.UpdateColor(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;
@@ -118,26 +118,7 @@ namespace APIDoAn.Controllers.CMS
             }
             return res;
         }
-        [Route("UpdateQuantity")]
-        [HttpPost]
-        public async Task<object> UpdateQuantity(GioHang requestModel)
-        {
-            Response res = new Response();
-            try
-            {
-                var model = await _gioHangRepository.UpdateQuantity(requestModel);
-                res.code = ResponseCode.SUCCESS;
-                res.message = ResponseDetail.SUCCESSDETAIL;
-                res.result = model;
-            }
-            catch (Exception ex)
-            {
-                res.code = ResponseCode.UNKNOWN_ERROR;
-                res.message = ResponseDetail.UNKNOWN_ERRORDETAIL;
-                res.result = null;
-            }
-            return res;
-        }
+        
 
         [Route("GetByIdBill")]
         [HttpGet]
@@ -146,7 +127,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                var model = await _gioHangRepository.GetByIdBill(Id);
+                var model = await _productlikeRepository.GetByIdBill(Id);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;
@@ -166,7 +147,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                var model = await _gioHangRepository.GetListByUser(requestModel);
+                var model = await _productlikeRepository.GetListByUser(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;
@@ -186,7 +167,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                var model = await _gioHangRepository.Delete(requestModel);
+                var model = await _productlikeRepository.Delete(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;
@@ -206,7 +187,7 @@ namespace APIDoAn.Controllers.CMS
             Response res = new Response();
             try
             {
-                var model = await _gioHangRepository.DeleteAll(requestModel);
+                var model = await _productlikeRepository.DeleteAll(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
                 res.result = model;

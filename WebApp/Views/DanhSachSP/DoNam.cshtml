@@ -9,11 +9,11 @@
 
     <div class="content-wrap">
 
-        <h4 style="margin-left: 8%;margin-bottom: 2.5rem"><a href="@Url.Action("Index","Home")">Trang Chủ / </a> <a >Thời Trang Nam</a></h4>
+        <h4 style="margin-left: 8%;margin-bottom: 2.5rem"><a href="@Url.Action("Index","Home")">Trang Chủ / </a> <a>Thời Trang Nam</a></h4>
         <div class="container clearfix">
 
             <!-- Portfolio Filter
-    ============================================= -->
+            ============================================= -->
             <ul id="portfolio-filter" class="portfolio-filter clearfix">
                 <li class="activeFilter"><a href="#" data-filter="*">Show All</a></li>
                 <li><a href="#" data-filter=".pf-T_shirt">Áo Thun</a></li>
@@ -24,22 +24,33 @@
                 <li><a href="#" data-filter=".pf-Sort">Quần Sort</a></li>
 
             </ul>
+            <div style="float:right; width:280px;">
+                <label for="sort-price">Sort by price:</label>
+                <select id="sort-price">
+                    <option value="asc">Low to high</option>
+                    <option value="desc">High to low</option>
+                </select>
+            </div>
             <div class="clear"></div>
             <div id="DoNamLoad">
 
             </div>
-            
+
         </div>
 
     </div>
 
 </section>
 @section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
     <script>
-            $(document).ready(function () {
-                LoadPage1(1);
-            })
 
+        $(document).ready(function () {
+            LoadPage1(1);
+        })
+
+            
         function LoadPage1(start) {
             var requestModel = {
                 start: start,

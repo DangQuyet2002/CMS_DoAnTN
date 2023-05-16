@@ -3,11 +3,10 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <div class="header_action d-flex" style="justify-content: space-between">
     <div class="float-left mr-3">
         <h3 class="site_title">
-            <span>Tin Tức</span>
+            <span>Danh Sách Loại Sản Phẩm</span>
         </h3>
     </div>
     <div class="float-right">
@@ -21,32 +20,25 @@
     <input type="text" id="txtTukhoa" />
 </div>
 <div class="main_content form-row d-flex ">
-    <table class="table table-hover " id="tableTinTuc">
+    <table class="table table-hover " id="DanhSachEmail">
     </table>
 </div>
 
 
-@section scripts{
 
+
+@section scripts {
     <script>
-        function ToastMessage(title, message, type) {
-            toast({
-                title: title,
-                message: message,
-                type: type,
-                duration: 1000
-            });
-        }
-
         var table = null;
         $(function () {
-            tableTintuc();
+            DanhSachEmail();
             $("#btnSearch").on("click", function (e) {
                 e.preventDefault();
                 table.ajax.reload();
             })
         })
-        tableTintuc = () => {
+        DanhSachEmail = () => {
+            debugger
             let config = {
                 serverSide: true,
                 //scrollY: "50vh",
@@ -55,7 +47,7 @@
                 ordering: false,
                 fixedHeader: true,
                 ajax: {
-                    url: '/TinTuc/GetAll',
+                    url: '/QuanLyEmailLienHe/DanhSach',
                     type: 'POST',
                     data: (param) => {
                         param.Keywords = $("#txtTukhoa").val();
@@ -73,24 +65,11 @@
                             </div>`;
                         }
                     },
-                    {
-                        data: "Title",
-                        name: "Title",
-                        title: "Tiêu đề "
-                    },
-                    {
-                        data: "Content",
-                        name: "Content",
-                        title: "Nội dung",
 
-                    },
                     {
-                        data: "Image",
-                        name: "Image",
-                        title: "Ảnh",
-                        render: function (data) {
-                            return `<img src="/FileUploaded/${data}" width="100%"/>`;
-                        }
+                        data: "Email",
+                        name: "Email",
+                        title: "Email Liên Hệ"
                     },
 
                     {
@@ -106,9 +85,8 @@
                 ],
                 columnDefs: [
                     { width: 50, targets: [0] },
-                    { width: 250, targets: [1] },
-                    { width: 650, targets: [2] },
-                    { width: 150, targets: [3] }
+                    { width: 350, targets: [1] },
+
                 ],
                 drawCallback: () => {
                     /* dsNhomCanBoInit();*/
@@ -123,51 +101,21 @@
                     })
                 },
             }
-            table = $.fn.initDataTable("#tableTinTuc", config);
+            table = $.fn.initDataTable("#DanhSachEmail", config);
 
 
         }
 
-        $("#btnThemMoi").on("click", function (e) {
-            $.fn.getData('/Admin/TinTuc/ThemMoi', {}, res => {
-                debugger
-                $.fn.showModal({
-                    title: "THÊM MỚI",
-                    bodyContent: res,
-                    dialogClass: "mg"
-                });
+        function ThemMoi() {
+            loading();
+            $("#DataModelThemMoi").load("/Admin/QuanLyEmailLienHe/_ThemMoi", {}, function (data) {
+                $("#ModelThemMoi").modal("show");
+                offLoading();
             })
-        })
-        function deleteTable() {
-            var listId = [];
-            $('.ckbChoDuyet').each(function () {
-                var _checked = $(this).is(":checked")
-                if (_checked) {
-                    listId.push($(this).prop("value"));
-                }
-            })
-            if (listId.length == 0) {
-                ToastMessage("Lỗi", "Vui lòng chọn ít nhất một dữ liệu!!!", "warning");
-                
-                return;
-            }
-            if (confirm("Bạn chắc chắn muốn xóa những dữ liệu này?")) {
-                $.fn.postData('/Admin/TinTuc/Delete', { listId: listId.join(",") }, res => {
-                    ToastMessage("Thông báo", "Xóa dữ liệu thành công", "success");
-                    table.ajax.reload();
-                });
-
-            }
         }
-        function btnThongTin(Id) {
-            $.fn.getData('/Admin/TinTuc/ChiTiet', { Id: Id }, res => {
-                $.fn.showModal({
-                    title: "THÔNG TIN CHI TIẾT ",
-                    bodyContent: res,
-                    dialogClass: "lg"
-                });
-            })
 
-        }
+
+
     </script>
+
 }

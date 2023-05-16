@@ -11,13 +11,14 @@ using Utilities;
 
 namespace WebApplication1.Controllers
 {
-    public class GioHangController : Controller
+    public class ProductLikeController : Controller
     {
-        
+        private readonly IProductLikeAPIService productlikeAPIService;
+
         private readonly IGioHangAPIService gioHangAPIService;
         private readonly IColorAPIService ColorAPIService;
         private readonly ISizeAPIService SizeAPIService;
-        public GioHangController()
+        public ProductLikeController()
         {
             gioHangAPIService = new GioHangAPIService();
             ColorAPIService = new ColorAPIService();
@@ -31,7 +32,7 @@ namespace WebApplication1.Controllers
             ViewBag.DataGH = data.lst;
 
             var colorResult = await ColorAPIService.GetAll(Modelcolor);
-            
+
             ViewBag.ColorList = colorResult;
 
 
@@ -42,27 +43,16 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Action(int Id)
-        {
-            var gioHangRequest = new GioHangRequest
-            {
-                Id = Id,
-            };
-
-            var data = await gioHangAPIService.GetByUser(gioHangRequest);
-            Session["datagiohang"] = data;
-            return PartialView();
-        }
+        
 
         [HttpPost]
         public async Task<ActionResult> Themmoi(GioHang requestModel)
         {
             try
             {
-                requestModel.Total = requestModel.Price * requestModel.Quantity;
-                await gioHangAPIService.Create(requestModel);
                 
+                await gioHangAPIService.Create(requestModel);
+
                 return Json(new
                 {
                     type = CommonConstants.SUCCESS,
@@ -85,7 +75,7 @@ namespace WebApplication1.Controllers
             try
             {
                 await gioHangAPIService.Detele(requestModel);
-                
+
                 return Json(new
                 {
                     type = CommonConstants.SUCCESS,

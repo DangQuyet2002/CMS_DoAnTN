@@ -8,6 +8,7 @@
 	  <Compile Remove="CMS\CacCapHoi\**" />
 	  <Compile Remove="CMS\LienKetGioiThieu\**" />
 	  <Compile Remove="CMS\PhanQuyen\**" />
+	  <Compile Remove="CMS\ProductLike\**" />
 	  <Compile Remove="CMS\QuanLyAblumAnh\**" />
 	  <Compile Remove="CMS\QuanLyAudio\**" />
 	  <Compile Remove="CMS\QuanLyBaiDang\**" />
@@ -21,6 +22,7 @@
 	  <EmbeddedResource Remove="CMS\CacCapHoi\**" />
 	  <EmbeddedResource Remove="CMS\LienKetGioiThieu\**" />
 	  <EmbeddedResource Remove="CMS\PhanQuyen\**" />
+	  <EmbeddedResource Remove="CMS\ProductLike\**" />
 	  <EmbeddedResource Remove="CMS\QuanLyAblumAnh\**" />
 	  <EmbeddedResource Remove="CMS\QuanLyAudio\**" />
 	  <EmbeddedResource Remove="CMS\QuanLyBaiDang\**" />
@@ -34,6 +36,7 @@
 	  <None Remove="CMS\CacCapHoi\**" />
 	  <None Remove="CMS\LienKetGioiThieu\**" />
 	  <None Remove="CMS\PhanQuyen\**" />
+	  <None Remove="CMS\ProductLike\**" />
 	  <None Remove="CMS\QuanLyAblumAnh\**" />
 	  <None Remove="CMS\QuanLyAudio\**" />
 	  <None Remove="CMS\QuanLyBaiDang\**" />

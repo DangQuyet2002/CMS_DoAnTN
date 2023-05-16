@@ -13,12 +13,6 @@
         </a>
         <div class="collapse menu-dropdown" id="menu_BaiDangTM_open">
             <ul class="nav nav-sm flex-column">
-
-                <li class="nav-item ">
-                    <a href="@Url.Action("ThemMoi", "TinTuc")" class="nav-link" id="menu_Media_anh" data-key="t-calendar"> Thêm mới bài viết</a>
-                </li>
-
-
                 <li class="nav-item">
                     <a href="@Url.Action("Index", "TinTuc")" class="nav-link" data-key="t-chat" id="menu_Media_video">Danh sách bài viết</a>
                 </li>
@@ -73,11 +67,11 @@
     </li>
 
 
-    @*<li class="nav-item">
-            <a class="nav-link menu-link" id="#" href="/Admin/QuanLyChiHoi/Index">
-                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý chi hội</span>
+    <li class="nav-item">
+            <a class="nav-link menu-link" id="#" href="@Url.Action("Index", "QuanLyEmailLienHe")">
+                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Quản lý Liên Hệ</span>
             </a>
-        </li>*@
+        </li>
     @*<li class="nav-item">
             <a class="nav-link menu-link" id="menu_Media" href="/Admin/ThamSoHeThong/Index">
                 <i class="ri-apps-2-line"></i> <span data-key="t-apps">Tham số hệ thống</span>

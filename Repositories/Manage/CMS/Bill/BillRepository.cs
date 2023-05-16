@@ -56,6 +56,7 @@ namespace Repositories
                 var param = new DynamicParameters();
                 param.Add("@Id", requestModel.Id);
                 param.Add("@Status", requestModel.Status);
+               
 
                 return await _baseRepository.GetValue<int>("[dbo].[Bill_Update]", param);
             }

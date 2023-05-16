@@ -113,7 +113,7 @@
                                             <input type="password" class="form-control" id="txtMatKhauNL" placeholder="Nhập Lại Mật khẩu">
                                         </div>
                                         <div>
-                                            <label class="form-check-label" for="checkTerms"><a href="#" onclick="DangNhapTK()">Đăng nhập</a></label>
+                                            <label class="form-check-label" for="checkTerms"><a href="@Url.Action("Index","Login")">Đăng nhập</a></label>
                                         </div>
                                         <div class="text-end">
                                             <a href="javascript:void(0)" class="btn btn-primary" onclick="DangKy_TK()">Đăng ký</a>
@@ -172,7 +172,7 @@
                 title: title,
                 message: message,
                 type: type,
-                duration: 500000
+                duration: 5000
             });
         }
         function DangNhap() {
@@ -211,10 +211,20 @@
 
         function DangKy_TK() {
             debugger
-            if ($("#txtTaiKhoanDK").val() == "") {
+            var taiKhoan = $("#txtTaiKhoanDK").val();
+            var normalizedTaiKhoan = taiKhoan.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu thanh
+
+            var regex = /^[^\s.,!?̣́̀̂̉̃]+$/; // Biểu thức chính quy kiểm tra không cho phép dấu cách và các dấu câu, dấu thanh
+
+            if (taiKhoan === "") {
                 ToastMessage("Lỗi", "Không được để trống tài khoản", "error");
                 return;
             }
+            if (!regex.test(normalizedTaiKhoan)) {
+                ToastMessage("Lỗi", "Tên đăng nhập không chứa các kí tự đặc biệt", "error");
+                return;
+            }
+            
             if ($("#txtEmailDK").val() == "") {
                 ToastMessage("Lỗi", "Không được để trống email", "error");
                 return;

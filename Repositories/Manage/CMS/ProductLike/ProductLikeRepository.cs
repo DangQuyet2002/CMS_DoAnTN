@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class GioHangRepository : IGioHangRepository
+    public class ProductLikeRepository : IGioHangRepository
     {
         private readonly IBaseRepository _baseRepository;
-        public GioHangRepository(IBaseRepository baseRepository)
+        public ProductLikeRepository(IBaseRepository baseRepository)
         {
             _baseRepository = baseRepository;
         }
@@ -31,8 +31,9 @@ namespace Repositories
                 param.Add("@SizeId", requestModel.SizeId);
                 param.Add("@Status", requestModel.Status);
                 param.Add("@Total", requestModel.Total);
-                return await _baseRepository.GetValue<int>("[dbo].[Detail_Create]", param);
-            }catch(Exception ex)
+                return await _baseRepository.GetValue<int>("[dbo].[ProductLike_Create]", param);
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine("ERROR:" + ex.Message);
                 return 0;
@@ -75,7 +76,7 @@ namespace Repositories
                 var param = new DynamicParameters();
                 param.Add("@Id", requestModel.Id);
                 var model = new GioHangPaging();
-               model.lst =  await _baseRepository.GetList<GioHang>("[dbo].[GioHang_GetById]", param);
+                model.lst = await _baseRepository.GetList<GioHang>("[dbo].[GioHang_GetById]", param);
                 return model;
             }
             catch (Exception ex)
@@ -137,7 +138,7 @@ namespace Repositories
             {
                 var param = new DynamicParameters();
                 param.Add("@Id", requestModel.Id);
-                
+
                 param.Add("@SizeId", requestModel.SizeId);
 
 

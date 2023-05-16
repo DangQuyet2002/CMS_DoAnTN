@@ -158,7 +158,7 @@
             </div>
             <!-- //SPOTLIGHT 2 -->
         </div>
-        <header id="t3-header" class="container t3-header" style="height:130px">
+        <header id="t3-header" class="container t3-header" style="height:115px">
             <div class="row">
                 <!-- LOGO -->
                 <div class="col-xs-12 col-sm-4 logo">
@@ -196,9 +196,9 @@
                                             <div class="eshop-search">
                                                 <form id="HeaderSearchForm"  method="get">
                                                     <div class="input-prepend input-append d-flex">
-                                                        <input type="text" class="form-control" placeholder="Tìm kiếm ..." autocomplete="off" onchange="TimKiemTrangChu()" id="txtTuKhoa" value="">
-                                                        <div class="add-on input-group-addon">
-                                                            <button type="submit"  class="btn btn-link" onclick="TimKiemTrangChu()"><i class="fa-solid fa-magnifying-glass text-white"></i></button>
+                                                        <input type="text" class="form-control" placeholder="Tìm kiếm ..." autocomplete="off" id="txtTuKhoa" value="">
+                                                        <div class="add-on input-group-addon" onclick="TimKiemTrangChu()">
+                                                            <i class="fa-solid fa-magnifying-glass text-white" style="cursor:pointer"></i>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -415,7 +415,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="t3-module module " id="Mod108">
                             <div class="module-inner">
-                                <h3 class="module-title "><span>Chính Sách - Bảo Mật</span></h3>
+                                <h3 class="module-title"><span>Chính Sách - Bảo Mật</span></h3>
                                 <div class="module-ct">
                                     <ul class="nav-pills nav-stacked">
                                         <p><a>Chính sách thành viên</a></p>
@@ -428,12 +428,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="t3-module module " id="Mod109">
-                            <div class="module-inner">
-                                <div class="module-ct">
-                                    <iframe src="" width="262" height="200" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-                                </div>
+                    
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" id="">
+                        <div class="">
+                            <h3 class="module-title"><span>Đăng ký nhận thông tin</span></h3>
+                            <div class="input-group mb-3">
+                                
+                                <label for="emailInput" class="form-label">Bạn muốn giải đáp thắc mắc hay góp ý để nâng cao chất lượng .Bạn có thể để lại email để chúng tôi liên hệ với bạn </label>
+                                <input type="text" class="form-control" placeholder="Nhập email của bạn ..." id="txtemail" aria-describedby="basic-addon2">
+                                <img src="~/Content/Image/Logo/Screenshot 2023-05-15 095349.png" style="width:40px" id="submit-button" onclick="GuiGmail()">
                             </div>
                         </div>
                     </div>
@@ -650,7 +653,26 @@
     <script src="~/Content/CMSContent/assets/libs/Jstree/vakata-jstree-7a03954/dist/jstree.min.js"></script>
     <script src="~/Content/CMSContent/assets/plugins/datatables/js/dataTables.fixedColumns.min.js"></script>
     <script>
+        function GuiGmail() {
+            const email = $("#txtemail").val();
+            const regex = /^([a-z0-9_\.-]+)@@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+            if (!regex.test(email)) {
+                ToastMessage("Lỗi", "Địa chỉ email không hợp lệ", "error");
+                return;
+            }
 
+            var requestModel = {
+                Email: email,
+            };
+            $.post("/EmailLienHe/ThemMoi", { requestModel }, function (data) {
+                if (data.type == "success") {
+                    ToastMessage("Gửi Gmail thành công", data.message, data.icon);
+                    $("#txtemail").val("");
+                } else {
+                    ToastMessage("Lỗi", data.message, data.icon);
+                }
+            });
+        }
         function OpenMenu() {
             if ($("#Background-menu").hasClass("d-none")) {
                 $("#Background-menu").removeClass("d-none");
@@ -714,21 +736,21 @@
         }
 
         function TimKiemTrangChu() {
-            var tuKhoa = $("#txtTuKhoa").val();
-
-            $.ajax({
-                url: "/Search/Index",
-                type: "POST",
-                data: { txtTuKhoa: tuKhoa },
-                success: function (result) {
-                    // Xử lý kết quả trả về từ Server
-                },
-                error: function () {
-                    alert("Đã có lỗi xảy ra!");
-                }
-            });
+            if ($("#txtTuKhoa").val() == '') {
+                $("#resultTimKiem").addClass("d-none");
+                $("#resultTimKiem2").removeClass("d-none");
+                
+            }
+            else {
+                $("#resultTimKiem").load("/Home/_DanhSachTimKiem", { "txtTuKhoa": $("#txtTuKhoa").val() }, function (data) {
+                    $("#resultTimKiem").removeClass("d-none");
+                    $("#resultTimKiem2").addClass("d-none");
+                    
+                })
+            }
         }
 
+        
 
         function ToastMessage(title, message, type) {
             toast({
@@ -854,12 +876,12 @@
             window.location.href = Url;
         }
 
-        $('.navbar-header').on('click', function () {
-            window.location.href = "/Trang-chu.htm"
+        //$('.navbar-header').on('click', function () {
+        //    window.location.href = "/Trang-chu.htm"
 
-        }).children().on('click', function (event) {
-            event.stopPropagation();
-        });
+        //}).children().on('click', function (event) {
+        //    event.stopPropagation();
+        //});
         //const button = document.getElementById("signout_button");
         //button.onclick = () => {
         //    google.accounts.id.disableAutoSelect();

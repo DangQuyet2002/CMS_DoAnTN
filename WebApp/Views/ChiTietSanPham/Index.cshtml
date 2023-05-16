@@ -36,7 +36,7 @@
                 </div>
                 <div class="Chitiet-content-list col-xl-7">
                     <h2 class="Chitiet-content-name">@Model.NamePro</h2>
-                  
+                    <h4><a>Số Lượng :</a> @Model.Quantity <a>sản phẩm</a></h4>
                     <div><del>@Model.Price.ToString("N0")đ</del></div>
                     <div class="Chitiet-content-price">@Model.PriceNew.ToString("N0")đ</div>
                     <input type="hidden" name="ProductId" value="@Model.Id" />
@@ -90,7 +90,7 @@
                     </div>
                     <div class="Chitiet-content-btn d-flex">
                         <button type="submit" class="btn-cart col-xl-6" onclick="SaveGioHang();">THÊM VÀO GIỎ HÀNG</button>
-                        <button type="submit" class="btn-mua col-xl-6">MUA NGAY</button>
+                        
                     </div>
 
 

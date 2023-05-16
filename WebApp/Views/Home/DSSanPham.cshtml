@@ -15,14 +15,14 @@
                     {
                         <div class="product clearfix pf-dress" onclick="UpdateView(@item.Id)">
                             <div class="product-image">
-                                <input value="@UserLogin" name="IdUser" hidden />
+                                <input value="@UserLogin" name="IdUser" id="UserId" hidden />
                                 <input value="@item.NamePro" name="NamePro" hidden />
                                 <a href=""><img src="~/FileUploaded/@item.Image" alt="Checked Short Dress" name="Image"></a>
                                 <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })"><img src="~/FileUploaded/@item.Image1" alt="Checked Short Dress"></a>
                                 <div class="sale-flash">@item.Discount% Off*</div>
                                 <div class="product-overlay">
-                                    <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
-                                    <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Quick View</span></a>
+                                    <a href="javascript:void(0);" onclick="SaveGioHang(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Thêm Giỏ Hàng</span></a>
+                                    <a href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" class="item-quick-view" data-lightbox="ajax"><i class="icon-zoom-in2"></i><span> Chi Tiết</span></a>
                                 </div>
                             </div>
                             <div class="product-desc">
@@ -66,7 +66,7 @@
 
     function UpdateView(Id) {
         $.ajax({
-            url: "/Products/UpdateView",
+            url: "/Product/UpdateView",
             method: "POST",
             data: { Id: Id },
             success: function (res) {
@@ -79,12 +79,11 @@
     }
 
 
-    var idUser = $("input[name='IdUser']").val();
-
+    var idUser = $("#UserId").val();
     function SaveGioHang(Id, PriceNew ,NamePro ,Image) {
         debugger
         if ($("#UserId").val() == 0) {
-            alert("Vui lòng đăng nhập!");
+            ToastMessage("Thông báo", "Vui lòng đăng nhập!", "warning");
         }
         else {
             $.ajax({

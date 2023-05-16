@@ -249,6 +249,7 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyColorController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyEmailLienHeController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLySizeController.cs" />
     <Compile Include="Areas\Admin\Controllers\TinTucController.cs" />
     <Compile Include="Controllers\AuthenController.cs" />
@@ -257,6 +258,7 @@
     <Compile Include="Controllers\ChiTietSanPhamController.cs" />
     <Compile Include="Controllers\DanhSachSPController.cs" />
     <Compile Include="Controllers\DatHangController.cs" />
+    <Compile Include="Controllers\EmailLienHeController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -6928,6 +6930,7 @@
     <Content Include="Content\Image\Logo\logo-hoi-nha-bao.png" />
     <Content Include="Content\Image\Logo\logo.gif" />
     <Content Include="Content\Image\Logo\logo1 %281%29.png" />
+    <Content Include="Content\Image\Logo\Screenshot 2023-05-15 095349.png" />
     <Content Include="Content\Image\Product\cac-mon-phu-kien-mix-di-kem-cung-trang-phuc-thoi-trang-xuan-he-cho-nam.jpg" />
     <Content Include="Content\Image\Product\quan-baggy-nam-phoi-voi-ao-thun-cho-nam.jpg" />
     <Content Include="Content\Image\Product\quan1.jpg" />
@@ -6971,7 +6974,6 @@
     <Content Include="Areas\Admin\Views\QuanLyVanBan\_ThemMoi.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyVanBan\_Sua.cshtml" />
     <Content Include="Areas\Admin\Views\ToChucMenu\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachTinMoi\Index.cshtml" />
     <Content Include="Areas\Admin\Views\QuanTriBanner\Index.cshtml" />
     <Content Include="Areas\Admin\Views\QuanTriBanner\_ThemMoi.cshtml" />
     <Content Include="Areas\Admin\Views\QuanTriBanner\_Sua.cshtml" />
@@ -7208,6 +7210,8 @@
     <Content Include="Areas\Admin\Views\Products\ThuocTinh.cshtml" />
     <Content Include="Areas\Admin\Views\AdminQuanLyHoaDon\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdminQuanLyHoaDon\ChiTietBill.cshtml" />
+    <Content Include="Areas\Admin\Views\TinTuc\ChiTiet.cshtml" />
+    <Content Include="Areas\Admin\Views\QuanLyEmailLienHe\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Customize.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -7299,7 +7303,9 @@
     <Folder Include="FileUploaded\" />
     <Folder Include="Template\" />
     <Folder Include="Views\Common\" />
+    <Folder Include="Views\EmailLienHe\" />
     <Folder Include="Views\ProductColor\" />
+    <Folder Include="Views\ProductLike\" />
     <Folder Include="Views\ProductSize\" />
   </ItemGroup>
   <ItemGroup>

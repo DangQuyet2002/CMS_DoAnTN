@@ -37,9 +37,24 @@
 </section>
 @section scripts {
     <script>
-            $(document).ready(function () {
-                LoadPage1(1);
-            })
+
+        function UpdateView(Id) {
+            $.ajax({
+                url: "/Products/UpdateView",
+                method: "POST",
+                data: { Id: Id },
+                success: function (res) {
+                    // Xử lý khi kết quả trả về thành công
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // Xử lý khi có lỗi xảy ra trong quá trình gửi Ajax
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            LoadPage1(1);
+        })
 
         function LoadPage1(start) {
             var requestModel = {

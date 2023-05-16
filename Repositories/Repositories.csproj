@@ -8,6 +8,7 @@
 		<Compile Remove="Manage\AspNetRolesRepository\**" />
 		<Compile Remove="Manage\AspNetUserRolesRepository\**" />
 		<Compile Remove="Manage\CMS\CacCapHoi\**" />
+		<Compile Remove="Manage\CMS\ProductLike\**" />
 		<Compile Remove="Manage\CMS\QuanLyAblumAnh\**" />
 		<Compile Remove="Manage\CMS\QuanLyAudio\**" />
 		<Compile Remove="Manage\CMS\QuanLyBaiDang\**" />
@@ -19,6 +20,7 @@
 		<EmbeddedResource Remove="Manage\AspNetRolesRepository\**" />
 		<EmbeddedResource Remove="Manage\AspNetUserRolesRepository\**" />
 		<EmbeddedResource Remove="Manage\CMS\CacCapHoi\**" />
+		<EmbeddedResource Remove="Manage\CMS\ProductLike\**" />
 		<EmbeddedResource Remove="Manage\CMS\QuanLyAblumAnh\**" />
 		<EmbeddedResource Remove="Manage\CMS\QuanLyAudio\**" />
 		<EmbeddedResource Remove="Manage\CMS\QuanLyBaiDang\**" />
@@ -30,6 +32,7 @@
 		<None Remove="Manage\AspNetRolesRepository\**" />
 		<None Remove="Manage\AspNetUserRolesRepository\**" />
 		<None Remove="Manage\CMS\CacCapHoi\**" />
+		<None Remove="Manage\CMS\ProductLike\**" />
 		<None Remove="Manage\CMS\QuanLyAblumAnh\**" />
 		<None Remove="Manage\CMS\QuanLyAudio\**" />
 		<None Remove="Manage\CMS\QuanLyBaiDang\**" />

@@ -1,0 +1,63 @@
+﻿@using Models
+@model Models.TinTucModel
+@{
+    ViewBag.Title = "ThemMoi";
+}
+
+
+<div class="container">
+    <form id="form-create" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="input_place">
+                <lalbel>Title</lalbel>
+                <input name="Title" type="text" id="txtMaTaiLieu" class="form-control mb-3" value="@Model.Title">
+            </div>
+            <div class="input_place">
+                <span class="hold">Nội dung</span>
+                <textarea name="Content" type="text" id="txtTenTaiLieu" class="form-control mb-3" style="height: 20vh;"> @Model.Content</textarea>
+            </div>
+            <div class="input_place">
+                <span class="hold">Ảnh</span>
+                <input name="FileUpload" type="file" id="FileUpload" class="form-control mb-3">
+                <img src="~/FileUploaded/@Model.Image" style="height: 30% ; width: 150px" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer modal-footer-center">
+    <input type="submit" name="btnSubmit" value="Xác nhận" onclick="btnSave_Onclick();" id="btSubmit" class="btn btn-outline-success" style="line-height: 10px">
+    <button style="line-height: 10px" type="button" class="btn btn-outline-danger" id="Dong" data-dismiss="modal">Đóng</button>
+
+</div>
+
+<script>
+    function btnSave_Onclick() {
+        var data = new FormData($('#form-create')[0]);
+        $.ajax({
+            url: '/Admin/TinTuc/Create',
+            type: "post",
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            data: data,
+            success: function (data) {
+                if (data.type == "success") {
+                    $.fn.closeMainModal();
+                    table.ajax.reload();
+                }
+                $.fn.toastrMessage(data.msg, '', data.type);
+                $("#modal").hide();
+                location.reload();
+            },
+            error: function (errorThrown) {
+                $.fn.toastrMessage(errorThrown, '', 'error');
+            }
+        });
+    }
+    $("#Dong").on("click", function () {
+        $("#modal").hide();
+    })
+</script>

@@ -69,16 +69,17 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public async Task<ActionResult> _DanhSachTimKiem(string txtTuKhoa, ProductRequest request)
+        public async Task<ActionResult> _DanhSachTimKiem(string txtTuKhoa, ProductRequest requestModel)
         {
             try
             {
-                Product requestModel = new Product();
-                requestModel.start = 0;
-                requestModel.length = 6;
-                requestModel.NamePro = txtTuKhoa;
-                var sanpham = await productsAPIService.GetAll(request);
+               
+                requestModel.Start = 0;
+                requestModel.Keywords = txtTuKhoa;
+                var sanpham = await productsAPIService.GetAll(requestModel);
                 ViewBag.sanpham = sanpham.lst;
+
+                
                 return View();
             }
             catch (Exception e)

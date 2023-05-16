@@ -9,11 +9,11 @@ using Utilities;
 
 namespace APIServices
 {
-    public class GioHangAPIService : IGioHangAPIService
+    public class ProductLikeAPIService : IProductLikeAPIService
     {
         public async Task<int> Create(GioHang requestModel)
         {
-            var resultApi = await RestfulApi<Response>.PostAsync("api/GioHang/Create", requestModel);
+            var resultApi = await RestfulApi<Response>.PostAsync("api/ProductLike/Create", requestModel);
             if (resultApi.code == ResponseCode.SUCCESS)
             {
                 return JsonConvert.DeserializeObject<int>(resultApi.result.ToString());

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace APIServices
 {
-    public interface IGioHangAPIService
+    public interface IProductLikeAPIService
     {
         Task<int> Create(GioHang requestModel);
         Task<int> Detele(GioHangRequest requestModel);

@@ -15,5 +15,11 @@ namespace Repositories
         Task<GioHangPaging> GetListByUser(GioHangRequest requestModel);
         Task<GioHang> GetById(int Id);
         Task<GioHang> GetByIdBill(int Id);
+        Task<int> Update(GioHang requestModel);
+        Task<int> UpdateColor(GioHang requestModel);
+        Task<int> UpdateQuantity(GioHang requestModel);
+
+
+
     }
 }
