@@ -54,7 +54,7 @@
                 </td>
 
                 <td>
-                    @item.TotalNew
+                    @item.TotalNew.ToString("N0")đ
                 </td>
                 <td>
                     @((@item.TotalNew + 30_000).ToString("N0"))đ
@@ -82,6 +82,8 @@
     <table class="table table-bordered">
         <tr>
             <th>Sản phẩm</th>
+            <th>Size</th>
+            <th>Màu Sắc</th>
             <th>Đơn giá</th>
             <th>Số lượng</th>
             <th>Thành tiền</th>
@@ -98,14 +100,16 @@
 
             <tr>
                 <td>@d.Product</td>
-                <td>@d.Price</td>
+                <td>@d.NameColor</td>
+                <td>@d.NameSize</td>
+                <td>@d.Price.ToString("N0")đ</td>
                 <td>@d.Quantity</td>
-                <td>@subtotal</td>
+                <td>@subtotal.ToString("N0")đ</td>
             </tr>
         }
 
         <tr>
-            <th colspan="3" style="text-align:right">Tổng cộng:</th>
+            <th colspan="5" style="text-align:right">Tổng cộng:</th>
             <th class="nn-cart-total">@total.ToString("N0")<sup>đ</sup></th>
         </tr>
     </table>

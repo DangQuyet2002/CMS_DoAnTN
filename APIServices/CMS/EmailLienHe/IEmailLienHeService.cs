@@ -12,7 +12,7 @@ namespace APIServices.CMS.EmailLienHe
     {
         
         Task<Response> ThemMoi(tbl_EmailLienHe requestModel);
-        Task<BaseRespone<tbl_EmailLienHe>> DanhSach(tbl_EmailLienHe requestModel);
+        Task<EmailLHPaging> DanhSach(EmailLHRequest requestModel);
 
 
     }

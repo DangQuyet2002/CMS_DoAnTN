@@ -85,7 +85,7 @@ tableTintuc = () => {
                 }
             },
             {
-                data: "Id", title: "Thuộc tính", name: "action",
+                data: "Id", title: "Size/Màu", name: "action",
                 render: function (data) {
                     return `<div class="d-flex align-items-center gap-1">
                                         <button type="button" class="btn btn-sm btn-outline-warning btn-icon waves-effect waves-light" title="Thêm thuộc tính" onclick="btnThuocTinh(${data})">

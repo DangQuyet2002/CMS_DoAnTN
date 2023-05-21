@@ -1,5 +1,6 @@
 ﻿using APIServices;
 using Azure.Core;
+using Microsoft.Graph;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -56,13 +57,55 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Themmoi(GioHang requestModel)
+        public async Task<ActionResult> Themmoi(GioHang requestModel, GioHangRequest request)
         {
             try
             {
                 requestModel.Total = requestModel.Price * requestModel.Quantity;
+                request.Id = requestModel.UserId;
+
+                // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+                var gioHangSession = Session["datagiohang"] as GioHangPaging;
+                var datahg = await gioHangAPIService.GetByUser(request);
+
+                if (datahg != null)
+                {
+                    var existingProduct = datahg.lst.FirstOrDefault(p =>
+                        p.ProductId == requestModel.ProductId &&
+                        p.ColorId == requestModel.ColorId &&
+                        p.SizeId == requestModel.SizeId);
+
+                    if (existingProduct != null)
+                    {
+                        existingProduct.Quantity += requestModel.Quantity;
+                        existingProduct.Total = existingProduct.Price * existingProduct.Quantity;
+
+                        requestModel.Id = existingProduct.Id;
+                        requestModel.Quantity = existingProduct.Quantity;
+
+                        await gioHangAPIService.UpdateQuantity(requestModel);
+
+                        Session["datagiohang"] = gioHangSession;
+
+                        return Json(new
+                        {
+                            type = CommonConstants.MSG_UPDATE_SUCCESS,
+                            message = "Sản phẩm đã tồn tại trong giỏ hàng, số lượng đã được cập nhật"
+                        });
+                    }
+                }
+                else
+                {
+                    gioHangSession = new GioHangPaging();
+                    gioHangSession.lst = new List<GioHang>();
+                }
+
                 await gioHangAPIService.Create(requestModel);
-                
+                gioHangSession.lst.Add(requestModel);
+                gioHangSession.Count = gioHangSession.lst.Count;
+
+                Session["datagiohang"] = gioHangSession;
+
                 return Json(new
                 {
                     type = CommonConstants.SUCCESS,
@@ -73,19 +116,38 @@ namespace WebApplication1.Controllers
             {
                 return Json(new
                 {
-
                     type = CommonConstants.ERROR,
                     message = "Thêm mới thất bại"
                 });
             }
         }
+
+
+
+
+
         [HttpPost]
         public async Task<ActionResult> Xoa(GioHangRequest requestModel)
         {
             try
             {
                 await gioHangAPIService.Detele(requestModel);
-                
+                var gioHangSession = Session["datagiohang"] as GioHangPaging;
+
+                if (gioHangSession != null)
+                {
+                    gioHangSession.lst.RemoveAll(item => item.Id == requestModel.Id);
+                    var gioHangCount = gioHangSession.lst.Count;
+                    var updatedGioHangSession = new GioHangPaging
+                    {
+                        lst = gioHangSession.lst,
+                        Count = gioHangCount
+                    };
+
+                    // Lưu giỏ hàng mới vào session
+                    Session["datagiohang"] = updatedGioHangSession;
+                }
+
                 return Json(new
                 {
                     type = CommonConstants.SUCCESS,
@@ -101,6 +163,7 @@ namespace WebApplication1.Controllers
                 });
             }
         }
+
 
         [HttpPost]
         public async Task<ActionResult> GetByUser(GioHangRequest requestModel)

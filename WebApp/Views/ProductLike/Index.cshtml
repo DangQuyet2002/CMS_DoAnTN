@@ -24,8 +24,6 @@
             <thead>
                 <tr>
                     <th style="width:40%">Tên sản phẩm</th>
-                    <th style="width:5%">Size</th>
-                    <th style="width:5%">Color</th>
                     <th style="width:10%">Giá</th>
                     <th style="width:8%">Số lượng</th>
                     <th style="width:18%" class="text-center">Thành tiền</th>
@@ -51,27 +49,7 @@
                         </td>
 
 
-                        <td data-th="Size" class="nomargin" style="vertical-align: middle">
-                            <select class="size-select">
-                                <option value="">@item.NameSize</option>
-                                @foreach (var s in size.lst)
-                                {
-                                    <option value="@s.Id">@s.Name</option>
-                                }
-                            </select>
-                            <input value="@item.Id" id="txtname" name="Id" hidden />
-                        </td>
-
-                        <td data-th="Color" class="nomargin" style="vertical-align: middle">
-                            <select class="color-select">
-                                <option value="">@item.NameColor</option>
-                                @foreach (var c in color.lst)
-                                {
-                                    <option value="@c.Id">@c.Name</option>
-                                }
-                            </select>
-                            <input value="@item.Id" id="txtname" name="Id" hidden />
-                        </td>
+                        
 
 
                         <td data-th="Price" class="nomargin" style="vertical-align: middle">@item.Price.ToString("N0")đ</td>

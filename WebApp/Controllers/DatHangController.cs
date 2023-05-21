@@ -121,7 +121,7 @@ namespace WebApp.Controllers
                     // Xóa giỏ hàng
                     GioHangRequest requestGioHang = new GioHangRequest();
                     requestGioHang.ListId = item;
-                    await _giohangAPIService.DeleteAll(requestGioHang);
+                    
                 }
 
                 return Json(new
@@ -159,6 +159,28 @@ namespace WebApp.Controllers
                 {
                     type = CommonConstants.ERROR,
                     message = "Xóa thất bại"
+                });
+            }
+        }
+        [HttpPost]
+        public async Task<ActionResult> Update(Bill requestModel)
+        {
+            try
+            {
+                var data = await _billAPIService.Update(requestModel);
+                return Json(new
+                {
+                    type = CommonConstants.SUCCESS,
+                    massage = "Thành công"
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    type = CommonConstants.ERROR,
+                    massage = "Thất bại"
+
                 });
             }
         }

@@ -55,47 +55,44 @@
                     <input type="hidden" name="Status" value="1" />
                     <input type="hidden" name="Image" value="@Model.Image" />
                     <div class="Chitiet-content-hd">
-                        @*<select class="form-select col-xl-5 col-12" name="ColorId" aria-label="Default select example" id="Chitietmau">
-            </select>*@
-                        @if (ListColor.Count > 0)
-                        {
-                            <p>Chọn màu:</p>
-                            foreach (var item in ListColor)
-                            {
-                                <button type="button" value="@item.ColorId" class="btn-Color">@item.ColorName</button>
-
-                            }
-                            <input type="hidden" name="ColorId" id="ColorId" />
-                        }
-                    </div>
-                    <div class="Chitiet-content-hd">
                         <p>Chọn Size:</p>
-                        @*<select class="form-select col-xl-5 col-12" name="SizeId" aria-label="Default select example" id="Chitietsize">
-            </select>*@
                         @if (ListSize.Count > 0)
                         {
                             foreach (var item in ListSize)
                             {
                                 <button type="button" value="@item.SizeId" class="btn-Size">@item.SizeName</button>
-
                             }
                             <input type="hidden" name="SizeId" id="SizeId" />
-
                         }
                     </div>
+                    <div class="Chitiet-content-hd">
+                        <p>Chọn màu:</p>
+                        @if (ListColor.Count > 0)
+                        {
+                            foreach (var item in ListColor)
+                            {
+                                <button type="button" value="@item.ColorId" class="btn-Color">@item.ColorName</button>
+                            }
+                            <input type="hidden" name="ColorId" id="ColorId" />
+                        }
+                    </div>
+
+
                     <div class="Chitiet-content-hd">
                         <p>Số lượng:</p>
                         <input aria-label="quantity" class="input-qty" max="100" min="1" name="Quantity" type="number" value="1">
 
                     </div>
                     <div class="Chitiet-content-btn d-flex">
-                        <button type="submit" class="btn-cart col-xl-6" onclick="SaveGioHang();">THÊM VÀO GIỎ HÀNG</button>
-                        
+                        <button type="submit" class="btn-cart col-xl-6" style="margin-right:20px" onclick="SaveGioHang();">THÊM VÀO GIỎ HÀNG</button>
+                        <button type="submit" class="btn-cart col-xl-6">Mua Ngay</button>
+
                     </div>
-                    
+
 
                 </div>
-                <a>@Model.MoTa</a>
+                
+                <h5 style="margin-top:50px">@Model.MoTa</h5>
             </form>
         
     </div>
@@ -106,14 +103,41 @@
 
 @section scripts{
     <script>
+        var selectedSize = null;
+        var selectedColor = null;
+
         $('.btn-Size').on('click', function () {
+            // Bỏ viền đỏ và xóa giá trị trường ẩn của size đã chọn trước đó (nếu có)
+            if (selectedSize !== null) {
+                selectedSize.style.border = "";
+                $("#SizeId").val("");
+            }
+
+            // Đặt viền đỏ và giá trị trường ẩn cho size mới được chọn
             this.style.border = "2px solid red";
             $("#SizeId").val($(this).val());
-        })
+
+            // Cập nhật thông tin của size đã chọn
+            selectedSize = this;
+        });
+
         $('.btn-Color').on('click', function () {
+            // Bỏ viền đỏ và xóa giá trị trường ẩn của màu đã chọn trước đó (nếu có)
+            if (selectedColor !== null) {
+                selectedColor.style.border = "";
+                $("#ColorId").val("");
+            }
+
+            // Đặt viền đỏ và giá trị trường ẩn cho màu mới được chọn
             this.style.border = "2px solid red";
             $("#ColorId").val($(this).val());
-        })
+
+            // Cập nhật thông tin của màu đã chọn
+            selectedColor = this;
+        });
+
+
+
         var kq = parseInt($("#idkq").val());
         $(function () {
             LoadMau(kq);
@@ -231,7 +255,7 @@
 
                                         }
                                         else {
-                                            ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+                                            ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
 
                                         }
                                     }

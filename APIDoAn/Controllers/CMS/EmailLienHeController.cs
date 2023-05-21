@@ -42,74 +42,74 @@ namespace APIDoAn.Controllers.CMS
             }
             return res;
         }
-        [HttpPost]
         [Route("DanhSach")]
-        public async Task<object> DanhSach(tbl_EmailLienHe requestModel)
+        [HttpPost]
+        public async Task<object> DanhSach(EmailLHRequest requestModel)
         {
             Response res = new Response();
             try
             {
-                
-                var model = await _EmailLienHeRepository.DanhSach(requestModel);
+                var data = await _EmailLienHeRepository.DanhSach(requestModel);
                 res.code = ResponseCode.SUCCESS;
                 res.message = ResponseDetail.SUCCESSDETAIL;
-                res.result = model;
-  
+                res.result = data;
+
             }
             catch (Exception ex)
             {
                 res.code = ResponseCode.UNKNOWN_ERROR;
-                res.message = ResponseDetail.UNKNOWN_ERRORDETAIL + " - " + ex.Message;
+                res.message = ResponseDetail.UNKNOWN_ERRORDETAIL;
                 res.result = null;
             }
             return res;
         }
-        //[HttpPost]
-        //[Route("CapNhat")]
-        //public async Task<object> CapNhat(tbl_EmailLienHe requestModel)
-        //{
-        //    Response res = new Response();
-        //    try
-        //    {
-        //        log.Info("Input: " + JsonConvert.SerializeObject(requestModel));
-        //        var model = await _EmailLienHeRepository.CapNhat(requestModel);
-        //        res.code = ResponseCode.SUCCESS;
-        //        res.message = ResponseDetail.SUCCESSDETAIL;
-        //        res.result = model;
-        //        log.Info("Output: " + JsonConvert.SerializeObject(res));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        res.code = ResponseCode.UNKNOWN_ERROR;
-        //        res.message = ResponseDetail.UNKNOWN_ERRORDETAIL + " - " + ex.Message;
-        //        res.result = null;
-        //        log.Error("Error: " + JsonConvert.SerializeObject(res));
-        //    }
-        //    return res;
-        //}
-
-        //[HttpPost]
-        //[Route("Xoa")]
-        //public async Task<object> Xoa(tbl_EmailLienHe requestModel)
-        //{
-        //    Response res = new Response();
-        //    try
-        //    {
-        //        log.Info("Input: " + JsonConvert.SerializeObject(requestModel));
-        //        var model = await _EmailLienHeRepository.Xoa(requestModel);
-        //        res.code = ResponseCode.SUCCESS;
-        //        res.message = ResponseDetail.SUCCESSDETAIL;
-        //        res.result = model;
-        //        log.Info("Output: " + JsonConvert.SerializeObject(res));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        res.code = ResponseCode.UNKNOWN_ERROR;
-        //        res.message = ResponseDetail.UNKNOWN_ERRORDETAIL + " - " + ex.Message;
-        //        res.result = null;
-        //        log.Error("Error: " + JsonConvert.SerializeObject(res));
-        //    }
-        //    return res;
-        //}
     }
+    //[HttpPost]
+    //[Route("CapNhat")]
+    //public async Task<object> CapNhat(tbl_EmailLienHe requestModel)
+    //{
+    //    Response res = new Response();
+    //    try
+    //    {
+    //        log.Info("Input: " + JsonConvert.SerializeObject(requestModel));
+    //        var model = await _EmailLienHeRepository.CapNhat(requestModel);
+    //        res.code = ResponseCode.SUCCESS;
+    //        res.message = ResponseDetail.SUCCESSDETAIL;
+    //        res.result = model;
+    //        log.Info("Output: " + JsonConvert.SerializeObject(res));
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        res.code = ResponseCode.UNKNOWN_ERROR;
+    //        res.message = ResponseDetail.UNKNOWN_ERRORDETAIL + " - " + ex.Message;
+    //        res.result = null;
+    //        log.Error("Error: " + JsonConvert.SerializeObject(res));
+    //    }
+    //    return res;
+    //}
+
+    //[HttpPost]
+    //[Route("Xoa")]
+    //public async Task<object> Xoa(tbl_EmailLienHe requestModel)
+    //{
+    //    Response res = new Response();
+    //    try
+    //    {
+    //        log.Info("Input: " + JsonConvert.SerializeObject(requestModel));
+    //        var model = await _EmailLienHeRepository.Xoa(requestModel);
+    //        res.code = ResponseCode.SUCCESS;
+    //        res.message = ResponseDetail.SUCCESSDETAIL;
+    //        res.result = model;
+    //        log.Info("Output: " + JsonConvert.SerializeObject(res));
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        res.code = ResponseCode.UNKNOWN_ERROR;
+    //        res.message = ResponseDetail.UNKNOWN_ERRORDETAIL + " - " + ex.Message;
+    //        res.result = null;
+    //        log.Error("Error: " + JsonConvert.SerializeObject(res));
+    //    }
+    //    return res;
+    //}
 }
+

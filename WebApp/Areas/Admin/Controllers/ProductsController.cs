@@ -67,48 +67,59 @@ namespace WebApp.Areas.Admin.Controllers
         {
             try
             {
+                if (FileUpload != null && FileUpload.ContentLength > 0)
+                {
+                    requestModel.Image = FileUpload.FileName;
+                    string ten = Path.GetFileNameWithoutExtension(FileUpload.FileName);
+                    string morong = Path.GetExtension(FileUpload.FileName);
+                    string tendaydu = ten + morong;
+                    FileUpload.SaveAs(Path.Combine(Server.MapPath("~/FileUploaded/"), tendaydu));
+                }
+
+                if (FileUpload1 != null && FileUpload1.ContentLength > 0)
+                {
+                    requestModel.Image1 = FileUpload1.FileName;
+                    string name = Path.GetFileNameWithoutExtension(FileUpload1.FileName);
+                    string duoi = Path.GetExtension(FileUpload1.FileName);
+                    string full = name + duoi;
+                    FileUpload1.SaveAs(Path.Combine(Server.MapPath("~/FileUploaded/"), full));
+                }
+
                 if (requestModel.Id > 0)
                 {
                     var IdPro = await _productsAPIService.GetById(requestModel.Id);
+
                     if (requestModel.CategoryId == 0)
                     {
                         requestModel.CategoryId = IdPro.CategoryId;
                     }
+
                     if (requestModel.CategoryminId == 0)
                     {
                         requestModel.CategoryminId = IdPro.CategoryminId;
                     }
+
                     if (FileUpload == null)
                     {
                         requestModel.Image = IdPro.Image;
+                    }
+
+                    if (FileUpload1 == null)
+                    {
                         requestModel.Image1 = IdPro.Image1;
                     }
-                    else if (FileUpload.ContentLength > 0 && FileUpload != null)
-                    {
-                        requestModel.Image = FileUpload.FileName;
-                        string ten = Path.GetFileNameWithoutExtension(FileUpload.FileName);
-                        string morong = Path.GetExtension(FileUpload.FileName);
-                        string tendaydu = ten + morong;
-                        FileUpload.SaveAs(Path.Combine(Server.MapPath("~/FileUploaded/"), tendaydu));
 
-                        requestModel.Image1 = FileUpload1.FileName;
-                        string name = Path.GetFileNameWithoutExtension(FileUpload1.FileName);
-                        string duoi = Path.GetExtension(FileUpload1.FileName);
-                        string full = name + duoi;
-                        FileUpload1.SaveAs(Path.Combine(Server.MapPath("~/FileUploaded/"), tendaydu));
-                    }
                     await _productsAPIService.Update(requestModel);
                 }
-                else if (FileUpload.ContentLength > 0 && FileUpload != null)
+                else
                 {
-                    requestModel.Image = FileUpload.FileName;
-                    requestModel.Image1 = FileUpload1.FileName;
                     await _productsAPIService.Create(requestModel);
                 }
+
                 return Json(new
                 {
                     type = CommonConstants.SUCCESS,
-                    massage = "Lưu thành công",
+                    message = "Lưu thành công",
                 });
             }
             catch (Exception ex)
@@ -116,10 +127,11 @@ namespace WebApp.Areas.Admin.Controllers
                 return Json(new
                 {
                     type = CommonConstants.ERROR,
-                    massage = "Có lỗi xảy ra!",
+                    message = "Có lỗi xảy ra!",
                 });
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> Delete(ProductRequest requestModel)
         {

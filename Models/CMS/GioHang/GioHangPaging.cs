@@ -10,5 +10,8 @@ namespace Models
     {
         public List<GioHang> lst { get; set; }
         public int totalCount { get; set; }
+        public int Count { get; set; }
+
+
     }
 }

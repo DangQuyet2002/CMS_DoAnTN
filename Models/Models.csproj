@@ -91,6 +91,8 @@
     <Compile Include="CMS\DanhMucCategory\DanhMucCategory.cs" />
     <Compile Include="CMS\DanhMucCategory\DanhMucCategoryPaging.cs" />
     <Compile Include="CMS\DanhMucCategory\DanhMucCategoryRequest.cs" />
+    <Compile Include="CMS\EmailLH\EmailLH.cs" />
+    <Compile Include="CMS\EmailLH\EmailLHRequest.cs" />
     <Compile Include="CMS\GioHang\GioHang.cs" />
     <Compile Include="CMS\GioHang\GioHangPaging.cs" />
     <Compile Include="CMS\GioHang\GioHangRequest.cs" />
@@ -132,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Compile Include="CMS\EmailLH\EmailLHParging.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

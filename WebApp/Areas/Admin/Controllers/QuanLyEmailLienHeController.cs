@@ -29,23 +29,28 @@ namespace WebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> DanhSach(tbl_EmailLienHe model)
+        public async Task<ActionResult> DanhSach(EmailLHRequest requestModel)
         {
             try
             {
-                BaseRespone<tbl_EmailLienHe> response = await _QuanLyEmailService.DanhSach(model);
+                var data = await _QuanLyEmailService.DanhSach(requestModel);
+                var count = data.totalCount;
                 return Json(new
                 {
-                    data = response,
-                    recordsTotal = response.recordsTotal,
-                    recordsFiltered = response.recordsTotal,
+                    data = data.lst,
+                    recordsTotal = count,
+                    recordsFiltered = count,
+                    type = CommonConstants.SUCCESS,
                     draw = 0,
-                    type = CommonConstants.SUCCESS
                 });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return Json(new { type = CommonConstants.ERROR, message = e.Message });
+                return Json(new
+                {
+                    type = CommonConstants.ERROR,
+
+                });
             }
         }
 

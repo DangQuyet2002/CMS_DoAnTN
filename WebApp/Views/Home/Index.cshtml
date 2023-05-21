@@ -70,7 +70,9 @@
             <div class="container">
                 <div class="t3-module module " id="Mod116">
                     <div class="module-inner">
-                        <h3 class="module-title mt-3 mb-3 "><span>Sản phẩm Mới</span></h3><div class="module-ct">
+                        <h2 class="bantindaotao-name mt-3 mb-3" style="font-size: 30px;">Sản phẩm Mới</h2>
+                        <div class="module-ct">
+
                             <div class="eshop-product" id="sanphammoi">
                                 <div class="row">
                                     @if (SanPhamNew.Count > 0)
@@ -89,9 +91,14 @@
                                                         <input value="@UserLogin" name="IdUser" hidden />
                                                         <div class="eshop-buttons">
                                                             <p>
-                                                                <a class="button" style="cursor: pointer;" onclick="SaveProductLike(@item.Id , @item.PriceNew , '@item.NamePro' , '@item.Image')" title="Đánh dấu sản phẩm yêu thích"><i class="fa fa-heart"></i><span class="text-hide">Yêu thích</span></a>
+                                                                <a class="button" style="cursor: pointer;" onclick="SaveProductLike(@item.Id , @item.PriceNew , '@item.NamePro', '@item.Image'); this.classList.add('color-red')" title="Đánh dấu sản phẩm yêu thích"><i class="fa fa-heart"></i><span class="text-hide">Yêu thích</span></a>
                                                                 <a class="button" style="cursor: pointer;" href="@Url.Action("Index","ChiTietSanPham", new { Id = item.Id })" title="Xem chi tiết"><i class="fa fa-arrow-right"></i><span class="text-hide">Chi tiết</span></a>
                                                             </p>
+                                                            <style>
+                                                                .color-red {
+                                                                    color: red !important;
+                                                                }
+                                                            </style>
                                                             <div class="eshop-items btn btn-primary">
                                                                 <a>
                                                                     <i class="fa fa-shopping-cart">&nbsp;</i>
@@ -223,7 +230,7 @@
     <section id="baiviet">
         <div class="bantindaotao container">
             <div class="bantindaotao-title">
-                <h2 class="bantindaotao-name" style="font-size: 36px;">Bài Viết Nổi Bật</h2>
+                <h2 class="bantindaotao-name" style="font-size: 30px;">Bài Viết Nổi Bật</h2>
 
             </div>
             

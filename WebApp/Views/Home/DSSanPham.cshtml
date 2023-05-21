@@ -103,19 +103,16 @@
                 url: "/GioHang/ThemMoi",
                 type: "post",
                 dataType: "json",
-
                 data: {
-                    ProductId:Id,
+                    ProductId: Id,
                     UserId: idUser,
-                    Image:Image,
+                    Image: Image,
                     ProductName: NamePro,
                     Price: PriceNew,
                     Quantity: 1,
                     ColorId: 1,
-                    SizeId:2,
-                    
+                    SizeId: 2
                 },
-
                 success: (data) => {
                     if (data.type == "success") {
                         ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
@@ -124,11 +121,15 @@
 
                     }
                     else {
-                        ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
+                        ToastMessage("Thông báo", "Thêm sản phẩm thành công", "success");
 
                     }
+                },
+                error: function () {
+                    ToastMessage("Lỗi", "Thêm sản phẩm thất bại", "error");
                 }
-            })
+            });
+
             
             
         }

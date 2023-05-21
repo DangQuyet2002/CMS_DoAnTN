@@ -38,21 +38,16 @@ namespace APIServices.CMS.EmailLienHe
             }
         }
 
-        public async Task<BaseRespone<tbl_EmailLienHe>> DanhSach(tbl_EmailLienHe requestModel)
+        public async Task<EmailLHPaging> DanhSach(EmailLHRequest requestModel)
         {
-            try
+            var data = await RestfulApi<Response>.PostAsync("api/EmailLienHe/DanhSach", requestModel);
+            if (data.code == ResponseCode.SUCCESS)
             {
-                var resultAPI = await RestfulApi<Response>.PostAsync(_DanhSach, requestModel);
-                if (resultAPI.code == ResponseCode.SUCCESS)
-                {
-                    return JsonConvert.DeserializeObject<BaseRespone<tbl_EmailLienHe>>(resultAPI.result.ToString());
-                }
-                return new BaseRespone<tbl_EmailLienHe>();
+                return JsonConvert.DeserializeObject<EmailLHPaging>(data.result.ToString());
             }
-            catch (Exception ex)
+            else
             {
-                Debug.WriteLine($"Error: {ex.Message}");
-                return new BaseRespone<tbl_EmailLienHe>();
+                return null;
             }
         }
     }

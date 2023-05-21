@@ -124,15 +124,17 @@
                             <div class="module-inner">
                                 <div class="module-ct">
                                     <ul class="nav  nav-pills  nav-pills">
-                                        <li class="item-109"><a href=""><i class="icon fa fa-heart"></i> Sản phẩm yêu thích</a></li>
 
                                         @if (UserLogin == null)
                                         {
+                                            <li class="item-109"><a href="@Url.Action("Index","ProductLike", new {Id = @Session["IdUser"]})"><i class="icon fa fa-heart"></i> Sản phẩm yêu thích</a></li>
                                             <li class="item-108"><a href="@Url.Action("Index","GioHang", new {Id = @Session["IdUser"]})"><i class="fa fa-shopping-bag"></i> Giỏ hàng</a></li>
                                             <li class="item-107"><a href="@Url.Action("Index","LogIn")"><i class="fa fa-user" style="margin-right:10px"></i>Đăng Nhập</a></li>
                                         }
                                         else
                                         {
+                                            <li class="item-109"><a href="@Url.Action("Index","ProductLike", new {Id =  UserLogin.ID})"><i class="icon fa fa-heart"></i> Sản phẩm yêu thích</a></li>
+
                                             <li class="item-108"><a href="@Url.Action("Index","GioHang", new {Id =  UserLogin.ID })"><i class="fa fa-shopping-bag"></i> Giỏ hàng</a></li>
 
                                             <li class="item-107 d-flex"><a href="@Url.Action("ChiTiet","ChiTietNguoiDung" , new { Id = UserLogin.ID })"><i class="fa fa-user" style="margin-right:10px"></i>@UserLogin.UserName</a><a href="@Url.Action("DangXuat","LogIn")"><i class="fa-solid fa-right-from-bracket" title="Log Out"></i></a></li>
@@ -192,19 +194,16 @@
                                     <div class="module-inner">
                                         <div class="module-ct">
                                             <div class="eshop-search">
-                                                <form id="HeaderSearchForm" @*action="@Url.RouteUrl("SearchProduct")"*@ method="get">
+                                                <form id="HeaderSearchForm" method="get">
                                                     <div class="input-prepend input-append d-flex">
-                                                        <input class="inputbox product_search" type="text" name="keyword" id="prependedInput" value="" placeholder="Tìm sản phẩm...">
-                                                        <div class="add-on input-group-addon">
-                                                            <button type="submit" class="btn btn-link"><i class="fa-solid fa-magnifying-glass text-white"></i></button>
+                                                        <input type="text" class="form-control" placeholder="Tìm kiếm ..." autocomplete="off" id="txtTuKhoa" value="">
+                                                        <div class="add-on input-group-addon" onclick="TimKiemTrangChu()">
+                                                            <i class="fa-solid fa-magnifying-glass text-white" style="cursor:pointer"></i>
                                                         </div>
                                                     </div>
                                                 </form>
 
                                             </div>
-
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -430,12 +429,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="t3-module module " id="Mod109">
-                            <div class="module-inner">
-                                <div class="module-ct">
-                                    <iframe src="" width="262" height="200" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-                                </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" id="">
+                        <div class="">
+                            <h3 class="module-title"><span>Đăng ký nhận thông tin</span></h3>
+                            <div class="input-group mb-3">
+
+                                <label for="emailInput" class="form-label">Bạn muốn giải đáp thắc mắc hay góp ý để nâng cao chất lượng .Bạn có thể để lại email để chúng tôi liên hệ với bạn </label>
+                                <input type="text" class="form-control" placeholder="Nhập email của bạn ..." id="txtemail" aria-describedby="basic-addon2">
+                                <img src="~/Content/Image/Logo/Screenshot 2023-05-15 095349.png" style="width:40px" id="submit-button" onclick="GuiGmail()">
                             </div>
                         </div>
                     </div>

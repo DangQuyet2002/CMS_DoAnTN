@@ -212,6 +212,8 @@
         function DangKy_TK() {
             debugger
             var taiKhoan = $("#txtTaiKhoanDK").val();
+            var matKhauDK = $("#txtMatKhauDK").val();
+            var matKhauNL = $("#txtMatKhauNL").val();
             var normalizedTaiKhoan = taiKhoan.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Loại bỏ các dấu thanh
 
             var regex = /^[^\s.,!?̣́̀̂̉̃]+$/; // Biểu thức chính quy kiểm tra không cho phép dấu cách và các dấu câu, dấu thanh
@@ -233,16 +235,16 @@
                 ToastMessage("Lỗi", "Không được để trống số điện thoại", "error");
                 return;
             }
-            if ($("#txtMatKhauDK").val() == "") {
+            if (matKhauDK == "") {
                 ToastMessage("Lỗi", "Không được để trống mật khẩu", "error");
                 return;
             }
-            if ($("#txtMatKhauNL").val() == "") {
+            if (matKhauNL == "") {
                 ToastMessage("Lỗi", "Không được để trống mật khẩu", "error");
                 return;
             }
-            if ($("#txtMatKhauNL").val() != $("#txtMatKhauNL").val()) {
-                ToastMessage("Lỗi", "mật khẩu không giống nhau", "error");
+            if (matKhauNL != matKhauDK) {
+                ToastMessage("Lỗi", "Mật khẩu không giống nhau", "error");
                 return;
             }
             var requestModel = {

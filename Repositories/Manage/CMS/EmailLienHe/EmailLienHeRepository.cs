@@ -50,28 +50,23 @@ namespace Repositories.Manage.CMS.EmailLienHe
                 return message;
             }
         }
-        public async Task<BaseRespone<tbl_EmailLienHe>> DanhSach(tbl_EmailLienHe requestModel)
+        public async Task<EmailLHPaging> DanhSach(EmailLHRequest requestModel)
         {
             try
             {
-                BaseRespone<tbl_EmailLienHe> Respone = new BaseRespone<tbl_EmailLienHe>();
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("Email", requestModel.Email);
-                parameters.Add("Start", requestModel.start);
-                parameters.Add("Length", requestModel.length);
-                parameters.Add("@Count", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                var model = new List<tbl_EmailLienHe>();
-                var result = await _baseRepository.GetMultipleList(_tbl_EmailLienHe_DanhSach, parameters, reader =>
-                {
-                    Respone.Data = reader.Read<tbl_EmailLienHe>().ToList();
-                    Respone.recordsTotal = parameters.Get<int>("@Count");
-                });
-
-                return Respone;
+                var param = new DynamicParameters();
+                param.Add("@KeyWord", requestModel.Keywords);
+                param.Add("@pageIndex", requestModel.Page);
+                param.Add("@pageSize", requestModel.PageSize);
+                param.Add("@totalCount", 0, System.Data.DbType.Int32, System.Data.ParameterDirection.InputOutput);
+                var model = new EmailLHPaging();
+                model.lst = await _baseRepository.GetList<EmailLH>("tbl_EmailLienHe_DanhSach", param);
+                model.totalCount = param.Get<int>("@totalCount");
+                return model;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("AspNetUsersRepository error: " + ex.Message);
+                Debug.WriteLine("ERROR:" + ex.Message);
                 return null;
             }
         }
